@@ -1,0 +1,50 @@
+# CompilerName=gcc
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/glnxa64
+matlabdir = /usr/local/MATLAB/R2023b
+startdir = /home/shobhit/Franka-emika-Obstacle-avoidance/RobotModelling/robotmodelling/Matlab_implementation
+
+# Toolchain information
+cc = /usr/bin/gcc
+cxx = g++
+linker = /usr/bin/gcc
+linkerxx = g++
+
+cflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -fwrapv -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -DNDEBUG -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=Hessian_final_link_mex -msse2 -c 
+
+cxxflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -fwrapv -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -DNDEBUG -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=Hessian_final_link_mex -msse2 -c 
+
+ldflags =  -pthread -Wl,--no-undefined -Wl,-rpath-link,$matlabdir/bin/glnxa64 -shared  -L"$matlabdir/bin/glnxa64" -lmx -lmex -lmat -lm -lstdc++  -Wl,-Bsymbolic -o Hessian_final_link_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil  -Wl,--version-script,Hessian_final_link_mex.map
+
+linkobjs = 
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker $in $linkobjs $ldflags
+
+rule linkxx
+    command = $linkerxx $in $linkobjs $ldflags
+
+# Build
+build $builddir/Hessian_final_link_data.o : cc $root/Hessian_final_link_data.c
+build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
+build $builddir/Hessian_final_link_initialize.o : cc $root/Hessian_final_link_initialize.c
+build $builddir/Hessian_final_link_terminate.o : cc $root/Hessian_final_link_terminate.c
+build $builddir/Hessian_final_link.o : cc $root/Hessian_final_link.c
+build $builddir/_coder_Hessian_final_link_api.o : cc $root/interface/_coder_Hessian_final_link_api.c
+build $builddir/_coder_Hessian_final_link_mex.o : cc $root/interface/_coder_Hessian_final_link_mex.c
+build $builddir/_coder_Hessian_final_link_info.o : cc $root/interface/_coder_Hessian_final_link_info.c
+build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
+
+# Link
+build $root/Hessian_final_link_mex.mexa64 : link $builddir/Hessian_final_link_data.o $builddir/rt_nonfinite.o $builddir/Hessian_final_link_initialize.o $builddir/Hessian_final_link_terminate.o $builddir/Hessian_final_link.o $builddir/_coder_Hessian_final_link_api.o $builddir/_coder_Hessian_final_link_mex.o $builddir/_coder_Hessian_final_link_info.o $builddir/c_mexapi_version.o 

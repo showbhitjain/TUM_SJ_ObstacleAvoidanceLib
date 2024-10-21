@@ -1,0 +1,25 @@
+{
+    "parametersFor": "RobotModelling",
+    "PathController": {
+        "parametersFor": "PathController",
+        "sleepTimeMSec": 10,
+        "precisionThreshold": 0.01,
+        "workspaceLimitStabilityThreshold": 1e-5,
+        "workspaceLimitSequenceSize": 11
+    },
+    "FreePandaGripper": {
+        "FreePandaGripperConfigFile": "../config/freePandaGripper.json"
+    },
+    "PandaGripper": {
+        "PandaGripperConfigFile": "../config/pandaGripper.json"
+    },
+    "PandaRobot": {
+        "PandaRobotConfigFile": "../config/pandaRobot.json"
+    },
+    "UR5Robot": {
+        "UR5RobotConfigFile": "../config/ur5Robot.json"
+    },
+    "KukaLw4Robot": {
+        "KukaLw4RobotConfigFile": "../config/kukaLw4Robot.json"
+    }
+}

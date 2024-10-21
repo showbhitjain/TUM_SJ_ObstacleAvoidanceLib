@@ -1,0 +1,19 @@
+{
+    "parametersFor": "PandaGripper",
+    "type": "antipotal",
+    "name": "FrankaGripper",
+    "attachPointName": "centerJoint",
+    "displacementEEtoTCP": {
+        "rotationXYZ": [0, 0, -45],
+        "translation": [0, 0, 0.103399]
+    },
+    "boundingBox": [-0.04, -0.1, -0.290, 0.04, 0.1, -0.034],
+    "poseDisplacementToEE": [-0.2705771079029662, -0.2706432711035633, -0.6531543852807865, -0.6533984982181295, 0.0331389224279528, 0.03521282658177327, -0.01699466415207493, -0.01132021111670614],
+    "Joints": {
+        "parametersFor": "Joints",
+        "numberOfJoints": 2,
+        "jointNames": ["centerJoint", "openCloseJoint"],
+        "jointMinValues": [0, 0],
+        "jointMaxValues": [0.041, 0.082]
+    }
+}

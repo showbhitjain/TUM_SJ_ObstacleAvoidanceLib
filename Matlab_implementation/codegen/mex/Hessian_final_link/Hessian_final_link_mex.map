@@ -1,0 +1,12 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		Hessian_final_link;
+		Hessian_final_link_initialize;
+		Hessian_final_link_terminate;
+		Hessian_final_link_atexit;
+	local:
+		*;
+};

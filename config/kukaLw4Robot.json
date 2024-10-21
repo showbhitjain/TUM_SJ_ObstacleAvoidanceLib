@@ -1,0 +1,20 @@
+{
+    "parametersFor": "KukaLw4Robot",
+    "dhParameters": [
+        [0, 0.2,  0,  90],
+        [0, 0,    0, -90],
+        [0, 0.4,  0, -90],
+        [0, 0,    0,  90],
+        [0, 0.39, 0,  90],
+        [0, 0,    0, -90],
+        [0, 0,    0,   0]
+    ],
+    "dhWithHand": false,
+    "dhConvention": "standard",
+    "Joints": {
+        "parametersFor": "Joints",
+        "jointNames": ["LBR_iiwa_14_R820_joint1", "LBR_iiwa_14_R820_joint2", "LBR_iiwa_14_R820_joint3",
+            "LBR_iiwa_14_R820_joint4", "LBR_iiwa_14_R820_joint5", "LBR_iiwa_14_R820_joint6",
+            "LBR_iiwa_14_R820_joint7"]
+    }
+}

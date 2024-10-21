@@ -1,0 +1,5 @@
+{
+    "RobotModelling": {
+        "RobotModellingConfigFile": "../config/robotModellingParameters.json"
+    }
+}

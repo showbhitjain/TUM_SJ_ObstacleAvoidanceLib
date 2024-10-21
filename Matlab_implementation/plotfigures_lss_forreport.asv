@@ -1,0 +1,45 @@
+close all; clear ;
+figure()
+
+cylinder_vo = [0 0 0];
+cylinder_v1 = [0 0 2];
+cylinder_radius  = 0.5;
+plotCylinder(cylinder_vo', cylinder_v1',cylinder_radius,[1 0 0],0.3)
+
+
+hold on;
+plotSphere(cylinder_vo,cylinder_radius,[1 0 0],0.3)
+plotSphere(cylinder_v1,cylinder_radius,[1 0 0],0.3)
+% ylim([-0.1 0.2])
+% xlim([-0.1 0.2])
+%view(0,90);
+Sphere_radius = 0.3;
+Sphere_center1 = [2 0.7 -1.5];
+Sphere_center2 = [2 0.7  0.5];
+Sphere_center3 = [2 0.7  2.6];
+plotSphere(Sphere_center1,Sphere_radius,[0 0 1],0.2);
+plotSphere(Sphere_center2,Sphere_radius,[0 0 1],0.2);
+plotSphere(Sphere_center3,Sphere_radius,[0 0 1],0.2);
+
+plotline(cylinder_vo,cylinder_v1,'Color','k')
+
+[s1,dist1,dist1_v1,dist1_v0]  = calculate_distance_lss_pss(cylinder_vo,cylinder_v1,cylinder_radius,Sphere_center1,Sphere_radius);
+[s2,dist2,dist2_v1,dist2_v0] = calculate_distance_lss_pss(cylinder_vo,cylinder_v1,cylinder_radius,Sphere_center2,Sphere_radius);
+[s3,dist3,dist3_v1,dist3_v0] = calculate_distance_lss_pss(cylinder_vo,cylinder_v1,cylinder_radius,Sphere_center3,Sphere_radius);
+
+
+ % 
+ % ylim([-0.1 0.3])
+ % xlim([-0.2 0.2])
+ % zlim([-0.03 0.03])
+ plotarrow(dist1_v0,dist1_v1,'LineWidth',1.5,'Color','b','MaxHeadSize',2);
+  plotarrow(dist2_v0,dist2_v1,'LineWidth',1.5,'Color','b','MaxHeadSize',2);
+  plotarrow(dist3_v0,dist3_v1,'LineWidth',1.5,'Color','b','MaxHeadSize',2);
+  plotarrow([0 0 0],[-0.2500 0 -0.4330],'LineWidth',0.2,'Color','k','LineStyle','--','MaxHeadSize',3)
+  plot3(Sphere_center1(1),Sphere_center1(2),Sphere_center1(3),'ko');
+  plot3(Sphere_center2(1),Sphere_center2(2),Sphere_center2(3),'ko''MarkerSize',1);
+  plot3(Sphere_center3(1),Sphere_center3(2),Sphere_center3(3),'ko','MarkerSize',1);
+    
+  view(0, 0);  % Set view along Y-axis looking towards XZ plane
+  xlim([-1 3])
+  zlim([-2 3])

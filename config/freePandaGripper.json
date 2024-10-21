@@ -1,0 +1,13 @@
+{
+    "parametersFor": "FreePandaGripper",
+    "type": "antipotal",
+    "name": "/FrankaGripperFree",
+    "attachPointName": "/FrankaGripperFree/centerJointFree",
+    "poseDisplacementToEE": [-0.2705771079029662,-0.2706432711035633,-0.6531543852807865,-0.6533984982181295,0.0331389224279528,0.03521282658177327,-0.01699466415207493,-0.01132021111670614],
+    "Joints": {
+        "parametersFor": "Joints",
+        "jointNames": ["/FrankaGripperFree/openCloseJoint"],
+        "jointMinValues": [0],
+        "jointMaxValues": [0.082]
+    }
+}

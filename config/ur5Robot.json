@@ -1,0 +1,17 @@
+{
+    "parametersFor": "UR5Robot",
+    "dhParameters": [
+        [90, 0.0661, 0, -90],
+        [-90, 0.0703, 0.4251, 0],
+        [0, 0, 0.3921, 0],
+        [-90, 0.0397, 0, -90],
+        [90, 0.0948, 0, -90],
+        [0, 0.0623, 0, 0]
+    ],
+    "dhWithHand": false,
+    "dhConvention": "standard",
+    "Joints": {
+        "parametersFor": "Joints",
+        "jointNames": ["UR5_joint1", "UR5_joint2", "UR5_joint3", "UR5_joint4", "UR5_joint5", "UR5_joint6"]
+    }
+}
