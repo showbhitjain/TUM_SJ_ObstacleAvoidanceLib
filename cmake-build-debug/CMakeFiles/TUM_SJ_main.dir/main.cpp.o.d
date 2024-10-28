@@ -440,4 +440,10 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: \
  /usr/include/c++/11/bits/mask_array.h \
  /usr/include/c++/11/bits/indirect_array.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Joints.h \
- /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/coder_array.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/Trajectory.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/rtwtypes.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/tmwtypes.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/coder_array.h

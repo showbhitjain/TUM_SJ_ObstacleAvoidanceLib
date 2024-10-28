@@ -1,6 +1,6 @@
 %Robot is rigidbodytree object
 %getTransform(frankarobot_mdh,frankarobot_mdh.homeConfiguration,'Franka_link7','base')
-function Jacobimatrix = jacobian_cartesian(robot, config, to_ith_link)
+function Jacobimatrix = jacobianCartesian(robot, config, to_ith_link)
 %config  = homeConfiguration(robot);
 numJoints = length(jointValues); % Number of joints
 disp(config)

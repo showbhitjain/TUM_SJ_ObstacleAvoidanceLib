@@ -214,6 +214,30 @@ src/Robot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.s
 .PHONY : src/Robot.cpp.s
 
+src/cartesianTrajetory.o: src/cartesianTrajetory.cpp.o
+.PHONY : src/cartesianTrajetory.o
+
+# target to build an object file
+src/cartesianTrajetory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o
+.PHONY : src/cartesianTrajetory.cpp.o
+
+src/cartesianTrajetory.i: src/cartesianTrajetory.cpp.i
+.PHONY : src/cartesianTrajetory.i
+
+# target to preprocess a source file
+src/cartesianTrajetory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.i
+.PHONY : src/cartesianTrajetory.cpp.i
+
+src/cartesianTrajetory.s: src/cartesianTrajetory.cpp.s
+.PHONY : src/cartesianTrajetory.s
+
+# target to generate assembly for a file
+src/cartesianTrajetory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s
+.PHONY : src/cartesianTrajetory.cpp.s
+
 src/utils.o: src/utils.cpp.o
 .PHONY : src/utils.o
 
@@ -257,6 +281,9 @@ help:
 	@echo "... src/Robot.o"
 	@echo "... src/Robot.i"
 	@echo "... src/Robot.s"
+	@echo "... src/cartesianTrajetory.o"
+	@echo "... src/cartesianTrajetory.i"
+	@echo "... src/cartesianTrajetory.s"
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"

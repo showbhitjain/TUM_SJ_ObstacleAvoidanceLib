@@ -360,7 +360,7 @@ for i=1:numel(trajTimes)-1
     translational_error(:,i) = xd(:,i) -  x_current;
     
    Jacobi_matrix = rearrangejacobi(geometricJacobian(robot,joint_vector(:,i)','Gripper_TCP'),number_of_joints);
-   %Jacobi_matrix = jacobian_cartesian(robot,joint_vector(:,i)',8);
+   %Jacobi_matrix = jacobianCartesian(robot,joint_vector(:,i)',8);
    
    angular_velocity_effective = desired_angular_velocity(:,i) + Ko * compute_orientation_Error(T_endeffector2base,desired_quaternions(:,i)');
    rotational_error(:,i)  =  compute_orientation_Error(T_endeffector2base,desired_quaternions(:,i)');

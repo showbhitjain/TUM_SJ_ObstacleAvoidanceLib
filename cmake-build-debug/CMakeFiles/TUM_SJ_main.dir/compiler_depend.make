@@ -5,6 +5,10 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
   /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Joints.h \
   /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Robot.h \
   /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h \
+  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/Trajectory.h \
+  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/coder_array.h \
+  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/rtwtypes.h \
+  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/tmwtypes.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -475,6 +479,7 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
@@ -517,6 +522,8 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h:
 
@@ -720,7 +727,13 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/LU/Determinant.h:
 
-/usr/include/c++/11/tr1/legendre_function.tcc:
+/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:
+
+/usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h:
+
+/usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h:
+
+/usr/include/eigen3/Eigen/src/Householder/Householder.h:
 
 /usr/include/eigen3/Eigen/Jacobi:
 
@@ -745,8 +758,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/eigen3/Eigen/src/Core/Ref.h:
 
 /usr/include/c++/11/pstl/glue_algorithm_defs.h:
-
-/usr/include/eigen3/Eigen/src/Core/Diagonal.h:
 
 /usr/local/include/AndreiUtils/traits/InstanceOf.hpp:
 
@@ -830,14 +841,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/cstddef:
 
-/usr/include/c++/11/tr1/modified_bessel_func.tcc:
-
-/usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h:
-
-/usr/local/include/AndreiUtils/json.hpp:
-
-/usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h:
-
 /usr/include/c++/11/bits/locale_facets.tcc:
 
 /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctionsFwd.h:
@@ -864,8 +867,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/bits/valarray_after.h:
 
-/usr/include/c++/11/tr1/gamma.tcc:
-
 /usr/local/include/AndreiUtils/classes/DualQuaternion.hpp:
 
 /usr/include/c++/11/debug/debug.h:
@@ -873,10 +874,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/c++/11/bits/uses_allocator.h:
 
 /usr/include/c++/11/bits/stringfwd.h:
-
-/usr/include/c++/11/debug/assertions.h:
-
-/usr/include/c++/11/bits/string_view.tcc:
 
 /usr/include/c++/11/bits/stl_vector.h:
 
@@ -902,21 +899,27 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/bits/stl_pair.h:
 
-/usr/include/c++/11/bits/stl_construct.h:
+/usr/include/c++/11/bits/stl_iterator.h:
+
+/usr/include/c++/11/bits/vector.tcc:
+
+/usr/include/eigen3/Eigen/src/Core/util/SymbolicIndex.h:
 
 /usr/include/c++/11/bits/stl_multimap.h:
 
-/usr/include/c++/11/bits/stl_iterator.h:
+/usr/include/c++/11/bits/stl_construct.h:
 
-/usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h:
+/usr/include/c++/11/tr1/modified_bessel_func.tcc:
 
-/usr/include/c++/11/bits/stl_map.h:
+/usr/include/eigen3/Eigen/src/Core/products/Parallelizer.h:
 
-/usr/include/c++/11/tr1/beta_function.tcc:
+/usr/local/include/AndreiUtils/json.hpp:
 
-/usr/include/c++/11/ext/aligned_buffer.h:
+/usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h:
 
-/usr/include/c++/11/bits/erase_if.h:
+/usr/include/c++/11/bits/stl_algo.h:
+
+/usr/include/eigen3/Eigen/src/Core/NestByValue.h:
 
 /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h:
 
@@ -936,12 +939,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h:
 
-/usr/include/c++/11/bits/stl_iterator_base_types.h:
-
-/usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
-
-/usr/include/c++/11/bits/exception_ptr.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/include/c++/11/bits/enable_special_members.h:
@@ -949,8 +946,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/c++/11/bits/cxxabi_forced.h:
 
 /usr/include/c++/11/system_error:
-
-/usr/include/c++/11/bits/basic_string.h:
 
 /usr/include/c++/11/bits/concept_check.h:
 
@@ -960,16 +955,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/bits/ios_base.h:
 
-/usr/include/c++/11/cstdint:
-
-/usr/include/c++/11/bits/uniform_int_dist.h:
-
-/usr/include/c++/11/bits/basic_string.tcc:
-
-/usr/include/eigen3/Eigen/src/Core/arch/Default/Half.h:
-
-/usr/include/c++/11/bits/stl_function.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/11/pstl/execution_defs.h:
@@ -978,13 +963,7 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/string_view:
 
-/usr/include/eigen3/Eigen/src/Core/ArrayBase.h:
-
-/usr/include/c++/11/bits/basic_ios.h:
-
-/usr/include/c++/11/bits/stl_algo.h:
-
-/usr/include/eigen3/Eigen/src/Core/NestByValue.h:
+/usr/include/c++/11/bits/stl_function.h:
 
 /usr/include/eigen3/Eigen/src/plugins/ArrayCwiseUnaryOps.h:
 
@@ -995,10 +974,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/c++/11/stdlib.h:
 
 /usr/include/c++/11/bits/hashtable.h:
-
-/usr/include/c++/11/bits/indirect_array.h:
-
-/usr/include/eigen3/Eigen/src/Core/Select.h:
 
 /usr/include/c++/11/iterator:
 
@@ -1018,6 +993,124 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/Core/Random.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/c++/11/bits/char_traits.h:
+
+/usr/include/c++/11/bit:
+
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/coder_array.h:
+
+/usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:
+
+/usr/include/c++/11/backward/auto_ptr.h:
+
+/usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/c++/11/cstdint:
+
+/usr/include/c++/11/bits/uniform_int_dist.h:
+
+/usr/include/c++/11/bits/basic_string.tcc:
+
+/usr/include/eigen3/Eigen/src/Core/arch/Default/Half.h:
+
+/usr/include/eigen3/Eigen/src/Core/ArrayBase.h:
+
+/usr/include/c++/11/bits/basic_ios.h:
+
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/rtwtypes.h:
+
+/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h:
+
+/usr/include/c++/11/bits/specfun.h:
+
+/usr/include/c++/11/bits/invoke.h:
+
+/usr/include/c++/11/bits/indirect_array.h:
+
+/usr/include/eigen3/Eigen/src/Core/Select.h:
+
+/usr/include/eigen3/Eigen/src/Core/Diagonal.h:
+
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/Trajectory.h:
+
+/usr/include/eigen3/Eigen/src/Core/IndexedView.h:
+
+/usr/include/c++/11/bits/basic_string.h:
+
+/usr/include/c++/11/bits/string_view.tcc:
+
+/usr/include/c++/11/debug/assertions.h:
+
+/usr/include/c++/11/iosfwd:
+
+/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/11/bits/align.h:
+
+/usr/include/c++/11/clocale:
+
+/usr/include/c++/11/bits/unordered_map.h:
+
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Robot.h:
+
+/usr/include/c++/11/bits/memoryfwd.h:
+
+/usr/include/c++/11/bits/forward_list.tcc:
+
+/usr/include/c++/11/bits/nested_exception.h:
+
+/usr/include/c++/11/bits/shared_ptr.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/c++/11/bits/slice_array.h:
+
+/usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h:
+
+/usr/include/c++/11/bits/stl_heap.h:
+
+/usr/include/eigen3/Eigen/src/Core/util/IntegralConstant.h:
+
+/usr/include/c++/11/bits/node_handle.h:
+
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/include/alloca.h:
+
+/usr/include/assert.h:
+
+/usr/include/c++/11/array:
+
+/usr/include/c++/11/bits/shared_ptr_base.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/11/bits/locale_classes.tcc:
+
+/usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h:
+
+/usr/include/c++/11/atomic:
+
+/usr/include/c++/11/tr1/beta_function.tcc:
+
+/usr/include/c++/11/ext/aligned_buffer.h:
+
+/usr/include/c++/11/bits/erase_if.h:
+
 /usr/include/c++/11/bits/charconv.h:
 
 /usr/include/c++/11/ext/alloc_traits.h:
@@ -1028,81 +1121,11 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/bits/refwrap.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/11/bits/char_traits.h:
+/usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
 
-/usr/include/c++/11/bits/memoryfwd.h:
-
-/usr/include/c++/11/bits/shared_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/include/c++/11/bits/slice_array.h:
-
-/usr/include/eigen3/Eigen/src/Core/SelfAdjointView.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/11/bits/nested_exception.h:
-
-/usr/include/c++/11/bits/forward_list.tcc:
-
-/usr/include/c++/11/bits/invoke.h:
-
-/usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/eigen3/Eigen/src/SVD/JacobiSVD.h:
-
-/usr/include/c++/11/bits/specfun.h:
-
-/usr/include/c++/11/bits/node_handle.h:
-
-/usr/include/c++/11/bits/stl_heap.h:
-
-/usr/include/eigen3/Eigen/src/Core/util/IntegralConstant.h:
-
-/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h:
-
-/usr/include/c++/11/bit:
-
-/usr/include/c++/11/bits/vector.tcc:
-
-/usr/include/eigen3/Eigen/src/Core/util/SymbolicIndex.h:
-
-/usr/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/assert.h:
-
-/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:
-
-/usr/include/c++/11/backward/auto_ptr.h:
-
-/usr/include/c++/11/array:
-
-/usr/include/c++/11/bits/shared_ptr_base.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/11/tr1/hypergeometric.tcc:
-
-/usr/include/c++/11/bits/locale_classes.tcc:
-
-/usr/include/c++/11/iosfwd:
-
-/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
-
-/usr/include/c++/11/clocale:
-
-/usr/include/c++/11/bits/unordered_map.h:
-
-/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Robot.h:
-
-/usr/include/c++/11/bits/align.h:
+/usr/include/c++/11/bits/exception_ptr.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
@@ -1130,10 +1153,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/c++/11/bits/forward_list.h:
 
-/usr/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:
-
-/usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h:
-
 /usr/include/ctype.h:
 
 /usr/include/c++/11/bits/ostream_insert.h:
@@ -1159,6 +1178,12 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/c++/11/cassert:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
+
+/usr/include/c++/11/tr1/gamma.tcc:
+
+/usr/include/c++/11/tr1/hypergeometric.tcc:
+
+/usr/include/c++/11/tr1/legendre_function.tcc:
 
 /usr/include/math.h:
 
@@ -1296,6 +1321,8 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h:
 
+/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/tmwtypes.h:
+
 /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h:
 
 /usr/include/eigen3/Eigen/src/Core/CwiseUnaryOp.h:
@@ -1305,8 +1332,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/eigen3/Eigen/src/Core/util/Constants.h:
 
 /usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h:
-
-/usr/include/eigen3/Eigen/src/Core/IndexedView.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
@@ -1408,8 +1433,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h:
 
-/usr/include/eigen3/Eigen/src/Householder/Householder.h:
-
 /usr/include/c++/11/bits/exception_defines.h:
 
 /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h:
@@ -1427,8 +1450,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/eigen3/Eigen/src/Core/util/BlasUtil.h:
-
-/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:
 
 /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h:
 
@@ -1468,10 +1489,6 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 
 /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h:
 
-/usr/include/c++/11/atomic:
-
-/usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h:
-
 /usr/include/c++/11/bits/stl_bvector.h:
 
 /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h:
@@ -1485,5 +1502,3 @@ CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
 /usr/include/eigen3/Eigen/src/Geometry/Translation.h:
 
 /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SIMD.h:
-
-/usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h:

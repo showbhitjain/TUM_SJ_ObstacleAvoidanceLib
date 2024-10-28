@@ -23,6 +23,7 @@ AndreiUtils requested components: eigen;json;python
 Found package python with version 3.10
 -- Found pybind11: /usr/include (found version "2.9.1")
 PerceptionData requested components: core
--- Configuring done (0.8s)
+Path: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib
+-- Configuring done (0.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug

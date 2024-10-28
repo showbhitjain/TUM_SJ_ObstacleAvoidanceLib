@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DDO_NOT_USE_SHARED_MEMORY -DIL_STD -DMAX_EXT_API_CONNECTIONS=255 -DNON_MATLAB_PARSING
 
-CXX_INCLUDES = -I/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include -I/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/private_include -isystem /usr/include/eigen3 -isystem /home/shobhit/.pyenv/versions/3.10.12/include/python3.10
+CXX_INCLUDES = -I/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include -I/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/private_include -I/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib -isystem /usr/include/eigen3 -isystem /home/shobhit/.pyenv/versions/3.10.12/include/python3.10
 
 CXX_FLAGS = -g -fdiagnostics-color=always
 

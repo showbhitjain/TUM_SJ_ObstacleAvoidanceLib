@@ -108,7 +108,7 @@ Starting_tcp_tform = getTransform(frankarobot_mdh,frankarobot_mdh.homeConfigurat
 toolPositionHome = Starting_tcp_tform(1:3,4);
 
 %showdetails(frankarobot_mdh); %showdetails function does not support code generation
-%Jacobi_MATRIX = jacobian_cartesian(frankarobot_mdh,[0,0,0,-1.570796326794897,0,1.570796326794897,0.785398163397448],8)
+%Jacobi_MATRIX = jacobianCartesian(frankarobot_mdh,[0,0,0,-1.570796326794897,0,1.570796326794897,0.785398163397448],8)
 
 % Maximum number of waypoints (for Simulink)
 maxWaypoints = 20;

@@ -111,11 +111,26 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/utils.cpp -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.s
 
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/flags.make
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/cartesianTrajetory.cpp
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o -MF CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o.d -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o -c /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/cartesianTrajetory.cpp
+
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/cartesianTrajetory.cpp > CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.i
+
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/cartesianTrajetory.cpp -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s
+
 # Object files for target TUM_SJ_ObstacleAvoidanceLib
 TUM_SJ_ObstacleAvoidanceLib_OBJECTS = \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o" \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o" \
-"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o"
+"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o" \
+"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o"
 
 # External object files for target TUM_SJ_ObstacleAvoidanceLib
 TUM_SJ_ObstacleAvoidanceLib_EXTERNAL_OBJECTS =
@@ -123,9 +138,10 @@ TUM_SJ_ObstacleAvoidanceLib_EXTERNAL_OBJECTS =
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o
+libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libTUM_SJ_ObstacleAvoidanceLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libTUM_SJ_ObstacleAvoidanceLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/link.txt --verbose=$(VERBOSE)
 

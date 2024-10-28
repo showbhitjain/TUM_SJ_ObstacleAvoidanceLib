@@ -17,7 +17,12 @@ namespace RobotModelling{
 
     AndreiUtils::Pose fromDQToPose(DQ_robotics::DQ const &pose);
 
+    Eigen::Matrix4d trvec2tform(Eigen::Vector3d const &translation);
 
+    Eigen::Matrix4d eul2tform(Eigen::Vector3d const &eulerAngles);
+
+
+    Eigen::Matrix4d convertEulerToTransform(Eigen::Vector3d const &angles, std::string const &seq = "ZYX");
 }
 
 
