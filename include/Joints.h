@@ -13,7 +13,7 @@
 
 using namespace AndreiUtils;
 
-namespace RobotModelling {
+namespace ObstacleAvoidance {
     class Joints {
     public:
 //        Joints(std::string const &configFile, std::string const &parametersFor);
@@ -24,7 +24,7 @@ namespace RobotModelling {
 
 
 
-        Joints(const std::vector<double> &minValues, const std::vector<double> &maxValues, const int numJoints);
+        Joints(Eigen::VectorXd const &minValues, Eigen::VectorXd const &maxValues, Eigen::VectorXd const &velMinValues, Eigen::VectorXd const &velMaxValues, int const &numJoints);
 
 // this function internally updates the joint values so that they are up-to-date at the calling time
         virtual Eigen::VectorXd const &getCurrentJointValues();
@@ -38,7 +38,9 @@ namespace RobotModelling {
 
         Eigen::VectorXd values;
 
-        std::vector<double> minValues, maxValues;
+        Eigen::VectorXd minValues, maxValues;
+        Eigen::VectorXd velMinValues, velMaxValues;
+
         size_t number_joints ;
     protected:
 

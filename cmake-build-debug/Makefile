@@ -142,30 +142,6 @@ TUM_SJ_main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/build
 .PHONY : TUM_SJ_main/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/main.cpp.s
-.PHONY : main.cpp.s
-
 src/Joints.o: src/Joints.cpp.o
 .PHONY : src/Joints.o
 
@@ -238,6 +214,54 @@ src/cartesianTrajetory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s
 .PHONY : src/cartesianTrajetory.cpp.s
 
+src/inverseKinematics.o: src/inverseKinematics.cpp.o
+.PHONY : src/inverseKinematics.o
+
+# target to build an object file
+src/inverseKinematics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.o
+.PHONY : src/inverseKinematics.cpp.o
+
+src/inverseKinematics.i: src/inverseKinematics.cpp.i
+.PHONY : src/inverseKinematics.i
+
+# target to preprocess a source file
+src/inverseKinematics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.i
+.PHONY : src/inverseKinematics.cpp.i
+
+src/inverseKinematics.s: src/inverseKinematics.cpp.s
+.PHONY : src/inverseKinematics.s
+
+# target to generate assembly for a file
+src/inverseKinematics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.s
+.PHONY : src/inverseKinematics.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 src/utils.o: src/utils.cpp.o
 .PHONY : src/utils.o
 
@@ -272,9 +296,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TUM_SJ_ObstacleAvoidanceLib"
 	@echo "... TUM_SJ_main"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... src/Joints.o"
 	@echo "... src/Joints.i"
 	@echo "... src/Joints.s"
@@ -284,6 +305,12 @@ help:
 	@echo "... src/cartesianTrajetory.o"
 	@echo "... src/cartesianTrajetory.i"
 	@echo "... src/cartesianTrajetory.s"
+	@echo "... src/inverseKinematics.o"
+	@echo "... src/inverseKinematics.i"
+	@echo "... src/inverseKinematics.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"

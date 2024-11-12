@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o.d"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.o"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o.d"
   "libTUM_SJ_ObstacleAvoidanceLib.a"

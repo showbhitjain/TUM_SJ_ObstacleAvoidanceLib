@@ -4,19 +4,28 @@
 
 #include<Joints.h>
 #include <iostream>
-
-using namespace RobotModelling;
+#include <utils.h>
+using namespace ObstacleAvoidance;
 using namespace  std;
 
 Joints::Joints(const ConfigurationParameters &config) {
 
     if (config.has("jointMinValues"))
     {
-        this->minValues = config.get<vector<double>>("jointMinValues");
+        this->minValues = stdVectorToEigenVector(config.get<vector<double>>("jointMinValues"));
     }
     if (config.has("jointMaxValues"))
     {
-        this->maxValues = config.get<vector<double>>("jointMaxValues");
+        this->maxValues = stdVectorToEigenVector(config.get<vector<double>>("jointMaxValues"));
+    }
+
+    if (config.has("jointVelMinValues"))
+    {
+        this->velMinValues = stdVectorToEigenVector(config.get<vector<double>>("jointVelMinValues"));
+    }
+    if (config.has("jointVelMaxValues"))
+    {
+        this->velMaxValues = stdVectorToEigenVector(config.get<vector<double>>("jointVelMaxValues"));
     }
     if (config.has("numberOfJoints")){
         this->number_joints = config.get<int>("numberOfJoints");
@@ -24,10 +33,8 @@ Joints::Joints(const ConfigurationParameters &config) {
 
 }
 
-
-Joints::Joints(const vector<double> &minValues, const vector<double> &maxValues,const int numJoints) : minValues(minValues),
-                                                                                                       maxValues(maxValues), number_joints(numJoints) {}
-
+Joints::Joints(Eigen::VectorXd const &minValues, Eigen::VectorXd const &maxValues, Eigen::VectorXd const &velMinValues, Eigen::VectorXd const &velMaxValues, int const &numJoints) : minValues(minValues),
+                                                                                                       maxValues(maxValues), number_joints(numJoints),velMaxValues(velMaxValues),velMinValues(velMinValues) {}
 
 /**
 * @brief Get the current joint values of the robot.
@@ -85,11 +92,12 @@ bool Joints::isConfigurationValid(Eigen::VectorXd jointValues, bool verbose) con
     assert(jointValues.size() == number_joints);
     bool valid = true;
     for(int i = 0; i < number_joints; i++){
-        if(jointValues[i] < minValues[i] && jointValues[i] > maxValues[i]){
+        if(jointValues[i] < minValues(i) && jointValues[i] > maxValues(i)){
             valid = false;
             if(verbose) std::cout << "Limit on joint" << i << " violated: " << jointValues[i] << endl;
         }
     }
     return valid;
+
 }
 

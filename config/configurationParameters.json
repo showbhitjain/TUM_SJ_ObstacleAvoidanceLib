@@ -1,0 +1,9 @@
+{
+  "parametersFor": "Configuration",
+  "Trajectory": {
+    "TrajectoryConfigFile": "../config/trajectoryConfig.json"
+  },
+  "inverseKinematics": {
+    "inverseKinematicsConfigFile": "../config/inverseKinematicsConfig.json"
+  }
+}

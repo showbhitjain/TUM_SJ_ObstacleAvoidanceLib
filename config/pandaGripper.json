@@ -14,6 +14,7 @@
         "numberOfJoints": 2,
         "jointNames": ["centerJoint", "openCloseJoint"],
         "jointMinValues": [0, 0],
-        "jointMaxValues": [0.041, 0.082]
+        "jointMaxValues": [0.041, 0.082],
+        "HomeJointPosition": [0, 0, 0, -90, 0, 90, 45]
     }
 }

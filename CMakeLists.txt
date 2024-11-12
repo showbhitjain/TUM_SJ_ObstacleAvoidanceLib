@@ -32,10 +32,14 @@ find_package(Eigen3 REQUIRED)
 find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
 find_package(PerceptionData REQUIRED)
 
-set(PATH "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
-message("Path: ${CMAKE_CURRENT_SOURCE_DIR}")
-#include_directories()
-include_directories(include private_include ${PATH})
+set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
+set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
+include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK})
+
+message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
+
+
+
 
 
 set(LIB_NAME ${PROJECT_TARGET})
@@ -44,15 +48,19 @@ add_library(${LIB_NAME}
         src/Joints.cpp
         src/utils.cpp
         src/cartesianTrajetory.cpp
-        include/cartesianTrajetory.h
-        private_include/privateUtils.hpp
+        src/inverseKinematics.cpp
+        include/inverseKinematics.h
 
 
 )
 
-set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen)
+set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
+        ${PATHTRAJECTORY}/trajectory_generator.a
+        ${PATHIK}/inverseKinematics.a)
 
-target_link_libraries(${LIB_NAME} ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen ${PATH}/trajectory_generator.a)
+target_link_libraries(${LIB_NAME} ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
+        ${PATHTRAJECTORY}/trajectory_generator.a
+        ${PATHIK}/inverseKinematics.a)
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
 
 target_include_directories(${LIB_NAME} PUBLIC
@@ -60,9 +68,18 @@ target_include_directories(${LIB_NAME} PUBLIC
         $<INSTALL_INTERFACE:include>
 )
 
-add_executable(TUM_SJ_main main.cpp)
-target_link_libraries(TUM_SJ_main ${LIB_NAME})
-target_link_libraries(TUM_SJ_ObstacleAvoidanceLib ${LIBRARIES_SOURCES})
+add_executable(TUM_SJ_main src/main.cpp)
+
+find_package(OpenMP REQUIRED)
+if (OpenMP_CXX_FOUND)
+    message("OPENMP FOUND")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+    target_link_libraries(TUM_SJ_ObstacleAvoidanceLib ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
+    target_link_libraries(TUM_SJ_main ${LIB_NAME})
+endif ()
+
 
 set(ALL_INSTALL_TARGETS ${LIB_NAME} ${ALL_INSTALL_TARGETS})
 

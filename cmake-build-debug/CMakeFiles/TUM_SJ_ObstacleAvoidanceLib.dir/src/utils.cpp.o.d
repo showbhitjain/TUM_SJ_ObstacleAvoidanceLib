@@ -205,6 +205,7 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o: \
  /usr/include/c++/11/bits/istream.tcc \
  /usr/include/c++/11/bits/sstream.tcc \
  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
  /usr/include/c++/11/cstddef /usr/include/c++/11/cassert \
  /usr/include/assert.h /usr/include/c++/11/functional \
  /usr/include/c++/11/bits/std_function.h \
@@ -414,4 +415,4 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
  /usr/local/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \
- /usr/include/c++/11/iostream
+ /usr/include/c++/11/iostream /usr/include/eigen3/Eigen/Geometry

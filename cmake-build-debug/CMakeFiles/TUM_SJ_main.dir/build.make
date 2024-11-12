@@ -69,28 +69,28 @@ include CMakeFiles/TUM_SJ_main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/TUM_SJ_main.dir/flags.make
 
-CMakeFiles/TUM_SJ_main.dir/main.cpp.o: CMakeFiles/TUM_SJ_main.dir/flags.make
-CMakeFiles/TUM_SJ_main.dir/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/main.cpp
-CMakeFiles/TUM_SJ_main.dir/main.cpp.o: CMakeFiles/TUM_SJ_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TUM_SJ_main.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TUM_SJ_main.dir/main.cpp.o -MF CMakeFiles/TUM_SJ_main.dir/main.cpp.o.d -o CMakeFiles/TUM_SJ_main.dir/main.cpp.o -c /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/main.cpp
+CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: CMakeFiles/TUM_SJ_main.dir/flags.make
+CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/main.cpp
+CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: CMakeFiles/TUM_SJ_main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o -MF CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o.d -o CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o -c /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/main.cpp
 
-CMakeFiles/TUM_SJ_main.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TUM_SJ_main.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/main.cpp > CMakeFiles/TUM_SJ_main.dir/main.cpp.i
+CMakeFiles/TUM_SJ_main.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TUM_SJ_main.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/main.cpp > CMakeFiles/TUM_SJ_main.dir/src/main.cpp.i
 
-CMakeFiles/TUM_SJ_main.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_main.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/main.cpp -o CMakeFiles/TUM_SJ_main.dir/main.cpp.s
+CMakeFiles/TUM_SJ_main.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_main.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/src/main.cpp -o CMakeFiles/TUM_SJ_main.dir/src/main.cpp.s
 
 # Object files for target TUM_SJ_main
 TUM_SJ_main_OBJECTS = \
-"CMakeFiles/TUM_SJ_main.dir/main.cpp.o"
+"CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o"
 
 # External object files for target TUM_SJ_main
 TUM_SJ_main_EXTERNAL_OBJECTS =
 
-TUM_SJ_main: CMakeFiles/TUM_SJ_main.dir/main.cpp.o
+TUM_SJ_main: CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o
 TUM_SJ_main: CMakeFiles/TUM_SJ_main.dir/build.make
 TUM_SJ_main: libTUM_SJ_ObstacleAvoidanceLib.a
 TUM_SJ_main: /usr/local/lib/libAndreiUtils_eigen.a
@@ -99,10 +99,12 @@ TUM_SJ_main: /home/shobhit/.pyenv/versions/3.10.12/lib/libpython3.10.so
 TUM_SJ_main: /usr/local/lib/libAndreiUtils_json.a
 TUM_SJ_main: /usr/local/lib/libAndreiUtils_core.a
 TUM_SJ_main: /usr/local/lib/libAndreiUtils_openmp.a
+TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
+TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematics.a
+TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
+TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematics.a
 TUM_SJ_main: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 TUM_SJ_main: /usr/lib/x86_64-linux-gnu/libpthread.a
-TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
-TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
 TUM_SJ_main: CMakeFiles/TUM_SJ_main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable TUM_SJ_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TUM_SJ_main.dir/link.txt --verbose=$(VERBOSE)

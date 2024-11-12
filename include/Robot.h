@@ -16,7 +16,7 @@
 #include <AndreiUtils/classes/DualQuaternion.hpp>
 #include <Joints.h>
 
-namespace RobotModelling {
+namespace ObstacleAvoidance {
     class Robot {
     protected:
         static DQ_robotics::DQ_SerialManipulator
@@ -27,10 +27,11 @@ namespace RobotModelling {
 
         DQ_robotics::DQ_SerialManipulatorMDH robotmdh;
         AndreiUtils::Posed displacementEEToTCP; /**< The displacement from the end effector to the TCP. */
+        Eigen::Matrix4d transformationEEToTCP; //the transformation between endeffector and TCP. (TCP w.r.t End effector frame)
         AndreiUtils::Posed baseFrame_robot;
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
-        size_t number_joints;
+//        size_t number_joints;
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
@@ -72,15 +73,17 @@ namespace RobotModelling {
         const std::shared_ptr<Joints> &getJoints() const;
 
         DQ_robotics::DQ_SerialManipulatorMDH
-        createRobotMDH_from_Path(const std::string &configFile_Path, const std::string &parameterFor,
-                                 const std::string &whichrobot, const Posed &baseFrame);
+        createRobotMdhFromPath(const std::string &configFile_Path, const std::string &parameterFor,
+                               const std::string &whichrobot, const AndreiUtils::Posed &baseFrame);
 
         Eigen::MatrixXd jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const;
 
-        Eigen::MatrixXd jacobianCartesianOnLink(const Eigen::VectorXd &jointValues, const int &toIthLink,
-                                                Eigen::VectorXd const &distanceRelativeToIthLink) const;
 
 
+        Eigen::MatrixXd jacobianCartesianOnLink( Eigen::VectorXd const &jointValues,  int const &toIthLink,
+                                                 Eigen::Matrix4d const &transformationRelative);
+
+        Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues);
     };
 }
 

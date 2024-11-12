@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/TUM_SJ_main.dir/main.cpp.o"
-  "CMakeFiles/TUM_SJ_main.dir/main.cpp.o.d"
+  "CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o"
+  "CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o.d"
   "TUM_SJ_main"
   "TUM_SJ_main.pdb"
 )

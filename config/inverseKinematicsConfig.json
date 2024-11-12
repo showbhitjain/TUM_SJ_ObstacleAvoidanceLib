@@ -1,0 +1,17 @@
+{
+  "parametersFor": "inverseKinematics",
+  "ObjectiveConstraints": {
+    "useObjective1": true,
+    "weight1": 0.1,
+    "useObjective2": true,
+    "weight2": 0.1,
+    "useObjective3": false,
+    "weight3": 0.1,
+    "useObjective4": false,
+    "weight4": 0.1,
+    "useObjective5": false,
+    "weight5": 0.1,
+    "useObjective6": true,
+    "weight6": 0.1
+  }
+}

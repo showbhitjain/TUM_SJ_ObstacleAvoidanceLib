@@ -10,7 +10,7 @@
 #include <Eigen/Dense>
 #include <vector>
 
-namespace RobotModelling{
+namespace ObstacleAvoidance{
     Eigen::Vector3d tFromDQ(DQ_robotics::DQ const &q);
 
     DQ_robotics::DQ fromPoseToDQ(AndreiUtils::Pose const &pose);
@@ -23,6 +23,24 @@ namespace RobotModelling{
 
 
     Eigen::Matrix4d convertEulerToTransform(Eigen::Vector3d const &angles, std::string const &seq = "ZYX");
+
+    Eigen::Matrix3d skewSymmetric(Eigen::Vector3d const &v);
+
+    Eigen::MatrixXd computeAdjoint(Eigen::Matrix4d const & T);
+
+
+    Eigen::MatrixXd vectorMatrixToEigenMatrix (std::vector<std::vector<double>> const & vec);
+
+    Eigen::Matrix<double, 1, Eigen::Dynamic> vectorToEigenMatrixRow (std::vector<double> const & vec);
+
+    Eigen::VectorXd stdVectorToEigenVector(std::vector<double> const & vec);
+
+
+    Eigen::VectorXd generateSequence(double startValue, double ts, double lastValue);
+
+    Eigen::Vector3d computeOrientationError(const Eigen::Matrix4d &T_current, const Eigen::Quaterniond &desired_q);
+
+    Eigen::Vector3d computeOrientationError(const Eigen::Matrix4d &T_current, const Eigen::VectorXd &q);
 }
 
 
