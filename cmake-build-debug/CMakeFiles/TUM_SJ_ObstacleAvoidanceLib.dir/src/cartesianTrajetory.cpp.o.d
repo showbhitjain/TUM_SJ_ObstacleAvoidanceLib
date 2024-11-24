@@ -408,7 +408,7 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.o: \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/tmwtypes.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/coder_array.h \
- /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/private_include/privateUtils.hpp \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/private_include/privateUtils.h \
  /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \

@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.o"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o"
@@ -9,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/inverseKinematics.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.o.d"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utilsJointValuesMatlab.cpp.o"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utilsJointValuesMatlab.cpp.o.d"
   "libTUM_SJ_ObstacleAvoidanceLib.a"
   "libTUM_SJ_ObstacleAvoidanceLib.pdb"
 )

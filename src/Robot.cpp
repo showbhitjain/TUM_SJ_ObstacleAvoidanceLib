@@ -87,21 +87,23 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
     std::shared_ptr<DQ_SerialManipulator> ro;
     this->robot = make_shared<DQ_SerialManipulatorMDH>(std::move(s));
     std::vector<double> eul = Config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double>>();
-    for (int i =0; i<eul.size(),i++;){
-        eul[i] = deg2Rad(eul[i]);
+    for (int i = 0; i < eul.size(); i++) {
+        eul[i] = deg2Rad(static_cast<double>(eul[i]));
     }
+
     std::vector<double> translation = Config.getJson("displacementEEtoTCP").at(
             "translation").get<std::vector<double>>();
 
     this->transformationEEToTCP =
             trvec2tform(stdVectorToEigenVector(translation)) * convertEulerToTransform(stdVectorToEigenVector(eul));
+    std::cout << "The trafo_matrix between endeffector and Tcp is: \n" << transformationEEToTCP << std::endl;
 
     std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
 
     auto Config_joints = Config.getSubConfig("Joints");
     this->joints = make_shared<Joints>(Config_joints);
-   /* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
-    auto nr = number_joints;*/
+    /* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
+     auto nr = number_joints;*/
 
 }
 
@@ -164,6 +166,13 @@ Eigen::MatrixXd Robot::forwardKinematics(const Eigen::VectorXd &jointValues, con
     int i = toIthLink - 1;
     auto ithlink_transformation_dq = this->robotmdh.raw_fkm(jointValues, i);
     return fromDQToPose(ithlink_transformation_dq).getTransformationMatrix();
+}
+
+Eigen::MatrixXd Robot::forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const {
+
+    int numJoints = static_cast<int>(this->getNumberJoints());
+    return this->forwardKinematics(jointValues, numJoints) * this->transformationEEToTCP;
+
 }
 
 size_t Robot::getNumberJoints() const {
@@ -251,7 +260,8 @@ Eigen::MatrixXd Robot::jacobianCartesianOnLink(VectorXd const &jointValues, int 
 
 Eigen::MatrixXd Robot::jacobianCartesianTCP(const VectorXd &jointValues) {
 
-    return jacobianCartesianOnLink(jointValues, static_cast<int>(this->joints->number_joints), this->transformationEEToTCP);
+    return jacobianCartesianOnLink(jointValues, static_cast<int>(this->joints->number_joints),
+                                   this->transformationEEToTCP);
 }
 
 

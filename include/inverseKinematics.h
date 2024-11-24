@@ -18,7 +18,7 @@ namespace ObstacleAvoidance {
     class inverseKinematics {
     public:
         inverseKinematics(AndreiUtils::ConfigurationParameters const & ikConfig);
-        std::tuple<Eigen::VectorXd, int> ikWithConstraints(Eigen::VectorXd const &jointValues,
+        std::tuple<Eigen::VectorXd, double> ikWithConstraints(Eigen::VectorXd const &jointValues,
                                                            Eigen::MatrixXd const &jacobiMatrix,
                                                            Eigen::VectorXd const &poseVelocityEffective,
                                                            Eigen::VectorXd const &jointMinValues,

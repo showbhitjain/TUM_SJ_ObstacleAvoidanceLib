@@ -84,6 +84,8 @@ namespace ObstacleAvoidance {
                                                  Eigen::Matrix4d const &transformationRelative);
 
         Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues);
+
+        Eigen::MatrixXd forwardKinematicsTCP( Eigen::VectorXd const &jointValues) const;
     };
 }
 

@@ -4,7 +4,7 @@
 
 #include "inverseKinematics.h"
 #include <inverseKinematicsWithConstraints.h>
-#include <privateUtils.hpp>
+#include <privateUtils.h>
 
 using namespace ObstacleAvoidance;
 using namespace Eigen;
@@ -29,7 +29,7 @@ inverseKinematics::inverseKinematics(const AndreiUtils::ConfigurationParameters 
 
 }
 
-std::tuple<Eigen::VectorXd, int>
+std::tuple<Eigen::VectorXd, double>
 inverseKinematics::ikWithConstraints(const VectorXd &jointValues, const MatrixXd &jacobiMatrix,
                                      const VectorXd &poseVelocityEffective, const VectorXd &jointMinValues,
                                      const VectorXd &jointMaxValues, const VectorXd &jointMinVelValues,
@@ -37,9 +37,10 @@ inverseKinematics::ikWithConstraints(const VectorXd &jointValues, const MatrixXd
 
     double xdEffVelocity[6];
     int xdEffVelocitySize[1] = {6};
-    for (int i = 0; i < 6, i++;) {
+    for (int i = 0; i < 6; i++) {
         xdEffVelocity[i] = poseVelocityEffective(i);
     }
+
     coder::array<double, 1U> optimalJointVelocity;
     double exitFlag;
     inverseKinematicsWithConstraints ik;
@@ -50,6 +51,7 @@ inverseKinematics::ikWithConstraints(const VectorXd &jointValues, const MatrixXd
                          &(this->ikStructConfig), optimalJointVelocity, &exitFlag);
 
     return make_tuple(coder1UtoEigenVector(optimalJointVelocity), exitFlag);
+
 }
 
 

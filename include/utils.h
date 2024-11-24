@@ -9,8 +9,11 @@
 #include <dqrobotics/DQ.h>
 #include <Eigen/Dense>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
-namespace ObstacleAvoidance{
+
+namespace ObstacleAvoidance {
     Eigen::Vector3d tFromDQ(DQ_robotics::DQ const &q);
 
     DQ_robotics::DQ fromPoseToDQ(AndreiUtils::Pose const &pose);
@@ -26,21 +29,25 @@ namespace ObstacleAvoidance{
 
     Eigen::Matrix3d skewSymmetric(Eigen::Vector3d const &v);
 
-    Eigen::MatrixXd computeAdjoint(Eigen::Matrix4d const & T);
+    Eigen::MatrixXd computeAdjoint(Eigen::Matrix4d const &T);
 
 
-    Eigen::MatrixXd vectorMatrixToEigenMatrix (std::vector<std::vector<double>> const & vec);
+    Eigen::MatrixXd vectorMatrixToEigenMatrix(std::vector<std::vector<double>> const &vec);
 
-    Eigen::Matrix<double, 1, Eigen::Dynamic> vectorToEigenMatrixRow (std::vector<double> const & vec);
+    Eigen::Matrix<double, 1, Eigen::Dynamic> vectorToEigenMatrixRow(std::vector<double> const &vec);
 
-    Eigen::VectorXd stdVectorToEigenVector(std::vector<double> const & vec);
+    Eigen::VectorXd stdVectorToEigenVector(std::vector<double> const &vec);
 
+    std::vector<double> EigenVectorToStdVector(Eigen::VectorXd const &eigen_vector);
 
     Eigen::VectorXd generateSequence(double startValue, double ts, double lastValue);
 
     Eigen::Vector3d computeOrientationError(const Eigen::Matrix4d &T_current, const Eigen::Quaterniond &desired_q);
 
     Eigen::Vector3d computeOrientationError(const Eigen::Matrix4d &T_current, const Eigen::VectorXd &q);
+
+
+    void writeMatrixToCSV(std::string const &filename, Eigen::MatrixXd const &matrix);
 }
 
 

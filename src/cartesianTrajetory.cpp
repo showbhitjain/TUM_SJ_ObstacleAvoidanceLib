@@ -5,7 +5,7 @@
 #include <cartesianTrajetory.h>
 #include <coder_array.h>
 #include <Trajectory.h>
-#include <privateUtils.hpp>
+#include <privateUtils.h>
 #include <memory>
 
 std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>

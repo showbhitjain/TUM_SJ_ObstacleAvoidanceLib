@@ -101,8 +101,7 @@ TUM_SJ_main: /usr/local/lib/libAndreiUtils_core.a
 TUM_SJ_main: /usr/local/lib/libAndreiUtils_openmp.a
 TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
 TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematics.a
-TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/trajectory_generator.a
-TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematics.a
+TUM_SJ_main: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/jointValuesUtilPkg/utilsMatlab.a
 TUM_SJ_main: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 TUM_SJ_main: /usr/lib/x86_64-linux-gnu/libpthread.a
 TUM_SJ_main: CMakeFiles/TUM_SJ_main.dir/link.txt

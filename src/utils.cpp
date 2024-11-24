@@ -138,3 +138,28 @@ Eigen::Vector3d ObstacleAvoidance::computeOrientationError(Eigen::Matrix4d const
     return angular_velocity_correction_base;
 
 }
+
+std::vector<double> ObstacleAvoidance::EigenVectorToStdVector(VectorXd const &eigen_vector) {
+    std::vector<double> std_vector(eigen_vector.data(), eigen_vector.data() + eigen_vector.size());
+    return std_vector;
+}
+
+
+
+void ObstacleAvoidance::writeMatrixToCSV( std::string const& filename,  Eigen::MatrixXd const& matrix) {
+    std::ofstream file(filename);
+
+    if (file.is_open()) {
+        for (int i = 0; i < matrix.rows(); ++i) {
+            for (int j = 0; j < matrix.cols(); ++j) {
+                file << matrix(i, j);
+                if (j != matrix.cols() - 1)
+                    file << ", ";
+            }
+            file << "\n";
+        }
+        file.close();
+    } else {
+        std::cerr << "Could not open the file for writing.\n";
+    }
+}

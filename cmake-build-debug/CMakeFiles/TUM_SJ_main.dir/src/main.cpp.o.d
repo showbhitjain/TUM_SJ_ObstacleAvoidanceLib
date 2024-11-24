@@ -146,7 +146,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematicsWithConstraints.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/inverseKinematics.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/inverseKinematics_types.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/rtwtypes.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg/tmwtypes.h \
@@ -166,11 +166,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/cstddef \
- /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Robot.h \
- /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
- /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
- /usr/local/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/eigen3/Eigen/Dense \
  /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
@@ -206,9 +202,10 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/sstream /usr/include/c++/11/bits/sstream.tcc \
  /usr/include/eigen3/Eigen/src/Core/util/MKL_support.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
- /usr/include/c++/11/functional /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/cstddef /usr/include/c++/11/functional \
+ /usr/include/c++/11/tuple /usr/include/c++/11/utility \
+ /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/array \
+ /usr/include/c++/11/bits/uses_allocator.h \
  /usr/include/c++/11/bits/invoke.h /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/unordered_map \
@@ -409,9 +406,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /usr/local/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
- /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
- /usr/include/eigen3/Eigen/Dense /usr/include/c++/11/memory \
+ /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
  /usr/include/c++/11/bits/unique_ptr.h \
@@ -422,11 +417,6 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/shared_ptr_atomic.h \
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/local/include/AndreiUtils/classes/DualQuaternion.hpp \
- /usr/local/include/AndreiUtils/utils.hpp \
- /usr/local/include/AndreiUtils/traits/InstanceOf.hpp \
- /usr/local/include/AndreiUtils/utilsQuaternions.hpp \
- /usr/local/include/AndreiUtils/classes/TypeHelper.hpp \
  /usr/local/include/AndreiUtils/classes/ConfigurationParameters.hpp \
  /usr/local/include/AndreiUtils/classes/Parameters.hpp \
  /usr/local/include/AndreiUtils/json.hpp /usr/include/c++/11/numeric \
@@ -445,8 +435,23 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/gslice_array.h \
  /usr/include/c++/11/bits/mask_array.h \
  /usr/include/c++/11/bits/indirect_array.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Robot.h \
+ /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
+ /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
+ /usr/local/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \
+ /usr/local/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
+ /usr/local/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
+ /usr/local/include/AndreiUtils/classes/DualQuaternion.hpp \
+ /usr/local/include/AndreiUtils/utils.hpp \
+ /usr/local/include/AndreiUtils/traits/InstanceOf.hpp \
+ /usr/local/include/AndreiUtils/utilsQuaternions.hpp \
+ /usr/local/include/AndreiUtils/classes/TypeHelper.hpp \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Joints.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h \
+ /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/cartesianTrajetory.h \
  /usr/include/boost/numeric/odeint.hpp \
  /usr/include/boost/numeric/odeint/version.hpp \
@@ -1600,8 +1605,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
- /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+ /usr/include/libintl.h /usr/include/c++/11/bits/locale_facets_nonio.tcc \
  /usr/include/c++/11/bits/locale_conv.h \
  /usr/include/c++/11/bits/quoted_string.h \
  /usr/include/boost/math/constants/constants.hpp \
@@ -1816,4 +1820,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/include/boost/numeric/odeint/iterator/adaptive_time_iterator.hpp \
  /usr/include/boost/numeric/odeint/iterator/const_step_iterator.hpp \
  /usr/include/boost/numeric/odeint/iterator/impl/const_step_iterator_impl.hpp \
- /usr/include/boost/numeric/odeint/iterator/const_step_time_iterator.hpp
+ /usr/include/boost/numeric/odeint/iterator/const_step_time_iterator.hpp \
+ /usr/local/include/AndreiUtils/utilsGeometry.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utilsJointValuesMatlab.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/trajectory_staticlib/rtwtypes.h

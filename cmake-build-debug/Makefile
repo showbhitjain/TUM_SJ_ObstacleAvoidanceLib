@@ -142,6 +142,30 @@ TUM_SJ_main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_main.dir/build.make CMakeFiles/TUM_SJ_main.dir/build
 .PHONY : TUM_SJ_main/fast
 
+privateSrc/privateUtils.o: privateSrc/privateUtils.cpp.o
+.PHONY : privateSrc/privateUtils.o
+
+# target to build an object file
+privateSrc/privateUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.o
+.PHONY : privateSrc/privateUtils.cpp.o
+
+privateSrc/privateUtils.i: privateSrc/privateUtils.cpp.i
+.PHONY : privateSrc/privateUtils.i
+
+# target to preprocess a source file
+privateSrc/privateUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.i
+.PHONY : privateSrc/privateUtils.cpp.i
+
+privateSrc/privateUtils.s: privateSrc/privateUtils.cpp.s
+.PHONY : privateSrc/privateUtils.s
+
+# target to generate assembly for a file
+privateSrc/privateUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.s
+.PHONY : privateSrc/privateUtils.cpp.s
+
 src/Joints.o: src/Joints.cpp.o
 .PHONY : src/Joints.o
 
@@ -286,6 +310,30 @@ src/utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utils.cpp.s
 .PHONY : src/utils.cpp.s
 
+src/utilsJointValuesMatlab.o: src/utilsJointValuesMatlab.cpp.o
+.PHONY : src/utilsJointValuesMatlab.o
+
+# target to build an object file
+src/utilsJointValuesMatlab.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utilsJointValuesMatlab.cpp.o
+.PHONY : src/utilsJointValuesMatlab.cpp.o
+
+src/utilsJointValuesMatlab.i: src/utilsJointValuesMatlab.cpp.i
+.PHONY : src/utilsJointValuesMatlab.i
+
+# target to preprocess a source file
+src/utilsJointValuesMatlab.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utilsJointValuesMatlab.cpp.i
+.PHONY : src/utilsJointValuesMatlab.cpp.i
+
+src/utilsJointValuesMatlab.s: src/utilsJointValuesMatlab.cpp.s
+.PHONY : src/utilsJointValuesMatlab.s
+
+# target to generate assembly for a file
+src/utilsJointValuesMatlab.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/utilsJointValuesMatlab.cpp.s
+.PHONY : src/utilsJointValuesMatlab.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -296,6 +344,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TUM_SJ_ObstacleAvoidanceLib"
 	@echo "... TUM_SJ_main"
+	@echo "... privateSrc/privateUtils.o"
+	@echo "... privateSrc/privateUtils.i"
+	@echo "... privateSrc/privateUtils.s"
 	@echo "... src/Joints.o"
 	@echo "... src/Joints.i"
 	@echo "... src/Joints.s"
@@ -314,6 +365,9 @@ help:
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"
+	@echo "... src/utilsJointValuesMatlab.o"
+	@echo "... src/utilsJointValuesMatlab.i"
+	@echo "... src/utilsJointValuesMatlab.s"
 .PHONY : help
 
 

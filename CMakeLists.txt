@@ -34,7 +34,9 @@ find_package(PerceptionData REQUIRED)
 
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
-include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK})
+set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
+
+include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB})
 
 message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
 
@@ -49,18 +51,18 @@ add_library(${LIB_NAME}
         src/utils.cpp
         src/cartesianTrajetory.cpp
         src/inverseKinematics.cpp
-        include/inverseKinematics.h
+        privateSrc/privateUtils.cpp
+        src/utilsJointValuesMatlab.cpp
+        include/utilsJointValuesMatlab.h
 
 
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a)
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a)
 
-target_link_libraries(${LIB_NAME} ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
-        ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a)
+
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
 
 target_include_directories(${LIB_NAME} PUBLIC
