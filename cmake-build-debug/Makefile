@@ -190,6 +190,30 @@ src/Joints.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.s
 .PHONY : src/Joints.cpp.s
 
+src/ObstacleAvoidanceUtils.o: src/ObstacleAvoidanceUtils.cpp.o
+.PHONY : src/ObstacleAvoidanceUtils.o
+
+# target to build an object file
+src/ObstacleAvoidanceUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.o
+.PHONY : src/ObstacleAvoidanceUtils.cpp.o
+
+src/ObstacleAvoidanceUtils.i: src/ObstacleAvoidanceUtils.cpp.i
+.PHONY : src/ObstacleAvoidanceUtils.i
+
+# target to preprocess a source file
+src/ObstacleAvoidanceUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.i
+.PHONY : src/ObstacleAvoidanceUtils.cpp.i
+
+src/ObstacleAvoidanceUtils.s: src/ObstacleAvoidanceUtils.cpp.s
+.PHONY : src/ObstacleAvoidanceUtils.s
+
+# target to generate assembly for a file
+src/ObstacleAvoidanceUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.s
+.PHONY : src/ObstacleAvoidanceUtils.cpp.s
+
 src/Robot.o: src/Robot.cpp.o
 .PHONY : src/Robot.o
 
@@ -350,6 +374,9 @@ help:
 	@echo "... src/Joints.o"
 	@echo "... src/Joints.i"
 	@echo "... src/Joints.s"
+	@echo "... src/ObstacleAvoidanceUtils.o"
+	@echo "... src/ObstacleAvoidanceUtils.i"
+	@echo "... src/ObstacleAvoidanceUtils.s"
 	@echo "... src/Robot.o"
 	@echo "... src/Robot.i"
 	@echo "... src/Robot.s"

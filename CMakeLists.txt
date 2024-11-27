@@ -54,6 +54,8 @@ add_library(${LIB_NAME}
         privateSrc/privateUtils.cpp
         src/utilsJointValuesMatlab.cpp
         include/utilsJointValuesMatlab.h
+        src/ObstacleAvoidanceUtils.cpp
+        include/ObstacleAvoidanceUtils.h
 
 
 )

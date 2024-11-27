@@ -8,6 +8,9 @@
 #include <AndreiUtils/utilsString.h>
 #include <AndreiUtils/utilsJson.h>
 //#include <utility>
+#include <cmath>
+#include <ObstacleAvoidanceUtils.h>
+
 
 using namespace AndreiUtils;
 using namespace DQ_robotics;
@@ -90,7 +93,7 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
     for (int i = 0; i < eul.size(); i++) {
         eul[i] = deg2Rad(static_cast<double>(eul[i]));
     }
-
+    this->mdhMatrix = vectorMatrixToEigenMatrix(Config.get<vector<vector<double>>>("mdhParameters"));
     std::vector<double> translation = Config.getJson("displacementEEtoTCP").at(
             "translation").get<std::vector<double>>();
 
@@ -162,7 +165,7 @@ Eigen::VectorXd Robot::fkm_cartesian(Eigen::VectorXd const &jointValues, const i
 }
 
 //Transformation from i to 0 (i th link to base frame)
-Eigen::MatrixXd Robot::forwardKinematics(const Eigen::VectorXd &jointValues, const int &toIthLink) const {
+Eigen::MatrixXd Robot::forwardKinematics(Eigen::VectorXd const &jointValues,  int const &toIthLink) const {
     int i = toIthLink - 1;
     auto ithlink_transformation_dq = this->robotmdh.raw_fkm(jointValues, i);
     return fromDQToPose(ithlink_transformation_dq).getTransformationMatrix();
@@ -263,5 +266,102 @@ Eigen::MatrixXd Robot::jacobianCartesianTCP(const VectorXd &jointValues) {
     return jacobianCartesianOnLink(jointValues, static_cast<int>(this->joints->number_joints),
                                    this->transformationEEToTCP);
 }
+
+Eigen::Matrix4d Robot::transformMdh(double a, double alpha, double d, double theta) {
+    Eigen::Matrix4d transform;
+
+    transform << std::cos(theta), -std::sin(theta), 0, a,
+            std::sin(theta) * std::cos(alpha), std::cos(theta) * std::cos(alpha), -std::sin(alpha), -std::sin(alpha) *
+                                                                                                    d,
+            std::sin(theta) * std::sin(alpha), std::cos(theta) * std::sin(alpha), std::cos(alpha), std::cos(alpha) * d,
+            0, 0, 0, 1;
+
+    return transform;
+}
+
+
+Eigen::Matrix4d Robot::fkmCartesian(Eigen::VectorXd const &joint_positions, int ith_link) {
+
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    for (int i = 0; i < ith_link; i++) {
+        float d = this->mdhMatrix(i, 1);
+        float a = this->mdhMatrix(i, 2);
+        float alpha = deg2Rad(this->mdhMatrix(i, 3));  // convert to radians
+        float theta = joint_positions(i);
+        Eigen::Matrix4d Ti;
+        Ti = transformMdh(a, alpha, d, theta);
+        T = T * Ti;  // Matrix Multiplication
+    }
+    return T;
+}
+
+
+Eigen::MatrixXd Robot::fkmCartesianTCP(Eigen::VectorXd const &jointValues)
+{
+    int numJoints = static_cast<int>(this->getNumberJoints());
+    return this->fkmCartesian(jointValues, numJoints) * this->transformationEEToTCP;
+
+}
+
+ std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointValues, Eigen::VectorXd const & radius){
+     int num_links = mdhMatrix.rows();
+     vector<LinkSegment> link_segments(num_links+1);
+
+
+     Eigen::MatrixXd prevTransform;
+     for (int i = 1; i <= num_links; ++i){
+         if (i == 1)
+             prevTransform = Eigen::MatrixXd::Identity(4, 4);
+         else
+             prevTransform = fkmCartesian(jointValues, i - 1);
+
+
+         Eigen::MatrixXd a_transform = Eigen::MatrixXd::Identity(4,4);
+
+
+         if (mdhMatrix(i - 1, 2) != 0){
+             link_segments[i - 1].aSegmentV0 = prevTransform.block<3,1>(0,3);
+             a_transform = prevTransform * trvec2tform({mdhMatrix(i - 1, 2), 0, 0 });
+             link_segments[i - 1].aSegmentV1 = a_transform.block<3,1>(0,3);
+         }
+
+         if (mdhMatrix(i - 1, 1) != 0){
+             MatrixXd d_transform;
+             if (mdhMatrix(i - 1, 2) != 0){
+                 link_segments[i - 1].dSegmentV0 = link_segments[i - 1].aSegmentV1;
+                 d_transform = a_transform * convertEulerToTransform( {deg2Rad(mdhMatrix(i - 1, 3)) , 0, 0} )
+                               * trvec2tform( {0, 0, mdhMatrix(i - 1, 1)});
+                 link_segments[i - 1].dSegmentV1 = d_transform(all,seq(0,2));
+             }
+             else{
+                 link_segments[i - 1].dSegmentV0 = prevTransform(all,seq(0,2));
+                 d_transform = prevTransform * convertEulerToTransform({deg2Rad(mdhMatrix(i - 1, 3)), 0, 0 })
+                               * trvec2tform({0, 0, mdhMatrix(i - 1, 1)});
+                 link_segments[i - 1].dSegmentV1 = d_transform(all,seq(0,2));
+             }
+             if (i == num_links){
+                 link_segments[i].Tool_V0 = link_segments[i - 1].dSegmentV1;
+                 MatrixXd tcp_transform = d_transform * transformationEEToTCP;
+                 link_segments[i].Tool_V1 = tcp_transform.block<3,1>(0,3);
+             }
+         }
+         else{
+             if (i == num_links){
+                 link_segments[i].Tool_V0 = link_segments[i - 1].aSegmentV1;
+                 MatrixXd tcp_transform = a_transform * transformationEEToTCP;
+                 link_segments[i].Tool_V1 = tcp_transform(all,seq(0,2));
+             }
+         }
+
+         link_segments[i].radius = radius(i);
+     }
+
+     return link_segments;
+ }
+
+
+
+
+ //std::tuple<Eigen::MatrixXd,Eigen::VectorXd> Robot::obstacleAvoidanceEquation(/*obstacles,*/Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,   )
 
 

@@ -16,7 +16,19 @@
 #include <AndreiUtils/classes/DualQuaternion.hpp>
 #include <Joints.h>
 
+
 namespace ObstacleAvoidance {
+    class LinkSegment{
+    public:
+        Eigen::Vector3d aSegmentV0;
+        Eigen::Vector3d aSegmentV1;
+        Eigen::Vector3d dSegmentV0;
+        Eigen::Vector3d dSegmentV1;
+        Eigen::Vector3d Tool_V0;
+        Eigen::Vector3d Tool_V1;
+        double radius;
+    };
+
     class Robot {
     protected:
         static DQ_robotics::DQ_SerialManipulator
@@ -31,7 +43,9 @@ namespace ObstacleAvoidance {
         AndreiUtils::Posed baseFrame_robot;
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
+        Eigen::MatrixXd  mdhMatrix;
 //        size_t number_joints;
+
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
@@ -86,6 +100,17 @@ namespace ObstacleAvoidance {
         Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues);
 
         Eigen::MatrixXd forwardKinematicsTCP( Eigen::VectorXd const &jointValues) const;
+
+        Eigen::Matrix4d transformMdh(double a, double alpha, double d, double theta);
+
+        Eigen::Matrix4d fkmCartesian(const Eigen::VectorXd &joint_positions, int ith_link);
+
+        Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) ;
+
+
+        std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues, Eigen::VectorXd const & radius);
+
+
     };
 }
 
