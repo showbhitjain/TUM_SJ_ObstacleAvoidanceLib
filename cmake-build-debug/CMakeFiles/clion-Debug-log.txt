@@ -25,6 +25,6 @@ Found package python with version 3.10
 PerceptionData requested components: core
 -- Including Inverse Kinematics Package from /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/inverseKinematicsPkg
 OPENMP FOUND
--- Configuring done (0.5s)
+-- Configuring done (0.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/cmake-build-debug

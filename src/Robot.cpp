@@ -10,7 +10,7 @@
 //#include <utility>
 #include <cmath>
 #include <ObstacleAvoidanceUtils.h>
-
+#include <criticalPoints.h>
 
 using namespace AndreiUtils;
 using namespace DQ_robotics;
@@ -331,13 +331,13 @@ Eigen::MatrixXd Robot::fkmCartesianTCP(Eigen::VectorXd const &jointValues)
                  link_segments[i - 1].dSegmentV0 = link_segments[i - 1].aSegmentV1;
                  d_transform = a_transform * convertEulerToTransform( {deg2Rad(mdhMatrix(i - 1, 3)) , 0, 0} )
                                * trvec2tform( {0, 0, mdhMatrix(i - 1, 1)});
-                 link_segments[i - 1].dSegmentV1 = d_transform(all,seq(0,2));
+                 link_segments[i - 1].dSegmentV1 = d_transform(seq(0,2),3);
              }
              else{
-                 link_segments[i - 1].dSegmentV0 = prevTransform(all,seq(0,2));
+                 link_segments[i - 1].dSegmentV0 = prevTransform(seq(0,2),3);
                  d_transform = prevTransform * convertEulerToTransform({deg2Rad(mdhMatrix(i - 1, 3)), 0, 0 })
                                * trvec2tform({0, 0, mdhMatrix(i - 1, 1)});
-                 link_segments[i - 1].dSegmentV1 = d_transform(all,seq(0,2));
+                 link_segments[i - 1].dSegmentV1 = d_transform(seq(0,2),3);
              }
              if (i == num_links){
                  link_segments[i].Tool_V0 = link_segments[i - 1].dSegmentV1;
@@ -349,7 +349,7 @@ Eigen::MatrixXd Robot::fkmCartesianTCP(Eigen::VectorXd const &jointValues)
              if (i == num_links){
                  link_segments[i].Tool_V0 = link_segments[i - 1].aSegmentV1;
                  MatrixXd tcp_transform = a_transform * transformationEEToTCP;
-                 link_segments[i].Tool_V1 = tcp_transform(all,seq(0,2));
+                 link_segments[i].Tool_V1 = tcp_transform(seq(0,2),3);
              }
          }
 
@@ -357,11 +357,32 @@ Eigen::MatrixXd Robot::fkmCartesianTCP(Eigen::VectorXd const &jointValues)
      }
 
      return link_segments;
+
  }
 
 
 
+ std::tuple<Eigen::MatrixXd,Eigen::VectorXd,double> Robot::obstacleAvoidanceEquation(std::vector<Obstacles> obstacles,Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter, double distStop, double k)
+ {
+    int numLinks = this->mdhMatrix.rows() + 1 ;
+    int numObstalces = obstacles.size();
+    static std::vector<Obstacles> ObstaclesDynamicArray ;
+    if (ObstaclesDynamicArray.empty()){
+        ObstaclesDynamicArray = obstacles;
+    }
+    
+    static std::vector<std::vector<criticalPoints>> criticalPointsDynamicArray;
+    if (criticalPointsDynamicArray.empty())
+    {
+        //
+    }
+    static bool criticalFlag ;
 
- //std::tuple<Eigen::MatrixXd,Eigen::VectorXd> Robot::obstacleAvoidanceEquation(/*obstacles,*/Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,   )
+    if (criticalFlag == false)
+    {
+        criticalFlag = true;
+
+    }
+ }
 
 

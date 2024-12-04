@@ -447,6 +447,7 @@ CMakeFiles/TUM_SJ_main.dir/src/main.cpp.o: \
  /usr/local/include/AndreiUtils/utilsQuaternions.hpp \
  /usr/local/include/AndreiUtils/classes/TypeHelper.hpp \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Joints.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Obstacles.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/utils.h \
  /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \

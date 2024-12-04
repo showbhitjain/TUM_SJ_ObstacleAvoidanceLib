@@ -445,6 +445,7 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o: \
  /usr/include/c++/11/bits/mask_array.h \
  /usr/include/c++/11/bits/indirect_array.h \
  /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Joints.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/Obstacles.h \
  /usr/local/include/AndreiUtils/utilsFiles.h /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
@@ -455,4 +456,6 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o: \
  /usr/include/linux/close_range.h \
  /usr/local/include/AndreiUtils/utilsGeometry.h \
  /usr/local/include/AndreiUtils/utilsString.h \
- /usr/local/include/AndreiUtils/utilsJson.h
+ /usr/local/include/AndreiUtils/utilsJson.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/ObstacleAvoidanceUtils.h \
+ /home/shobhit/TUM_SJ_ObstacleAvoidanceLib/include/criticalPoints.h

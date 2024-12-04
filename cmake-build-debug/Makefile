@@ -214,6 +214,30 @@ src/ObstacleAvoidanceUtils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.s
 .PHONY : src/ObstacleAvoidanceUtils.cpp.s
 
+src/Obstacles.o: src/Obstacles.cpp.o
+.PHONY : src/Obstacles.o
+
+# target to build an object file
+src/Obstacles.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.o
+.PHONY : src/Obstacles.cpp.o
+
+src/Obstacles.i: src/Obstacles.cpp.i
+.PHONY : src/Obstacles.i
+
+# target to preprocess a source file
+src/Obstacles.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.i
+.PHONY : src/Obstacles.cpp.i
+
+src/Obstacles.s: src/Obstacles.cpp.s
+.PHONY : src/Obstacles.s
+
+# target to generate assembly for a file
+src/Obstacles.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.s
+.PHONY : src/Obstacles.cpp.s
+
 src/Robot.o: src/Robot.cpp.o
 .PHONY : src/Robot.o
 
@@ -261,6 +285,30 @@ src/cartesianTrajetory.s: src/cartesianTrajetory.cpp.s
 src/cartesianTrajetory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/cartesianTrajetory.cpp.s
 .PHONY : src/cartesianTrajetory.cpp.s
+
+src/criticalPoints.o: src/criticalPoints.cpp.o
+.PHONY : src/criticalPoints.o
+
+# target to build an object file
+src/criticalPoints.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/criticalPoints.cpp.o
+.PHONY : src/criticalPoints.cpp.o
+
+src/criticalPoints.i: src/criticalPoints.cpp.i
+.PHONY : src/criticalPoints.i
+
+# target to preprocess a source file
+src/criticalPoints.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/criticalPoints.cpp.i
+.PHONY : src/criticalPoints.cpp.i
+
+src/criticalPoints.s: src/criticalPoints.cpp.s
+.PHONY : src/criticalPoints.s
+
+# target to generate assembly for a file
+src/criticalPoints.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/criticalPoints.cpp.s
+.PHONY : src/criticalPoints.cpp.s
 
 src/inverseKinematics.o: src/inverseKinematics.cpp.o
 .PHONY : src/inverseKinematics.o
@@ -377,12 +425,18 @@ help:
 	@echo "... src/ObstacleAvoidanceUtils.o"
 	@echo "... src/ObstacleAvoidanceUtils.i"
 	@echo "... src/ObstacleAvoidanceUtils.s"
+	@echo "... src/Obstacles.o"
+	@echo "... src/Obstacles.i"
+	@echo "... src/Obstacles.s"
 	@echo "... src/Robot.o"
 	@echo "... src/Robot.i"
 	@echo "... src/Robot.s"
 	@echo "... src/cartesianTrajetory.o"
 	@echo "... src/cartesianTrajetory.i"
 	@echo "... src/cartesianTrajetory.s"
+	@echo "... src/criticalPoints.o"
+	@echo "... src/criticalPoints.i"
+	@echo "... src/criticalPoints.s"
 	@echo "... src/inverseKinematics.o"
 	@echo "... src/inverseKinematics.i"
 	@echo "... src/inverseKinematics.s"

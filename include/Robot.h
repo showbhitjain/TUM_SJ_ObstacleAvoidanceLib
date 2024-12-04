@@ -15,17 +15,18 @@
 #include <AndreiUtils/classes/ConfigurationParameters.hpp>
 #include <AndreiUtils/classes/DualQuaternion.hpp>
 #include <Joints.h>
-
+#include <tuple>
+#include <Obstacles.h>
 
 namespace ObstacleAvoidance {
     class LinkSegment{
     public:
-        Eigen::Vector3d aSegmentV0;
-        Eigen::Vector3d aSegmentV1;
-        Eigen::Vector3d dSegmentV0;
-        Eigen::Vector3d dSegmentV1;
-        Eigen::Vector3d Tool_V0;
-        Eigen::Vector3d Tool_V1;
+        Eigen::VectorXd aSegmentV0;
+        Eigen::VectorXd aSegmentV1;
+        Eigen::VectorXd dSegmentV0;
+        Eigen::VectorXd dSegmentV1;
+        Eigen::VectorXd Tool_V0;
+        Eigen::VectorXd Tool_V1;
         double radius;
     };
 
@@ -44,7 +45,7 @@ namespace ObstacleAvoidance {
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
         Eigen::MatrixXd  mdhMatrix;
-//        size_t number_joints;
+//      size_t number_joints;
 
 
     public:
@@ -109,6 +110,8 @@ namespace ObstacleAvoidance {
 
 
         std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues, Eigen::VectorXd const & radius);
+
+        std::tuple<Eigen::MatrixXd,Eigen::VectorXd,double> obstacleAvoidanceEquation(std::vector<Obstacles> obstacles,Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter, double distStop, double k);
 
 
     };

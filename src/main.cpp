@@ -8,6 +8,7 @@
 #include <AndreiUtils/utilsGeometry.h>
 #include <utilsJointValuesMatlab.h>
 #include <fstream>
+#include <Eigen/Dense>
 using namespace ObstacleAvoidance;
 using namespace std;
 using namespace Eigen;
@@ -22,6 +23,18 @@ void jointDynamics(const State &x, State &dxdt, const double *//* t *//*, const 
 }*/
 
 /*std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>*/
+void printLinkSegments(std::vector<LinkSegment> const &LinkSegments){
+
+    for (auto &Link:LinkSegments) {
+        cout << "av0: " << Link.aSegmentV0.transpose() << "\t" << "av1: " << Link.aSegmentV1.transpose() << "\tdv0: " << Link.dSegmentV0.transpose()
+             << "\tdv1: " << Link.dSegmentV1.transpose() << endl;
+        if (Link.Tool_V0.size() != 0) {
+            cout << "ToolV0: " << Link.Tool_V0.transpose() << "\tToolV1: " << Link.Tool_V1.transpose() << endl;
+
+        }
+    }
+}
+
 tuple<MatrixXd, MatrixXd, MatrixXd> positionTrajectory(ConfigurationParameters const &trajConfig) {
 
     auto waypointsParams = trajConfig.get<std::vector<std::vector<double>>>("Waypoints");
@@ -54,6 +67,7 @@ tuple<MatrixXd, MatrixXd, MatrixXd> orientationTrajectory(ConfigurationParameter
 
 
 int main() {
+
     Eigen::Vector3d trvec(0, 0, 0.103399);
     Eigen::Vector3d eul(0, 0, -0.785398);
     auto tform = trvec2tform(trvec) * convertEulerToTransform(eul);
@@ -106,6 +120,11 @@ int main() {
     inverseKinematics ik(inverseKinematicsConfig);
 //    using Stepper = runge_kutta_dopri5<State, double, State, double>;
 //    auto controlled_stepper = make_controlled<Stepper>(1e-6, 1e-6);
+    VectorXd radius(numberJoints);
+    radius = Eigen::VectorXd::Constant(numberJoints+1,0.1);
+    cout<<"ForwardKinematics: \n"<<robot.fkmCartesianTCP(Homejointpositions)(seq(0,2),2)<<endl;
+    auto LinkSegments = robot.createLineSegments(Homejointpositions,radius);
+
     for (int i = 0; i < trajTimes.size()-1; i++) {
         auto transformTcpToBase = robot.forwardKinematicsTCP(actualJointValuesMatrix(all, i));
         cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;

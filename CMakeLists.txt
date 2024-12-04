@@ -56,6 +56,10 @@ add_library(${LIB_NAME}
         include/utilsJointValuesMatlab.h
         src/ObstacleAvoidanceUtils.cpp
         include/ObstacleAvoidanceUtils.h
+        src/Obstacles.cpp
+        include/Obstacles.h
+        src/criticalPoints.cpp
+        include/criticalPoints.h
 
 
 )
