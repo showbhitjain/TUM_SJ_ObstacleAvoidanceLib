@@ -19,6 +19,7 @@ using namespace ObstacleAvoidance;
 using namespace std;
 using json = nlohmann::json;
 
+/*
 DQ_SerialManipulatorMDH
 Robot::createRobotMdhFromPath(std::string const &configFile_Path, std::string const &parameterFor,
                               std::string const &whichrobot, AndreiUtils::Posed const &baseFrame) {
@@ -42,7 +43,7 @@ DQ_SerialManipulatorMDH Robot::createRobotMDH(const ConfigurationParameters &con
             /*if (i == nrJoints - 1 && j == 2 && withHand)
             {
                 mdhMatrix(j, i) += config.get<double>("dhConnectorToHand");
-            }*/
+            }#1#
         }
     }
     MatrixXd newMdhMatrix(5, nrJoints);
@@ -54,10 +55,11 @@ DQ_SerialManipulatorMDH Robot::createRobotMDH(const ConfigurationParameters &con
     robot.set_reference_frame(q);
     return robot;
 }
+*/
 
 DQ_SerialManipulator Robot::createRobot_fromconfigfile(const string &configFile, const DQ_robotics::DQ &q) {
     json config = readJsonFile(configFile);
-    vector<vector<double>> dhParameters = config["dhParameters"];
+    vector<vector<double> > dhParameters = config["dhParameters"];
     size_t nrJoints = dhParameters.size();
     MatrixXd dhMatrix(5, nrJoints);
     bool withHand = config["dhWithHand"];
@@ -80,22 +82,22 @@ DQ_SerialManipulator Robot::createRobot_fromconfigfile(const string &configFile,
 //configFile_Path : path to the file which containes paths to config file for the type of robot
 //which_robot = type of robot
 Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
-             const AndreiUtils::Posed &baseFrame) : robotmdh(
-        createRobotMdhFromPath(configFile_Path, parameterFor, whichrobot, baseFrame)) {
+             const AndreiUtils::Posed &baseFrame) /*: robotmdh(
+        createRobotMdhFromPath(configFile_Path, parameterFor, whichrobot, baseFrame))*/ {
     auto Config_file = ConfigurationParameters(configFile_Path,
                                                parameterFor); //get the file which has path to the robotconfigfile
     this->Config = Config_file.getSubConfig(
-            whichrobot); // create config file from class Configurationparameters for the type of robot
-    auto s = createRobotMDH(Config, fromPoseToDQ(baseFrame));
+        whichrobot); // create config file from class Configurationparameters for the type of robot
+    /*auto s = createRobotMDH(Config, fromPoseToDQ(baseFrame));
     std::shared_ptr<DQ_SerialManipulator> ro;
-    this->robot = make_shared<DQ_SerialManipulatorMDH>(std::move(s));
-    std::vector<double> eul = Config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double>>();
+    this->robot = make_shared<DQ_SerialManipulatorMDH>(std::move(s));*/
+    std::vector<double> eul = Config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double> >();
     for (int i = 0; i < eul.size(); i++) {
         eul[i] = deg2Rad(static_cast<double>(eul[i]));
     }
-    this->mdhMatrix = vectorMatrixToEigenMatrix(Config.get<vector<vector<double>>>("mdhParameters"));
+    this->mdhMatrix = vectorMatrixToEigenMatrix(Config.get<vector<vector<double> > >("mdhParameters"));
     std::vector<double> translation = Config.getJson("displacementEEtoTCP").at(
-            "translation").get<std::vector<double>>();
+        "translation").get<std::vector<double> >();
 
     this->transformationEEToTCP =
             trvec2tform(stdVectorToEigenVector(translation)) * convertEulerToTransform(stdVectorToEigenVector(eul));
@@ -107,24 +109,25 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
     this->joints = make_shared<Joints>(Config_joints);
     /* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
      auto nr = number_joints;*/
-
 }
 
 VectorXd Robot::getRobotJointValues() const {
     return this->joints->values;
 }
 
+/*
 DQ Robot::getRobotPose() const {
     return this->fkm();
 }
+*/
 
 VectorXd Robot::getCurrentRobotJointValues() {
     return this->joints->getCurrentJointValues();
 }
 
-DQ Robot::getCurrentRobotPose() {
+/*DQ Robot::getCurrentRobotPose() {
     return this->fkm(this->getCurrentRobotJointValues());
-}
+}*/
 
 /*void Robot::updateRobotJointValues() {
     this->joints->update();
@@ -134,7 +137,7 @@ void Robot::setJointValues(VectorXd const &jointValues) {
     this->joints->setJointValues(jointValues);
 }
 
-DQ Robot::fkm() const {
+/*DQ Robot::fkm() const {
     return this->fkm(this->joints->values);
 }
 
@@ -150,7 +153,7 @@ MatrixXd Robot::jacobian(Eigen::VectorXd const &jointValues) const {
     return this->robot->pose_jacobian(jointValues);
 }
 
-//Endeffector Position in x,y Z
+//#1#Endeffector Position in x,y Z
 Eigen::VectorXd Robot::fkm_cartesian(const VectorXd &jointValues) const {
     auto endeffector_dq = this->robot->fkm(jointValues);
     auto endeffector_pose = fromDQToPose(endeffector_dq);
@@ -162,10 +165,10 @@ Eigen::VectorXd Robot::fkm_cartesian(Eigen::VectorXd const &jointValues, const i
     auto ithlink_pose_dq = this->robot->fkm(jointValues, to_ith_link);
     auto ithlink_pose = fromDQToPose(ithlink_pose_dq);
     return ithlink_pose.getTranslation();
-}
+}*/
 
 //Transformation from i to 0 (i th link to base frame)
-Eigen::MatrixXd Robot::forwardKinematics(Eigen::VectorXd const &jointValues,  int const &toIthLink) const {
+/*Eigen::MatrixXd Robot::forwardKinematics(Eigen::VectorXd const &jointValues,  int const &toIthLink) const {
     int i = toIthLink - 1;
     auto ithlink_transformation_dq = this->robotmdh.raw_fkm(jointValues, i);
     return fromDQToPose(ithlink_transformation_dq).getTransformationMatrix();
@@ -176,7 +179,7 @@ Eigen::MatrixXd Robot::forwardKinematicsTCP(Eigen::VectorXd const &jointValues) 
     int numJoints = static_cast<int>(this->getNumberJoints());
     return this->forwardKinematics(jointValues, numJoints) * this->transformationEEToTCP;
 
-}
+}*/
 
 size_t Robot::getNumberJoints() const {
     return this->joints->number_joints;
@@ -187,19 +190,18 @@ const shared_ptr<Joints> &Robot::getJoints() const {
 }
 
 Eigen::MatrixXd Robot::jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const {
-
     int numJoints = jointValues.size(); // Number of joints
     Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6, numJoints); // Initialize Jacobian matrix with zeros
 
     // Compute the transformation to the end-effector or toIthLink
-    Eigen::Matrix4d T_end_effector = forwardKinematics(jointValues, toIthLink);
+    Eigen::Matrix4d T_end_effector = fkmCartesian(jointValues, toIthLink);
     Eigen::Vector3d end_effector_position = T_end_effector.block<3, 1>(0, 3);
 
 
     for (int i = 1; i <= toIthLink; ++i) {
         // Get the transformation matrix from the base frame to the ith joint
 
-        Eigen::Matrix4d T_i = forwardKinematics(jointValues, i);
+        Eigen::Matrix4d T_i = fkmCartesian(jointValues, i);
 
         // Extract the z-axis of the ith joint in base frame coordinates
         Eigen::Vector3d z_i = T_i.block<3, 3>(0, 0) * Eigen::Vector3d(0, 0, 1);
@@ -224,21 +226,19 @@ Eigen::MatrixXd Robot::jacobianCartesian(const Eigen::VectorXd &jointValues, con
 
 Eigen::MatrixXd Robot::jacobianCartesianOnLink(VectorXd const &jointValues, int const &toIthLink,
                                                Matrix4d const &transformationRelative) {
-
-
     int numJoints = jointValues.size(); // Number of joints
     Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6, numJoints); // Initialize Jacobian matrix with zeros
 
     // Compute the transformation to the end-effector or toIthLink
 
-    Eigen::Matrix4d T_end_effector = forwardKinematics(jointValues, toIthLink) * transformationRelative;
+    Eigen::Matrix4d T_end_effector = fkmCartesian(jointValues, toIthLink) * transformationRelative;
     Eigen::Vector3d end_effector_position = T_end_effector.block<3, 1>(0, 3);
 
 
     for (int i = 1; i <= toIthLink; ++i) {
         // Get the transformation matrix from the base frame to the ith joint
 
-        Eigen::Matrix4d T_i = forwardKinematics(jointValues, i);
+        Eigen::Matrix4d T_i = fkmCartesian(jointValues, i);
 
         // Extract the z-axis of the ith joint in base frame coordinates
         Eigen::Vector3d z_i = T_i.block<3, 3>(0, 0) * Eigen::Vector3d(0, 0, 1);
@@ -262,17 +262,16 @@ Eigen::MatrixXd Robot::jacobianCartesianOnLink(VectorXd const &jointValues, int 
 }
 
 Eigen::MatrixXd Robot::jacobianCartesianTCP(const VectorXd &jointValues) {
-
     return jacobianCartesianOnLink(jointValues, static_cast<int>(this->joints->number_joints),
                                    this->transformationEEToTCP);
 }
 
-Eigen::Matrix4d Robot::transformMdh(double a, double alpha, double d, double theta) {
+Eigen::Matrix4d Robot::transformMdh(double a, double alpha, double d, double theta) const {
     Eigen::Matrix4d transform;
 
     transform << std::cos(theta), -std::sin(theta), 0, a,
             std::sin(theta) * std::cos(alpha), std::cos(theta) * std::cos(alpha), -std::sin(alpha), -std::sin(alpha) *
-                                                                                                    d,
+            d,
             std::sin(theta) * std::sin(alpha), std::cos(theta) * std::sin(alpha), std::cos(alpha), std::cos(alpha) * d,
             0, 0, 0, 1;
 
@@ -280,109 +279,100 @@ Eigen::Matrix4d Robot::transformMdh(double a, double alpha, double d, double the
 }
 
 
-Eigen::Matrix4d Robot::fkmCartesian(Eigen::VectorXd const &joint_positions, int ith_link) {
-
+Eigen::MatrixXd Robot::fkmCartesian(Eigen::VectorXd const &joint_positions, int const &ith_link) const {
     Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
     for (int i = 0; i < ith_link; i++) {
-        float d = this->mdhMatrix(i, 1);
-        float a = this->mdhMatrix(i, 2);
-        float alpha = deg2Rad(this->mdhMatrix(i, 3));  // convert to radians
-        float theta = joint_positions(i);
+        double d = this->mdhMatrix(i, 1);
+        double a = this->mdhMatrix(i, 2);
+        double alpha = deg2Rad(this->mdhMatrix(i, 3)); // convert to radians
+        double theta = joint_positions(i);
         Eigen::Matrix4d Ti;
         Ti = transformMdh(a, alpha, d, theta);
-        T = T * Ti;  // Matrix Multiplication
+        T = T * Ti; // Matrix Multiplication
     }
     return T;
 }
 
 
-Eigen::MatrixXd Robot::fkmCartesianTCP(Eigen::VectorXd const &jointValues)
-{
+Eigen::MatrixXd Robot::fkmCartesianTCP(const Eigen::VectorXd &jointValues) const {
     int numJoints = static_cast<int>(this->getNumberJoints());
     return this->fkmCartesian(jointValues, numJoints) * this->transformationEEToTCP;
-
 }
 
- std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointValues, Eigen::VectorXd const & radius){
-     int num_links = mdhMatrix.rows();
-     vector<LinkSegment> link_segments(num_links+1);
+std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointValues, Eigen::VectorXd const &radius) {
+    int num_links = mdhMatrix.rows();
+    vector<LinkSegment> link_segments(num_links + 1);
 
 
-     Eigen::MatrixXd prevTransform;
-     for (int i = 1; i <= num_links; ++i){
-         if (i == 1)
-             prevTransform = Eigen::MatrixXd::Identity(4, 4);
-         else
-             prevTransform = fkmCartesian(jointValues, i - 1);
+    Eigen::MatrixXd prevTransform;
+    for (int i = 1; i <= num_links; ++i) {
+        if (i == 1)
+            prevTransform = Eigen::MatrixXd::Identity(4, 4);
+        else
+            prevTransform = fkmCartesian(jointValues, i - 1);
 
 
-         Eigen::MatrixXd a_transform = Eigen::MatrixXd::Identity(4,4);
+        Eigen::MatrixXd a_transform = Eigen::MatrixXd::Identity(4, 4);
 
 
-         if (mdhMatrix(i - 1, 2) != 0){
-             link_segments[i - 1].aSegmentV0 = prevTransform.block<3,1>(0,3);
-             a_transform = prevTransform * trvec2tform({mdhMatrix(i - 1, 2), 0, 0 });
-             link_segments[i - 1].aSegmentV1 = a_transform.block<3,1>(0,3);
-         }
+        if (mdhMatrix(i - 1, 2) != 0) {
+            link_segments[i - 1].aSegmentV0 = prevTransform.block<3, 1>(0, 3);
+            a_transform = prevTransform * trvec2tform({mdhMatrix(i - 1, 2), 0, 0});
+            link_segments[i - 1].aSegmentV1 = a_transform.block<3, 1>(0, 3);
+        }
 
-         if (mdhMatrix(i - 1, 1) != 0){
-             MatrixXd d_transform;
-             if (mdhMatrix(i - 1, 2) != 0){
-                 link_segments[i - 1].dSegmentV0 = link_segments[i - 1].aSegmentV1;
-                 d_transform = a_transform * convertEulerToTransform( {deg2Rad(mdhMatrix(i - 1, 3)) , 0, 0} )
-                               * trvec2tform( {0, 0, mdhMatrix(i - 1, 1)});
-                 link_segments[i - 1].dSegmentV1 = d_transform(seq(0,2),3);
-             }
-             else{
-                 link_segments[i - 1].dSegmentV0 = prevTransform(seq(0,2),3);
-                 d_transform = prevTransform * convertEulerToTransform({deg2Rad(mdhMatrix(i - 1, 3)), 0, 0 })
-                               * trvec2tform({0, 0, mdhMatrix(i - 1, 1)});
-                 link_segments[i - 1].dSegmentV1 = d_transform(seq(0,2),3);
-             }
-             if (i == num_links){
-                 link_segments[i].Tool_V0 = link_segments[i - 1].dSegmentV1;
-                 MatrixXd tcp_transform = d_transform * transformationEEToTCP;
-                 link_segments[i].Tool_V1 = tcp_transform.block<3,1>(0,3);
-             }
-         }
-         else{
-             if (i == num_links){
-                 link_segments[i].Tool_V0 = link_segments[i - 1].aSegmentV1;
-                 MatrixXd tcp_transform = a_transform * transformationEEToTCP;
-                 link_segments[i].Tool_V1 = tcp_transform(seq(0,2),3);
-             }
-         }
+        if (mdhMatrix(i - 1, 1) != 0) {
+            MatrixXd d_transform;
+            if (mdhMatrix(i - 1, 2) != 0) {
+                link_segments[i - 1].dSegmentV0 = link_segments[i - 1].aSegmentV1;
+                d_transform = a_transform * convertEulerToTransform({deg2Rad(mdhMatrix(i - 1, 3)), 0, 0})
+                              * trvec2tform({0, 0, mdhMatrix(i - 1, 1)});
+                link_segments[i - 1].dSegmentV1 = d_transform(seq(0, 2), 3);
+            } else {
+                link_segments[i - 1].dSegmentV0 = prevTransform(seq(0, 2), 3);
+                d_transform = prevTransform * convertEulerToTransform({deg2Rad(mdhMatrix(i - 1, 3)), 0, 0})
+                              * trvec2tform({0, 0, mdhMatrix(i - 1, 1)});
+                link_segments[i - 1].dSegmentV1 = d_transform(seq(0, 2), 3);
+            }
+            if (i == num_links) {
+                link_segments[i].Tool_V0 = link_segments[i - 1].dSegmentV1;
+                MatrixXd tcp_transform = d_transform * transformationEEToTCP;
+                link_segments[i].Tool_V1 = tcp_transform.block<3, 1>(0, 3);
+            }
+        } else {
+            if (i == num_links) {
+                link_segments[i].Tool_V0 = link_segments[i - 1].aSegmentV1;
+                MatrixXd tcp_transform = a_transform * transformationEEToTCP;
+                link_segments[i].Tool_V1 = tcp_transform(seq(0, 2), 3);
+            }
+        }
 
-         link_segments[i].radius = radius(i);
-     }
+        link_segments[i].radius = radius(i);
+    }
 
-     return link_segments;
-
- }
+    return link_segments;
+}
 
 
-
- std::tuple<Eigen::MatrixXd,Eigen::VectorXd,double> Robot::obstacleAvoidanceEquation(std::vector<Obstacles> obstacles,Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter, double distStop, double k)
- {
-    int numLinks = this->mdhMatrix.rows() + 1 ;
+/*
+std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEquation(
+    std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter,
+    double distStop, double k) {
+    int numLinks = this->mdhMatrix.rows() + 1;
     int numObstalces = obstacles.size();
-    static std::vector<Obstacles> ObstaclesDynamicArray ;
-    if (ObstaclesDynamicArray.empty()){
+    static std::vector<Obstacles> ObstaclesDynamicArray;
+    if (ObstaclesDynamicArray.empty()) {
         ObstaclesDynamicArray = obstacles;
     }
-    
-    static std::vector<std::vector<criticalPoints>> criticalPointsDynamicArray;
-    if (criticalPointsDynamicArray.empty())
-    {
+
+    static std::vector<std::vector<criticalPoints> > criticalPointsDynamicArray;
+    if (criticalPointsDynamicArray.empty()) {
         //
     }
-    static bool criticalFlag ;
+    static bool criticalFlag;
 
-    if (criticalFlag == false)
-    {
+    if (criticalFlag == false) {
         criticalFlag = true;
-
     }
- }
-
-
+}
+*/

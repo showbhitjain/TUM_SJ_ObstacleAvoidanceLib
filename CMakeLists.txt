@@ -31,6 +31,7 @@ add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 find_package(Eigen3 REQUIRED)
 find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
 find_package(PerceptionData REQUIRED)
+find_package(Franka REQUIRED)
 
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
@@ -55,18 +56,18 @@ add_library(${LIB_NAME}
         src/utilsJointValuesMatlab.cpp
         include/utilsJointValuesMatlab.h
         src/ObstacleAvoidanceUtils.cpp
-        include/ObstacleAvoidanceUtils.h
+
         src/Obstacles.cpp
-        include/Obstacles.h
-        src/criticalPoints.cpp
-        include/criticalPoints.h
+
+        src/ControllerPD.cpp
+
 
 
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a)
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka)
 
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})

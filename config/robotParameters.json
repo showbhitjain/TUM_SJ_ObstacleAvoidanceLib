@@ -1,0 +1,362 @@
+{
+    "parametersFor": "FrankaPandaExecutor",
+    "RobotController": {
+        "parametersFor": "RobotController",
+        "whichController": "franka",
+        "FrankaRobotControlCartesian": {
+            "defaults": {
+                "system": {
+                    "desk_name": "franka",
+                    "desk_pwd": "frankaRSI",
+                    "gripper": "None",
+                    "has_robot": true,
+                    "robot_ip": "192.168.5.10",
+                    "spoc_in_control": false,
+                    "spoc_token": ""
+                },
+                "safety": {
+                    "cartesian_velocity_damping": {
+                        "D_x": [0, 0, 0, 0, 0, 0],
+                        "active": false,
+                        "dX_thr": [0, 0, 0, 0, 0, 0]
+                    },
+                    "velocity_walls": {
+                        "active": false,
+                        "brake_distance": 0,
+                        "walls": [0, 0, 0, 0, 0, 0]
+                    },
+                    "virtual_cube": {
+                        "active": false,
+                        "damping": 0,
+                        "damping_dist": 0,
+                        "eta": 0,
+                        "f_max": 0,
+                        "rho_min": 0,
+                        "walls": [0, 0, 0, 0, 0, 0]
+                    },
+                    "virtual_joint_walls": {
+                        "active": false,
+                        "damping": [0, 0, 0, 0, 0, 0, 0],
+                        "damping_dist": [0, 0, 0, 0, 0, 0, 0],
+                        "eta": [0, 0, 0, 0, 0, 0, 0],
+                        "rho_min": [0, 0, 0, 0, 0, 0, 0],
+                        "tau_max": [0, 0, 0, 0, 0, 0, 0],
+                        "walls": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                },
+                "control": {
+                    "cart_imp": {
+                        "K_x": [1000, 1000, 1000, 100, 100, 100],
+                        "xi_x": [0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+                    },
+                    "cart_imp_adaptation_stage": {
+                        "F_ff_0": [0, 0, 0, 0, 0, 0],
+                        "L": [0, 0, 0, 0, 0, 0],
+                        "alpha": [0, 0, 0, 0, 0, 0],
+                        "beta": [0, 0, 0, 0, 0, 0],
+                        "gamma_a": [0, 0, 0, 0, 0, 0],
+                        "gamma_b": [0, 0, 0, 0, 0, 0],
+                        "kappa": 0
+                    },
+                    "control_mode": 4,
+                    "force_control": {
+                        "active": [0, 0, 0, 0, 0, 0],
+                        "d_max": [0, 0, 0],
+                        "k_d": [0, 0, 0, 0, 0, 0],
+                        "k_d_N": [0, 0, 0, 0, 0, 0],
+                        "k_i": [0, 0, 0, 0, 0, 0],
+                        "k_p": [0, 0, 0, 0, 0, 0],
+                        "phi_max": 0,
+                        "sf_on": false
+                    },
+                    "joint_imp": {
+                        "K_theta": [1000, 1000, 750, 500, 300, 200, 100],
+                        "xi_theta": [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+                    },
+                    "nullspace_control": {
+                        "K_theta": [0, 0, 0, 0, 0, 0, 0],
+                        "active": false,
+                        "xi_theta": [0, 0, 0, 0, 0, 0, 0]
+                    }
+                },
+                "limits": {
+                    "cartesian_space": {
+                        "F_ext_max": [0, 0],
+                        "F_J_max": [100, 50],
+                        "dF_J_max": [1000, 500],
+                        "K_x_max": [3000, 3000, 3000, 200, 200, 200],
+                        "dK_x_max": [5000, 5000, 5000, 500, 500, 500],
+                        "dX_max": [1.7, 2.5],
+                        "ddX_max": [13, 25],
+                        "dddX_max": [6500, 12500],
+                        "x_lower": [-0.96, -0.96, -0.4],
+                        "x_upper": [0.96, 0.96, 1.3],
+                        "xi_x_max": [2, 2, 2, 2, 2, 2],
+                        "dxi_x_max": [10, 10, 10, 10, 10, 10]
+                    },
+                    "joint_space": {
+                        "K_theta_max": [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+                        "dK_theta_max": [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+                        "dq_max": [2.1, 2.1, 2.1, 2.1, 2.6, 2.6, 2.6],
+                        "ddq_max": [15, 7.5, 10, 12.5, 15, 20, 20],
+                        "dddq_max": [7500, 3750, 5000, 6250, 7500, 10000, 10000],
+                        "q_lower": [-2.85, -1.7, -2.85, -3, -2.85, -0.05, -2.85],
+                        "q_upper": [2.85, 1.7, 2.85, 0, 2.85, 3.7, 2.85],
+                        "tau_J_max": [87, 87, 87, 87, 12, 12, 12],
+                        "dtau_J_max": [1000, 1000, 1000, 1000, 1000, 1000, 1000],
+                        "tau_ext_max": [87, 87, 87, 87, 12, 12, 12],
+                        "xi_theta_max": [2, 2, 2, 2, 2, 2, 2],
+                        "dxi_theta_max": [10, 10, 10, 10, 10, 10, 10]
+                    }
+                },
+                "frames": {
+                    "EE_T_K": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "EE_T_TCP": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "F_T_EE": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "O_R_T": [1, 0, 0, 0, 1, 0, 0, 0, 1]
+                },
+                "user": {
+                    "F_ext_contact": [4, 2],
+                    "F_ext_max": [100, 50],
+                    "dX_default": [0.1, 0.5],
+                    "ddX_default": [0.5, 1],
+                    "ddq_default": 1,
+                    "dq_default": 0.5,
+                    "env_X": [0.005, 0.005, 0.005, 0.0175, 0.0175, 0.0175],
+                    "env_dX": [0.001, 0.001, 0.001, 0.005, 0.005, 0.005],
+                    "env_dq": 0.005,
+                    "env_q": 0.0175,
+                    "load_I": [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    "load_com": [0, 0, 0],
+                    "load_m": 0,
+                    "safe_mode": true,
+                    "tau_ext_contact": [2, 2, 2, 2, 2, 2, 2],
+                    "tau_ext_max": [87, 87, 87, 87, 12, 12, 12]
+                }
+            },
+            "parameters": {
+                "control": {
+                    "control_mode": 0,
+                    "CART_control_mode": 0,
+                    "JOINT_control_mode": 1
+                },
+                "skill": {
+                    "terminate_when_loc": true,
+                    "telepresence_mode": "DirectCart",
+                    "CART_telepresence_mode": "DirectCart",
+                    "JOINT_telepresence_mode": "DirectJoint",
+                    "direct_cart": {
+                        "alpha": [0, 0, 0, 0, 0, 0]
+                    },
+                    "direct_joint": {
+                        "alpha": [0, 0, 0, 0, 0, 0, 0]
+                    }
+                }
+            }
+        },
+        "FrankaRobotControlJoint": {
+            "defaults": {
+                "system": {
+                    "desk_name": "franka",
+                    "desk_pwd": "frankaRSI",
+                    "gripper": "None",
+                    "has_robot": true,
+                    "robot_ip": "192.168.5.10",
+                    "spoc_in_control": false,
+                    "spoc_token": ""
+                },
+                "safety": {
+                    "cartesian_velocity_damping": {
+                        "D_x": [0, 0, 0, 0, 0, 0],
+                        "active": false,
+                        "dX_thr": [0, 0, 0, 0, 0, 0]
+                    },
+                    "velocity_walls": {
+                        "active": false,
+                        "brake_distance": 0,
+                        "walls": [0, 0, 0, 0, 0, 0]
+                    },
+                    "virtual_cube": {
+                        "active": false,
+                        "damping": 0,
+                        "damping_dist": 0,
+                        "eta": 0,
+                        "f_max": 0,
+                        "rho_min": 0,
+                        "walls": [0, 0, 0, 0, 0, 0]
+                    },
+                    "virtual_joint_walls": {
+                        "active": false,
+                        "damping": [0, 0, 0, 0, 0, 0, 0],
+                        "damping_dist": [0, 0, 0, 0, 0, 0, 0],
+                        "eta": [0, 0, 0, 0, 0, 0, 0],
+                        "rho_min": [0, 0, 0, 0, 0, 0, 0],
+                        "tau_max": [0, 0, 0, 0, 0, 0, 0],
+                        "walls": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    }
+                },
+                "control": {
+                    "cart_imp": {
+                        "K_x": [1000, 1000, 1000, 100, 100, 100],
+                        "xi_x": [0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+                    },
+                    "cart_imp_adaptation_stage": {
+                        "F_ff_0": [0, 0, 0, 0, 0, 0],
+                        "L": [0, 0, 0, 0, 0, 0],
+                        "alpha": [0, 0, 0, 0, 0, 0],
+                        "beta": [0, 0, 0, 0, 0, 0],
+                        "gamma_a": [0, 0, 0, 0, 0, 0],
+                        "gamma_b": [0, 0, 0, 0, 0, 0],
+                        "kappa": 0
+                    },
+                    "control_mode": 4,
+                    "force_control": {
+                        "active": [0, 0, 0, 0, 0, 0],
+                        "d_max": [0, 0, 0],
+                        "k_d": [0, 0, 0, 0, 0, 0],
+                        "k_d_N": [0, 0, 0, 0, 0, 0],
+                        "k_i": [0, 0, 0, 0, 0, 0],
+                        "k_p": [0, 0, 0, 0, 0, 0],
+                        "phi_max": 0,
+                        "sf_on": false
+                    },
+                    "joint_imp": {
+                        "K_theta": [1000, 1000, 750, 500, 300, 200, 100],
+                        "xi_theta": [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+                    },
+                    "nullspace_control": {
+                        "K_theta": [0, 0, 0, 0, 0, 0, 0],
+                        "active": false,
+                        "xi_theta": [0, 0, 0, 0, 0, 0, 0]
+                    }
+                },
+                "limits": {
+                    "cartesian_space": {
+                        "F_ext_max": [0, 0],
+                        "F_J_max": [100, 50],
+                        "dF_J_max": [1000, 500],
+                        "K_x_max": [3000, 3000, 3000, 200, 200, 200],
+                        "dK_x_max": [5000, 5000, 5000, 500, 500, 500],
+                        "dX_max": [1.7, 2.5],
+                        "ddX_max": [13, 25],
+                        "dddX_max": [6500, 12500],
+                        "x_lower": [-0.96, -0.96, -0.4],
+                        "x_upper": [0.96, 0.96, 1.3],
+                        "xi_x_max": [2, 2, 2, 2, 2, 2],
+                        "dxi_x_max": [10, 10, 10, 10, 10, 10]
+                    },
+                    "joint_space": {
+                        "K_theta_max": [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+                        "dK_theta_max": [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+                        "dq_max": [2.1, 2.1, 2.1, 2.1, 2.6, 2.6, 2.6],
+                        "ddq_max": [15, 7.5, 10, 12.5, 15, 20, 20],
+                        "dddq_max": [7500, 3750, 5000, 6250, 7500, 10000, 10000],
+                        "q_lower": [-2.85, -1.7, -2.85, -3, -2.85, -0.05, -2.85],
+                        "q_upper": [2.85, 1.7, 2.85, 0, 2.85, 3.7, 2.85],
+                        "tau_J_max": [87, 87, 87, 87, 12, 12, 12],
+                        "dtau_J_max": [1000, 1000, 1000, 1000, 1000, 1000, 1000],
+                        "tau_ext_max": [87, 87, 87, 87, 12, 12, 12],
+                        "xi_theta_max": [2, 2, 2, 2, 2, 2, 2],
+                        "dxi_theta_max": [10, 10, 10, 10, 10, 10, 10]
+                    }
+                },
+                "frames": {
+                    "EE_T_K": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "EE_T_TCP": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "F_T_EE": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                    "O_R_T": [1, 0, 0, 0, 1, 0, 0, 0, 1]
+                },
+                "user": {
+                    "F_ext_contact": [4, 2],
+                    "F_ext_max": [100, 50],
+                    "dX_default": [0.1, 0.5],
+                    "ddX_default": [0.5, 1],
+                    "ddq_default": 1,
+                    "dq_default": 0.5,
+                    "env_X": [0.005, 0.005, 0.005, 0.0175, 0.0175, 0.0175],
+                    "env_dX": [0.001, 0.001, 0.001, 0.005, 0.005, 0.005],
+                    "env_dq": 0.005,
+                    "env_q": 0.0175,
+                    "load_I": [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    "load_com": [0, 0, 0],
+                    "load_m": 0,
+                    "safe_mode": true,
+                    "tau_ext_contact": [2, 2, 2, 2, 2, 2, 2],
+                    "tau_ext_max": [87, 87, 87, 87, 12, 12, 12]
+                }
+            },
+            "parameters": {
+                "control": {
+                    "control_mode": 1,
+                    "CART_control_mode": 0,
+                    "JOINT_control_mode": 1
+                },
+                "skill": {
+                    "terminate_when_loc": true,
+                    "telepresence_mode": "DirectJoint",
+                    "CART_telepresence_mode": "DirectCart",
+                    "JOINT_telepresence_mode": "DirectJoint",
+                    "direct_cart": {
+                        "alpha": [0, 0, 0, 0, 0, 0]
+                    },
+                    "direct_joint": {
+                        "alpha": [0, 0, 0, 0, 0, 0, 0]
+                    }
+                }
+            }
+        },
+        "JointRobotControl": {
+            "velocity": 0.25
+        },
+        "robotIpAddress": "192.168.5.10",
+        "isAtGoalThreshold": 0.01,
+        "_gripperMaxOpenValue": 0.0797857,
+        "deltaPoseSide": [
+            ["d", 120, [1, 1, -1]],
+            ["r", 1.12, [1, 0, 0]],
+            ["r", 0.05, [0, 1, 0]],
+            ["r", -0.35, [0, 0, 1]],
+            [0.015, -0.025, 0.35]
+        ],
+        "deltaPose": [
+            [0, 0, 0.24]
+        ],
+        "deltaAlphaMax": 0.005,
+        "poseUpdateSleepTimeMs": 10,
+        "vFar": 0.00008,
+        "vNear": 0.00008,
+        "_vNear": 0.00005
+    },
+    "setRobotGoalWithDelta": false,
+    "MultipleFilter": {
+        "parametersFor": "MultipleFilter",
+        "1filters": ["MedianFilter"],
+        "2filters": ["KalmanFilter"],
+        "3filters": ["PoseDecoupledLowPassTrajectoryFilter"],
+        "filters": ["MedianFilter", "KalmanFilter"],
+        "KalmanFilter": {
+            "parametersFor": "KalmanFilter",
+            "noiseMatrixEstimatorDataFile": "../config/sensorNoiseMatrixData.json",
+            "processMatrixDiagonalValues": [
+                0.001, 0.001, 0.001,
+                0.001, 0.001, 0.001,
+                0.001, 0.001, 0.001,
+                0.01, 0.01, 0.01,
+                0.1, 0.1, 0.1
+            ],
+            "initialEstimateCovariance": 100,
+            "verbose": false
+        },
+        "MedianFilter": {
+            "parametersFor": "MedianFilter",
+            "size": 3,
+            "verbose": false
+        },
+        "PoseDecoupledLowPassTrajectoryFilter": {
+            "parametersFor": "PoseDecoupledLowPassTrajectoryFilter",
+            "pWindowSize": 15,
+            "qRange": 0.4,
+            "qCenter": 0.35
+        }
+    }
+}

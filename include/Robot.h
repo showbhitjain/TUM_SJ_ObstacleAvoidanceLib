@@ -5,7 +5,7 @@
 #ifndef TUM_SJ_OBSTACLEAVOIDANCELIB_ROBOT_H
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_ROBOT_H
 
-#include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
+//#include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h>
 #include <string>
 #include <vector>
@@ -36,9 +36,9 @@ namespace ObstacleAvoidance {
         createRobot_fromconfigfile(const std::string &configFile, const DQ_robotics::DQ &q);
 
         std::shared_ptr<DQ_robotics::DQ_SerialManipulatorDH> robotDH;
-        std::shared_ptr<DQ_robotics::DQ_SerialManipulatorMDH> robot;
+        //std::shared_ptr<DQ_robotics::DQ_SerialManipulatorMDH> robot;
 
-        DQ_robotics::DQ_SerialManipulatorMDH robotmdh;
+        //DQ_robotics::DQ_SerialManipulatorMDH robotmdh;
         AndreiUtils::Posed displacementEEToTCP; /**< The displacement from the end effector to the TCP. */
         Eigen::Matrix4d transformationEEToTCP; //the transformation between endeffector and TCP. (TCP w.r.t End effector frame)
         AndreiUtils::Posed baseFrame_robot;
@@ -52,8 +52,9 @@ namespace ObstacleAvoidance {
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
               const AndreiUtils::Posed &baseFrame);
 
-        DQ_robotics::DQ_SerialManipulatorMDH
+        /*DQ_robotics::DQ_SerialManipulatorMDH
         createRobotMDH(const AndreiUtils::ConfigurationParameters &config, const DQ_robotics::DQ &q);
+        */
 
         Eigen::VectorXd getRobotJointValues() const;
 
@@ -87,9 +88,10 @@ namespace ObstacleAvoidance {
 
         const std::shared_ptr<Joints> &getJoints() const;
 
-        DQ_robotics::DQ_SerialManipulatorMDH
+        /*DQ_robotics::DQ_SerialManipulatorMDH
         createRobotMdhFromPath(const std::string &configFile_Path, const std::string &parameterFor,
                                const std::string &whichrobot, const AndreiUtils::Posed &baseFrame);
+                               */
 
         Eigen::MatrixXd jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const;
 
@@ -102,11 +104,11 @@ namespace ObstacleAvoidance {
 
         Eigen::MatrixXd forwardKinematicsTCP( Eigen::VectorXd const &jointValues) const;
 
-        Eigen::Matrix4d transformMdh(double a, double alpha, double d, double theta);
+        Eigen::Matrix4d transformMdh(double a, double alpha, double d, double theta) const;
 
-        Eigen::Matrix4d fkmCartesian(const Eigen::VectorXd &joint_positions, int ith_link);
+        Eigen::MatrixXd fkmCartesian(const Eigen::VectorXd &joint_positions,  int const&ith_link) const;
 
-        Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) ;
+        Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const ;
 
 
         std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues, Eigen::VectorXd const & radius);

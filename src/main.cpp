@@ -5,7 +5,7 @@
 #include <cmath>
 #include "cartesianTrajetory.h"
 #include <boost/numeric/odeint.hpp>
-#include <AndreiUtils/utilsGeometry.h>
+//#include <AndreiUtils/utilsGeometry.h>
 #include <utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>
@@ -83,7 +83,7 @@ int main() {
     cout << "desiredPositionTCP: /n:" << desiredPositionTCP.col(15488) << endl;
     auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] = orientationTrajectory(trajConfig);
     VectorXd wayPointTimes = stdVectorToEigenVector(trajConfig.get<vector<double>>("waypointTimes"));
-    double ts = trajConfig.get<double>("trajectorySampleTime");
+    auto ts = trajConfig.get<double>("trajectorySampleTime");
     VectorXd trajTimes = generateSequence(wayPointTimes(0), ts, wayPointTimes(last));
     cout << "Number of Samples: " << trajTimes.size() << endl;
     AndreiUtils::Posed baseFrame = DualQuaternion<double>::identity();
@@ -91,8 +91,8 @@ int main() {
     Eigen::VectorXd Homejointpositions(robot.getNumberJoints());
     Homejointpositions << 0, 0, 0, -M_PI / 2, 0, M_PI / 2, M_PI / 4;
 
-    auto trafo = robot.forwardKinematics(Homejointpositions, 7);
-    int numberJoints = robot.getNumberJoints();
+    auto trafo = robot.fkmCartesian(Homejointpositions, 7);
+    int numberJoints = static_cast<int>(robot.getNumberJoints());
     MatrixXd actualJointValuesMatrix = Eigen::MatrixXd::Zero(numberJoints, trajTimes.size());
     MatrixXd actualJointVelocityMatrix = Eigen::MatrixXd::Zero(numberJoints, trajTimes.size());
 
@@ -126,7 +126,7 @@ int main() {
     auto LinkSegments = robot.createLineSegments(Homejointpositions,radius);
 
     for (int i = 0; i < trajTimes.size()-1; i++) {
-        auto transformTcpToBase = robot.forwardKinematicsTCP(actualJointValuesMatrix(all, i));
+        auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));
         cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
         VectorXd positionTcpCurrent = transformTcpToBase(seq(0, 2), 3);
 
