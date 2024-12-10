@@ -13,84 +13,23 @@
 #include <criticalPoints.h>
 
 using namespace AndreiUtils;
-using namespace DQ_robotics;
 using namespace Eigen;
 using namespace ObstacleAvoidance;
 using namespace std;
 using json = nlohmann::json;
 
-/*
-DQ_SerialManipulatorMDH
-Robot::createRobotMdhFromPath(std::string const &configFile_Path, std::string const &parameterFor,
-                              std::string const &whichrobot, AndreiUtils::Posed const &baseFrame) {
-    auto Config_file = ConfigurationParameters(configFile_Path,
-                                               parameterFor); //get the file which has path to the robotconfigfile
-    auto Config = Config_file.getSubConfig(
-            whichrobot); // create config file from class Configurationparameters for the type of robot
-    return createRobotMDH(Config, fromPoseToDQ(baseFrame));
-}
 
-DQ_SerialManipulatorMDH Robot::createRobotMDH(const ConfigurationParameters &config, DQ const &q) {
-    auto mdhParameters = config.get<vector<vector<double>>>("mdhParameters");
-    size_t nrJoints = mdhParameters.size();
-    MatrixXd mdhMatrix(4, nrJoints);
-    bool withHand = config.get<bool>("dhWithHand");
 
-    for (int i = 0; i < nrJoints; i++) {
-        for (int j = 0; j < 4; j++) {
-            mdhMatrix(j, i) = (j == 0 || j == 3) ? deg2Rad(mdhParameters[i][j]) : mdhParameters[i][j];
-//            std::cout << "mdhMatrix(" << j << ", " << i << ") = " << mdhMatrix(j, i) << std::endl;
-            /*if (i == nrJoints - 1 && j == 2 && withHand)
-            {
-                mdhMatrix(j, i) += config.get<double>("dhConnectorToHand");
-            }#1#
-        }
-    }
-    MatrixXd newMdhMatrix(5, nrJoints);
-    newMdhMatrix << mdhMatrix, MatrixXd::Zero(1, nrJoints);
-    mdhMatrix = newMdhMatrix;
-    std::cout << "The matrix is:\n" << mdhMatrix << std::endl;
-    DQ_SerialManipulatorMDH robot(mdhMatrix);
-    robot.set_base_frame(q);
-    robot.set_reference_frame(q);
-    return robot;
-}
-*/
-
-DQ_SerialManipulator Robot::createRobot_fromconfigfile(const string &configFile, const DQ_robotics::DQ &q) {
-    json config = readJsonFile(configFile);
-    vector<vector<double> > dhParameters = config["dhParameters"];
-    size_t nrJoints = dhParameters.size();
-    MatrixXd dhMatrix(5, nrJoints);
-    bool withHand = config["dhWithHand"];
-
-    for (int i = 0; i < nrJoints; i++) {
-        for (int j = 0; j < 5; j++) {
-            dhMatrix(j, i) = (j == 0 || j == 3) ? deg2Rad(dhParameters[i][j]) : dhParameters[i][j];
-            if (i == nrJoints - 1 && j == 2 && withHand) {
-                dhMatrix(j, i) += double(config["dhConnectorToHand"]);
-            }
-        }
-    }
-
-    DQ_SerialManipulator robot(dhMatrix, "standard");
-    robot.set_base_frame(q);
-    robot.set_reference_frame(q);
-    return robot;
-}
 
 //configFile_Path : path to the file which containes paths to config file for the type of robot
 //which_robot = type of robot
 Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
-             const AndreiUtils::Posed &baseFrame) /*: robotmdh(
-        createRobotMdhFromPath(configFile_Path, parameterFor, whichrobot, baseFrame))*/ {
+             const AndreiUtils::Posed &baseFrame) {
     auto Config_file = ConfigurationParameters(configFile_Path,
                                                parameterFor); //get the file which has path to the robotconfigfile
     this->Config = Config_file.getSubConfig(
         whichrobot); // create config file from class Configurationparameters for the type of robot
-    /*auto s = createRobotMDH(Config, fromPoseToDQ(baseFrame));
-    std::shared_ptr<DQ_SerialManipulator> ro;
-    this->robot = make_shared<DQ_SerialManipulatorMDH>(std::move(s));*/
+
     std::vector<double> eul = Config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double> >();
     for (int i = 0; i < eul.size(); i++) {
         eul[i] = deg2Rad(static_cast<double>(eul[i]));
@@ -115,19 +54,13 @@ VectorXd Robot::getRobotJointValues() const {
     return this->joints->values;
 }
 
-/*
-DQ Robot::getRobotPose() const {
-    return this->fkm();
-}
-*/
+
 
 VectorXd Robot::getCurrentRobotJointValues() {
     return this->joints->getCurrentJointValues();
 }
 
-/*DQ Robot::getCurrentRobotPose() {
-    return this->fkm(this->getCurrentRobotJointValues());
-}*/
+
 
 /*void Robot::updateRobotJointValues() {
     this->joints->update();
@@ -137,51 +70,8 @@ void Robot::setJointValues(VectorXd const &jointValues) {
     this->joints->setJointValues(jointValues);
 }
 
-/*DQ Robot::fkm() const {
-    return this->fkm(this->joints->values);
-}
 
-DQ Robot::fkm(VectorXd const &jointValues) const {
-    return this->robot->fkm(jointValues);
-}
-
-MatrixXd Robot::jacobian() const {
-    return this->jacobian(this->joints->values);
-}
-
-MatrixXd Robot::jacobian(Eigen::VectorXd const &jointValues) const {
-    return this->robot->pose_jacobian(jointValues);
-}
-
-//#1#Endeffector Position in x,y Z
-Eigen::VectorXd Robot::fkm_cartesian(const VectorXd &jointValues) const {
-    auto endeffector_dq = this->robot->fkm(jointValues);
-    auto endeffector_pose = fromDQToPose(endeffector_dq);
-    return endeffector_pose.getTranslation();
-}
-
-//ith link position in x.y,z
-Eigen::VectorXd Robot::fkm_cartesian(Eigen::VectorXd const &jointValues, const int &to_ith_link) const {
-    auto ithlink_pose_dq = this->robot->fkm(jointValues, to_ith_link);
-    auto ithlink_pose = fromDQToPose(ithlink_pose_dq);
-    return ithlink_pose.getTranslation();
-}*/
-
-//Transformation from i to 0 (i th link to base frame)
-/*Eigen::MatrixXd Robot::forwardKinematics(Eigen::VectorXd const &jointValues,  int const &toIthLink) const {
-    int i = toIthLink - 1;
-    auto ithlink_transformation_dq = this->robotmdh.raw_fkm(jointValues, i);
-    return fromDQToPose(ithlink_transformation_dq).getTransformationMatrix();
-}
-
-Eigen::MatrixXd Robot::forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const {
-
-    int numJoints = static_cast<int>(this->getNumberJoints());
-    return this->forwardKinematics(jointValues, numJoints) * this->transformationEEToTCP;
-
-}*/
-
-size_t Robot::getNumberJoints() const {
+int Robot::getNumberJoints() const {
     return this->joints->number_joints;
 }
 
@@ -226,7 +116,7 @@ Eigen::MatrixXd Robot::jacobianCartesian(const Eigen::VectorXd &jointValues, con
 
 Eigen::MatrixXd Robot::jacobianCartesianOnLink(VectorXd const &jointValues, int const &toIthLink,
                                                Matrix4d const &transformationRelative) {
-    int numJoints = jointValues.size(); // Number of joints
+    const int numJoints = static_cast<int>(jointValues.size()); // Number of joints
     Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6, numJoints); // Initialize Jacobian matrix with zeros
 
     // Compute the transformation to the end-effector or toIthLink

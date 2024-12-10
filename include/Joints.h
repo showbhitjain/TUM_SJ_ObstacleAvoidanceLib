@@ -24,7 +24,7 @@ namespace ObstacleAvoidance {
 
 
 
-        Joints(Eigen::VectorXd const &minValues, Eigen::VectorXd const &maxValues, Eigen::VectorXd const &velMinValues, Eigen::VectorXd const &velMaxValues, int const &numJoints);
+        Joints(Eigen::VectorXd minValues, Eigen::VectorXd maxValues, Eigen::VectorXd velMinValues, Eigen::VectorXd velMaxValues, int const &numJoints);
 
 // this function internally updates the joint values so that they are up-to-date at the calling time
         virtual Eigen::VectorXd const &getCurrentJointValues();
@@ -41,7 +41,7 @@ namespace ObstacleAvoidance {
         Eigen::VectorXd minValues, maxValues;
         Eigen::VectorXd velMinValues, velMaxValues;
 
-        size_t number_joints ;
+        int number_joints ;
     protected:
 
     };

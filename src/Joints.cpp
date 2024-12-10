@@ -4,6 +4,7 @@
 
 #include<Joints.h>
 #include <iostream>
+#include <utility>
 #include <utils.h>
 using namespace ObstacleAvoidance;
 using namespace  std;
@@ -33,8 +34,8 @@ Joints::Joints(const ConfigurationParameters &config) {
 
 }
 
-Joints::Joints(Eigen::VectorXd const &minValues, Eigen::VectorXd const &maxValues, Eigen::VectorXd const &velMinValues, Eigen::VectorXd const &velMaxValues, int const &numJoints) : minValues(minValues),
-                                                                                                       maxValues(maxValues), number_joints(numJoints),velMaxValues(velMaxValues),velMinValues(velMinValues) {}
+Joints::Joints(Eigen::VectorXd minValues, Eigen::VectorXd maxValues, Eigen::VectorXd velMinValues, Eigen::VectorXd velMaxValues, int const &numJoints) : minValues(std::move(minValues)),
+                                                                                                       maxValues(std::move(maxValues)), number_joints(numJoints),velMaxValues(std::move(velMaxValues)),velMinValues(std::move(velMinValues)) {}
 
 /**
 * @brief Get the current joint values of the robot.

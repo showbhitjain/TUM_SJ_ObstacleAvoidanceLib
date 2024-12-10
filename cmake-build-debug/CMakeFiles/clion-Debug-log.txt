@@ -1,4 +1,25 @@
-/home/andrei/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /home/shobhit/tum_sj_obstacleavoidancelib -B /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug
+/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/shobhit/tum_sj_obstacleavoidancelib -B /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug
+CMake Deprecation Warning:
+  Support for "Extra Generators" like
+
+    CodeBlocks
+
+  is deprecated and will be removed from a future version of CMake.  IDEs may
+  use the cmake-file-api(7) to view CMake-generated project build trees.
+
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
 CMake Warning (dev) at /usr/local/share/pcl-1.13/PCLConfig.cmake:158 (find_package):
   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
@@ -16,15 +37,36 @@ Call Stack (most recent call first):
   CMakeLists.txt:21 (find_package)
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
+-- Checking for module 'eigen3'
+--   Found eigen3, version 3.4.0
+-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.3") 
 -- Eigen found (include: /usr/include/eigen3, version: 3.3.7)
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.65.0") found components: system filesystem iostreams serialization 
 -- looking for PCL_COMMON
+-- Found PCL_COMMON: /usr/local/lib/libpcl_common.so  
+-- Found PCL: pcl_common;Boost::system;Boost::filesystem;Boost::iostreams;Boost::serialization  
 -- PCL optimization flags = $<$<COMPILE_LANGUAGE:CXX>:-msse4.2;-mfpmath=sse;-march=native;-mavx2>
+-- Found Eigen: /usr/include/eigen3  
+-- Eigen found (include: /usr/include/eigen3, version: 3.3.7)
 AndreiUtils requested components: eigen;json;python
+-- Found Python3: /usr/bin/python3.8 (found suitable exact version "3.8.10") found components: Interpreter Development Development.Module Development.Embed 
 Found package python with version 3.8
+-- Performing Test HAS_FLTO
+-- Performing Test HAS_FLTO - Success
 -- Found pybind11: /usr/local/include (found version "2.10.0dev1")
 PerceptionData requested components: core
+-- Checking for one of the modules 'clp'
+-- Checking for one of the modules 'coinutils'
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Check if compiler accepts -pthread
+-- Check if compiler accepts -pthread - yes
+-- Found Threads: TRUE  
 -- Including Inverse Kinematics Package from /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg
+-- Found OpenMP_C: -fopenmp (found version "4.5") 
+-- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+-- Found OpenMP: TRUE (found version "4.5")  
 OPENMP FOUND
--- Configuring done (0.1s)
+-- Configuring done (0.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug

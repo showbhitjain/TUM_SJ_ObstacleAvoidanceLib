@@ -28,7 +28,7 @@ add_definitions(-DIL_STD)
 add_definitions(-DNON_MATLAB_PARSING)
 add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
-find_package(Eigen3 REQUIRED)
+find_package(Eigen REQUIRED)
 find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
 find_package(PerceptionData REQUIRED)
 find_package(Franka REQUIRED)
@@ -53,14 +53,15 @@ add_library(${LIB_NAME}
         src/cartesianTrajetory.cpp
         src/inverseKinematics.cpp
         privateSrc/privateUtils.cpp
+
         src/utilsJointValuesMatlab.cpp
-        include/utilsJointValuesMatlab.h
+
         src/ObstacleAvoidanceUtils.cpp
 
         src/Obstacles.cpp
 
-        src/ControllerPD.cpp
-
+        src/controllerFranka.cpp
+        src/examples_common.cpp
 
 
 )
@@ -78,6 +79,7 @@ target_include_directories(${LIB_NAME} PUBLIC
 )
 
 add_executable(TUM_SJ_main src/main.cpp)
+add_executable(ControllerExperiments src/frankaControllerExperiments.cpp)
 
 find_package(OpenMP REQUIRED)
 if (OpenMP_CXX_FOUND)
@@ -87,6 +89,7 @@ if (OpenMP_CXX_FOUND)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
     target_link_libraries(TUM_SJ_ObstacleAvoidanceLib ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
     target_link_libraries(TUM_SJ_main ${LIB_NAME})
+    target_link_libraries(ControllerExperiments ${LIB_NAME})
 endif ()
 
 

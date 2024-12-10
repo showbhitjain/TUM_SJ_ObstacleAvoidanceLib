@@ -163,3 +163,31 @@ void ObstacleAvoidance::writeMatrixToCSV( std::string const& filename,  Eigen::M
         std::cerr << "Could not open the file for writing.\n";
     }
 }
+
+Eigen::MatrixXd ObstacleAvoidance::readMatrixFromCSV(const std::string& filename) {
+    std::vector<double> matrixEntries;
+
+    // Initialize variables needed for the loop
+    std::ifstream file(filename);
+    std::string line;
+    int numRows = 0;
+    int numCols = 0;
+
+    // First pass to fill in the entries
+    while(std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string item;
+        while(std::getline(ss, item, ',')) {
+            matrixEntries.push_back(stod(item));
+        }
+        ++numRows;
+    }
+
+    // Compute the number of columns
+    numCols = matrixEntries.size() / numRows;
+
+    // Now we'll fill the Eigen matrix with the entries
+    Eigen::MatrixXd matrix = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>>(matrixEntries.data(), numRows, numCols);
+
+    return matrix;
+}
