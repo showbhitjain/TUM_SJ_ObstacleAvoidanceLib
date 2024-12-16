@@ -17,18 +17,9 @@
 #include <Joints.h>
 #include <tuple>
 #include <Obstacles.h>
+#include <LinkSegment.h>
 
 namespace ObstacleAvoidance {
-    class LinkSegment {
-    public:
-        Eigen::VectorXd aSegmentV0;
-        Eigen::VectorXd aSegmentV1;
-        Eigen::VectorXd dSegmentV0;
-        Eigen::VectorXd dSegmentV1;
-        Eigen::VectorXd Tool_V0;
-        Eigen::VectorXd Tool_V1;
-        double radius;
-    };
 
     class Robot {
     protected:
@@ -39,12 +30,12 @@ namespace ObstacleAvoidance {
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
         Eigen::MatrixXd mdhMatrix;
+
         //      size_t number_joints;
 
 
     public:
-        Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
-              const AndreiUtils::Posed &baseFrame);
+        Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
 
 
         Eigen::VectorXd getRobotJointValues() const;
@@ -83,8 +74,8 @@ namespace ObstacleAvoidance {
         std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues, Eigen::VectorXd const &radius);
 
         std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> obstacleAvoidanceEquation(
-            std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,
-            double distOuter, double distStop, double k);
+                std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,
+                double distOuter, double distStop, double k);
     };
 }
 

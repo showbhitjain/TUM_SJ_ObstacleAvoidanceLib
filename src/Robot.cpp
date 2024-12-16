@@ -10,7 +10,7 @@
 //#include <utility>
 #include <cmath>
 #include <ObstacleAvoidanceUtils.h>
-#include <criticalPoints.h>
+#include <CriticalPoints.h>
 
 using namespace AndreiUtils;
 using namespace Eigen;
@@ -23,8 +23,7 @@ using json = nlohmann::json;
 
 //configFile_Path : path to the file which containes paths to config file for the type of robot
 //which_robot = type of robot
-Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot,
-             const AndreiUtils::Posed &baseFrame) {
+Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot) {
     auto Config_file = ConfigurationParameters(configFile_Path,
                                                parameterFor); //get the file which has path to the robotconfigfile
     this->Config = Config_file.getSubConfig(
@@ -244,25 +243,46 @@ std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointV
 }
 
 
-/*
 std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEquation(
     std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter,
     double distStop, double k) {
-    int numLinks = this->mdhMatrix.rows() + 1;
-    int numObstalces = obstacles.size();
+
+    double distanceBuffer = 0.005;
+    int numberLinksRobot = this->mdhMatrix.rows() + 1;
+
     static std::vector<Obstacles> ObstaclesDynamicArray;
     if (ObstaclesDynamicArray.empty()) {
         ObstaclesDynamicArray = obstacles;
     }
 
-    static std::vector<std::vector<criticalPoints> > criticalPointsDynamicArray;
+    //for dynamic obstacles compare the persistant obstacles with
+    // new obstacles and do necessary changes to the ObstaclesDynamicArray
+
+    int numberObstacles = ObstaclesDynamicArray.size();
+    static std::vector<std::vector<CriticalPoints> > criticalPointsDynamicArray;
     if (criticalPointsDynamicArray.empty()) {
-        //
+              criticalPointsDynamicArray.resize(numberObstacles, std::vector<CriticalPoints>(numberLinksRobot, CriticalPoints(numberLinksRobot)));
+            //
     }
+
     static bool criticalFlag;
 
     if (criticalFlag == false) {
         criticalFlag = true;
     }
+
+    auto linkSegments = this->createLineSegments(jointAngles,radiusLinks);
+    for (int l = 0; l<numberObstacles;++l){
+        for (int i = 0; i < numberLinksRobot; ++i) {
+            criticalPointsDynamicArray[l][i].distVectorA = Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN());
+            criticalPointsDynamicArray[l][i].distVectorD = Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN());
+
+            if ( !criticalPointsDynamicArray[l][i].hasCriticalpointsA){
+
+
+
+            }
+        }
+
+    }
 }
-*/

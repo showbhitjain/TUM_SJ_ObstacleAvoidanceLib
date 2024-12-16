@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 from fontTools.unicodedata import block
-from roboticstoolbox import DHRobot, RevoluteMDH
+#from roboticstoolbox import DHRobot, RevoluteMDH
 import json
-import roboticstoolbox as rtb
+#import roboticstoolbox as rtb
 import math
 from spatialmath.base import *
 from spatialmath import *
@@ -465,7 +465,7 @@ def read_json_file(filename):
     return data_dict
 
 
-data = pd.read_csv("../output.csv", header=None)
+data = pd.read_csv("../output2.csv", header=None)
 print(data.shape)
 joint_values = data.values
 print(joint_values.shape)

@@ -1,13 +1,4 @@
-/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/shobhit/tum_sj_obstacleavoidancelib -B /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug
-CMake Deprecation Warning:
-  Support for "Extra Generators" like
-
-    CodeBlocks
-
-  is deprecated and will be removed from a future version of CMake.  IDEs may
-  use the cmake-file-api(7) to view CMake-generated project build trees.
-
-
+/home/andrei/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -DPython_EXECUTABLE=/home/shobhit/tum_sj_obstacleavoidancelib/PythonVisualisation/venv/bin/python -DPython3_EXECUTABLE=/home/shobhit/tum_sj_obstacleavoidancelib/PythonVisualisation/venv/bin/python -S /home/shobhit/tum_sj_obstacleavoidancelib -B /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug
 -- The C compiler identification is GNU 11.4.0
 -- The CXX compiler identification is GNU 11.4.0
 -- Detecting C compiler ABI info
@@ -39,17 +30,17 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 
 -- Checking for module 'eigen3'
 --   Found eigen3, version 3.4.0
--- Found Eigen: /usr/include/eigen3 (Required is at least version "3.3") 
+-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.3")
 -- Eigen found (include: /usr/include/eigen3, version: 3.3.7)
--- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.65.0") found components: system filesystem iostreams serialization 
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.65.0") found components: system filesystem iostreams serialization
 -- looking for PCL_COMMON
--- Found PCL_COMMON: /usr/local/lib/libpcl_common.so  
--- Found PCL: pcl_common;Boost::system;Boost::filesystem;Boost::iostreams;Boost::serialization  
+-- Found PCL_COMMON: /usr/local/lib/libpcl_common.so
+-- Found PCL: pcl_common;Boost::system;Boost::filesystem;Boost::iostreams;Boost::serialization
 -- PCL optimization flags = $<$<COMPILE_LANGUAGE:CXX>:-msse4.2;-mfpmath=sse;-march=native;-mavx2>
--- Found Eigen: /usr/include/eigen3  
+-- Found Eigen: /usr/include/eigen3
 -- Eigen found (include: /usr/include/eigen3, version: 3.3.7)
 AndreiUtils requested components: eigen;json;python
--- Found Python3: /usr/bin/python3.8 (found suitable exact version "3.8.10") found components: Interpreter Development Development.Module Development.Embed 
+-- Found Python3: /home/shobhit/tum_sj_obstacleavoidancelib/PythonVisualisation/venv/bin/python (found suitable exact version "3.8.10") found components: Interpreter Development Development.Module Development.Embed
 Found package python with version 3.8
 -- Performing Test HAS_FLTO
 -- Performing Test HAS_FLTO - Success
@@ -61,12 +52,20 @@ PerceptionData requested components: core
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
 -- Check if compiler accepts -pthread
 -- Check if compiler accepts -pthread - yes
--- Found Threads: TRUE  
+-- Found Threads: TRUE
+ConceptLibrary requested components: core
+AndreiUtils requested components: eigen_json
 -- Including Inverse Kinematics Package from /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg
--- Found OpenMP_C: -fopenmp (found version "4.5") 
--- Found OpenMP_CXX: -fopenmp (found version "4.5") 
--- Found OpenMP: TRUE (found version "4.5")  
+-- Found OpenMP_C: -fopenmp (found version "4.5")
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP: TRUE (found version "4.5")
 OPENMP FOUND
--- Configuring done (0.8s)
+-- Configuring done (0.9s)
 -- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    Python_EXECUTABLE
+
+
 -- Build files have been written to: /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug
