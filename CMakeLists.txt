@@ -83,6 +83,8 @@ target_include_directories(${LIB_NAME} PUBLIC
 add_executable(testInverseKinematics src/offlineInverseKinematics.cpp)
 add_executable(ControllerExperiments src/frankaControllerExperiments.cpp)
 add_executable(RealTimeInverseKinematics src/realTimeInverseKinematics.cpp)
+add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybrid.cpp)
+add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
 find_package(OpenMP REQUIRED)
 
 if (OpenMP_CXX_FOUND)
@@ -94,6 +96,8 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(testInverseKinematics ${LIB_NAME})
     target_link_libraries(ControllerExperiments ${LIB_NAME})
     target_link_libraries(RealTimeInverseKinematics ${LIB_NAME})
+    target_link_libraries(RealTimeInverseKinematicsHybrid ${LIB_NAME})
+    target_link_libraries(InverseKinematicsDebugMode ${LIB_NAME})
 endif ()
 
 

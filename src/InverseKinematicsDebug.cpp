@@ -1,6 +1,7 @@
 //
-// Created by shobhit on 12.12.24.
+// Created by shobhit on 17.12.24.
 //
+
 
 
 #include <iostream>
@@ -29,10 +30,10 @@ int main() {
     auto [desiredPositionTCP, desiredVelocityTCP, desiredAccelerationTCP] =
             CartesianTrajectory::positionTrajectory(trajConfig);
     cout << "desiredPositionTCP at 15.487 s: \n" << desiredPositionTCP.col(15488) << endl;
-    cout << " desiredVelocityTCP at 15.469 s: \n" << desiredVelocityTCP.col(15469) << endl;
+    cout << " desiredVelocityTCP at 15.468 s: \n" << desiredVelocityTCP.col(15469) << endl;
     auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] =
             CartesianTrajectory::orientationTrajectory(trajConfig);
-    cout << "desiredQuaternion TCP at 15.488 s: /n:" << desiredQuaternionsTCP.col(15488) << endl;
+    cout << "desiredQuaternion TCP at 15.487 s: /n:" << desiredQuaternionsTCP.col(15488) << endl;
 
     VectorXd wayPointTimes = stdVectorToEigenVector(trajConfig.get<vector<double> >("waypointTimes"));
     auto ts = trajConfig.get<double>("trajectorySampleTime");
@@ -64,15 +65,21 @@ int main() {
     std::copy_n(HomeJointPosition.data(), 7, firstJointPosition.begin());
     cout << "HomeJointPosition:" << HomeJointPosition << endl;
 
+    totalTimesteps =
+    Eigen::MatrixXd actualJointValuesRobotLog(7,timesteps)
     FILE *fp;
-    char const *filename = "frankaData.txt";
+    const char *filename = "frankaData.txt";
 
-    // Open the file for writing in binary mode
-    fp = fopen(filename, "wb");
+    // Open the file for reading
+    fp = fopen(filename, "r");
     if (fp == NULL) {
         perror("Failed to open file");
         return EXIT_FAILURE;
     }
+
+
+    Eigen::Map<Eigen::Matrix<double, 7,
+            1> >(realRobot.readOnce().q.data());
 
     try {
         franka::Robot realRobot("192.168.5.10");
@@ -163,14 +170,14 @@ index += static_cast<long>(period.toMSec());
 
                 //cout << "Position Error: " << (desiredPositionTCP(all, index) - positionTcpCurrent) << endl;
                 //cout << "Orientation Error: " << orientationError << endl;
-                auto JacobiMatrix = robot.jacobianCartesianTCP(actualJointValuesMatrix(all, index));
+                auto JacobiMatrix = robot.jacobianCartesianTCP(desiredJointValuesMatrix(all, index));
                 Eigen::VectorXd poseVelocityEffective(6);
                 poseVelocityEffective(seq(0, 2)) = xdEffective;
                 // poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
                 poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
                 //cout << "poseVelocityEffective: " << poseVelocityEffective << endl;
                 auto [optimalJointVelocity, exitFlag] = ik.ikWithConstraints(
-                    actualJointValuesMatrix(all, index), JacobiMatrix,
+                    desiredJointValuesMatrix(all, index), JacobiMatrix,
                     poseVelocityEffective,
                     jointMinValues, jointMaxValues,
                     jointVelMinValues,
@@ -202,7 +209,7 @@ index += static_cast<long>(period.toMSec());
                 //        double dt = (tEnd - tStart) / 10;
 
                 desiredJointValuesMatrix(all, index + 1) = integrateConstantRungeKutta(
-                    desiredJointVelocityMatrix(all, index), timespan, actualJointValuesMatrix(all, index));
+                    desiredJointVelocityMatrix(all, index), timespan, desiredJointValuesMatrix(all, index));
 
                 //cout << "desired Joint Value: \n" << desiredJointValuesMatrix(all, index) << endl;
             }

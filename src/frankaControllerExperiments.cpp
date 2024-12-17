@@ -48,8 +48,8 @@ int main() {
 
         Vector7d maxTorques =  {87,87,87,87,12,12,12} ;
         Vector7d minTorques =  {-87,-87,-87,-87,-12,-12,-12};
-
-        controllerFranka controller(maxTorques,minTorques,{70, 70, 70, 60, 60, 50, 50}, {30, 30, 30, 20, 20, 10, 10});
+        // {70, 70, 70, 60, 60, 50, 50}
+        controllerFranka controller(maxTorques,minTorques,{600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0}, {50.0, 50.0, 50.0, 50.0, 30.0, 25.0, 15.0});
         /*std::function<franka::JointPositions(const franka::RobotState &robot_state, franka::Duration period)>
                 jointMotionCallback = [&](const franka::RobotState &robot_state,
                                           franka::Duration period) -> franka::JointPositions {

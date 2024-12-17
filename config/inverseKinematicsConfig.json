@@ -11,7 +11,7 @@
     "weight4": 0.1,
     "useObjective5": false,
     "weight5": 0.1,
-    "useObjective6": true,
+    "useObjective6": false,
     "weight6": 0.2
   }
 }
