@@ -30,6 +30,12 @@ namespace ObstacleAvoidance {
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
         Eigen::MatrixXd mdhMatrix;
+        Eigen::VectorXd radiusLinks;
+        Eigen::VectorXd radiusJoints;
+        bool splitRegion;
+        bool splitRegionFinalLink;
+        std::string finalLinkType;
+        Eigen::Vector3d finalLinkDimensions;
 
         //      size_t number_joints;
 
@@ -71,11 +77,16 @@ namespace ObstacleAvoidance {
         Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const;
 
 
-        std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues, Eigen::VectorXd const &radius);
+        std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues);
 
         std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> obstacleAvoidanceEquation(
                 std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,
                 double distOuter, double distStop, double k);
+
+        std::vector<LinkSegment>
+        createLineSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,
+                           const std::string finalLinkType,
+                           const Eigen::VectorXd &dimensions);
     };
 }
 

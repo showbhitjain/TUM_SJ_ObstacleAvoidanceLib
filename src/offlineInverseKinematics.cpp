@@ -28,8 +28,8 @@ void printLinkSegments(std::vector<LinkSegment> const &LinkSegments){
     for (auto &Link:LinkSegments) {
         cout << "av0: " << Link.aSegmentV0.transpose() << "\t" << "av1: " << Link.aSegmentV1.transpose() << "\tdv0: " << Link.dSegmentV0.transpose()
              << "\tdv1: " << Link.dSegmentV1.transpose() << endl;
-        if (Link.Tool_V0.size() != 0) {
-            cout << "ToolV0: " << Link.Tool_V0.transpose() << "\tToolV1: " << Link.Tool_V1.transpose() << endl;
+        if (Link.toolV0.size() != 0) {
+            cout << "ToolV0: " << Link.toolV0.transpose() << "\tToolV1: " << Link.toolV1.transpose() << endl;
 
         }
     }
@@ -122,7 +122,7 @@ int main() {
     VectorXd radius(numberJoints);
     radius = Eigen::VectorXd::Constant(numberJoints+1,0.1);
     cout<<"ForwardKinematics: \n"<<robot.fkmCartesianTCP(Homejointpositions)(seq(0,2),2)<<endl;
-    auto LinkSegments = robot.createLineSegments(Homejointpositions,radius);
+    auto LinkSegments = robot.createLineSegments(Homejointpositions);
 
     for (int i = 0; i < trajTimes.size()-1; i++) {
         auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));

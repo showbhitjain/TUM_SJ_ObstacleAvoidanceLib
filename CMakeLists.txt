@@ -33,12 +33,22 @@ find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
 find_package(PerceptionData REQUIRED)
 find_package(Franka REQUIRED)
 find_package(ConceptLibrary REQUIRED)
+find_package(ccd REQUIRED)
+
+
+set(FCL_DIR "/home/shobhit/fcl/build")
+
+# Include FCL headers
+include_directories("/home/shobhit/fcl/include")
+
+# Link FCL library
+link_directories(${FCL_DIR}/lib)
 
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
 
-include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB})
+include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${CCD_INCLUDE_DIRS})
 
 message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
 
@@ -70,7 +80,7 @@ add_library(${LIB_NAME}
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY})
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES})
 
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})

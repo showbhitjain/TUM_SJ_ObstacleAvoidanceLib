@@ -42,6 +42,12 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
     std::cout << "The trafo_matrix between endeffector and Tcp is: \n" << transformationEEToTCP << std::endl;
 
     std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
+    this->radiusLinks = stdVectorToEigenVector(Config.get<vector<double>>("radiusLinks"));
+    this->radiusJoints = stdVectorToEigenVector(Config.get<vector<double>>("radiusJoints"));
+    this->finalLinkType = Config.get<std::string>("finalLinkType");
+    this->finalLinkDimensions = stdVectorToEigenVector(Config.get<vector<double>>("finalLinkDimensions"));
+    this->splitRegion = Config.get<bool>("splitRegion");
+    this->splitRegionFinalLink = Config.get<bool>("splitRegionFinalLink");
 
     auto Config_joints = Config.getSubConfig("Joints");
     this->joints = make_shared<Joints>(Config_joints);
@@ -188,7 +194,7 @@ Eigen::MatrixXd Robot::fkmCartesianTCP(const Eigen::VectorXd &jointValues) const
     return this->fkmCartesian(jointValues, numJoints) * this->transformationEEToTCP;
 }
 
-std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointValues, Eigen::VectorXd const &radius) {
+std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointValues) {
     int num_links = mdhMatrix.rows();
     vector<LinkSegment> link_segments(num_links + 1);
 
@@ -208,6 +214,7 @@ std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointV
             link_segments[i - 1].aSegmentV0 = prevTransform.block<3, 1>(0, 3);
             a_transform = prevTransform * trvec2tform({mdhMatrix(i - 1, 2), 0, 0});
             link_segments[i - 1].aSegmentV1 = a_transform.block<3, 1>(0, 3);
+
         }
 
         if (mdhMatrix(i - 1, 1) != 0) {
@@ -224,25 +231,32 @@ std::vector<LinkSegment> Robot::createLineSegments(Eigen::VectorXd const &jointV
                 link_segments[i - 1].dSegmentV1 = d_transform(seq(0, 2), 3);
             }
             if (i == num_links) {
-                link_segments[i].Tool_V0 = link_segments[i - 1].dSegmentV1;
+                link_segments[i].toolV0 = link_segments[i - 1].dSegmentV1;
                 MatrixXd tcp_transform = d_transform * transformationEEToTCP;
-                link_segments[i].Tool_V1 = tcp_transform.block<3, 1>(0, 3);
+                link_segments[i].toolV1 = tcp_transform.block<3, 1>(0, 3);
+                link_segments[i].finalLinkDimensionsTCP = this->finalLinkDimensions;
+
+
             }
         } else {
             if (i == num_links) {
-                link_segments[i].Tool_V0 = link_segments[i - 1].aSegmentV1;
+                link_segments[i].toolV0 = link_segments[i - 1].aSegmentV1;
                 MatrixXd tcp_transform = a_transform * transformationEEToTCP;
-                link_segments[i].Tool_V1 = tcp_transform(seq(0, 2), 3);
+                link_segments[i].toolV1 = tcp_transform(seq(0, 2), 3);
+
             }
         }
 
-        link_segments[i].radius = radius(i);
+        link_segments[i-1].radiusLink = this->radiusLinks[i-1];
+
+
     }
 
     return link_segments;
 }
 
 
+/*
 std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEquation(
     std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks, double distOuter,
     double distStop, double k) {
@@ -286,3 +300,4 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
     }
 }
+*/

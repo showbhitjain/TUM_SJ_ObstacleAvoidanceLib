@@ -14,9 +14,14 @@ namespace ObstacleAvoidance {
         Eigen::VectorXd aSegmentV1;
         Eigen::VectorXd dSegmentV0;
         Eigen::VectorXd dSegmentV1;
-        Eigen::VectorXd Tool_V0;
-        Eigen::VectorXd Tool_V1;
-        double radius;
+        Eigen::VectorXd toolV0;
+        Eigen::VectorXd toolV1;
+        double radiusAJoint;
+        double radiusDJoint;
+        Eigen::Vector3d finalLinkDimensionsTCP;
+        Eigen::Quaterniond finalLinkOrientationTCP;
+        Eigen::Vector3d CenterFinalLink;
+        double radiusLink;
 
 
     };
