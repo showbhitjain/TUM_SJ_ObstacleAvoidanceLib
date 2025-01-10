@@ -116,8 +116,11 @@ testInverseKinematics: /usr/lib/x86_64-linux-gnu/libbz2.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libz.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/liblapack.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libblas.so
+testInverseKinematics: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 testInverseKinematics: /usr/local/lib/libccd.so.2.0
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libm.so
+testInverseKinematics: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
+testInverseKinematics: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 testInverseKinematics: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libpthread.so
 testInverseKinematics: CMakeFiles/testInverseKinematics.dir/link.txt

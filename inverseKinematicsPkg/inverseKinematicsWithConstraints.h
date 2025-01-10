@@ -18,7 +18,7 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Definitions
+// type Definitions
 class inverseKinematicsWithConstraints {
 public:
   inverseKinematicsWithConstraints();

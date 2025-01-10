@@ -36,13 +36,13 @@ find_package(ConceptLibrary REQUIRED)
 find_package(ccd REQUIRED)
 
 
-set(FCL_DIR "/home/shobhit/fcl/build")
+set(FCL_ROOT "/home/shobhit/fcl_install")
 
 # Include FCL headers
-include_directories("/home/shobhit/fcl/include")
+include_directories("${FCL_ROOT}/include")
 
-# Link FCL library
-link_directories(${FCL_DIR}/lib)
+
+find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
 
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
@@ -74,13 +74,15 @@ add_library(${LIB_NAME}
         include/CriticalPoints.h
         src/LinkSegment.cpp
         include/LinkSegment.h
+        src/DistanceObjects.cpp
+        include/DistanceObjects.h
 
 
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES})
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl)
 
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
@@ -95,6 +97,7 @@ add_executable(ControllerExperiments src/frankaControllerExperiments.cpp)
 add_executable(RealTimeInverseKinematics src/realTimeInverseKinematics.cpp)
 add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybrid.cpp)
 add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
+add_executable(DistanceTest src/distanceTest.cpp)
 find_package(OpenMP REQUIRED)
 
 if (OpenMP_CXX_FOUND)
@@ -102,12 +105,13 @@ if (OpenMP_CXX_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-    target_link_libraries(TUM_SJ_ObstacleAvoidanceLib ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
+    target_link_libraries(${LIB_NAME} ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
     target_link_libraries(testInverseKinematics ${LIB_NAME})
     target_link_libraries(ControllerExperiments ${LIB_NAME})
     target_link_libraries(RealTimeInverseKinematics ${LIB_NAME})
     target_link_libraries(RealTimeInverseKinematicsHybrid ${LIB_NAME})
     target_link_libraries(InverseKinematicsDebugMode ${LIB_NAME})
+    target_link_libraries(DistanceTest ${LIB_NAME})
 endif ()
 
 

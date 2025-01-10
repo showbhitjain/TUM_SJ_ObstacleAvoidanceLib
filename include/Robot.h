@@ -17,28 +17,50 @@
 #include <Joints.h>
 #include <tuple>
 #include <Obstacles.h>
-#include <LinkSegment.h>
+#include <CriticalPoints.h>
+#include <robotLinkDataTypes.h>
 
 namespace ObstacleAvoidance {
+
 
     class Robot {
     protected:
         AndreiUtils::Posed displacementEEToTCP; /**< The displacement from the end effector to the TCP. */
         Eigen::Matrix4d transformationEEToTCP;
         //the transformation between endeffector and TCP. (TCP w.r.t End effector frame)
-        AndreiUtils::Posed baseFrame_robot;
+        AndreiUtils::Posed baseFrameRobot;
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
         Eigen::MatrixXd mdhMatrix;
         Eigen::VectorXd radiusLinks;
         Eigen::VectorXd radiusJoints;
-        bool splitRegion;
-        bool splitRegionFinalLink;
+        bool bSplitRegion;
+        bool bSplitRegionFinalLink;
+        bool bConsiderBaseToFirstJoint;
+
         std::string finalLinkType;
         Eigen::Vector3d finalLinkDimensions;
+        std::vector<LinkSegment> robotLinks;
+        finalLinkRobot finalLinkGripper;
+        bool bConsiderFinalLink;
+        double distanceActivateOA;
+        double distanceStopOA;
+        double smootheningCoefficient;
+        double distanceBuffer;
 
+        Eigen::MatrixXd
+        jacobianCriticalPoint(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
+                              int const &indexLink);
         //      size_t number_joints;
 
+        //get relative distance of the critical point to the link and the jacobian at critical Point
+        std::tuple<Eigen::MatrixXd, Eigen::MatrixXd>
+        criticalPointInformation(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
+                                 int const &indexLink);
+
+        void
+        deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDeleteCritcalA, bool const &bDeleteCritcalD,
+                            bool const &bDeleteCriticalFinalLink);
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
@@ -77,16 +99,17 @@ namespace ObstacleAvoidance {
         Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const;
 
 
-        std::vector<LinkSegment> createLineSegments(const Eigen::VectorXd &jointValues);
+        std::pair<finalLinkRobot, std::vector<LinkSegment>> createLineSegments(const Eigen::VectorXd &jointValues);
 
         std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> obstacleAvoidanceEquation(
-                std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd const &radiusLinks,
-                double distOuter, double distStop, double k);
+                std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd jointVelocityOA);
 
-        std::vector<LinkSegment>
-        createLineSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,
-                           const std::string finalLinkType,
-                           const Eigen::VectorXd &dimensions);
+        /*    std::vector<LinkSegment>
+            createLineSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,
+                               const std::string finalLinkType,
+                               const Eigen::VectorXd &dimensions);*/
+
+
     };
 }
 

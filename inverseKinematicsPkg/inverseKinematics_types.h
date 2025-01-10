@@ -15,7 +15,7 @@
 #include "rtwtypes.h"
 #include "coder_array.h"
 
-// Type Definitions
+// type Definitions
 struct struct0_T {
   boolean_T useObjective1;
   double weight1;

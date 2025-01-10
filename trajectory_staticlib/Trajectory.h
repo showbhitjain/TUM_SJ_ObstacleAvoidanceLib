@@ -17,7 +17,7 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Definitions
+// type Definitions
 namespace trajectoryGeneration {
     class Trajectory {
     public:

@@ -10,23 +10,47 @@ class CriticalPoints {
 public:
     Eigen::Vector3d distVectorA;
     Eigen::Vector3d distVectorD;
-    bool hasCriticalpointsA;
-    bool hasCriticalpointsD;
+    Eigen::Vector3d distVectorFinalLink;
+
+    bool hasCriticalPointA;
+    bool hasCriticalPointD;
+    bool hasCriticalPointFinalLink;
+
     Eigen::MatrixXd jacobiDistMaxA;
     Eigen::MatrixXd jacobiDistMaxD;
+    Eigen::MatrixXd jacobiDistMaxFinalLink;
+
     Eigen::VectorXd jointAnglesCriticalA;
     Eigen::VectorXd jointAnglesCriticalD;
+    Eigen::VectorXd jointAnglesCriticalFinalLink;
+
     Eigen::VectorXd jointVelocityCriticalA;
     Eigen::VectorXd jointVelocityCriticalD;
+    Eigen::VectorXd jointVelocityCriticalFinalLink;
     Eigen::MatrixXd jacobiDistanceA;
     Eigen::MatrixXd jacobiDistanceD;
+    Eigen::MatrixXd jacobiDistanceFinalLink;
+
     Eigen::MatrixXd jacobiCriticalA;
     Eigen::MatrixXd jacobiCriticalMaxA;
     Eigen::MatrixXd jacobiCriticalD;
     Eigen::MatrixXd jacobiCriticalMaxD;
+    Eigen::MatrixXd jacobiCriticalFinalLink;
+    Eigen::MatrixXd jacobiCriticalMaxFinalLink;
+
+    Eigen::Vector3d  closestPointObstacleA;
+    Eigen::Matrix4d  closestPointRelativeRobotLinkA;
+    Eigen::Vector3d  closestPointObstacleD;
+    Eigen::Matrix4d closestPointRelativeRobotLinkD;
+    Eigen::Vector3d closestPointObstacleFinalLink;
+    Eigen::Matrix4d  closestPointRelativeFinalLink;
+
+
+
+
     double distance;
 
-    CriticalPoints(int const &numberLinks);
+    CriticalPoints(int const &numberOfJoints);
 
 };
 

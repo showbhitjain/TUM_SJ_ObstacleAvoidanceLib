@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CartesianTrajetory.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o.d"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o"

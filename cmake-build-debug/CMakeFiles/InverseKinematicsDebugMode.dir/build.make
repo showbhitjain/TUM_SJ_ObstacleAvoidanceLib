@@ -116,8 +116,11 @@ InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libbz2.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libz.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liblapack.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libblas.so
+InverseKinematicsDebugMode: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 InverseKinematicsDebugMode: /usr/local/lib/libccd.so.2.0
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libm.so
+InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
+InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 InverseKinematicsDebugMode: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libpthread.so
 InverseKinematicsDebugMode: CMakeFiles/InverseKinematicsDebugMode.dir/link.txt

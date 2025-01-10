@@ -116,8 +116,11 @@ RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/libbz2.so
 RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/libz.so
 RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/liblapack.so
 RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/libblas.so
+RealTimeInverseKinematicsHybrid: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 RealTimeInverseKinematicsHybrid: /usr/local/lib/libccd.so.2.0
 RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/libm.so
+RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
+RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 RealTimeInverseKinematicsHybrid: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 RealTimeInverseKinematicsHybrid: /usr/lib/x86_64-linux-gnu/libpthread.so
 RealTimeInverseKinematicsHybrid: CMakeFiles/RealTimeInverseKinematicsHybrid.dir/link.txt

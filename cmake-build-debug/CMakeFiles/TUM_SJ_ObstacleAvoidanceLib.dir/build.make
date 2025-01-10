@@ -251,6 +251,20 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/tum_sj_obstacleavoidancelib/src/LinkSegment.cpp -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.s
 
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/flags.make
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o: /home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o -MF CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o.d -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o -c /home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp
+
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp > CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.i
+
+CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp -o CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.s
+
 # Object files for target TUM_SJ_ObstacleAvoidanceLib
 TUM_SJ_ObstacleAvoidanceLib_OBJECTS = \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o" \
@@ -265,7 +279,8 @@ TUM_SJ_ObstacleAvoidanceLib_OBJECTS = \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/controllerFranka.cpp.o" \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/examples_common.cpp.o" \
 "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o" \
-"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o"
+"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o" \
+"CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o"
 
 # External object files for target TUM_SJ_ObstacleAvoidanceLib
 TUM_SJ_ObstacleAvoidanceLib_EXTERNAL_OBJECTS =
@@ -283,9 +298,10 @@ libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/examples_common.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o
+libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make
 libTUM_SJ_ObstacleAvoidanceLib.a: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX static library libTUM_SJ_ObstacleAvoidanceLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX static library libTUM_SJ_ObstacleAvoidanceLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/link.txt --verbose=$(VERBOSE)
 

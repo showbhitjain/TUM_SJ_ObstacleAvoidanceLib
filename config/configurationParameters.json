@@ -5,5 +5,9 @@
   },
   "inverseKinematics": {
     "inverseKinematicsConfigFile": "../config/inverseKinematicsConfig.json"
+  },
+  "inverseKinematicsWithOA": {
+    "inverseKinematicsWithOAConfigFile": "../config/inverseKinematicsWithOAParameters.json"
   }
 }
+

@@ -555,7 +555,6 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o: \
  /home/shobhit/tum_sj_obstacleavoidancelib/include/Joints.h \
  /home/shobhit/tum_sj_obstacleavoidancelib/include/Obstacles.h \
  /usr/local/include/eigen3/Eigen/Geometry \
- /home/shobhit/tum_sj_obstacleavoidancelib/include/LinkSegment.h \
  /usr/local/include/ConceptLibrary/instances/geometry/SphereShape.h \
  /usr/local/include/ConceptLibrary/instances/geometry/Shape.h \
  /usr/local/include/ccd/ccd.h /usr/local/include/ccd/vec3.h \
@@ -593,9 +592,10 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o: \
  /usr/local/include/ConceptLibrary/valueDomains/Number.h \
  /usr/local/include/ConceptLibrary/instances/geometry/BoxShape.h \
  /usr/local/include/ConceptLibrary/instances/geometry/CylinderShape.h \
+ /home/shobhit/tum_sj_obstacleavoidancelib/include/robotLinkDataTypes.h \
+ /home/shobhit/tum_sj_obstacleavoidancelib/include/CriticalPoints.h \
  /usr/local/include/AndreiUtils/utilsFiles.h \
  /usr/local/include/AndreiUtils/utilsGeometry.h \
  /usr/local/include/AndreiUtils/utilsString.h \
  /usr/local/include/AndreiUtils/utilsJson.h \
- /home/shobhit/tum_sj_obstacleavoidancelib/include/ObstacleAvoidanceUtils.h \
- /home/shobhit/tum_sj_obstacleavoidancelib/include/CriticalPoints.h
+ /home/shobhit/tum_sj_obstacleavoidancelib/include/ObstacleAvoidanceUtils.h

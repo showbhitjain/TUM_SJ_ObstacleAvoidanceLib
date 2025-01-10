@@ -116,8 +116,11 @@ ControllerExperiments: /usr/lib/x86_64-linux-gnu/libbz2.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libz.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/liblapack.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libblas.so
+ControllerExperiments: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 ControllerExperiments: /usr/local/lib/libccd.so.2.0
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libm.so
+ControllerExperiments: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
+ControllerExperiments: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 ControllerExperiments: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libpthread.so
 ControllerExperiments: CMakeFiles/ControllerExperiments.dir/link.txt

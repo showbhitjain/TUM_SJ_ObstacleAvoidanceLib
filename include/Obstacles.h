@@ -10,11 +10,11 @@
 #include <Eigen/Geometry>
 #include <string>
 #include <tuple>
-#include <LinkSegment.h>
+
 #include <ConceptLibrary/instances/geometry/SphereShape.h>
 #include <ConceptLibrary/instances/geometry/BoxShape.h>
 #include <ConceptLibrary/instances/geometry/CylinderShape.h>
-#include <ccd/ccd.h>
+#include <robotLinkDataTypes.h>
 
 namespace ObstacleAvoidance {
     class Obstacles {
@@ -32,49 +32,27 @@ namespace ObstacleAvoidance {
 
         std::tuple<Eigen::VectorXd, Eigen::VectorXd, double> distanceCalculation(Obstacles const &otherObstacle);
 
+        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
+        calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP);
+
+
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &linkSegmentV0, Eigen::Vector3d const &linkSegmentV1,
-                                           double const &linkRadius);
+        calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d const &linkSegmentV0,
+                                                          Eigen::Vector3d const &linkSegmentV1,
+                                                          double const &linkRadius);
+
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceSphereSphere(const double &radius1, const Eigen::Vector3d &center1, const double &radius2,
-                                      const Eigen::Vector3d &center2);
+        calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
+                                           double const &radiusLink, double const &radiusJoint);
 
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceSphereCylinder(double const &radiusSphere, Eigen::Vector3d const &sphereCenter,
-                                        double const &radiusCylinder, double const &cylinderHeight,
-                                        Eigen::Vector3d const &cylinderCenter, Eigen::Vector3d const &cylinderAxis);
 
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceSphereBox(double const &radiusSphere, Eigen::Vector3d const &sphereCenter,
-                                   Eigen::Vector3d const &boxCenter, Eigen::Vector3d const &boxDimensions,
-                                   Eigen::Quaterniond const &boxOrientation);
 
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceBoxBox(Eigen::Vector3d const &boxCenter1, Eigen::Vector3d const &boxDimensions1,
-                                Eigen::Quaterniond const &boxOrientation1, Eigen::Vector3d const &boxCenter2,
-                                Eigen::Vector3d const &boxDimensions2,
-                                Eigen::Quaterniond const &boxOrientation2);
 
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceBoxCylinder(Eigen::Vector3d const &boxCenter, Eigen::Vector3d const &boxDimensions,
-                                     Eigen::Quaterniond const &boxOrientation, double const &radiusCylinder,
-                                     double const &cylinderHeight,
-                                     Eigen::Vector3d const &cylinderCenter, Eigen::Vector3d const &cylinderAxis);
-
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceCylinderCylinder(double radiusCylinder1, double cylinderHeight1,
-                                          const Eigen::Vector3d &cylinderCenter1,
-                                          const Eigen::Vector3d &cylinderAxis1,
-                                          double radiusCylinder2, double cylinderHeight2,
-                                          const Eigen::Vector3d &cylinderCenter2,
-                                          const Eigen::Vector3d &cylinderAxis2);
-
-    protected:
         std::string obstacleType;
-        Eigen::VectorXd Center;
+        Eigen::VectorXd center;
         Eigen::VectorXd dimensions;
-        Eigen::Vector4d orientation;
+        Eigen::Quaterniond orientation;
         Eigen::Vector3d axis;
         std::string obstacleName;
 

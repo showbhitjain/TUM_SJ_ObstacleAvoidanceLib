@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/shobhit/tum_sj_obstacleavoidancelib/privateSrc/privateUtils.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/privateSrc/privateUtils.cpp.o.d"
   "/home/shobhit/tum_sj_obstacleavoidancelib/src/CartesianTrajetory.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CartesianTrajetory.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CartesianTrajetory.cpp.o.d"
   "/home/shobhit/tum_sj_obstacleavoidancelib/src/CriticalPoints.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.o.d"
+  "/home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o.d"
   "/home/shobhit/tum_sj_obstacleavoidancelib/src/Joints.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Joints.cpp.o.d"
   "/home/shobhit/tum_sj_obstacleavoidancelib/src/LinkSegment.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/LinkSegment.cpp.o.d"
   "/home/shobhit/tum_sj_obstacleavoidancelib/src/ObstacleAvoidanceUtils.cpp" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.o" "gcc" "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.o.d"

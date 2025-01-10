@@ -5,7 +5,7 @@
 		<Option title="TUM_SJ_ObstacleAvoidanceLib"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\usr\;CMake Files\..\..\..\usr\local\;CMake Files\..\..\..\usr\local\share\;CMake Files\..\..\..\usr\local\share\pcl-1.13\;CMake Files\..\..\..\usr\local\share\pcl-1.13\Modules\;CMake Files\..\..\..\usr\local\share\eigen3\;CMake Files\..\..\..\usr\local\share\eigen3\cmake\;CMake Files\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\usr\local\share\cmake\pybind11\;CMake Files\..\..\..\usr\local\lib\;CMake Files\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\usr\local\lib\cmake\AndreiUtils\;CMake Files\..\..\..\usr\local\lib\cmake\PerceptionData\;CMake Files\..\..\..\usr\local\lib\cmake\Franka\;CMake Files\..\..\..\usr\local\lib\cmake\ConceptLibrary\;CMake Files\..\..\..\usr\local\lib\ccd\;CMake Files\..\..\..\usr\lib\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Boost-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_headers-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_system-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_filesystem-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_iostreams-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_serialization-1.71.0\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\usr\;CMake Files\..\..\..\usr\local\;CMake Files\..\..\..\usr\local\share\;CMake Files\..\..\..\usr\local\share\pcl-1.13\;CMake Files\..\..\..\usr\local\share\pcl-1.13\Modules\;CMake Files\..\..\..\usr\local\share\eigen3\;CMake Files\..\..\..\usr\local\share\eigen3\cmake\;CMake Files\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\usr\local\share\cmake\pybind11\;CMake Files\..\..\..\usr\local\lib\;CMake Files\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\usr\local\lib\cmake\AndreiUtils\;CMake Files\..\..\..\usr\local\lib\cmake\PerceptionData\;CMake Files\..\..\..\usr\local\lib\cmake\Franka\;CMake Files\..\..\..\usr\local\lib\cmake\ConceptLibrary\;CMake Files\..\..\..\usr\local\lib\ccd\;CMake Files\..\..\..\usr\lib\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Boost-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_headers-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_system-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_filesystem-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_iostreams-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_serialization-1.71.0\;CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\octomap\;CMake Files\..\fcl_install\;CMake Files\..\fcl_install\lib\;CMake Files\..\fcl_install\lib\cmake\;CMake Files\..\fcl_install\lib\cmake\fcl\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release"/>
@@ -28,12 +28,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -62,12 +62,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -96,12 +96,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -130,12 +130,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -164,12 +164,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -198,12 +198,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -232,12 +232,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -266,12 +266,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -300,12 +300,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -334,12 +334,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -368,12 +368,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -402,12 +402,12 @@
 					<Add option="-DNON_MATLAB_PARSING"/>
 					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
 					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
-					<Add directory="/home/shobhit/fcl/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -420,6 +420,74 @@
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 InverseKinematicsDebugMode/fast"/>
+					<CompileFile command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DistanceTest">
+				<Option output="/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/DistanceTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DIL_STD"/>
+					<Add option="-DNON_MATLAB_PARSING"/>
+					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
+					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/local/include/coin"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 DistanceTest"/>
+					<CompileFile command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DistanceTest/fast">
+				<Option output="/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/DistanceTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DIL_STD"/>
+					<Add option="-DNON_MATLAB_PARSING"/>
+					<Add option="-DMAX_EXT_API_CONNECTIONS=255"/>
+					<Add option="-DDO_NOT_USE_SHARED_MEMORY"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/include"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/private_include"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/fcl_install/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/local/include/coin"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 DistanceTest/fast"/>
 					<CompileFile command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j24 -f &quot;/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
@@ -449,6 +517,9 @@
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/CriticalPoints.h">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h">
+			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
+		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/LinkSegment.h">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
@@ -459,6 +530,9 @@
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/CriticalPoints.cpp">
+			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/DistanceObjects.cpp">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/InverseKinematicsDebug.cpp">
@@ -481,6 +555,9 @@
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/controllerFranka.cpp">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/distanceTest.cpp">
+			<Option target="DistanceTest"/>
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/examples_common.cpp">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
@@ -670,6 +747,30 @@
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../../../usr/lib/x86_64-linux-gnu/cmake/boost_serialization-1.71.0/libboost_serialization-variant-static.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\cmake\boost_serialization-1.71.0\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../../../usr/lib/x86_64-linux-gnu/octomap/octomap-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\octomap\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../../../usr/lib/x86_64-linux-gnu/octomap/octomap-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\octomap\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../../../usr/lib/x86_64-linux-gnu/octomap/octomap-targets-none.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\octomap\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../../../usr/lib/x86_64-linux-gnu/octomap/octomap-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\lib\x86_64-linux-gnu\octomap\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../fcl_install/lib/cmake/fcl/fcl-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\fcl_install\lib\cmake\fcl\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../fcl_install/lib/cmake/fcl/fcl-config.cmake">
+			<Option virtualFolder="CMake Files\..\fcl_install\lib\cmake\fcl\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../fcl_install/lib/cmake/fcl/fcl-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\fcl_install\lib\cmake\fcl\"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/../fcl_install/lib/cmake/fcl/fcl-targets.cmake">
+			<Option virtualFolder="CMake Files\..\fcl_install\lib\cmake\fcl\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

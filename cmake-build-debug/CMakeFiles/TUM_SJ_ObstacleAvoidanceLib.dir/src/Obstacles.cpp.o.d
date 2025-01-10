@@ -508,7 +508,6 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.o: \
  /usr/local/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/local/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
  /usr/local/include/eigen3/Eigen/Geometry \
- /home/shobhit/tum_sj_obstacleavoidancelib/include/LinkSegment.h \
  /usr/local/include/ConceptLibrary/instances/geometry/SphereShape.h \
  /usr/local/include/ConceptLibrary/instances/geometry/Shape.h \
  /usr/local/include/ccd/ccd.h /usr/local/include/ccd/vec3.h \
@@ -580,4 +579,6 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.o: \
  /usr/local/include/ConceptLibrary/valueDomains/Integer.h \
  /usr/local/include/ConceptLibrary/valueDomains/Number.h \
  /usr/local/include/ConceptLibrary/instances/geometry/BoxShape.h \
- /usr/local/include/ConceptLibrary/instances/geometry/CylinderShape.h
+ /usr/local/include/ConceptLibrary/instances/geometry/CylinderShape.h \
+ /home/shobhit/tum_sj_obstacleavoidancelib/include/robotLinkDataTypes.h \
+ /home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h

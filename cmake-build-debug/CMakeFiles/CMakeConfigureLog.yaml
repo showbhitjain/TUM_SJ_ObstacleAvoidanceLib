@@ -61,8 +61,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o"
-      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o"
+      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD"
+      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -71,13 +71,13 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o'
+        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_872f9/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_872f9.dir/build.make CMakeFiles/cmTC_872f9.dir/build
-        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o'
-        Building C object CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_82df6/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_82df6.dir/build.make CMakeFiles/cmTC_82df6.dir/build
+        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD'
+        Building C object CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -87,8 +87,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/'
-         /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_872f9.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc9Mjei9.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_82df6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc1KJXcU.s
         GNU C17 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -108,15 +108,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 8f9b19b2e0f4e1bcfdcf0c0903bf4b52
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/'
-         as -v --64 -o CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o /tmp/cc9Mjei9.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/'
+         as -v --64 -o CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o /tmp/cc1KJXcU.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.'
-        Linking C executable cmTC_872f9
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_872f9.dir/link.txt --verbose=1
-        /usr/bin/cc  -v CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -o cmTC_872f9 
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_82df6
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_82df6.dir/link.txt --verbose=1
+        /usr/bin/cc  -v CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -o cmTC_82df6 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
@@ -129,10 +129,10 @@ events:
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_872f9' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_872f9.'
-         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cchGbDeS.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_872f9 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_872f9' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_872f9.'
-        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_82df6' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_82df6.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSxr8BP.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_82df6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_82df6' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_82df6.'
+        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD'
         
       exitCode: 0
   -
@@ -166,13 +166,13 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o']
+        ignore line: [Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_872f9/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_872f9.dir/build.make CMakeFiles/cmTC_872f9.dir/build]
-        ignore line: [make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yJxN5o']
-        ignore line: [Building C object CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_82df6/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_82df6.dir/build.make CMakeFiles/cmTC_82df6.dir/build]
+        ignore line: [make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-m7qROD']
+        ignore line: [Building C object CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
@@ -182,8 +182,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_872f9.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc9Mjei9.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_82df6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc1KJXcU.s]
         ignore line: [GNU C17 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
         ignore line: []
@@ -203,15 +203,15 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 8f9b19b2e0f4e1bcfdcf0c0903bf4b52]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o /tmp/cc9Mjei9.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o /tmp/cc1KJXcU.s]
         ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.']
-        ignore line: [Linking C executable cmTC_872f9]
-        ignore line: [/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_872f9.dir/link.txt --verbose=1]
-        ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -o cmTC_872f9 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_82df6]
+        ignore line: [/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_82df6.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -o cmTC_82df6 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper]
@@ -224,13 +224,13 @@ events:
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_872f9' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_872f9.']
-        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cchGbDeS.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_872f9 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_82df6' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_82df6.']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSxr8BP.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_82df6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cchGbDeS.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccSxr8BP.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -248,7 +248,7 @@ events:
           arg [-znow] ==> ignore
           arg [-zrelro] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_872f9] ==> ignore
+          arg [cmTC_82df6] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o]
@@ -260,7 +260,7 @@ events:
           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../..]
-          arg [CMakeFiles/cmTC_872f9.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_82df6.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--push-state] ==> ignore
           arg [--as-needed] ==> ignore
@@ -300,8 +300,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm"
-      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm"
+      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH"
+      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -310,13 +310,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm'
+        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_3db31/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_3db31.dir/build.make CMakeFiles/cmTC_3db31.dir/build
-        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm'
-        Building CXX object CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e99f1/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_e99f1.dir/build.make CMakeFiles/cmTC_e99f1.dir/build
+        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH'
+        Building CXX object CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -326,8 +326,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/'
-         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3db31.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccP37fWd.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e99f1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccspT1Jf.s
         GNU C++17 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -351,15 +351,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 9a55a23eecc346a189dae569855eff82
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/'
-         as -v --64 -o CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccP37fWd.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/'
+         as -v --64 -o CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccspT1Jf.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_3db31
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3db31.dir/link.txt --verbose=1
-        /usr/bin/c++  -v CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_3db31 
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_e99f1
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e99f1.dir/link.txt --verbose=1
+        /usr/bin/c++  -v CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e99f1 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
@@ -372,10 +372,10 @@ events:
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3db31' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3db31.'
-         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdTzeRW.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3db31 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3db31' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3db31.'
-        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e99f1' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e99f1.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmJdGK3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_e99f1 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e99f1' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e99f1.'
+        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH'
         
       exitCode: 0
   -
@@ -415,13 +415,13 @@ events:
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm']
+        ignore line: [Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_3db31/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_3db31.dir/build.make CMakeFiles/cmTC_3db31.dir/build]
-        ignore line: [make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WFRkOm']
-        ignore line: [Building CXX object CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e99f1/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_e99f1.dir/build.make CMakeFiles/cmTC_e99f1.dir/build]
+        ignore line: [make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aFfLuH']
+        ignore line: [Building CXX object CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -c /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
@@ -431,8 +431,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3db31.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccP37fWd.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e99f1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccspT1Jf.s]
         ignore line: [GNU C++17 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
         ignore line: []
@@ -456,15 +456,15 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 9a55a23eecc346a189dae569855eff82]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccP37fWd.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccspT1Jf.s]
         ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_3db31]
-        ignore line: [/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3db31.dir/link.txt --verbose=1]
-        ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_3db31 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_e99f1]
+        ignore line: [/home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e99f1.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e99f1 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper]
@@ -477,13 +477,13 @@ events:
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3db31' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3db31.']
-        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdTzeRW.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3db31 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e99f1' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e99f1.']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmJdGK3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_e99f1 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccdTzeRW.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccmJdGK3.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -501,7 +501,7 @@ events:
           arg [-znow] ==> ignore
           arg [-zrelro] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_3db31] ==> ignore
+          arg [cmTC_e99f1] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o]
@@ -513,7 +513,7 @@ events:
           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../..]
-          arg [CMakeFiles/cmTC_3db31.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_e99f1.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -555,8 +555,8 @@ events:
     checks:
       - "Performing Test HAS_FLTO"
     directories:
-      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn"
-      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn"
+      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE"
+      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -566,17 +566,17 @@ events:
       variable: "HAS_FLTO"
       cached: true
       stdout: |
-        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn'
+        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6243a/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_6243a.dir/build.make CMakeFiles/cmTC_6243a.dir/build
-        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn'
-        Building CXX object CMakeFiles/cmTC_6243a.dir/src.cxx.o
-        /usr/bin/c++ -DHAS_FLTO  -std=gnu++20 -fdiagnostics-color=always   -flto -fno-fat-lto-objects -o CMakeFiles/cmTC_6243a.dir/src.cxx.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn/src.cxx
-        Linking CXX executable cmTC_6243a
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6243a.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_6243a.dir/src.cxx.o -o cmTC_6243a  -flto 
-        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vjaedn'
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e376b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_e376b.dir/build.make CMakeFiles/cmTC_e376b.dir/build
+        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE'
+        Building CXX object CMakeFiles/cmTC_e376b.dir/src.cxx.o
+        /usr/bin/c++ -DHAS_FLTO  -std=gnu++20 -fdiagnostics-color=always   -flto -fno-fat-lto-objects -o CMakeFiles/cmTC_e376b.dir/src.cxx.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE/src.cxx
+        Linking CXX executable cmTC_e376b
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e376b.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_e376b.dir/src.cxx.o -o cmTC_e376b  -flto 
+        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-DUoxdE'
         
       exitCode: 0
   -
@@ -591,8 +591,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn"
-      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn"
+      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE"
+      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -602,25 +602,25 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn'
+        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_496bf/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_496bf.dir/build.make CMakeFiles/cmTC_496bf.dir/build
-        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn'
-        Building C object CMakeFiles/cmTC_496bf.dir/src.c.o
-        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -fdiagnostics-color=always -o CMakeFiles/cmTC_496bf.dir/src.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn/src.c
-        Linking C executable cmTC_496bf
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_496bf.dir/link.txt --verbose=1
-        /usr/bin/cc CMakeFiles/cmTC_496bf.dir/src.c.o -o cmTC_496bf 
-        /usr/bin/ld: CMakeFiles/cmTC_496bf.dir/src.c.o: in function `main':
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ba99e/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_ba99e.dir/build.make CMakeFiles/cmTC_ba99e.dir/build
+        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE'
+        Building C object CMakeFiles/cmTC_ba99e.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -fdiagnostics-color=always -o CMakeFiles/cmTC_ba99e.dir/src.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE/src.c
+        Linking C executable cmTC_ba99e
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ba99e.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_ba99e.dir/src.c.o -o cmTC_ba99e 
+        /usr/bin/ld: CMakeFiles/cmTC_ba99e.dir/src.c.o: in function `main':
         src.c:(.text+0x46): undefined reference to `pthread_create'
         /usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
         /usr/bin/ld: src.c:(.text+0x5e): undefined reference to `pthread_cancel'
         /usr/bin/ld: src.c:(.text+0x6f): undefined reference to `pthread_join'
         collect2: error: ld returned 1 exit status
-        make[1]: *** [CMakeFiles/cmTC_496bf.dir/build.make:99: cmTC_496bf] Error 1
-        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IyZTJn'
-        make: *** [Makefile:127: cmTC_496bf/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_ba99e.dir/build.make:99: cmTC_ba99e] Error 1
+        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-nrdMeE'
+        make: *** [Makefile:127: cmTC_ba99e/fast] Error 2
         
       exitCode: 2
   -
@@ -633,8 +633,8 @@ events:
     checks:
       - "Check if compiler accepts -pthread"
     directories:
-      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an"
-      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an"
+      source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI"
+      binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -644,17 +644,17 @@ events:
       variable: "THREADS_HAVE_PTHREAD_ARG"
       cached: true
       stdout: |
-        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an'
+        Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c44c6/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_c44c6.dir/build.make CMakeFiles/cmTC_c44c6.dir/build
-        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an'
-        Building C object CMakeFiles/cmTC_c44c6.dir/CheckForPthreads.c.o
-        /usr/bin/cc   -fdiagnostics-color=always -o CMakeFiles/cmTC_c44c6.dir/CheckForPthreads.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an/CheckForPthreads.c
-        Linking C executable cmTC_c44c6
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c44c6.dir/link.txt --verbose=1
-        /usr/bin/cc CMakeFiles/cmTC_c44c6.dir/CheckForPthreads.c.o -o cmTC_c44c6  -pthread 
-        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-2U08an'
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_31344/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_31344.dir/build.make CMakeFiles/cmTC_31344.dir/build
+        make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI'
+        Building C object CMakeFiles/cmTC_31344.dir/CheckForPthreads.c.o
+        /usr/bin/cc   -fdiagnostics-color=always -o CMakeFiles/cmTC_31344.dir/CheckForPthreads.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI/CheckForPthreads.c
+        Linking C executable cmTC_31344
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31344.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_31344.dir/CheckForPthreads.c.o -o cmTC_31344  -pthread 
+        make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-VKmZlI'
         
       exitCode: 0
   -
@@ -662,7 +662,7 @@ events:
     backtrace:
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:206 (try_compile)"
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:451 (_OPENMP_GET_FLAGS)"
-      - "CMakeLists.txt:88 (find_package)"
+      - "CMakeLists.txt:101 (find_package)"
     directories:
       source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
       binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
@@ -677,11 +677,11 @@ events:
       stdout: |
         Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_702d9/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_702d9.dir/build.make CMakeFiles/cmTC_702d9.dir/build
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a89d8/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_a89d8.dir/build.make CMakeFiles/cmTC_a89d8.dir/build
         make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
-        Building C object CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o
-        /usr/bin/cc   -fopenmp -v -fdiagnostics-color=always -o CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+        Building C object CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o
+        /usr/bin/cc   -fopenmp -v -fdiagnostics-color=always -o CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -691,8 +691,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_702d9.dir/'
-         /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu -D_REENTRANT /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpdir CMakeFiles/cmTC_702d9.dir/ -dumpbase OpenMPTryFlag.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fopenmp -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccubiU8M.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_a89d8.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu -D_REENTRANT /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpdir CMakeFiles/cmTC_a89d8.dir/ -dumpbase OpenMPTryFlag.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fdiagnostics-color=always -fopenmp -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cccTYils.s
         GNU C17 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -712,15 +712,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 8f9b19b2e0f4e1bcfdcf0c0903bf4b52
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_702d9.dir/'
-         as -v --64 -o CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o /tmp/ccubiU8M.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_a89d8.dir/'
+         as -v --64 -o CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o /tmp/cccTYils.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.'
-        Linking C executable cmTC_702d9
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_702d9.dir/link.txt --verbose=1
-        /usr/bin/cc  -fopenmp -v CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o -o cmTC_702d9  -v 
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.'
+        Linking C executable cmTC_a89d8
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a89d8.dir/link.txt --verbose=1
+        /usr/bin/cc  -fopenmp -v CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o -o cmTC_a89d8  -v 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
@@ -734,9 +734,9 @@ events:
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
         Reading specs from /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.spec
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_702d9' '-v' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_702d9.'
-         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc8TetwM.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_702d9 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_702d9.dir/OpenMPTryFlag.c.o -lgomp -lgcc --push-state --as-needed -lgcc_s --pop-state -lpthread -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadend.o
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_702d9' '-v' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_702d9.'
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_a89d8' '-v' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_a89d8.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccy5PTCm.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_a89d8 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_a89d8.dir/OpenMPTryFlag.c.o -lgomp -lgcc --push-state --as-needed -lgcc_s --pop-state -lpthread -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadend.o
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_a89d8' '-v' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_a89d8.'
         make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
       exitCode: 0
@@ -745,7 +745,7 @@ events:
     backtrace:
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:206 (try_compile)"
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:451 (_OPENMP_GET_FLAGS)"
-      - "CMakeLists.txt:88 (find_package)"
+      - "CMakeLists.txt:101 (find_package)"
     directories:
       source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
       binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
@@ -760,11 +760,11 @@ events:
       stdout: |
         Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b8e63/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_b8e63.dir/build.make CMakeFiles/cmTC_b8e63.dir/build
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f248e/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_f248e.dir/build.make CMakeFiles/cmTC_f248e.dir/build
         make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
-        Building CXX object CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o
-        /usr/bin/c++   -fopenmp -v -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+        Building CXX object CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o
+        /usr/bin/c++   -fopenmp -v -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -774,8 +774,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 11.4.0 (Ubuntu 11.4.0-2ubuntu1~20.04) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_b8e63.dir/'
-         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpdir CMakeFiles/cmTC_b8e63.dir/ -dumpbase OpenMPTryFlag.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=gnu++20 -version -fdiagnostics-color=always -fopenmp -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccKBRA21.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_f248e.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpdir CMakeFiles/cmTC_f248e.dir/ -dumpbase OpenMPTryFlag.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=gnu++20 -version -fdiagnostics-color=always -fopenmp -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccss7w9I.s
         GNU C++20 (Ubuntu 11.4.0-2ubuntu1~20.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -799,15 +799,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 9a55a23eecc346a189dae569855eff82
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_b8e63.dir/'
-         as -v --64 -o CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o /tmp/ccKBRA21.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_f248e.dir/'
+         as -v --64 -o CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o /tmp/ccss7w9I.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.'
-        Linking CXX executable cmTC_b8e63
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b8e63.dir/link.txt --verbose=1
-        /usr/bin/c++  -fopenmp -v CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o -o cmTC_b8e63  -v 
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-fopenmp' '-v' '-std=gnu++20' '-o' 'CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.'
+        Linking CXX executable cmTC_f248e
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f248e.dir/link.txt --verbose=1
+        /usr/bin/c++  -fopenmp -v CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o -o cmTC_f248e  -v 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
@@ -821,9 +821,9 @@ events:
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
         Reading specs from /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.spec
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_b8e63' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_b8e63.'
-         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccaQ5Zu6.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_b8e63 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_b8e63.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadend.o
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_b8e63' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_b8e63.'
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_f248e' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_f248e.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccZFmxAr.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_f248e /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. CMakeFiles/cmTC_f248e.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o /usr/lib/gcc/x86_64-linux-gnu/11/crtoffloadend.o
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_f248e' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_f248e.'
         make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
       exitCode: 0
@@ -832,7 +832,7 @@ events:
     backtrace:
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:386 (try_compile)"
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:514 (_OPENMP_GET_SPEC_DATE)"
-      - "CMakeLists.txt:88 (find_package)"
+      - "CMakeLists.txt:101 (find_package)"
     directories:
       source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
       binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
@@ -847,14 +847,14 @@ events:
       stdout: |
         Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_44490/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_44490.dir/build.make CMakeFiles/cmTC_44490.dir/build
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a7e6d/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_a7e6d.dir/build.make CMakeFiles/cmTC_a7e6d.dir/build
         make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
-        Building C object CMakeFiles/cmTC_44490.dir/OpenMPCheckVersion.c.o
-        /usr/bin/cc   -fopenmp -fdiagnostics-color=always -o CMakeFiles/cmTC_44490.dir/OpenMPCheckVersion.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPCheckVersion.c
-        Linking C executable cmTC_44490
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_44490.dir/link.txt --verbose=1
-        /usr/bin/cc  -fopenmp CMakeFiles/cmTC_44490.dir/OpenMPCheckVersion.c.o -o cmTC_44490 
+        Building C object CMakeFiles/cmTC_a7e6d.dir/OpenMPCheckVersion.c.o
+        /usr/bin/cc   -fopenmp -fdiagnostics-color=always -o CMakeFiles/cmTC_a7e6d.dir/OpenMPCheckVersion.c.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPCheckVersion.c
+        Linking C executable cmTC_a7e6d
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a7e6d.dir/link.txt --verbose=1
+        /usr/bin/cc  -fopenmp CMakeFiles/cmTC_a7e6d.dir/OpenMPCheckVersion.c.o -o cmTC_a7e6d 
         make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
       exitCode: 0
@@ -863,7 +863,7 @@ events:
     backtrace:
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:386 (try_compile)"
       - "/usr/local/share/pcl-1.13/Modules/FindOpenMP.cmake:514 (_OPENMP_GET_SPEC_DATE)"
-      - "CMakeLists.txt:88 (find_package)"
+      - "CMakeLists.txt:101 (find_package)"
     directories:
       source: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
       binary: "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp"
@@ -878,14 +878,14 @@ events:
       stdout: |
         Change Dir: '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_053f4/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_053f4.dir/build.make CMakeFiles/cmTC_053f4.dir/build
+        Run Build Command(s): /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_55a6b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_55a6b.dir/build.make CMakeFiles/cmTC_55a6b.dir/build
         make[1]: Entering directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
-        Building CXX object CMakeFiles/cmTC_053f4.dir/OpenMPCheckVersion.cpp.o
-        /usr/bin/c++   -fopenmp -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/cmTC_053f4.dir/OpenMPCheckVersion.cpp.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPCheckVersion.cpp
-        Linking CXX executable cmTC_053f4
-        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_053f4.dir/link.txt --verbose=1
-        /usr/bin/c++  -fopenmp CMakeFiles/cmTC_053f4.dir/OpenMPCheckVersion.cpp.o -o cmTC_053f4 
+        Building CXX object CMakeFiles/cmTC_55a6b.dir/OpenMPCheckVersion.cpp.o
+        /usr/bin/c++   -fopenmp -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/cmTC_55a6b.dir/OpenMPCheckVersion.cpp.o -c /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/FindOpenMP/OpenMPCheckVersion.cpp
+        Linking CXX executable cmTC_55a6b
+        /home/shobhit/.cache/JetBrains/RemoteDev/dist/3d8b36b2566c3_CLion-241.14494.229/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_55a6b.dir/link.txt --verbose=1
+        /usr/bin/c++  -fopenmp CMakeFiles/cmTC_55a6b.dir/OpenMPCheckVersion.cpp.o -o cmTC_55a6b 
         make[1]: Leaving directory '/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles/CMakeTmp'
         
       exitCode: 0

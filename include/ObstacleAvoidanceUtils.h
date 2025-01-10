@@ -9,10 +9,8 @@
 
 
 namespace ObstacleAvoidance {
-    class ObstacleAvoidanceUtils {
-    public:
 
-    };
+    double smoothingConstraintScheme(double d, double dStop, double dActivate, double& k);
 
 }
 #endif //TUM_SJ_OBSTACLEAVOIDANCELIB_OBSTACLEAVOIDANCEUTILS_H

@@ -194,6 +194,19 @@ InverseKinematicsDebugMode/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/InverseKinematicsDebugMode.dir/build.make CMakeFiles/InverseKinematicsDebugMode.dir/build
 .PHONY : InverseKinematicsDebugMode/fast
 
+#=============================================================================
+# Target rules for targets named DistanceTest
+
+# Build rule for target.
+DistanceTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 DistanceTest
+.PHONY : DistanceTest
+
+# fast build rule for target.
+DistanceTest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/build
+.PHONY : DistanceTest/fast
+
 privateSrc/privateUtils.o: privateSrc/privateUtils.cpp.o
 .PHONY : privateSrc/privateUtils.o
 
@@ -265,6 +278,30 @@ src/CriticalPoints.s: src/CriticalPoints.cpp.s
 src/CriticalPoints.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/CriticalPoints.cpp.s
 .PHONY : src/CriticalPoints.cpp.s
+
+src/DistanceObjects.o: src/DistanceObjects.cpp.o
+.PHONY : src/DistanceObjects.o
+
+# target to build an object file
+src/DistanceObjects.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.o
+.PHONY : src/DistanceObjects.cpp.o
+
+src/DistanceObjects.i: src/DistanceObjects.cpp.i
+.PHONY : src/DistanceObjects.i
+
+# target to preprocess a source file
+src/DistanceObjects.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.i
+.PHONY : src/DistanceObjects.cpp.i
+
+src/DistanceObjects.s: src/DistanceObjects.cpp.s
+.PHONY : src/DistanceObjects.s
+
+# target to generate assembly for a file
+src/DistanceObjects.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/DistanceObjects.cpp.s
+.PHONY : src/DistanceObjects.cpp.s
 
 src/InverseKinematicsDebug.o: src/InverseKinematicsDebug.cpp.o
 .PHONY : src/InverseKinematicsDebug.o
@@ -433,6 +470,30 @@ src/controllerFranka.s: src/controllerFranka.cpp.s
 src/controllerFranka.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/controllerFranka.cpp.s
 .PHONY : src/controllerFranka.cpp.s
+
+src/distanceTest.o: src/distanceTest.cpp.o
+.PHONY : src/distanceTest.o
+
+# target to build an object file
+src/distanceTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o
+.PHONY : src/distanceTest.cpp.o
+
+src/distanceTest.i: src/distanceTest.cpp.i
+.PHONY : src/distanceTest.i
+
+# target to preprocess a source file
+src/distanceTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.i
+.PHONY : src/distanceTest.cpp.i
+
+src/distanceTest.s: src/distanceTest.cpp.s
+.PHONY : src/distanceTest.s
+
+# target to generate assembly for a file
+src/distanceTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.s
+.PHONY : src/distanceTest.cpp.s
 
 src/examples_common.o: src/examples_common.cpp.o
 .PHONY : src/examples_common.o
@@ -635,6 +696,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ControllerExperiments"
+	@echo "... DistanceTest"
 	@echo "... InverseKinematicsDebugMode"
 	@echo "... RealTimeInverseKinematics"
 	@echo "... RealTimeInverseKinematicsHybrid"
@@ -649,6 +711,9 @@ help:
 	@echo "... src/CriticalPoints.o"
 	@echo "... src/CriticalPoints.i"
 	@echo "... src/CriticalPoints.s"
+	@echo "... src/DistanceObjects.o"
+	@echo "... src/DistanceObjects.i"
+	@echo "... src/DistanceObjects.s"
 	@echo "... src/InverseKinematicsDebug.o"
 	@echo "... src/InverseKinematicsDebug.i"
 	@echo "... src/InverseKinematicsDebug.s"
@@ -670,6 +735,9 @@ help:
 	@echo "... src/controllerFranka.o"
 	@echo "... src/controllerFranka.i"
 	@echo "... src/controllerFranka.s"
+	@echo "... src/distanceTest.o"
+	@echo "... src/distanceTest.i"
+	@echo "... src/distanceTest.s"
 	@echo "... src/examples_common.o"
 	@echo "... src/examples_common.i"
 	@echo "... src/examples_common.s"
