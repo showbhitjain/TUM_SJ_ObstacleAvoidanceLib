@@ -1,0 +1,114 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "TUM_SJ_ObstacleAvoidanceLib",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ControllerExperiments::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ControllerExperiments-Debug-73c6972ee94400dbc9da.json",
+					"name" : "ControllerExperiments",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "DistanceTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DistanceTest-Debug-6720f9b51d032aa33c12.json",
+					"name" : "DistanceTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "InverseKinematicsDebugMode::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-InverseKinematicsDebugMode-Debug-d9150fc5e43d4b5c9fce.json",
+					"name" : "InverseKinematicsDebugMode",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RealTimeInverseKinematics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RealTimeInverseKinematics-Debug-a471042fcde94b022e16.json",
+					"name" : "RealTimeInverseKinematics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RealTimeInverseKinematicsHybrid::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RealTimeInverseKinematicsHybrid-Debug-59b256d7f5c54186e8e3.json",
+					"name" : "RealTimeInverseKinematicsHybrid",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TUM_SJ_ObstacleAvoidanceLib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TUM_SJ_ObstacleAvoidanceLib-Debug-11b31870cc5099ce1fb8.json",
+					"name" : "TUM_SJ_ObstacleAvoidanceLib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testInverseKinematics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testInverseKinematics-Debug-df33181086aafeae923d.json",
+					"name" : "testInverseKinematics",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug",
+		"source" : "/home/shobhit/tum_sj_obstacleavoidancelib"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
