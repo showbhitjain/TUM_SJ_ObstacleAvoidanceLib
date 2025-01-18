@@ -96,6 +96,7 @@ InverseKinematicsDebugMode: libTUM_SJ_ObstacleAvoidanceLib.a
 InverseKinematicsDebugMode: /home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/trajectory_generator.a
 InverseKinematicsDebugMode: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg/inverseKinematics.a
 InverseKinematicsDebugMode: /home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg/utilsMatlab.a
+InverseKinematicsDebugMode: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg/inverseKinematicsOA.a
 InverseKinematicsDebugMode: /usr/local/lib/libfranka.so.0.9.0
 InverseKinematicsDebugMode: /usr/local/lib/libConceptLibrary.a
 InverseKinematicsDebugMode: /usr/local/lib/libAndreiUtils_eigen_json.a

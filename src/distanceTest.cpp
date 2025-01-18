@@ -6,6 +6,7 @@
 #include <DistanceObjects.h>
 #include <Eigen/Dense>
 #include <iostream>
+#include<AndreiUtils/utilsString.h>
 #include <AndreiUtils/utilsEigenGeometry.hpp>
 
 using namespace Eigen;
@@ -15,6 +16,12 @@ using namespace ObstacleAvoidance;
 int main() {
 
     //Box and Sphere Distance Test
+    std::string testString = "Teststring_45";
+    auto result = AndreiUtils::splitString(testString," ");
+    std::cout<<testString<<std::endl;
+    std::cout<<"Part one of string: "<<result[0]<<std::endl;
+    std::cout<<"Part second of string: "<<result[1]<<std::endl;
+   // std::cout<<result[1]<<std::endl;
 
 //    Vector3d
     Vector3d boxCenter(-3, -3, 0);

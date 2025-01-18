@@ -38,6 +38,15 @@ namespace ObstacleAvoidance {
         }
     }
 
+    //convert obstacles vector into map by assigning the keys as index of obstacles Array
+    std::map<std::string, Obstacles> conversionObstaclesVectorToMap(std::vector<Obstacles> const &obstaclesArray) {
+        std::map<std::string, Obstacles> obstaclesMap;
+        for (size_t i = 0; i < obstaclesArray.size(); ++i) {
+            obstaclesMap["Obstacle" + std::to_string(i)] = obstaclesArray[i];
+        }
+        return obstaclesMap;
+
+    }
 }
 
 

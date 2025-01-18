@@ -96,6 +96,7 @@ ControllerExperiments: libTUM_SJ_ObstacleAvoidanceLib.a
 ControllerExperiments: /home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/trajectory_generator.a
 ControllerExperiments: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg/inverseKinematics.a
 ControllerExperiments: /home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg/utilsMatlab.a
+ControllerExperiments: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg/inverseKinematicsOA.a
 ControllerExperiments: /usr/local/lib/libfranka.so.0.9.0
 ControllerExperiments: /usr/local/lib/libConceptLibrary.a
 ControllerExperiments: /usr/local/lib/libAndreiUtils_eigen_json.a

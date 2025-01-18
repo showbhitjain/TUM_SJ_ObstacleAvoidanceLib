@@ -33,6 +33,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -67,6 +68,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -101,6 +103,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -135,6 +138,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -169,6 +173,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -203,6 +208,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -237,6 +243,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -271,6 +278,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -305,6 +313,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -339,6 +348,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -373,6 +383,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -407,6 +418,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -441,6 +453,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -475,6 +488,7 @@
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg"/>
 					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg"/>
+					<Add directory="/home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg"/>
 					<Add directory="/home/shobhit/fcl_install/include"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/include/coin"/>
@@ -514,15 +528,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/CriticalPoints.h">
-			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
-		</Unit>
-		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h">
-			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
-		</Unit>
-		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/include/LinkSegment.h">
-			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
-		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/privateSrc/privateUtils.cpp">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
@@ -548,6 +553,12 @@
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/Obstacles.cpp">
+			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/OptimizationBasedIKWithOA.cpp">
+			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
+		</Unit>
+		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/OptimizationBasedIKWithOA.h">
 			<Option target="TUM_SJ_ObstacleAvoidanceLib"/>
 		</Unit>
 		<Unit filename="/home/shobhit/tum_sj_obstacleavoidancelib/src/Robot.cpp">

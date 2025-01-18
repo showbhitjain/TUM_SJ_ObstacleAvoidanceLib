@@ -1,0 +1,93 @@
+//
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
+// File: xgetrf.cpp
+//
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 10-Jan-2025 01:08:30
+//
+
+// Include Files
+#include "xgetrf.h"
+#include "rt_nonfinite.h"
+#include <cmath>
+#include <cstring>
+
+// Function Definitions
+//
+// Arguments    : double A[36]
+//                int ipiv[6]
+// Return Type  : void
+//
+namespace coder {
+namespace internal {
+namespace lapack {
+void xgetrf(double A[36], int ipiv[6])
+{
+  int i;
+  for (i = 0; i < 6; i++) {
+    ipiv[i] = i + 1;
+  }
+  for (int j{0}; j < 5; j++) {
+    double smax;
+    int a;
+    int b_tmp;
+    int jA;
+    int jp1j;
+    int mmj_tmp;
+    mmj_tmp = 4 - j;
+    b_tmp = j * 7;
+    jp1j = b_tmp + 2;
+    jA = 6 - j;
+    a = 0;
+    smax = std::abs(A[b_tmp]);
+    for (int k{2}; k <= jA; k++) {
+      double s;
+      s = std::abs(A[(b_tmp + k) - 1]);
+      if (s > smax) {
+        a = k - 1;
+        smax = s;
+      }
+    }
+    if (A[b_tmp + a] != 0.0) {
+      if (a != 0) {
+        jA = j + a;
+        ipiv[j] = jA + 1;
+        for (int k{0}; k < 6; k++) {
+          a = j + k * 6;
+          smax = A[a];
+          i = jA + k * 6;
+          A[a] = A[i];
+          A[i] = smax;
+        }
+      }
+      i = (b_tmp - j) + 6;
+      for (jA = jp1j; jA <= i; jA++) {
+        A[jA - 1] /= A[b_tmp];
+      }
+    }
+    jA = b_tmp;
+    for (jp1j = 0; jp1j <= mmj_tmp; jp1j++) {
+      smax = A[(b_tmp + jp1j * 6) + 6];
+      if (smax != 0.0) {
+        i = jA + 8;
+        a = (jA - j) + 12;
+        for (int k{i}; k <= a; k++) {
+          A[k - 1] += A[((b_tmp + k) - jA) - 7] * -smax;
+        }
+      }
+      jA += 6;
+    }
+  }
+}
+
+} // namespace lapack
+} // namespace internal
+} // namespace coder
+
+//
+// File trailer for xgetrf.cpp
+//
+// [EOF]
+//

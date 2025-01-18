@@ -53,9 +53,23 @@ Obstacles::Obstacles(ConceptLibrary::BoxShape const &box) {
     this->obstacleName = box.obstacleName;
 }
 
+
+Obstacles::Obstacles(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius){
+    this->obstacleType = "Cylinder";
+    this->dimensions.resize(2);
+    this->dimensions[0] = radius;
+
+    Vector3d axisVector = vertexV1 - vertexV0;
+    //height
+    this->dimensions[1] = (axisVector).norm();
+    this->center = vertexV0 + (axisVector) * 0.5;
+    this->axis = axisVector.normalized();
+
+}
+
 //distance, closest point Obstacle,closest point on final link
 std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) {
+Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const{
     if (linkEEtoTCP.type == "Box") {
         if (this->obstacleType == "Sphere") {
             return calculateDistanceSphereBox(this->dimensions[0], this->center, linkEEtoTCP.center,
@@ -124,7 +138,7 @@ Obstacles::calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d con
 
 std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
 Obstacles::calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
-                                              double const &radiusLink, double const &radiusJoint) {
+                                              double const &radiusLink, double const &radiusJoint) const {
 
 
     //Cylinder Part of link

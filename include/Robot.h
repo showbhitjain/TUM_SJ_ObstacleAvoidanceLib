@@ -48,6 +48,10 @@ namespace ObstacleAvoidance {
         double smootheningCoefficient;
         double distanceBuffer;
 
+        std::map<std::string,Obstacles> obstaclesDynamicMap;
+        std::map<std::string,std::vector<CriticalPoints>> criticalPointsDynamicMap;
+        // std::map<int, >
+
         Eigen::MatrixXd
         jacobianCriticalPoint(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
                               int const &indexLink);
@@ -59,8 +63,8 @@ namespace ObstacleAvoidance {
                                  int const &indexLink);
 
         void
-        deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDeleteCritcalA, bool const &bDeleteCritcalD,
-                            bool const &bDeleteCriticalFinalLink);
+        deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDeleteCriticalA, bool const &bDeleteCriticalD,
+                            bool const &bDeleteCriticalFinalLink) const;
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
@@ -69,7 +73,7 @@ namespace ObstacleAvoidance {
         Eigen::VectorXd getRobotJointValues() const;
 
 
-        Eigen::VectorXd getCurrentRobotJointValues();
+        Eigen::VectorXd getCurrentRobotJointValues() const;
 
 
         //void updateRobotJointValues();
@@ -86,13 +90,13 @@ namespace ObstacleAvoidance {
 
 
         Eigen::MatrixXd jacobianCartesianOnLink(Eigen::VectorXd const &jointValues, int const &toIthLink,
-                                                Eigen::Matrix4d const &transformationRelative);
+                                                Eigen::Matrix4d const &transformationRelative) const;
 
-        Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues);
+        Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues) const;
 
         Eigen::MatrixXd forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const;
 
-        Eigen::Matrix4d transformMdh(double a, double alpha, double d, double theta) const;
+        Eigen::Matrix4d transformMdh(double const a,  double const alpha,  double const d,  double  const theta) const;
 
         Eigen::MatrixXd fkmCartesian(const Eigen::VectorXd &joint_positions, int const &ith_link) const;
 
@@ -102,7 +106,7 @@ namespace ObstacleAvoidance {
         std::pair<finalLinkRobot, std::vector<LinkSegment>> createLineSegments(const Eigen::VectorXd &jointValues);
 
         std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> obstacleAvoidanceEquation(
-                std::vector<Obstacles> obstacles, Eigen::VectorXd jointAngles, Eigen::VectorXd jointVelocityOA);
+                std::map<std::string,Obstacles> const &obstaclesMap, Eigen::VectorXd const &jointAngles, Eigen::VectorXd const&jointVelocityOA);
 
         /*    std::vector<LinkSegment>
             createLineSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,

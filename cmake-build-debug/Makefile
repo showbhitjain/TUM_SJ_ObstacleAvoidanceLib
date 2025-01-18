@@ -423,6 +423,30 @@ src/Obstacles.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.s
 .PHONY : src/Obstacles.cpp.s
 
+src/OptimizationBasedIKWithOA.o: src/OptimizationBasedIKWithOA.cpp.o
+.PHONY : src/OptimizationBasedIKWithOA.o
+
+# target to build an object file
+src/OptimizationBasedIKWithOA.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/OptimizationBasedIKWithOA.cpp.o
+.PHONY : src/OptimizationBasedIKWithOA.cpp.o
+
+src/OptimizationBasedIKWithOA.i: src/OptimizationBasedIKWithOA.cpp.i
+.PHONY : src/OptimizationBasedIKWithOA.i
+
+# target to preprocess a source file
+src/OptimizationBasedIKWithOA.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/OptimizationBasedIKWithOA.cpp.i
+.PHONY : src/OptimizationBasedIKWithOA.cpp.i
+
+src/OptimizationBasedIKWithOA.s: src/OptimizationBasedIKWithOA.cpp.s
+.PHONY : src/OptimizationBasedIKWithOA.s
+
+# target to generate assembly for a file
+src/OptimizationBasedIKWithOA.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/OptimizationBasedIKWithOA.cpp.s
+.PHONY : src/OptimizationBasedIKWithOA.cpp.s
+
 src/Robot.o: src/Robot.cpp.o
 .PHONY : src/Robot.o
 
@@ -729,6 +753,9 @@ help:
 	@echo "... src/Obstacles.o"
 	@echo "... src/Obstacles.i"
 	@echo "... src/Obstacles.s"
+	@echo "... src/OptimizationBasedIKWithOA.o"
+	@echo "... src/OptimizationBasedIKWithOA.i"
+	@echo "... src/OptimizationBasedIKWithOA.s"
 	@echo "... src/Robot.o"
 	@echo "... src/Robot.i"
 	@echo "... src/Robot.s"

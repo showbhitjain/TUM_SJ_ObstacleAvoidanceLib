@@ -96,6 +96,7 @@ RealTimeInverseKinematicsHybrid: libTUM_SJ_ObstacleAvoidanceLib.a
 RealTimeInverseKinematicsHybrid: /home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/trajectory_generator.a
 RealTimeInverseKinematicsHybrid: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg/inverseKinematics.a
 RealTimeInverseKinematicsHybrid: /home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg/utilsMatlab.a
+RealTimeInverseKinematicsHybrid: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg/inverseKinematicsOA.a
 RealTimeInverseKinematicsHybrid: /usr/local/lib/libfranka.so.0.9.0
 RealTimeInverseKinematicsHybrid: /usr/local/lib/libConceptLibrary.a
 RealTimeInverseKinematicsHybrid: /usr/local/lib/libAndreiUtils_eigen_json.a

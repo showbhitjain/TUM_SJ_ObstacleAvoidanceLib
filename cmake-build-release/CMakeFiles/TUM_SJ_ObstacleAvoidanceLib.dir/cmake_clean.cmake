@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/ObstacleAvoidanceUtils.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Obstacles.cpp.o.d"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/OptimizationBasedIKWithOA.cpp.o"
+  "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/OptimizationBasedIKWithOA.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/Robot.cpp.o.d"
   "CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/src/controllerFranka.cpp.o"

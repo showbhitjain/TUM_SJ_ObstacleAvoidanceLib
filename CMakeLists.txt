@@ -47,8 +47,9 @@ find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
+set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
 
-include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${CCD_INCLUDE_DIRS})
+include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
 message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
 
@@ -71,18 +72,20 @@ add_library(${LIB_NAME}
         src/controllerFranka.cpp
         src/examples_common.cpp
         src/CriticalPoints.cpp
-        include/CriticalPoints.h
+
         src/LinkSegment.cpp
-        include/LinkSegment.h
+
         src/DistanceObjects.cpp
-        include/DistanceObjects.h
+
+        src/OptimizationBasedIKWithOA.cpp
+
 
 
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl)
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a ${PATHUTILSIKWITHOA}/inverseKinematicsOA.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl)
 
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})

@@ -14,6 +14,8 @@
 #include <ConceptLibrary/instances/geometry/SphereShape.h>
 #include <ConceptLibrary/instances/geometry/BoxShape.h>
 #include <ConceptLibrary/instances/geometry/CylinderShape.h>
+#include <ConceptLibrary/instances/geometry/PlaneShape.h>
+
 #include <robotLinkDataTypes.h>
 
 namespace ObstacleAvoidance {
@@ -30,10 +32,12 @@ namespace ObstacleAvoidance {
 
         Obstacles(ConceptLibrary::BoxShape const &);
 
+        Obstacles(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius);
+
         std::tuple<Eigen::VectorXd, Eigen::VectorXd, double> distanceCalculation(Obstacles const &otherObstacle);
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP);
+        calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const ;
 
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d>
@@ -44,9 +48,12 @@ namespace ObstacleAvoidance {
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
         calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
-                                           double const &radiusLink, double const &radiusJoint);
+                                           double const &radiusLink, double const &radiusJoint) const;
 
 
+
+        /*RobotController(config, exitFlag,
+                       readJsonFile("../config/robotWorldCalibration.json").at("q_world_base").get<Posed>())*/
 
 
         std::string obstacleType;

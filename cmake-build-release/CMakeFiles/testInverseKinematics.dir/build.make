@@ -96,6 +96,7 @@ testInverseKinematics: libTUM_SJ_ObstacleAvoidanceLib.a
 testInverseKinematics: /home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/trajectory_generator.a
 testInverseKinematics: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsPkg/inverseKinematics.a
 testInverseKinematics: /home/shobhit/tum_sj_obstacleavoidancelib/jointValuesUtilPkg/utilsMatlab.a
+testInverseKinematics: /home/shobhit/tum_sj_obstacleavoidancelib/inverseKinematicsObstacleAvoidancePkg/inverseKinematicsOA.a
 testInverseKinematics: /usr/local/lib/libfranka.so.0.9.0
 testInverseKinematics: /usr/local/lib/libConceptLibrary.a
 testInverseKinematics: /usr/local/lib/libAndreiUtils_eigen_json.a

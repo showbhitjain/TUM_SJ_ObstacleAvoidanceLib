@@ -27,6 +27,7 @@
         "rotationXYZ": [0, 0, -45],
         "translation": [0, 0, 0.103399]
     },
+    "q_world_base": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
 
     "Joints": {
         "parametersFor": "Joints",
@@ -50,6 +51,6 @@
         "splitRegion": false,
         "splitRegionFinalLink": false,
         "considerFinalLinkOA": true,
-        "considerBaseToFirstJoint": false
+        "considerBaseToFirstJoint": true
     }
 }
