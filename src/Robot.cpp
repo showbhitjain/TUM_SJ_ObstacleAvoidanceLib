@@ -362,14 +362,14 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     // TODO: if bConsiderBaseToFirstJoint == false, add first link to the obstacles
     if (!this->bConsiderBaseToFirstJoint) {
         if (linkSegments[0].aSegmentV0.size() > 0) {
-            obstaclesDynamicMap["RobotLinkASegment_0"] = Obstacles(linkSegments[0].aSegmentV0,
+            obstaclesDynamicMap.emplace("RobotLinkASegment_0",Obstacles(linkSegments[0].aSegmentV0,
                                                                    linkSegments[0].aSegmentV1,
-                                                                   linkSegments[0].radiusLink);
+                                                                   linkSegments[0].radiusLink));
         }
         if (linkSegments[0].dSegmentV0.size() > 0) {
-            obstaclesDynamicMap["RobotLinkDSegment_0"] = Obstacles(linkSegments[0].dSegmentV0,
+            obstaclesDynamicMap.emplace("RobotLinkDSegment_0", Obstacles(linkSegments[0].dSegmentV0,
                                                                    linkSegments[0].dSegmentV1,
-                                                                   linkSegments[0].radiusLink);
+                                                                   linkSegments[0].radiusLink));
         }
     }
 

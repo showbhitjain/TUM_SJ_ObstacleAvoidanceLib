@@ -1,17 +1,34 @@
 {
   "parametersFor": "inverseKinematicsWithOA",
   "ObjectiveConstraints": {
-    "useObjective1": true,
-    "weight1": 0.1,
-    "useObjective2": true,
-    "weight2": 1,
-    "useObjective3": false,
-    "weight3": 0.1,
-    "useObjective4": false,
-    "weight4": 0.1,
-    "useObjective5": false,
-    "weight5": 0.1,
-    "useObjective6": true,
-    "weight6": 0.2
+    "useObjectiveNormInfinity": true,
+    "weightNormInfinity": 0.1,
+    "useObjectiveNormL2": true,
+    "weightNormL2": 1,
+    "jointVelocityWeight": [1,1,1,1,1,1,1],
+    "useObjectiveTrajectoryFollowing": false,
+    "weightTrajectoryFollowing": 0.1,
+    "useObjectiveJointAcceleration": false,
+    "weightJointAcceleration": 0.1,
+    "useObjectiveManipulability": false,
+    "weightManipulability": 0.1
+  },
+  "EquationParameters": {
+    "applyEqualityConstraints":true,
+    "applyInequalityConstraints": true,
+    "applySlack": true
+  },
+  "ObstacleAvoidanceParameters":{
+    "applyStaticObstacleAvoidance":true,
+    "distanceActivation": 0.03,
+    "distanceStop": 0.01,
+    "efficiency": 2
+  },
+  "jointLimitAvoidanceParameters": {
+    "gamma": 2,
+    "applyVelocityDamper": true,
+    "jointLimitActivationDistance": 10,
+    "jointLimitStopDistance": 3,
+    "jointLimitGain": 1
   }
 }

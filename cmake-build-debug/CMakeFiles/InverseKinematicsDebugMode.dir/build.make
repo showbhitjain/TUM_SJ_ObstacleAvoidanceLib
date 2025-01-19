@@ -108,22 +108,18 @@ InverseKinematicsDebugMode: /usr/local/lib/libAndreiUtils_openmp.a
 InverseKinematicsDebugMode: /usr/local/lib/libClpSolver.so
 InverseKinematicsDebugMode: /usr/local/lib/libClp.so
 InverseKinematicsDebugMode: /usr/local/lib/libCoinUtils.so
-InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libbz2.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libz.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liblapack.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libblas.so
 InverseKinematicsDebugMode: /usr/local/lib/libCoinUtils.so
-InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libbz2.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libz.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liblapack.so
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libblas.so
 InverseKinematicsDebugMode: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 InverseKinematicsDebugMode: /usr/local/lib/libccd.so.2.0
 InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libm.so
-InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
-InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 InverseKinematicsDebugMode: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
-InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libpthread.so
+InverseKinematicsDebugMode: /usr/lib/x86_64-linux-gnu/libpthread.a
 InverseKinematicsDebugMode: CMakeFiles/InverseKinematicsDebugMode.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable InverseKinematicsDebugMode"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/InverseKinematicsDebugMode.dir/link.txt --verbose=$(VERBOSE)

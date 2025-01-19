@@ -108,22 +108,18 @@ ControllerExperiments: /usr/local/lib/libAndreiUtils_openmp.a
 ControllerExperiments: /usr/local/lib/libClpSolver.so
 ControllerExperiments: /usr/local/lib/libClp.so
 ControllerExperiments: /usr/local/lib/libCoinUtils.so
-ControllerExperiments: /usr/lib/x86_64-linux-gnu/libbz2.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libz.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/liblapack.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libblas.so
 ControllerExperiments: /usr/local/lib/libCoinUtils.so
-ControllerExperiments: /usr/lib/x86_64-linux-gnu/libbz2.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libz.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/liblapack.so
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libblas.so
 ControllerExperiments: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 ControllerExperiments: /usr/local/lib/libccd.so.2.0
 ControllerExperiments: /usr/lib/x86_64-linux-gnu/libm.so
-ControllerExperiments: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
-ControllerExperiments: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 ControllerExperiments: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
-ControllerExperiments: /usr/lib/x86_64-linux-gnu/libpthread.so
+ControllerExperiments: /usr/lib/x86_64-linux-gnu/libpthread.a
 ControllerExperiments: CMakeFiles/ControllerExperiments.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ControllerExperiments"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ControllerExperiments.dir/link.txt --verbose=$(VERBOSE)

@@ -17,7 +17,7 @@ int main() {
 
     //Box and Sphere Distance Test
     std::string testString = "Teststring_45";
-    auto result = AndreiUtils::splitString(testString," ");
+    auto result = AndreiUtils::splitString(testString,"_");
     std::cout<<testString<<std::endl;
     std::cout<<"Part one of string: "<<result[0]<<std::endl;
     std::cout<<"Part second of string: "<<result[1]<<std::endl;

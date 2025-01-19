@@ -108,22 +108,18 @@ testInverseKinematics: /usr/local/lib/libAndreiUtils_openmp.a
 testInverseKinematics: /usr/local/lib/libClpSolver.so
 testInverseKinematics: /usr/local/lib/libClp.so
 testInverseKinematics: /usr/local/lib/libCoinUtils.so
-testInverseKinematics: /usr/lib/x86_64-linux-gnu/libbz2.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libz.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/liblapack.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libblas.so
 testInverseKinematics: /usr/local/lib/libCoinUtils.so
-testInverseKinematics: /usr/lib/x86_64-linux-gnu/libbz2.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libz.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/liblapack.so
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libblas.so
 testInverseKinematics: /home/shobhit/fcl_install/lib/libfcl.so.0.7.0
 testInverseKinematics: /usr/local/lib/libccd.so.2.0
 testInverseKinematics: /usr/lib/x86_64-linux-gnu/libm.so
-testInverseKinematics: /usr/lib/x86_64-linux-gnu/liboctomap.so.1.9.3
-testInverseKinematics: /usr/lib/x86_64-linux-gnu/liboctomath.so.1.9.3
 testInverseKinematics: /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
-testInverseKinematics: /usr/lib/x86_64-linux-gnu/libpthread.so
+testInverseKinematics: /usr/lib/x86_64-linux-gnu/libpthread.a
 testInverseKinematics: CMakeFiles/testInverseKinematics.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable testInverseKinematics"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/testInverseKinematics.dir/link.txt --verbose=$(VERBOSE)
