@@ -134,7 +134,7 @@ int main() {
         auto angularVelocityEffective = desiredAngularVelocityTCP(all, i) + (Ko * computeOrientationError(transformTcpToBase,
                                                                                                      desiredQuaternionsTCP(all, i)));
 
-        cout<<"orientation error : \n"<<computeOrientationError(transformTcpToBase,desiredQuaternionsTCP(all, i))<<endl;
+        cout<<"orientation error: \n"<<computeOrientationError(transformTcpToBase,desiredQuaternionsTCP(all, i))<<endl;
         cout<<"actualJointValues: \n"<<actualJointValuesMatrix(all, i)<<endl;
         auto JacobiMatrix = robot.jacobianCartesianTCP(desiredJointValuesMatrix(all, i));
         Eigen::VectorXd poseVelocityEffective(6);

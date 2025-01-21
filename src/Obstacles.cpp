@@ -54,7 +54,7 @@ Obstacles::Obstacles(ConceptLibrary::BoxShape const &box) {
 }
 
 
-Obstacles::Obstacles(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius){
+Obstacles::Obstacles(Eigen::Vector3d const &vertexV0, Eigen::Vector3d const &vertexV1, double const &radius) {
     this->obstacleType = "Cylinder";
     this->dimensions.resize(2);
     this->dimensions[0] = radius;
@@ -69,7 +69,7 @@ Obstacles::Obstacles(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vert
 
 //distance, closest point Obstacle,closest point on final link
 std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const{
+Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const {
     if (linkEEtoTCP.type == "Box") {
         if (this->obstacleType == "Sphere") {
             return calculateDistanceSphereBox(this->dimensions[0], this->center, linkEEtoTCP.center,

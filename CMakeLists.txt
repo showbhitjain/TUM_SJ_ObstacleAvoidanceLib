@@ -101,6 +101,8 @@ add_executable(RealTimeInverseKinematics src/realTimeInverseKinematics.cpp)
 add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybrid.cpp)
 add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
 add_executable(DistanceTest src/distanceTest.cpp)
+add_executable(StaticObstacleAvoidanceTest src/offlineStaticObstacleAvoidance.cpp)
+
 find_package(OpenMP REQUIRED)
 
 if (OpenMP_CXX_FOUND)
@@ -115,6 +117,7 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(RealTimeInverseKinematicsHybrid ${LIB_NAME})
     target_link_libraries(InverseKinematicsDebugMode ${LIB_NAME})
     target_link_libraries(DistanceTest ${LIB_NAME})
+    target_link_libraries(StaticObstacleAvoidanceTest ${LIB_NAME})
 endif ()
 
 

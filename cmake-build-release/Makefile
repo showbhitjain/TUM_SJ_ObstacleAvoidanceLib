@@ -207,6 +207,19 @@ DistanceTest/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/build
 .PHONY : DistanceTest/fast
 
+#=============================================================================
+# Target rules for targets named StaticObstacleAvoidanceTest
+
+# Build rule for target.
+StaticObstacleAvoidanceTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StaticObstacleAvoidanceTest
+.PHONY : StaticObstacleAvoidanceTest
+
+# fast build rule for target.
+StaticObstacleAvoidanceTest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/build
+.PHONY : StaticObstacleAvoidanceTest/fast
+
 privateSrc/privateUtils.o: privateSrc/privateUtils.cpp.o
 .PHONY : privateSrc/privateUtils.o
 
@@ -615,6 +628,30 @@ src/offlineInverseKinematics.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testInverseKinematics.dir/build.make CMakeFiles/testInverseKinematics.dir/src/offlineInverseKinematics.cpp.s
 .PHONY : src/offlineInverseKinematics.cpp.s
 
+src/offlineStaticObstacleAvoidance.o: src/offlineStaticObstacleAvoidance.cpp.o
+.PHONY : src/offlineStaticObstacleAvoidance.o
+
+# target to build an object file
+src/offlineStaticObstacleAvoidance.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/src/offlineStaticObstacleAvoidance.cpp.o
+.PHONY : src/offlineStaticObstacleAvoidance.cpp.o
+
+src/offlineStaticObstacleAvoidance.i: src/offlineStaticObstacleAvoidance.cpp.i
+.PHONY : src/offlineStaticObstacleAvoidance.i
+
+# target to preprocess a source file
+src/offlineStaticObstacleAvoidance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/src/offlineStaticObstacleAvoidance.cpp.i
+.PHONY : src/offlineStaticObstacleAvoidance.cpp.i
+
+src/offlineStaticObstacleAvoidance.s: src/offlineStaticObstacleAvoidance.cpp.s
+.PHONY : src/offlineStaticObstacleAvoidance.s
+
+# target to generate assembly for a file
+src/offlineStaticObstacleAvoidance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/src/offlineStaticObstacleAvoidance.cpp.s
+.PHONY : src/offlineStaticObstacleAvoidance.cpp.s
+
 src/realTimeInverseKinematics.o: src/realTimeInverseKinematics.cpp.o
 .PHONY : src/realTimeInverseKinematics.o
 
@@ -724,6 +761,7 @@ help:
 	@echo "... InverseKinematicsDebugMode"
 	@echo "... RealTimeInverseKinematics"
 	@echo "... RealTimeInverseKinematicsHybrid"
+	@echo "... StaticObstacleAvoidanceTest"
 	@echo "... TUM_SJ_ObstacleAvoidanceLib"
 	@echo "... testInverseKinematics"
 	@echo "... privateSrc/privateUtils.o"
@@ -777,6 +815,9 @@ help:
 	@echo "... src/offlineInverseKinematics.o"
 	@echo "... src/offlineInverseKinematics.i"
 	@echo "... src/offlineInverseKinematics.s"
+	@echo "... src/offlineStaticObstacleAvoidance.o"
+	@echo "... src/offlineStaticObstacleAvoidance.i"
+	@echo "... src/offlineStaticObstacleAvoidance.s"
 	@echo "... src/realTimeInverseKinematics.o"
 	@echo "... src/realTimeInverseKinematics.i"
 	@echo "... src/realTimeInverseKinematics.s"

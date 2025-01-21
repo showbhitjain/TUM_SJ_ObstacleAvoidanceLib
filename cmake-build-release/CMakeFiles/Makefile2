@@ -70,6 +70,7 @@ all: CMakeFiles/RealTimeInverseKinematics.dir/all
 all: CMakeFiles/RealTimeInverseKinematicsHybrid.dir/all
 all: CMakeFiles/InverseKinematicsDebugMode.dir/all
 all: CMakeFiles/DistanceTest.dir/all
+all: CMakeFiles/StaticObstacleAvoidanceTest.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -84,6 +85,7 @@ clean: CMakeFiles/RealTimeInverseKinematics.dir/clean
 clean: CMakeFiles/RealTimeInverseKinematicsHybrid.dir/clean
 clean: CMakeFiles/InverseKinematicsDebugMode.dir/clean
 clean: CMakeFiles/DistanceTest.dir/clean
+clean: CMakeFiles/StaticObstacleAvoidanceTest.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -93,7 +95,7 @@ clean: CMakeFiles/DistanceTest.dir/clean
 CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build.make CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 "Built target TUM_SJ_ObstacleAvoidanceLib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 "Built target TUM_SJ_ObstacleAvoidanceLib"
 .PHONY : CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -119,7 +121,7 @@ CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/clean:
 CMakeFiles/testInverseKinematics.dir/all: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testInverseKinematics.dir/build.make CMakeFiles/testInverseKinematics.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testInverseKinematics.dir/build.make CMakeFiles/testInverseKinematics.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=27,28 "Built target testInverseKinematics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=29,30 "Built target testInverseKinematics"
 .PHONY : CMakeFiles/testInverseKinematics.dir/all
 
 # Build rule for subdir invocation for target.
@@ -267,6 +269,32 @@ DistanceTest: CMakeFiles/DistanceTest.dir/rule
 CMakeFiles/DistanceTest.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DistanceTest.dir/build.make CMakeFiles/DistanceTest.dir/clean
 .PHONY : CMakeFiles/DistanceTest.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/StaticObstacleAvoidanceTest.dir
+
+# All Build rule for target.
+CMakeFiles/StaticObstacleAvoidanceTest.dir/all: CMakeFiles/TUM_SJ_ObstacleAvoidanceLib.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles --progress-num=11,12 "Built target StaticObstacleAvoidanceTest"
+.PHONY : CMakeFiles/StaticObstacleAvoidanceTest.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/StaticObstacleAvoidanceTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles 18
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/StaticObstacleAvoidanceTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shobhit/tum_sj_obstacleavoidancelib/cmake-build-release/CMakeFiles 0
+.PHONY : CMakeFiles/StaticObstacleAvoidanceTest.dir/rule
+
+# Convenience name for target.
+StaticObstacleAvoidanceTest: CMakeFiles/StaticObstacleAvoidanceTest.dir/rule
+.PHONY : StaticObstacleAvoidanceTest
+
+# clean rule for target.
+CMakeFiles/StaticObstacleAvoidanceTest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StaticObstacleAvoidanceTest.dir/build.make CMakeFiles/StaticObstacleAvoidanceTest.dir/clean
+.PHONY : CMakeFiles/StaticObstacleAvoidanceTest.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,7 +1,7 @@
 {
   "parametersFor": "inverseKinematicsWithOA",
   "ObjectiveConstraints": {
-    "useObjectiveNormInfinity": true,
+    "useObjectiveNormInfinity": false,
     "weightNormInfinity": 0.1,
     "useObjectiveNormL2": true,
     "weightNormL2": 1,
@@ -15,14 +15,14 @@
   },
   "EquationParameters": {
     "applyEqualityConstraints":true,
-    "applyInequalityConstraints": true,
-    "applySlack": true
+    "applyInequalityConstraints": true
   },
-  "ObstacleAvoidanceParameters":{
-    "applyStaticObstacleAvoidance":true,
-    "distanceActivation": 0.03,
-    "distanceStop": 0.01,
-    "efficiency": 2
+  "SlackParameters": {
+    "applySlack": true,
+    "Slacklowerbound": [-0.2,-0.2,-0.1,-2,-2,-60],
+    "Slackupperbound": [0.2,0.2,0.1,2,2,60],
+     "SlackPenaltyWeight": [1,1,1,1,1,0.5],
+    "SlackObjectiveWeight": 20
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,
