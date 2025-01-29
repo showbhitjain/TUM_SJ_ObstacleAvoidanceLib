@@ -5,7 +5,7 @@
 #include <OptimizationBasedIKWithOA.h>
 #include <inverseKinematicsMatlabObstacleAvoidance.h>
 #include <privateUtils.h>
-
+#include <AndreiUtils/utilsGeometry.h>
 
 namespace ObstacleAvoidance {
     OptimizationBasedIKWithOA::OptimizationBasedIKWithOA(AndreiUtils::ConfigurationParameters const &configOA){
@@ -35,15 +35,39 @@ namespace ObstacleAvoidance {
         config.Slack_objective_weight = slackParametersJson["SlackObjectiveWeight"].get<double>();
         config.applySlack = slackParametersJson["applySlack"].get<bool>();
         auto slackLowerArray = slackParametersJson["Slacklowerbound"].get<std::array<double,6>>();
-        std::copy(slackLowerArray.begin(),slackLowerArray.end(),config.Slacklowerbound);
+
+        for(int i = 3; i < 6; ++i){
+            slackLowerArray[i] = AndreiUtils::deg2Rad(slackLowerArray[i]);
+        }
+
+        for(int i = 0; i<6 ; ++i){
+            config.Slacklowerbound[i] = slackLowerArray[i];
+        }
+
+//        std::copy(slackLowerArray.begin(),slackLowerArray.end(),config.Slacklowerbound);
 
         auto slackUpperArray = slackParametersJson["Slackupperbound"].get<std::array<double,6>>();
-        std::copy(slackUpperArray.begin(),slackUpperArray.end(),config.Slackupperbound);
+        for(int i = 3; i < 6; ++i){
+            slackUpperArray[i] = AndreiUtils::deg2Rad(slackUpperArray[i]);
+        }
+        for(int i = 0; i<6 ; ++i){
+            config.Slackupperbound[i] = slackUpperArray[i];
+        }
+//        std::copy(slackUpperArray.begin(),slackUpperArray.end(),config.Slackupperbound);
 
         auto slackWeightArray = slackParametersJson["SlackPenaltyWeight"].get<std::array<double,6>>();
-        for(int i{0}; i<6; ++i){
-            config.Slack_penalty_weightmatrix[0 + 7*i] = slackWeightArray[i];
+
+        for(int i{0}; i<36; ++i ){
+            config.Slack_penalty_weightmatrix[i]  = 0;
         }
+
+
+
+        for(int i{0}; i<6; ++i){
+            config.Slack_penalty_weightmatrix[7*i] = slackWeightArray[i];
+        }
+
+
 
         auto jointLimitAvoidanceJson = configOA.getJson("jointLimitAvoidanceParameters");
         config.gamma = jointLimitAvoidanceJson["gamma"].get<double>();
@@ -75,12 +99,12 @@ namespace ObstacleAvoidance {
 
         coder::array<double,1U> optimalJointVelocity;
         double exitFlag;
-
+        auto configInput = this->config;
         inverseKinematicsMatlabObstacleAvoidance ikWithOA;
         ikWithOA.inverseKinematicsOA(EigenVectorToCoder1U(jointValues), EigenToCoder(jacobiMatrix), cartesianVelocityEffective, EigenVectorToCoder1U(jointMinValues), EigenVectorToCoder1U(jointMaxValues),
                                      EigenVectorToCoder1U(jointMinVelValues), EigenVectorToCoder1U(jointMaxVelValues), EigenToCoder(jG), EigenVectorToCoder1U(bG),
                                      EigenToCoder(jointVelocityMatrix),
-                                     &this->config, optimalJointVelocity, &exitFlag);
+                                     &configInput, optimalJointVelocity, &exitFlag);
 
         return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity), exitFlag);
 

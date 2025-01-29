@@ -37,7 +37,7 @@ namespace ObstacleAvoidance {
         bool bSplitRegion;
         bool bSplitRegionFinalLink;
         bool bConsiderBaseToFirstJoint;
-
+        bool bConsiderRobotLinkAsLineSwept;
         std::string finalLinkType;
         Eigen::Vector3d finalLinkDimensions;
         std::vector<LinkSegment> robotLinks;
@@ -65,6 +65,8 @@ namespace ObstacleAvoidance {
         void
         deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDeleteCriticalA, bool const &bDeleteCriticalD,
                             bool const &bDeleteCriticalFinalLink) const;
+
+        double computeB0(double const &bFirst,double const &distance);
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);

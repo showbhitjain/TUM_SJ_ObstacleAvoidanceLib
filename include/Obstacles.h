@@ -23,7 +23,7 @@ namespace ObstacleAvoidance {
     public:
         /*Obstacles(const std::string &obstacleType, const Eigen::VectorXd &center, const Eigen::VectorXd &dimensions,
                   Eigen::Vector4d orientation = {1, 0, 0, 0}, Eigen::Vector3d axis = {0, 0, 0});*/
-        Obstacles(std::string const &obstacleType, Eigen::VectorXd const &center, Eigen::VectorXd const &dimensions,
+        Obstacles(std::string const &obstacleType, Eigen::Vector3d const &center, Eigen::VectorXd const &dimensions,
                   Eigen::Vector4d const &orientation = {1, 0, 0, 0}, Eigen::Vector3d const &axis = {0, 0, 0});
 
         Obstacles(ConceptLibrary::SphereShape const &sphereObstacle);
@@ -40,15 +40,15 @@ namespace ObstacleAvoidance {
         calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const ;
 
 
-        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d>
+        std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
         calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d const &linkSegmentV0,
                                                           Eigen::Vector3d const &linkSegmentV1,
-                                                          double const &linkRadius);
+                                                          double const &linkRadius) const;
 
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
         calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
-                                           double const &radiusLink, double const &radiusJoint) const;
+                                           double const &radiusLink, double const &radiusJoint,bool const &robotLinkAsLineSwept) const;
 
 
 
@@ -57,7 +57,7 @@ namespace ObstacleAvoidance {
 
 
         std::string obstacleType;
-        Eigen::VectorXd center;
+        Eigen::Vector3d center;
         Eigen::VectorXd dimensions;
         Eigen::Quaterniond orientation;
         Eigen::Vector3d axis;

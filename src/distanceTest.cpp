@@ -7,8 +7,10 @@
 #include <Eigen/Dense>
 #include <iostream>
 #include<AndreiUtils/utilsString.h>
+#include <ObstacleAvoidanceUtils.h>
 #include <AndreiUtils/utilsEigenGeometry.hpp>
 #include <privateUtils.h>
+
 using namespace Eigen;
 using namespace std;
 using namespace ObstacleAvoidance;
@@ -26,13 +28,34 @@ int main() {
     auto matrixCoder = EigenToCoder(testMatrix);
     cout<<matrixCoder.size(0)<<endl;
     cout<<matrixCoder.size(1)<<endl;
+    cout<<"smoothening test: "<<ObstacleAvoidance::smoothingConstraintScheme(0.035,0.01,0.04,2)<<endl;
 
 
-//    testMatrix(0,4)
-   // std::cout<<result[1]<<std::endl;
+    Vector3d testSphereCenter(0.5545,0.20,0.5211);
+    double testSphereRadius = 0.08;
+    Vector3d v1 = {0.5545,   -0.0000,    0.7315};
 
-//    Vector3d
+    Vector3d v0 = {0.4665,   -0.0000,    0.7315};
+    Vector3d testCylinderCenter = v0 + (0.5 *(v1-v0)) ;
+    double testCylinderRadius = 0.1;
+    Vector3d testCylinderAxis = (v1 -v0).normalized();
+    double testCylinderHeight = (v1-v0).norm();
+
+   /*auto [testDistance,testClosestPointSphere,testClosestPointCylinder]=  calculateDistanceSphereCylinder(testSphereRadius,testSphereCenter,testCylinderRadius,testCylinderHeight,testCylinderCenter,testCylinderAxis);
+    cout<<"testDistance: \n"<<testDistance<<endl;
+    cout<<"testClosestPointSphere: \n"<<testClosestPointSphere<<endl;
+    cout<<"testClosestPointCylinder: \n"<<testClosestPointCylinder<<endl;
+*/
+    auto [testDistance, testDistanceVector,testClosestPointSphere,testClosestPointCylinder] =  calculateDistanceSphereLineSweptSphere(testSphereRadius,testSphereCenter,v0,v1,testCylinderRadius);
+    cout<<"testDistance: \n"<<testDistance<<endl;
+    cout<<"testClosestPointSphere: \n"<<testClosestPointSphere<<endl;
+    cout<<"testClosestPointCylinder: \n"<<testClosestPointCylinder<<endl;
+
+    // testMatrix(0,4)
+// std::cout<<result[1]<<std::endl;
+// Vector3d
     Vector3d boxCenter(-3, -3, 0);
+
     Eigen::Quaterniond boxOrientation(1, 0, 0, 0);
     Vector3d boxDimensions(2, 2, 2);
 
@@ -41,12 +64,12 @@ int main() {
     Vector3d boxDimensions2(2, 2, 2);
     //    Eigen::Quaterniond boxOrientation2(0.9238795325, 0, 0, 0.3826834324);
 
-    Vector3d sphereCenter(1, 4, 0);
+    Vector3d sphereCenter(6, 3, 0);
     double sphereRadius = 1;
 
-    Vector3d cylinderAxis1(1, 0, 0);
-    double cylinderHeight1 = 2;
-    Vector3d cylinderCenter1(3, -3, 0);
+    Vector3d cylinderAxis1(1,0 , 0);
+    double cylinderHeight1 = 4;
+    Vector3d cylinderCenter1(2, 1, 0);
     double cylinderRadius1 = 1;
 
     Vector3d cylinderAxis2(1, 1, 0);

@@ -8,7 +8,7 @@
 
 namespace ObstacleAvoidance {
 
-    double smoothingConstraintScheme(double d, double dStop, double dActivate, double &k) {
+    double smoothingConstraintScheme(double const &d, double const &dStop, double const &dActivate, double const &k) {
 // Calculate d0 based on dStop, dActivate, and k
         double d0 = (dStop + dActivate) / k;
 
@@ -18,11 +18,11 @@ namespace ObstacleAvoidance {
 
 // If k is not valid, set it to the closest bound
         if (k < kMin) {
-            k = kMin;
-            d0 = (dStop + dActivate) / k; // Recalculate d0 with the new k value
+
+            d0 = (dStop + dActivate) / kMin; // Recalculate d0 with the new k value
         } else if (k > kMax) {
-            k = kMax;
-            d0 = (dStop + dActivate) / k; // Recalculate d0 with the new k value
+
+            d0 = (dStop + dActivate) / kMax; // Recalculate d0 with the new k value
         }
 
 // Determine the value of s based on the condition of d
@@ -48,6 +48,8 @@ namespace ObstacleAvoidance {
         return obstaclesMap;
 
     }
+
+
 }
 
 

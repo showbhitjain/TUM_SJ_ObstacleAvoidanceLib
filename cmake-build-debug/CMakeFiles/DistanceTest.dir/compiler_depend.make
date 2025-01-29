@@ -3,6 +3,11 @@
 
 CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacleavoidancelib/src/distanceTest.cpp \
   /home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h \
+  /home/shobhit/tum_sj_obstacleavoidancelib/include/ObstacleAvoidanceUtils.h \
+  /home/shobhit/tum_sj_obstacleavoidancelib/include/Obstacles.h \
+  /home/shobhit/tum_sj_obstacleavoidancelib/include/robotLinkDataTypes.h \
+  /home/shobhit/tum_sj_obstacleavoidancelib/private_include/privateUtils.h \
+  /home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/coder_array.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -36,11 +41,16 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/exception.h \
   /usr/include/c++/11/bits/exception_defines.h \
   /usr/include/c++/11/bits/exception_ptr.h \
+  /usr/include/c++/11/bits/forward_list.h \
+  /usr/include/c++/11/bits/forward_list.tcc \
   /usr/include/c++/11/bits/functexcept.h \
   /usr/include/c++/11/bits/functional_hash.h \
+  /usr/include/c++/11/bits/gslice.h \
+  /usr/include/c++/11/bits/gslice_array.h \
   /usr/include/c++/11/bits/hash_bytes.h \
   /usr/include/c++/11/bits/hashtable.h \
   /usr/include/c++/11/bits/hashtable_policy.h \
+  /usr/include/c++/11/bits/indirect_array.h \
   /usr/include/c++/11/bits/invoke.h \
   /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/bits/istream.tcc \
@@ -50,6 +60,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/locale_facets.h \
   /usr/include/c++/11/bits/locale_facets.tcc \
   /usr/include/c++/11/bits/localefwd.h \
+  /usr/include/c++/11/bits/mask_array.h \
   /usr/include/c++/11/bits/max_size_type.h \
   /usr/include/c++/11/bits/memoryfwd.h \
   /usr/include/c++/11/bits/move.h \
@@ -57,6 +68,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/node_handle.h \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/bits/ostream_insert.h \
+  /usr/include/c++/11/bits/parse_numbers.h \
   /usr/include/c++/11/bits/postypes.h \
   /usr/include/c++/11/bits/predefined_ops.h \
   /usr/include/c++/11/bits/ptr_traits.h \
@@ -73,6 +85,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/shared_ptr.h \
   /usr/include/c++/11/bits/shared_ptr_atomic.h \
   /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/slice_array.h \
   /usr/include/c++/11/bits/specfun.h \
   /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/c++/11/bits/std_abs.h \
@@ -87,11 +100,16 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/stl_iterator.h \
   /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/11/bits/stl_iterator_base_types.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
+  /usr/include/c++/11/bits/stl_multiset.h \
   /usr/include/c++/11/bits/stl_numeric.h \
   /usr/include/c++/11/bits/stl_pair.h \
   /usr/include/c++/11/bits/stl_raw_storage_iter.h \
   /usr/include/c++/11/bits/stl_relops.h \
+  /usr/include/c++/11/bits/stl_set.h \
   /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_tree.h \
   /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stream_iterator.h \
@@ -100,14 +118,20 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/bits/string_view.tcc \
   /usr/include/c++/11/bits/stringfwd.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
+  /usr/include/c++/11/bits/unique_lock.h \
   /usr/include/c++/11/bits/unique_ptr.h \
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/uses_allocator.h \
   /usr/include/c++/11/bits/uses_allocator_args.h \
+  /usr/include/c++/11/bits/valarray_after.h \
+  /usr/include/c++/11/bits/valarray_array.h \
+  /usr/include/c++/11/bits/valarray_array.tcc \
+  /usr/include/c++/11/bits/valarray_before.h \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/cassert \
   /usr/include/c++/11/cctype \
   /usr/include/c++/11/cerrno \
+  /usr/include/c++/11/chrono \
   /usr/include/c++/11/climits \
   /usr/include/c++/11/clocale \
   /usr/include/c++/11/cmath \
@@ -119,6 +143,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/cstdio \
   /usr/include/c++/11/cstdlib \
   /usr/include/c++/11/cstring \
+  /usr/include/c++/11/ctime \
   /usr/include/c++/11/cwchar \
   /usr/include/c++/11/cwctype \
   /usr/include/c++/11/debug/assertions.h \
@@ -132,6 +157,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/ext/numeric_traits.h \
   /usr/include/c++/11/ext/string_conversions.h \
   /usr/include/c++/11/ext/type_traits.h \
+  /usr/include/c++/11/forward_list \
   /usr/include/c++/11/functional \
   /usr/include/c++/11/initializer_list \
   /usr/include/c++/11/ios \
@@ -140,7 +166,10 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/istream \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/limits \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/math.h \
   /usr/include/c++/11/memory \
+  /usr/include/c++/11/mutex \
   /usr/include/c++/11/new \
   /usr/include/c++/11/numbers \
   /usr/include/c++/11/numeric \
@@ -151,6 +180,8 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/pstl/glue_numeric_defs.h \
   /usr/include/c++/11/pstl/pstl_config.h \
   /usr/include/c++/11/random \
+  /usr/include/c++/11/ratio \
+  /usr/include/c++/11/set \
   /usr/include/c++/11/sstream \
   /usr/include/c++/11/stdexcept \
   /usr/include/c++/11/stdlib.h \
@@ -175,6 +206,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/include/c++/11/typeinfo \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/utility \
+  /usr/include/c++/11/valarray \
   /usr/include/c++/11/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -346,6 +378,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/enqcmdintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/f16cintrin.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/gfniintrin.h \
@@ -394,14 +427,47 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveoptintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xtestintrin.h \
+  /usr/local/include/AndreiUtils/classes/DualQuaternion.hpp \
+  /usr/local/include/AndreiUtils/classes/Pointer.hpp \
+  /usr/local/include/AndreiUtils/classes/Pointer.tpp \
+  /usr/local/include/AndreiUtils/classes/PointerConst.tpp \
   /usr/local/include/AndreiUtils/classes/RandomNumberGenerator.hpp \
+  /usr/local/include/AndreiUtils/classes/TypeHelper.hpp \
+  /usr/local/include/AndreiUtils/classes/graph/NodeData.h \
   /usr/local/include/AndreiUtils/enums/EigenLeastSquaresSolver.h \
+  /usr/local/include/AndreiUtils/enums/StabilityCriterionOperation.h \
+  /usr/local/include/AndreiUtils/json.hpp \
   /usr/local/include/AndreiUtils/traits/InstanceOf.hpp \
+  /usr/local/include/AndreiUtils/traits/is_detected.hpp \
+  /usr/local/include/AndreiUtils/traits/stringify.hpp \
   /usr/local/include/AndreiUtils/utils.hpp \
   /usr/local/include/AndreiUtils/utilsEigen.hpp \
   /usr/local/include/AndreiUtils/utilsEigenGeometry.hpp \
   /usr/local/include/AndreiUtils/utilsEigenLeastSquares.h \
+  /usr/local/include/AndreiUtils/utilsQuaternions.hpp \
   /usr/local/include/AndreiUtils/utilsString.h \
+  /usr/local/include/AndreiUtils/utilsVector.hpp \
+  /usr/local/include/ConceptLibrary/concepts/Concept.h \
+  /usr/local/include/ConceptLibrary/concepts/InstanceType.h \
+  /usr/local/include/ConceptLibrary/instances/geometry/BoxShape.h \
+  /usr/local/include/ConceptLibrary/instances/geometry/CylinderShape.h \
+  /usr/local/include/ConceptLibrary/instances/geometry/PlaneShape.h \
+  /usr/local/include/ConceptLibrary/instances/geometry/Shape.h \
+  /usr/local/include/ConceptLibrary/instances/geometry/SphereShape.h \
+  /usr/local/include/ConceptLibrary/valueDomains/Boolean.h \
+  /usr/local/include/ConceptLibrary/valueDomains/Integer.h \
+  /usr/local/include/ConceptLibrary/valueDomains/Number.h \
+  /usr/local/include/ConceptLibrary/valueDomains/Pose.h \
+  /usr/local/include/ConceptLibrary/valueDomains/Quaternion.h \
+  /usr/local/include/ConceptLibrary/valueDomains/ValueDomain.hpp \
+  /usr/local/include/ConceptLibrary/valueDomains/Vector.hpp \
+  /usr/local/include/ConceptLibrary/valueDomains/utilsBoolean.h \
+  /usr/local/include/ccd/ccd.h \
+  /usr/local/include/ccd/ccd_export.h \
+  /usr/local/include/ccd/compiler.h \
+  /usr/local/include/ccd/config.h \
+  /usr/local/include/ccd/quat.h \
+  /usr/local/include/ccd/vec3.h \
   /usr/local/include/eigen3/Eigen/Cholesky \
   /usr/local/include/eigen3/Eigen/Core \
   /usr/local/include/eigen3/Eigen/Dense \
@@ -593,8 +659,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h:
 
-/usr/local/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h:
-
 /usr/local/include/eigen3/Eigen/src/plugins/CommonCwiseBinaryOps.h:
 
 /usr/local/include/eigen3/Eigen/src/SVD/JacobiSVD.h:
@@ -623,19 +687,11 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/Geometry/Rotation2D.h:
 
-/usr/local/include/eigen3/Eigen/src/Geometry/Quaternion.h:
-
-/usr/local/include/eigen3/Eigen/src/Geometry/OrthoMethods.h:
-
 /usr/local/include/eigen3/Eigen/src/Geometry/Hyperplane.h:
-
-/usr/local/include/eigen3/Eigen/src/Geometry/EulerAngles.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h:
-
-/usr/local/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/ComplexEigenSolver.h:
 
@@ -671,8 +727,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h:
-
 /usr/local/include/eigen3/Eigen/src/Core/functors/AssignmentFunctors.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h:
@@ -681,13 +735,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h:
-
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:
-
-/usr/local/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/arch/AVX/Complex.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/VectorwiseOp.h:
 
@@ -696,8 +744,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/local/include/eigen3/Eigen/src/Core/Transpose.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/Swap.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/StlIterators.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/SolverBase.h:
 
@@ -720,8 +766,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/local/include/eigen3/Eigen/src/Core/PlainObjectBase.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/PartialReduxEvaluator.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/NumTraits.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/NoAlias.h:
 
@@ -747,8 +791,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/Core/Block.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/BandMatrix.h:
-
 /usr/local/include/eigen3/Eigen/src/Householder/Householder.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/AssignEvaluator.h:
@@ -764,8 +806,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/local/include/eigen3/Eigen/src/Core/products/TriangularMatrixVector.h:
 
 /usr/local/include/eigen3/Eigen/src/Cholesky/LLT.h:
-
-/usr/local/include/eigen3/Eigen/src/Cholesky/LDLT.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/MathFunctions.h:
 
@@ -789,17 +829,67 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/Core:
 
+/usr/local/include/eigen3/Eigen/src/Geometry/OrthoMethods.h:
+
+/usr/local/include/ccd/quat.h:
+
+/usr/local/include/ccd/config.h:
+
+/usr/local/include/ccd/compiler.h:
+
+/usr/local/include/ccd/ccd_export.h:
+
+/usr/local/include/ccd/ccd.h:
+
+/usr/local/include/ConceptLibrary/valueDomains/utilsBoolean.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h:
+
+/usr/local/include/ConceptLibrary/valueDomains/Vector.hpp:
+
+/usr/local/include/ConceptLibrary/valueDomains/ValueDomain.hpp:
+
+/usr/local/include/ConceptLibrary/valueDomains/Quaternion.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/NumTraits.h:
+
+/usr/local/include/ConceptLibrary/valueDomains/Number.h:
+
+/usr/local/include/ConceptLibrary/instances/geometry/Shape.h:
+
+/usr/local/include/AndreiUtils/utilsVector.hpp:
+
 /usr/local/include/AndreiUtils/utilsString.h:
 
-/usr/local/include/AndreiUtils/utilsEigenGeometry.hpp:
-
-/usr/local/include/AndreiUtils/utilsEigen.hpp:
+/usr/local/include/AndreiUtils/utilsQuaternions.hpp:
 
 /usr/local/include/AndreiUtils/utils.hpp:
+
+/usr/local/include/AndreiUtils/traits/is_detected.hpp:
 
 /usr/local/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h:
 
 /usr/local/include/AndreiUtils/traits/InstanceOf.hpp:
+
+/usr/local/include/AndreiUtils/json.hpp:
+
+/usr/local/include/eigen3/Eigen/src/plugins/CommonCwiseUnaryOps.h:
+
+/usr/local/include/AndreiUtils/enums/StabilityCriterionOperation.h:
+
+/usr/local/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/AVX/Complex.h:
+
+/usr/local/include/AndreiUtils/classes/graph/NodeData.h:
+
+/usr/local/include/AndreiUtils/classes/TypeHelper.hpp:
+
+/usr/local/include/AndreiUtils/classes/Pointer.tpp:
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h:
+
+/usr/local/include/AndreiUtils/classes/Pointer.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h:
 
@@ -820,8 +910,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/lib/gcc/x86_64-linux-gnu/11/include/uintrintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/tsxldtrkintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/tbmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
 
@@ -845,6 +933,8 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/popcntintrin.h:
 
+/usr/local/include/ConceptLibrary/concepts/InstanceType.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/pmmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/pconfigintrin.h:
@@ -852,10 +942,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/nmmintrin.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/Array.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitintrin.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX/TypeCasting.h:
 
@@ -873,6 +959,8 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h:
 
+/usr/local/include/ConceptLibrary/valueDomains/Boolean.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/f16cintrin.h:
 
 /usr/local/include/eigen3/Eigen/src/Geometry/Homogeneous.h:
@@ -883,59 +971,71 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h:
 
+/usr/local/include/AndreiUtils/traits/stringify.hpp:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/clwbintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/cetintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/bmiintrin.h:
 
-/usr/include/c++/11/tr1/legendre_function.tcc:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avxvnniintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/confname.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/syscall.h:
+/usr/local/include/eigen3/Eigen/src/Core/Matrix.h:
 
-/usr/local/include/eigen3/Eigen/src/plugins/BlockMethods.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqintrin.h:
 
-/usr/include/c++/11/tr1/bessel_function.tcc:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectvlintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/wmmintrin.h:
 
-/usr/include/c++/11/string:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h:
 
-/usr/local/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlintrin.h:
 
-/usr/include/c++/11/stdexcept:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/MapBase.h:
+/usr/local/include/eigen3/Eigen/Geometry:
 
-/usr/include/c++/11/sstream:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2vlintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2intrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmavlintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmaintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512fintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512cdintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16vlintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16intrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124vnniwintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h:
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/Half.h:
 
-/usr/include/c++/11/bits/streambuf_iterator.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/DiagonalProduct.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124fmapsintrin.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/local/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h:
 
-/usr/include/c++/11/pstl/glue_numeric_defs.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx2intrin.h:
 
-/usr/include/c++/11/memory:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/amxint8intrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/tbmintrin.h:
+
+/usr/include/c++/11/map:
 
 /usr/include/c++/11/limits:
-
-/usr/include/c++/11/string_view:
-
-/usr/local/include/AndreiUtils/utilsEigenLeastSquares.h:
-
-/usr/include/c++/11/bits/stl_function.h:
-
-/usr/include/c++/11/iterator:
 
 /usr/include/c++/11/istream:
 
@@ -943,23 +1043,13 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
-/usr/include/c++/11/new:
-
 /usr/local/include/eigen3/Eigen/Householder:
 
 /usr/include/c++/11/iostream:
 
 /usr/include/linux/errno.h:
 
-/usr/include/c++/11/pstl/glue_algorithm_defs.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512dqintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlintrin.h:
-
 /usr/include/c++/11/bits/ostream.tcc:
-
-/usr/include/c++/11/ext/concurrence.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/Transpositions.h:
 
@@ -971,13 +1061,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/ext/new_allocator.h:
 
-/usr/include/c++/11/tr1/ell_integral.tcc:
-
-/usr/include/c++/11/tr1/exp_integral.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/c++/11/ext/concurrence.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
@@ -997,14 +1081,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
-/usr/include/c++/11/tr1/modified_bessel_func.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/wbnoinvdintrin.h:
-
-/usr/include/c++/11/bits/stl_construct.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
 /usr/local/include/eigen3/Eigen/src/Core/PermutationMatrix.h:
 
 /usr/include/c++/11/bits/locale_facets.tcc:
@@ -1017,23 +1093,39 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
+/usr/local/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bwintrin.h:
+
+/usr/include/c++/11/mutex:
+
 /usr/include/c++/11/bits/stl_tempbuf.h:
 
 /usr/local/include/eigen3/Eigen/src/QR/HouseholderQR.h:
 
 /usr/include/sched.h:
 
-/usr/local/include/eigen3/Eigen/src/Geometry/AngleAxis.h:
+/usr/local/include/eigen3/Eigen/src/Core/Array.h:
 
-/usr/include/c++/11/tr1/gamma.tcc:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitintrin.h:
+
+/usr/include/c++/11/bits/valarray_array.tcc:
+
+/usr/local/include/eigen3/Eigen/src/Cholesky/LDLT.h:
+
+/usr/include/c++/11/bits/valarray_array.h:
+
+/usr/include/c++/11/ext/string_conversions.h:
+
+/usr/include/c++/11/bits/valarray_after.h:
 
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/11/clocale:
 
 /usr/include/c++/11/bits/unordered_map.h:
-
-/usr/include/string.h:
 
 /usr/include/c++/11/bits/stringfwd.h:
 
@@ -1042,12 +1134,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/include/c++/11/debug/assertions.h:
 
 /usr/include/c++/11/bits/string_view.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
-
-/usr/include/c++/11/random:
-
-/usr/include/time.h:
 
 /usr/include/c++/11/bits/stl_vector.h:
 
@@ -1063,17 +1149,29 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h:
+/usr/local/include/eigen3/Eigen/src/Geometry/EulerAngles.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/SolveTriangular.h:
+/usr/include/c++/11/bits/stl_set.h:
 
-/usr/include/c++/11/ostream:
+/usr/local/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h:
 
-/usr/include/c++/11/bits/hash_bytes.h:
-
-/usr/include/c++/11/tuple:
+/home/shobhit/tum_sj_obstacleavoidancelib/include/robotLinkDataTypes.h:
 
 /usr/include/c++/11/bits/stl_pair.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/StlIterators.h:
+
+/usr/include/c++/11/bits/parse_numbers.h:
+
+/usr/include/string.h:
+
+/usr/include/c++/11/bits/stl_multiset.h:
+
+/usr/local/include/eigen3/Eigen/src/plugins/BlockMethods.h:
+
+/usr/include/c++/11/tr1/bessel_function.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
 
@@ -1081,11 +1179,19 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
+/usr/include/c++/11/chrono:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
 /usr/include/c++/11/bits/vector.tcc:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/wmmintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/wbnoinvdintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h:
+/usr/include/c++/11/bits/stl_multimap.h:
+
+/usr/include/c++/11/bits/stl_construct.h:
+
+/usr/include/c++/11/tr1/modified_bessel_func.tcc:
 
 /usr/include/c++/11/bits/uses_allocator_args.h:
 
@@ -1099,9 +1205,85 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/bits/stl_algobase.h:
 
+/usr/local/include/eigen3/Eigen/src/Core/CwiseUnaryView.h:
+
+/usr/include/c++/11/bits/stl_algo.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/DenseBase.h:
+
+/usr/local/include/AndreiUtils/classes/DualQuaternion.hpp:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlbwintrin.h:
+
+/usr/include/c++/11/bits/uses_allocator.h:
+
+/usr/include/c++/11/debug/debug.h:
+
+/usr/include/c++/11/cmath:
+
+/usr/include/c++/11/bits/std_mutex.h:
+
+/usr/include/c++/11/bits/cpp_type_traits.h:
+
+/usr/include/c++/11/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/11/bits/stl_relops.h:
+
+/usr/local/include/AndreiUtils/utilsEigenLeastSquares.h:
+
+/usr/include/c++/11/bits/stl_function.h:
+
+/usr/local/include/ConceptLibrary/instances/geometry/BoxShape.h:
+
+/usr/local/include/AndreiUtils/classes/PointerConst.tpp:
+
+/usr/include/c++/11/string_view:
+
+/usr/include/c++/11/ctime:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/c++/11/bits/slice_array.h:
+
+/usr/local/include/eigen3/Eigen/src/LU/arch/InverseSize4.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/CoreIterators.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+/usr/include/c++/11/bits/stream_iterator.h:
+
+/usr/include/c++/11/bits/shared_ptr_base.h:
+
+/usr/include/c++/11/bits/stl_heap.h:
+
+/usr/local/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h:
+
+/usr/include/c++/11/bits/stl_bvector.h:
+
+/usr/local/include/AndreiUtils/classes/RandomNumberGenerator.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/x86gprintrin.h:
+
+/usr/include/c++/11/bits/shared_ptr_atomic.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/Product.h:
+
+/usr/include/features.h:
+
+/usr/include/c++/11/bits/refwrap.h:
+
+/usr/include/c++/11/valarray:
+
 /usr/local/include/eigen3/Eigen/src/plugins/ReshapedMethods.h:
 
 /usr/include/c++/11/bits/cxxabi_init_exception.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bitalgintrin.h:
+
+/usr/include/c++/11/bits/exception_defines.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
@@ -1111,45 +1293,19 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/compare:
 
-/usr/include/c++/11/bits/cpp_type_traits.h:
-
-/usr/include/c++/11/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/11/bits/stl_relops.h:
-
 /usr/include/c++/11/bits/locale_facets.h:
-
-/usr/local/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h:
-
-/usr/include/c++/11/numeric:
-
-/usr/include/c++/11/bits/postypes.h:
-
-/usr/include/c++/11/bits/shared_ptr_base.h:
-
-/usr/local/include/eigen3/Eigen/src/misc/Kernel.h:
-
-/usr/include/c++/11/bits/stl_iterator_base_types.h:
-
-/usr/include/c++/11/bits/exception_ptr.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/tmmintrin.h:
-
-/home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h:
 
 /usr/include/c++/11/bits/basic_string.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
+/usr/local/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h:
 
-/usr/local/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h:
+/usr/include/c++/11/bits/invoke.h:
 
-/usr/include/c++/11/bits/stl_bvector.h:
+/usr/local/include/eigen3/Eigen/src/Core/GeneralProduct.h:
 
-/usr/include/c++/11/bits/stl_heap.h:
+/usr/local/include/eigen3/Eigen/src/Core/Dot.h:
 
-/usr/local/include/AndreiUtils/classes/RandomNumberGenerator.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+/usr/include/c++/11/bits/ranges_algo.h:
 
 /usr/include/c++/11/bits/node_handle.h:
 
@@ -1165,6 +1321,12 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/bits/ios_base.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/11/include/clflushoptintrin.h:
+
+/usr/include/c++/11/bits/specfun.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/lzcntintrin.h:
 
 /usr/include/c++/11/cstdint:
@@ -1173,37 +1335,39 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/bits/basic_ios.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmaintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnnivlintrin.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/CwiseUnaryView.h:
-
-/usr/include/c++/11/bits/stl_algo.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/Half.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124fmapsintrin.h:
+/home/shobhit/tum_sj_obstacleavoidancelib/src/distanceTest.cpp:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
 
-/usr/local/include/eigen3/Eigen/Geometry:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2vlintrin.h:
+/usr/include/c++/11/set:
 
 /usr/include/c++/11/bits/atomic_wait.h:
 
-/usr/include/c++/11/cmath:
-
-/usr/include/c++/11/bits/std_mutex.h:
-
 /usr/include/c++/11/bits/ranges_algobase.h:
+
+/usr/local/include/ConceptLibrary/valueDomains/Pose.h:
+
+/usr/local/include/ConceptLibrary/concepts/Concept.h:
 
 /usr/include/c++/11/bits/atomic_base.h:
 
 /usr/include/c++/11/bits/hashtable.h:
 
-/usr/include/c++/11/bits/allocator.h:
+/usr/local/include/eigen3/Eigen/src/Core/BandMatrix.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+/usr/include/c++/11/bits/indirect_array.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/c++/11/iterator:
+
+/usr/local/include/AndreiUtils/utilsEigen.hpp:
+
+/usr/include/c++/11/bits/mask_array.h:
 
 /usr/local/include/eigen3/Eigen/src/SVD/BDCSVD.h:
 
@@ -1211,43 +1375,33 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/complex:
 
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/c++/11/bits/char_traits.h:
+
+/usr/include/c++/11/bit:
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h:
+
+/usr/include/c++/11/bits/range_access.h:
+
 /usr/include/assert.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/amxint8intrin.h:
+/usr/include/c++/11/bits/unique_lock.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h:
+/usr/include/c++/11/bits/std_abs.h:
 
-/usr/include/c++/11/bits/invoke.h:
+/usr/local/include/ConceptLibrary/instances/geometry/CylinderShape.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/GeneralProduct.h:
+/usr/local/include/AndreiUtils/utilsEigenGeometry.hpp:
 
-/usr/local/include/eigen3/Eigen/src/Core/Dot.h:
+/usr/include/c++/11/bits/valarray_before.h:
 
-/usr/include/c++/11/bits/ranges_algo.h:
+/usr/include/c++/11/bits/allocator.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/clflushoptintrin.h:
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/c++/11/bits/specfun.h:
-
-/usr/local/include/eigen3/Eigen/src/LU/FullPivLU.h:
-
-/usr/include/c++/11/backward/auto_ptr.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/c++/11/bits/ranges_cmp.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:
-
-/usr/include/c++/11/bits/stl_uninitialized.h:
-
-/usr/include/c++/11/cwctype:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+/usr/include/c++/11/bits/postypes.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h:
 
@@ -1263,37 +1417,83 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/atomic:
 
-/usr/local/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h:
+/usr/local/include/eigen3/Eigen/src/LU/FullPivLU.h:
 
-/usr/include/c++/11/array:
+/usr/include/c++/11/backward/auto_ptr.h:
 
-/usr/include/c++/11/bits/stream_iterator.h:
+/home/shobhit/tum_sj_obstacleavoidancelib/include/Obstacles.h:
 
-/usr/include/c++/11/bit:
+/usr/local/include/eigen3/Eigen/Dense:
 
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+/usr/include/c++/11/cassert:
 
-/usr/include/c++/11/concepts:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/ia32intrin.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/products/Parallelizer.h:
+/usr/include/c++/11/bits/std_function.h:
 
-/usr/include/c++/11/bits/functional_hash.h:
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
-/usr/include/c++/11/tr1/hypergeometric.tcc:
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16intrin.h:
+/usr/include/c++/11/bits/gslice.h:
 
-/usr/include/c++/11/bits/ranges_util.h:
+/usr/include/c++/11/bits/basic_string.tcc:
 
-/usr/include/c++/11/bits/locale_classes.tcc:
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/pkuintrin.h:
+
+/usr/include/c++/11/bits/algorithmfwd.h:
+
+/usr/local/include/eigen3/Eigen/src/misc/RealSvd2x2.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectintrin.h:
+
+/usr/include/c++/11/bits/shared_ptr.h:
+
+/usr/include/c++/11/bits/memoryfwd.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:
+
+/usr/include/c++/11/bits/forward_list.tcc:
+
+/usr/include/c++/11/bits/nested_exception.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/tmmintrin.h:
+
+/home/shobhit/tum_sj_obstacleavoidancelib/include/DistanceObjects.h:
+
+/usr/local/include/eigen3/Eigen/src/misc/Kernel.h:
+
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/11/bits/exception_ptr.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/c++/11/bits/ranges_cmp.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:
+
+/usr/include/c++/11/bits/stl_uninitialized.h:
+
+/usr/include/c++/11/cwctype:
+
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+
+/home/shobhit/tum_sj_obstacleavoidancelib/trajectory_staticlib/coder_array.h:
+
+/usr/include/endian.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/Stride.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/CwiseTernaryOp.h:
 
-/usr/include/c++/11/iosfwd:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/amxtileintrin.h:
+
+/usr/include/c++/11/iosfwd:
 
 /usr/include/c++/11/bits/stl_iterator_base_funcs.h:
 
@@ -1303,25 +1503,37 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+/usr/local/include/eigen3/Eigen/src/plugins/ArrayCwiseBinaryOps.h:
 
-/usr/include/alloca.h:
+/usr/include/c++/11/array:
 
-/usr/include/c++/11/bits/memoryfwd.h:
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:
+/usr/include/c++/11/concepts:
 
-/usr/include/c++/11/bits/nested_exception.h:
+/usr/local/include/eigen3/Eigen/src/Core/products/Parallelizer.h:
 
-/usr/local/include/eigen3/Eigen/src/misc/RealSvd2x2.h:
+/usr/include/c++/11/bits/functional_hash.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
 
-/usr/include/c++/11/bits/shared_ptr.h:
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/c++/11/bits/charconv.h:
 
 /usr/include/c++/11/ext/alloc_traits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h:
+
+/usr/include/c++/11/bits/streambuf_iterator.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/DiagonalProduct.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/Reshaped.h:
 
@@ -1331,7 +1543,7 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 
-/usr/include/c++/11/bits/refwrap.h:
+/usr/include/c++/11/forward_list:
 
 /usr/include/c++/11/bits/allocated_ptr.h:
 
@@ -1345,39 +1557,33 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/bits/istream.tcc:
 
+/usr/include/c++/11/bits/locale_classes.tcc:
+
+/usr/include/c++/11/bits/ranges_util.h:
+
 /usr/include/c++/11/cerrno:
 
 /usr/include/c++/11/bits/atomic_lockfree_defines.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/ia32intrin.h:
+/usr/local/include/eigen3/Eigen/src/Core/MapBase.h:
 
-/usr/include/c++/11/bits/std_function.h:
+/usr/include/c++/11/sstream:
 
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+/usr/local/include/eigen3/Eigen/src/Geometry/Quaternion.h:
 
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/11/bits/ostream_insert.h:
+/usr/include/c++/11/bits/forward_list.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
-/usr/include/c++/11/ext/string_conversions.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2intrin.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/Fuzzy.h:
 
 /usr/include/c++/11/bits/iterator_concepts.h:
 
+/usr/include/c++/11/bits/gslice_array.h:
+
 /usr/include/c++/11/bits/predefined_ops.h:
 
 /usr/include/c++/11/bits/random.h:
-
-/usr/include/c++/11/stdlib.h:
-
-/usr/include/c++/11/backward/binders.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h:
 
@@ -1385,19 +1591,9 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/bits/random.tcc:
 
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h:
-
-/usr/include/c++/11/bits/range_access.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/serializeintrin.h:
-
-/usr/include/c++/11/tr1/beta_function.tcc:
-
-/usr/include/c++/11/bits/erase_if.h:
-
-/usr/include/c++/11/ext/aligned_buffer.h:
-
 /usr/include/c++/11/bits/ranges_base.h:
+
+/usr/include/c++/11/bits/stl_tree.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
@@ -1405,31 +1601,89 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
-/usr/local/include/eigen3/Eigen/Dense:
+/usr/include/c++/11/math.h:
 
-/usr/include/c++/11/cassert:
+/usr/include/c++/11/new:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/pkuintrin.h:
+/usr/local/include/eigen3/Eigen/src/plugins/IndexedViewMethods.h:
 
-/usr/include/c++/11/bits/algorithmfwd.h:
+/usr/include/c++/11/numeric:
+
+/usr/local/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixMatrix.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/SolveTriangular.h:
+
+/usr/include/c++/11/ostream:
+
+/usr/include/c++/11/bits/hash_bytes.h:
+
+/usr/include/c++/11/tuple:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512dqintrin.h:
+
+/usr/include/c++/11/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/11/bits/ostream_insert.h:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/11/memory:
+
+/usr/include/c++/11/pstl/glue_numeric_defs.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
+
+/usr/include/time.h:
+
+/usr/include/c++/11/random:
+
+/usr/local/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h:
+
+/usr/include/c++/11/stdexcept:
+
+/usr/include/c++/11/backward/binders.h:
+
+/usr/include/c++/11/stdlib.h:
 
 /usr/include/c++/11/ext/atomicity.h:
 
 /usr/include/c++/11/streambuf:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/x86gprintrin.h:
+/usr/include/c++/11/string:
 
-/usr/include/c++/11/bits/shared_ptr_atomic.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/serializeintrin.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/Product.h:
+/usr/include/c++/11/ext/aligned_buffer.h:
 
-/usr/include/features.h:
+/usr/include/c++/11/bits/erase_if.h:
 
-/usr/include/c++/11/bits/char_traits.h:
+/usr/include/c++/11/tr1/beta_function.tcc:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+/usr/include/x86_64-linux-gnu/bits/syscall.h:
 
-/usr/include/c++/11/bits/std_abs.h:
+/usr/include/c++/11/tr1/ell_integral.tcc:
+
+/usr/include/c++/11/tr1/exp_integral.tcc:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/local/include/eigen3/Eigen/src/Geometry/AngleAxis.h:
+
+/usr/include/c++/11/tr1/gamma.tcc:
+
+/usr/include/c++/11/tr1/hypergeometric.tcc:
+
+/usr/include/c++/11/tr1/legendre_function.tcc:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
+/usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
 
@@ -1465,8 +1719,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/c++/11/vector:
 
-/usr/include/endian.h:
-
 /usr/local/include/eigen3/Eigen/src/Core/util/Macros.h:
 
 /usr/include/c++/11/pstl/pstl_config.h:
@@ -1478,6 +1730,12 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/include/stdint.h:
 
 /usr/include/linux/limits.h:
+
+/usr/local/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512erintrin.h:
+
+/usr/include/locale.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/util/IntegralConstant.h:
 
@@ -1499,6 +1757,16 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/unistd.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vldqintrin.h:
+
+/usr/include/c++/11/cstddef:
+
+/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
+
+/usr/local/include/ccd/vec3.h:
+
+/usr/include/c++/11/ratio:
+
 /usr/include/x86_64-linux-gnu/asm/unistd.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h:
@@ -1515,13 +1783,9 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
-/usr/include/x86_64-linux-gnu/bits/endian.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512cdintrin.h:
-
-/usr/include/c++/11/bits/basic_string.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
@@ -1543,13 +1807,9 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
-/usr/local/include/eigen3/Eigen/src/Core/Matrix.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
 
 /usr/include/stdlib.h:
 
@@ -1557,11 +1817,9 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/local/include/eigen3/Eigen/src/Core/Diagonal.h:
 
+/usr/local/include/ConceptLibrary/valueDomains/Integer.h:
+
 /usr/include/x86_64-linux-gnu/bits/select.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/c++/11/bits/functexcept.h:
 
@@ -1572,6 +1830,8 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/include/limits.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/home/shobhit/tum_sj_obstacleavoidancelib/private_include/privateUtils.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
@@ -1585,23 +1845,19 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
+/usr/local/include/ConceptLibrary/instances/geometry/PlaneShape.h:
+
 /usr/include/c++/11/pstl/glue_memory_defs.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
+/usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/c++/11/pstl/execution_defs.h:
-
-/usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
@@ -1623,10 +1879,6 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
-/home/shobhit/tum_sj_obstacleavoidancelib/src/distanceTest.cpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnnivlintrin.h:
-
 /usr/include/c++/11/bits/enable_special_members.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
@@ -1641,19 +1893,13 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+/usr/local/include/ConceptLibrary/instances/geometry/SphereShape.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/c++/11/bits/ranges_uninitialized.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
-
-/usr/local/include/eigen3/Eigen/src/LU/arch/InverseSize4.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/CoreIterators.h:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/local/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h:
 
@@ -1671,9 +1917,9 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
-
 /usr/include/c++/11/numbers:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
@@ -1689,11 +1935,19 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmivlintrin.h:
+
+/home/shobhit/tum_sj_obstacleavoidancelib/include/ObstacleAvoidanceUtils.h:
+
+/usr/include/strings.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
+
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmavlintrin.h:
 
 /usr/local/include/eigen3/Eigen/src/Eigenvalues/EigenSolver.h:
 
@@ -1710,59 +1964,3 @@ CMakeFiles/DistanceTest.dir/src/distanceTest.cpp.o: /home/shobhit/tum_sj_obstacl
 /usr/lib/gcc/x86_64-linux-gnu/11/include/vaesintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/amxbf16intrin.h:
-
-/usr/local/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx2intrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16vlintrin.h:
-
-/usr/include/c++/11/bits/exception_defines.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bitalgintrin.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bwintrin.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
-
-/usr/include/locale.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512erintrin.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512fintrin.h:
-
-/usr/include/strings.h:
-
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmivlintrin.h:
-
-/usr/local/include/eigen3/Eigen/src/Core/DenseBase.h:
-
-/usr/include/c++/11/bits/uses_allocator.h:
-
-/usr/include/c++/11/debug/debug.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlbwintrin.h:
-
-/usr/include/c++/11/cstddef:
-
-/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vldqintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectvlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avxvnniintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h:

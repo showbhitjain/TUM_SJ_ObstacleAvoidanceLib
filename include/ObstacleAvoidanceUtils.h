@@ -10,7 +10,7 @@
 
 namespace ObstacleAvoidance {
 
-    double smoothingConstraintScheme(double d, double dStop, double dActivate, double& k);
+    double smoothingConstraintScheme(double const &d, double const &dStop, double const &dActivate, double const &k);
 
     std::map<std::string,Obstacles> conversionObstaclesVectorToMap(std::vector<Obstacles> const &obstaclesArray);
 

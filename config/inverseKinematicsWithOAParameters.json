@@ -6,23 +6,23 @@
     "useObjectiveNormL2": true,
     "weightNormL2": 1,
     "jointVelocityWeight": [1,1,1,1,1,1,1],
-    "useObjectiveTrajectoryFollowing": false,
-    "weightTrajectoryFollowing": 0.1,
+    "useObjectiveTrajectoryFollowing": true,
+    "weightTrajectoryFollowing": 2,
     "useObjectiveJointAcceleration": false,
-    "weightJointAcceleration": 0.1,
-    "useObjectiveManipulability": false,
+    "weightJointAcceleration": 0.3,
+    "useObjectiveManipulability": true,
     "weightManipulability": 0.1
   },
   "EquationParameters": {
-    "applyEqualityConstraints":true,
+    "applyEqualityConstraints":false,
     "applyInequalityConstraints": true
   },
   "SlackParameters": {
-    "applySlack": true,
-    "Slacklowerbound": [-0.2,-0.2,-0.1,-2,-2,-60],
-    "Slackupperbound": [0.2,0.2,0.1,2,2,60],
+    "applySlack": false,
+    "Slacklowerbound": [-0.4,-0.4,-0.4,-2,-2,-60],
+    "Slackupperbound": [0.4,0.4,0.4,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 20
+    "SlackObjectiveWeight": 2
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,

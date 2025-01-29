@@ -12,6 +12,11 @@ public:
     Eigen::Vector3d distVectorD;
     Eigen::Vector3d distVectorFinalLink;
 
+    double distanceA;
+    double distanceD;
+    double distanceFinalLink;
+    double distance;
+
     bool hasCriticalPointA;
     bool hasCriticalPointD;
     bool hasCriticalPointFinalLink;
@@ -48,7 +53,7 @@ public:
 
 
 
-    double distance;
+
 
     CriticalPoints(int const &numberOfJoints);
 

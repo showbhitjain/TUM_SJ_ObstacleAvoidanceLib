@@ -10,6 +10,7 @@ CriticalPoints::CriticalPoints(const int &numberOfJoints) :
         distVectorD(Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN())),
         distVectorFinalLink(Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN())),
 
+
         closestPointObstacleA(Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN())),
         closestPointRelativeRobotLinkA(Eigen::MatrixXd::Constant(4, 4, std::numeric_limits<double>::quiet_NaN())),
         closestPointObstacleD(Eigen::MatrixXd::Constant(3, 1, std::numeric_limits<double>::quiet_NaN())),
@@ -45,4 +46,9 @@ CriticalPoints::CriticalPoints(const int &numberOfJoints) :
         jacobiCriticalFinalLink(Eigen::MatrixXd::Constant(3, numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
         jacobiCriticalMaxFinalLink(Eigen::MatrixXd::Constant(3, numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
 
-        distance(std::numeric_limits<double>::quiet_NaN()) {}
+        distance(std::numeric_limits<double>::quiet_NaN()),
+        distanceA(std::numeric_limits<double>::quiet_NaN()),
+        distanceD(std::numeric_limits<double>::quiet_NaN()),
+        distanceFinalLink(std::numeric_limits<double>::quiet_NaN())
+
+        {}

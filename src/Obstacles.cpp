@@ -10,13 +10,16 @@ using namespace ObstacleAvoidance;
 using namespace Eigen;
 
 
-Obstacles::Obstacles(std::string const &obstacleType, Eigen::VectorXd const &center,
-                     Eigen::VectorXd const &dimensions,
-                     Eigen::Vector4d const &orientation, Eigen::Vector3d const &axis) : obstacleType(obstacleType),
-                                                                                        center(center),
-                                                                                        dimensions(dimensions),
-                                                                                        orientation(orientation),
-                                                                                        axis(axis.normalized()) {
+Obstacles::Obstacles(std::string const &obstacleTypeString, Eigen::Vector3d const &obstacleCenter,
+                     Eigen::VectorXd const &obstacleDimensions,
+                     Eigen::Vector4d const &obstacleOrientation, Eigen::Vector3d const &obstacleAxis) : obstacleType(
+        obstacleTypeString),
+                                                                                                        center(obstacleCenter),
+                                                                                                        dimensions(
+                                                                                                                obstacleDimensions),
+                                                                                                        orientation(
+                                                                                                                obstacleOrientation),
+                                                                                                        axis(obstacleAxis.normalized()) {
 
 
 }
@@ -85,6 +88,12 @@ Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP)
             return calculateDistanceBoxBox(this->center, this->dimensions, this->orientation, linkEEtoTCP.center,
                                            linkEEtoTCP.dimensions, linkEEtoTCP.orientation);
         }
+    }
+    if (linkEEtoTCP.type == "Sphere") {
+        if (this->obstacleType == "Sphere") {
+            return calculateDistanceSphereSphere(this->dimensions[0], this->center, linkEEtoTCP.dimensions[0],
+                                                 linkEEtoTCP.center);
+        }
     } else {
         throw std::runtime_error("Either Invalid Obstacle Type or Invalid Final Link Type ");
     }
@@ -92,16 +101,20 @@ Obstacles::calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP)
 }
 
 
-std::tuple<double, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d>
+std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
 Obstacles::calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d const &linkSegmentV0,
                                                              Eigen::Vector3d const &linkSegmentV1,
-                                                             double const &linkRadius) {
+                                                             double const &linkRadius) const {
 
     if (this->obstacleType == "Sphere") {
-        auto sphereCenter = this->center;
-        auto sphereRadius = this->dimensions(0);
+        Vector3d sphereCenter = this->center;
+        double sphereRadius = this->dimensions(0);
 
-        Vector3d axisSegment = linkSegmentV1 - linkSegmentV0;
+        auto [distanceMagnitude, distanceVector, closestPointSphere, closestPointLinkSegment] = calculateDistanceSphereLineSweptSphere(
+                sphereRadius, sphereCenter, linkSegmentV0, linkSegmentV1, linkRadius);
+
+        return std::make_tuple(distanceMagnitude,closestPointSphere,closestPointLinkSegment);
+        /*Vector3d axisSegment = linkSegmentV1 - linkSegmentV0;
 
         // Vector from LSS start vertex to sphere center
         Eigen::Vector3d linkSegmentV0ToSphereCenter = sphereCenter - linkSegmentV0;
@@ -131,105 +144,111 @@ Obstacles::calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d con
 
         Vector3d closestPointSphere = sphereCenter + (sphereRadius * distanceNormalized);
         Vector3d closestPointLinkSegment = closestPoint - (linkRadius * distanceNormalized);
-        return std::make_tuple(distanceMagnitude, distanceVector, closestPointSphere, closestPointLinkSegment);
+        return std::make_tuple(distanceMagnitude, closestPointSphere, closestPointLinkSegment);*/
+
     }
 }
 
 
 std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
 Obstacles::calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
-                                              double const &radiusLink, double const &radiusJoint) const {
+                                              double const &radiusLink, double const &radiusJoint,
+                                              bool const &robotLinkAsLineSwept) const {
 
 
-    //Cylinder Part of link
-    auto linkAxis = (endVertex - startVertex);
-    double linkCylinderHeight = linkAxis.norm();
-    Vector3d linkCylinderAxis = linkAxis.normalized();
-    Vector3d linkCylinderCenter = startVertex + (linkCylinderAxis * (linkCylinderHeight / 2.0));
-    double linkCylinderRadius = radiusLink;
+    if (robotLinkAsLineSwept) {
+        return this->calculateDistanceRobotLinkLineSweptObstacleSphere(startVertex, endVertex, radiusLink);
+    } else if (!robotLinkAsLineSwept) {
+        //Cylinder Part of link
+        auto linkAxis = (endVertex - startVertex);
+        double linkCylinderHeight = linkAxis.norm();
+        Vector3d linkCylinderAxis = linkAxis.normalized();
+        Vector3d linkCylinderCenter = startVertex + (linkCylinderAxis * (linkCylinderHeight / 2.0));
+        double linkCylinderRadius = radiusLink;
 
-    //Joint Part of link
-    double linkSphereRadius = radiusJoint;
-    Vector3d linkSphereCenter = startVertex;
+        //Joint Part of link
+        double linkSphereRadius = radiusJoint;
+        Vector3d linkSphereCenter = startVertex;
 
-    Vector3d closestPointLink;
-    Vector3d closestPointObstacle;
-    double distance;
+        Vector3d closestPointLink;
+        Vector3d closestPointObstacle;
+        double distance;
 
-    if (this->obstacleType == "sphere") {
-        auto sphereCenter = this->center;
-        auto sphereRadius = this->dimensions(0);
-
-
-        auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceSphereCylinder(
-                sphereRadius, sphereCenter, linkCylinderRadius,
-                linkCylinderHeight, linkCylinderCenter, linkCylinderAxis);
+        if (this->obstacleType == "Sphere") {
+            auto sphereCenter = this->center;
+            auto sphereRadius = this->dimensions(0);
 
 
-        auto [distanceSphereObstacle, closestPointObstacleFromSphere, closestPointLinkSphere] = calculateDistanceSphereSphere(
-                sphereRadius, sphereCenter, linkSphereRadius, linkSphereCenter);
+            auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceSphereCylinder(
+                    sphereRadius, sphereCenter, linkCylinderRadius,
+                    linkCylinderHeight, linkCylinderCenter, linkCylinderAxis);
+            //        std::cout<<"distance between sphere and cylinder link: "<<distanceCylinderObstacle<<std::endl;
+
+            auto [distanceSphereObstacle, closestPointObstacleFromSphere, closestPointLinkSphere] = calculateDistanceSphereSphere(
+                    sphereRadius, sphereCenter, linkSphereRadius, linkSphereCenter);
+            //        std::cout<<"distance between sphere and sphere joint: "<<distanceSphereObstacle<<std::endl;
 
 
-        if (distanceCylinderObstacle < distanceSphereObstacle) {
-            distance = distanceCylinderObstacle;
-            closestPointLink = closestPointLinkCylinder;
-            closestPointObstacle = closestPointObstacleFromCylinder;
-        } else {
-            distance = distanceSphereObstacle;
-            closestPointLink = closestPointLinkSphere;
-            closestPointObstacle = closestPointObstacleFromSphere;
+            if (distanceCylinderObstacle < distanceSphereObstacle) {
+                distance = distanceCylinderObstacle;
+                closestPointLink = closestPointLinkCylinder;
+                closestPointObstacle = closestPointObstacleFromCylinder;
+            } else {
+                distance = distanceSphereObstacle;
+                closestPointLink = closestPointLinkSphere;
+                closestPointObstacle = closestPointObstacleFromSphere;
+            }
+            return std::make_tuple(distance, closestPointObstacle, closestPointLink);
         }
-        return std::make_tuple(distance, closestPointObstacle, closestPointLink);
-    }
-    //        calculateDistanceSphereCylinder(startVertex,radiusJoint,)
+        //        calculateDistanceSphereCylinder(startVertex,radiusJoint,)
 
-    if (this->obstacleType == "Cylinder") {
+        if (this->obstacleType == "Cylinder") {
 
-        auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceCylinderCylinder(
-                this->dimensions[0], this->dimensions[1],
-                this->center, this->axis, linkCylinderRadius,
-                linkCylinderHeight, linkCylinderCenter,
-                linkCylinderAxis);
-        auto [distanceSphereObstacle, closestPointLinkSphere, closestPointObstacleFromSphere] = calculateDistanceSphereCylinder(
-                linkSphereRadius, linkSphereCenter, linkCylinderRadius,
-                linkCylinderHeight, linkCylinderCenter,
-                linkCylinderAxis);
+            auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceCylinderCylinder(
+                    this->dimensions[0], this->dimensions[1],
+                    this->center, this->axis, linkCylinderRadius,
+                    linkCylinderHeight, linkCylinderCenter,
+                    linkCylinderAxis);
+            auto [distanceSphereObstacle, closestPointLinkSphere, closestPointObstacleFromSphere] = calculateDistanceSphereCylinder(
+                    linkSphereRadius, linkSphereCenter, linkCylinderRadius,
+                    linkCylinderHeight, linkCylinderCenter,
+                    linkCylinderAxis);
 
-        if (distanceCylinderObstacle < distanceSphereObstacle) {
+            if (distanceCylinderObstacle < distanceSphereObstacle) {
 
-            distance = distanceCylinderObstacle;
-            closestPointLink = closestPointLinkCylinder;
-            closestPointObstacle = closestPointObstacleFromCylinder;
-        } else {
-            distance = distanceSphereObstacle;
-            closestPointLink = closestPointLinkSphere;
-            closestPointObstacle = closestPointObstacleFromSphere;
+                distance = distanceCylinderObstacle;
+                closestPointLink = closestPointLinkCylinder;
+                closestPointObstacle = closestPointObstacleFromCylinder;
+            } else {
+                distance = distanceSphereObstacle;
+                closestPointLink = closestPointLinkSphere;
+                closestPointObstacle = closestPointObstacleFromSphere;
+            }
+            return std::make_tuple(distance, closestPointObstacle, closestPointLink);
         }
-        return std::make_tuple(distance, closestPointObstacle, closestPointLink);
-    }
 
-    if (this->obstacleType == "Box") {
-        auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceBoxCylinder(
-                this->center, this->dimensions, this->orientation,
-                linkCylinderRadius, linkCylinderHeight, linkCylinderCenter,
-                linkCylinderAxis);
+        if (this->obstacleType == "Box") {
+            auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] = calculateDistanceBoxCylinder(
+                    this->center, this->dimensions, this->orientation,
+                    linkCylinderRadius, linkCylinderHeight, linkCylinderCenter,
+                    linkCylinderAxis);
 
-        auto [distanceSphereObstacle, closestPointLinkSphere, closestPointObstacleFromSphere] = calculateDistanceSphereBox(
-                linkSphereRadius, linkSphereCenter, this->center, this->dimensions, this->orientation);
+            auto [distanceSphereObstacle, closestPointLinkSphere, closestPointObstacleFromSphere] = calculateDistanceSphereBox(
+                    linkSphereRadius, linkSphereCenter, this->center, this->dimensions, this->orientation);
 
-        if (distanceCylinderObstacle < distanceSphereObstacle) {
+            if (distanceCylinderObstacle < distanceSphereObstacle) {
 
-            distance = distanceCylinderObstacle;
-            closestPointLink = closestPointLinkCylinder;
-            closestPointObstacle = closestPointObstacleFromCylinder;
-        } else {
-            distance = distanceSphereObstacle;
-            closestPointLink = closestPointLinkSphere;
-            closestPointObstacle = closestPointObstacleFromSphere;
+                distance = distanceCylinderObstacle;
+                closestPointLink = closestPointLinkCylinder;
+                closestPointObstacle = closestPointObstacleFromCylinder;
+            } else {
+                distance = distanceSphereObstacle;
+                closestPointLink = closestPointLinkSphere;
+                closestPointObstacle = closestPointObstacleFromSphere;
+            }
+            return std::make_tuple(distance, closestPointObstacle, closestPointLink);
         }
-        return std::make_tuple(distance, closestPointObstacle, closestPointLink);
     }
-
 }
 
 
