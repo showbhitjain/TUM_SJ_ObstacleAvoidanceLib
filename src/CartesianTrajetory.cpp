@@ -24,8 +24,9 @@ CartesianTrajectory::orientationTrajectory(
     ::coder::array<double, 2U> desiredQuaternionsMatlab;
     ::coder::array<double, 2U> desiredAngularVelocityMatlab;
     ::coder::array<double, 2U> desiredAngularAccelMatlab;
-    trajectoryPtr->orientationTrajectory(orientationsMatlab, waypointTimesMatlab, ts, trajectoryTypeMatlab, desiredQuaternionsMatlab,
-                               desiredAngularVelocityMatlab, desiredAngularAccelMatlab);
+    trajectoryPtr->orientationTrajectory(orientationsMatlab, waypointTimesMatlab, ts, trajectoryTypeMatlab,
+                                         desiredQuaternionsMatlab,
+                                         desiredAngularVelocityMatlab, desiredAngularAccelMatlab);
     Eigen::MatrixXd desiredQuaternions = coderToEigen(desiredQuaternionsMatlab);
     Eigen::MatrixXd desiredAngularVelocity = coderToEigen(desiredAngularVelocityMatlab);
     Eigen::MatrixXd desiredAngularAccel = coderToEigen(desiredAngularAccelMatlab);
@@ -34,9 +35,9 @@ CartesianTrajectory::orientationTrajectory(
 
 std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>
 CartesianTrajectory::positionTrajectory(Eigen::Matrix3Xd const &waypoints,
-                                       Eigen::Matrix<double, 1, Eigen::Dynamic> const &waypointTimes,
-                                       double const &ts,  std::string const &trajectoryType,
-                                       Eigen::Matrix3Xd const &waypointVels, Eigen::Matrix3Xd const &waypointAccels) {
+                                        Eigen::Matrix<double, 1, Eigen::Dynamic> const &waypointTimes,
+                                        double const &ts, std::string const &trajectoryType,
+                                        Eigen::Matrix3Xd const &waypointVels, Eigen::Matrix3Xd const &waypointAccels) {
 
     ::coder::array<double, 2U> waypointsMatlab = EigenToCoder(waypoints);
     ::coder::array<double, 2U> waypointTimesMatlab = EigenToCoder(waypointTimes);
@@ -49,7 +50,7 @@ CartesianTrajectory::positionTrajectory(Eigen::Matrix3Xd const &waypoints,
     std::shared_ptr<trajectoryGeneration::Trajectory> traj;
     traj = std::make_shared<trajectoryGeneration::Trajectory>();
     traj->positionTrajectory(waypointsMatlab, waypointTimesMatlab, ts, trajTypeMatlab, waypointVelsMatlab,
-                            waypointAccelsMatlab, xdMatlab, xd_velMatlab, xddMatlab);
+                             waypointAccelsMatlab, xdMatlab, xd_velMatlab, xddMatlab);
     Eigen::MatrixXd xd = coderToEigen(xdMatlab);
     Eigen::MatrixXd xd_vel = coderToEigen(xd_velMatlab);
     Eigen::MatrixXd xdd = coderToEigen(xddMatlab);
@@ -57,7 +58,8 @@ CartesianTrajectory::positionTrajectory(Eigen::Matrix3Xd const &waypoints,
 
 }
 
-std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd> CartesianTrajectory::positionTrajectory(ConfigurationParameters const &trajConfig) {
+std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>
+CartesianTrajectory::positionTrajectory(ConfigurationParameters const &trajConfig) {
 
     auto waypointsParams = trajConfig.get<std::vector<std::vector<double>>>("Waypoints");
     auto Waypoints = vectorMatrixToEigenMatrix(waypointsParams);
@@ -67,12 +69,13 @@ std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd> CartesianTrajector
     auto positionTrajectoryType = trajConfig.get<std::string>("positionTrajectoryType");
     auto WaypointTimes = vectorToEigenMatrixRow(trajConfig.get<std::vector<double>>("waypointTimes"));
 
-    return CartesianTrajectory::positionTrajectory(Waypoints, WaypointTimes, ts, positionTrajectoryType, waypointVelocities,
-                                             waypointAccelerations);
+    return CartesianTrajectory::positionTrajectory(Waypoints, WaypointTimes, ts, positionTrajectoryType,
+                                                   waypointVelocities, waypointAccelerations);
 
 }
 
-std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd> CartesianTrajectory::orientationTrajectory(ConfigurationParameters const &trajConfig) {
+std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>
+CartesianTrajectory::orientationTrajectory(ConfigurationParameters const &trajConfig) {
 
 
     auto orientationParams = trajConfig.get<vector<vector<double>>>("orientations");

@@ -390,21 +390,23 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
             if (this->criticalPointsDynamicMap[key][i].
                     hasCriticalPointA && (this->criticalPointsDynamicMap[key][i].distanceA >
                                           (this->distanceActivateOA + this->distanceBuffer))) {
-                cout << "checking if distance A > distance critical zone: " << this->criticalPointsDynamicMap[key][i].distanceA << endl;
+                cout << "checking if distance A > distance critical zone: "
+                     << this->criticalPointsDynamicMap[key][i].distanceA << endl;
 
                 deleteCriticalPoint(this->criticalPointsDynamicMap[key][i], true, false, false);
             }
 
             if (this->criticalPointsDynamicMap[key][i].
                     hasCriticalPointD &&
-                (this->criticalPointsDynamicMap[key][i].distanceD > (this->distanceActivateOA + this->distanceBuffer))) {
+                (this->criticalPointsDynamicMap[key][i].distanceD >
+                 (this->distanceActivateOA + this->distanceBuffer))) {
                 deleteCriticalPoint(this->criticalPointsDynamicMap[key][i], false, true, false);
             }
 
             if (this->criticalPointsDynamicMap[key][i].
                     hasCriticalPointFinalLink &&
                 (this->criticalPointsDynamicMap[key][i].
-                        distanceFinalLink>
+                        distanceFinalLink >
                  (this->distanceActivateOA + this->distanceBuffer))) {
                 deleteCriticalPoint(this->criticalPointsDynamicMap[key][i], false, false, true);
             }
@@ -412,28 +414,36 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
             if (this->criticalPointsDynamicMap[key][i].
                     hasCriticalPointA) {
-                Matrix4d closestPointLinkTransform = this->fkmCartesian(jointAngles, i) *
-                                                     this->criticalPointsDynamicMap[key][i].
-                                                             closestPointRelativeRobotLinkA;
 
-                std::cout << "A linkindex: " << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointA << std::endl;
+                double distance;
+                Vector3d closestPointObstacle, closestPointLink;
+                auto resultDistanceCalculation = obstacleArray.calculateDistanceRobotLinkObstacle(
+                        linkSegments[i].aSegmentV0,
+                        linkSegments[i].aSegmentV1,
+                        linkSegments[i].radiusLink,
+                        linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept);
+                distance = std::get<0>(resultDistanceCalculation);
+                closestPointObstacle = std::get<1>(resultDistanceCalculation);
+                closestPointLink = std::get<2>(resultDistanceCalculation);
+
+                Eigen::MatrixXd jacobiCriticalPoint;
+                Eigen::Matrix4d relativeTransformation;
+
+                auto result = criticalPointInformation(jointAngles, closestPointLink, i);
+                relativeTransformation = get<0>(result);
+                jacobiCriticalPoint = get<1>(result);
+
+                this->criticalPointsDynamicMap[key][i].
+                        distVectorA = closestPointLink - closestPointObstacle;
+
+                std::cout << "A linkindex: " << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointA
+                          << std::endl;
                 //cout << closestPointLinkTransform << endl;
 
-                Vector3d closestPointLink = closestPointLinkTransform.block<3, 1>(0, 3);
-                //cout << closestPointLink << endl;
                 this->criticalPointsDynamicMap[key][i].
-                        jacobiCriticalA = this->jacobianCartesianOnLink(jointAngles, i,
-                                                                        this->criticalPointsDynamicMap[key][i].
-                                                                                closestPointRelativeRobotLinkA)(
-                        seq(0, 2), all);
+                        jacobiCriticalA = jacobiCriticalPoint(seq(0,2),all);
 
-                //for static obstacles the position of obstacle point in the safety zone remains the same.
-                this->criticalPointsDynamicMap[key][i].
-                        distVectorA =
-                        closestPointLink - this->criticalPointsDynamicMap[key][i].
-                                closestPointObstacleA;
-                this->criticalPointsDynamicMap[key][i].distanceA = this->criticalPointsDynamicMap[key][i].
-                        distVectorA.norm();
+                this->criticalPointsDynamicMap[key][i].distanceA = distance;
 
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceA =
@@ -444,9 +454,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 /* double bFirst =  (-(this->criticalPointsDynamicMap[key][i].
                          distVectorA.normalized())).transpose() * this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxA * this->criticalPointsDynamicMap[key][i].jointVelocityCriticalA;
                 */ double bFirst = (this->criticalPointsDynamicMap[key][i].jacobiDistMaxA *
-                                   this->criticalPointsDynamicMap[key][i].jointVelocityCriticalA).value();
-                b0(bCounter) = this->computeB0(bFirst, this->criticalPointsDynamicMap[key][i].
-                        distanceA);
+                                    this->criticalPointsDynamicMap[key][i].jointVelocityCriticalA).value();
+                b0(bCounter) = this->computeB0(bFirst, this->criticalPointsDynamicMap[key][i].distanceA);
                 bCounter += 1;
 
                 j0(jCounter, all) = this->criticalPointsDynamicMap[key][i].jacobiDistanceA;
@@ -455,26 +464,36 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
             }
 
             if (this->criticalPointsDynamicMap[key][i].hasCriticalPointD) {
-                Matrix4d closestPointLinkTransform = this->fkmCartesian(jointAngles, i) *
-                                                     this->criticalPointsDynamicMap[key][i].
-                                                             closestPointRelativeRobotLinkD;
+
+                double distance;
+                Vector3d closestPointObstacle, closestPointLink;
+
+                auto resultDistanceCalculation = obstacleArray.calculateDistanceRobotLinkObstacle(
+                        linkSegments[i].dSegmentV0, linkSegments[i].dSegmentV1, linkSegments[i].radiusLink,
+                        linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept);
+                distance = std::get<0>(resultDistanceCalculation);
+                closestPointObstacle = std::get<1>(resultDistanceCalculation);
+                closestPointLink = std::get<2>(resultDistanceCalculation);
+
+                Vector3d distanceVector = closestPointLink - closestPointObstacle;
+
+                Eigen::MatrixXd jacobiCriticalPoint;
+                Eigen::Matrix4d relativeTransformation;
+
+                auto result = criticalPointInformation(jointAngles, closestPointLink, i);
+                relativeTransformation = get<0>(result);
+                jacobiCriticalPoint = get<1>(result);
 
                 std::cout << "D" << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointD << std::endl;
-                Vector3d closestPointLink = closestPointLinkTransform.block<3, 1>(0, 3);
+
                 this->criticalPointsDynamicMap[key][i].
-                        jacobiCriticalD = this->jacobianCartesianOnLink(jointAngles, i,
-                                                                        this->criticalPointsDynamicMap[key][i].
-                                                                                closestPointRelativeRobotLinkD)(
-                        seq(0, 2), all);
+                        jacobiCriticalD = jacobiCriticalPoint(seq(0, 2), all);
                 /*  cout<< "closestPointLink"<<closestPointLink<<endl;
                   cout<<"Jacobi Critical if it has d critical point: \n"<<this->criticalPointsDynamicMap[key][i].jacobiCriticalD<<endl;*/
 
-                //for static obstacles the position of obstacle point in the safety zone remains the same.
                 this->criticalPointsDynamicMap[key][i].
-                        distVectorD =
-                        closestPointLink - this->criticalPointsDynamicMap[key][i].
-                                closestPointObstacleD;
-                this->criticalPointsDynamicMap[key][i].distanceD = this->criticalPointsDynamicMap[key][i].distVectorD.norm();
+                        distVectorD = distanceVector;
+                this->criticalPointsDynamicMap[key][i].distanceD = distance;
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceD =
                         (-(this->criticalPointsDynamicMap[key][i].
@@ -485,7 +504,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 /*   double bFirst =  (-(this->criticalPointsDynamicMap[key][i].
                            distVectorD.normalized())).transpose() * this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxD * this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD;
                 */            double bFirst = (this->criticalPointsDynamicMap[key][i].jacobiDistMaxD *
-                                            this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD).value();
+                                               this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD).value();
                 b0(bCounter) = this->computeB0(bFirst, this->criticalPointsDynamicMap[key][i].
                         distanceD);
                 bCounter += 1;
@@ -502,24 +521,30 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
             if (this->criticalPointsDynamicMap[key][i].
                     hasCriticalPointFinalLink && bConsiderFinalLink &&
                 i == numberLinksRobot - 1) {
-                Matrix4d closestPointLinkTransform = this->fkmCartesian(jointAngles, numberJoints) *
-                                                     this->criticalPointsDynamicMap[key][i].
-                                                             closestPointRelativeFinalLink;
-                Vector3d closestPointLink = closestPointLinkTransform.block<3, 1>(0, 3);
-                this->criticalPointsDynamicMap[key][i].
-                        jacobiCriticalFinalLink = this->jacobianCartesianOnLink(jointAngles,
-                                                                                numberJoints,
-                                                                                this->criticalPointsDynamicMap[key][i].
-                                                                                        closestPointRelativeFinalLink)(
-                        seq(0, 2), all);
+
+                double distance;
+                Vector3d closestPointObstacle, closestPointLink;
+                auto resultDistanceCalculation = obstacleArray.calculateDistanceFinalLinkObstacle(
+                        finalLinkTCP);
+                distance = std::get<0>(resultDistanceCalculation);
+                closestPointObstacle = std::get<1>(resultDistanceCalculation);
+                closestPointLink = std::get<2>(resultDistanceCalculation);
+                Vector3d distanceVector = closestPointLink - closestPointObstacle;
+
+                Eigen::MatrixXd jacobiCriticalPoint;
+                Eigen::Matrix4d relativeTransformation;
+
+                auto result = criticalPointInformation(jointAngles, closestPointLink, numberJoints);
+                relativeTransformation = get<0>(result);
+                jacobiCriticalPoint = get<1>(result);
 
                 this->criticalPointsDynamicMap[key][i].
-                        distVectorFinalLink =
-                        closestPointLink - this->criticalPointsDynamicMap[key][i].
-                                closestPointObstacleFinalLink;
+                        jacobiCriticalFinalLink = jacobiCriticalPoint(seq(0, 2), all);
 
-                this->criticalPointsDynamicMap[key][i].distanceFinalLink = this->criticalPointsDynamicMap[key][i].
-                        distVectorFinalLink.norm();
+                this->criticalPointsDynamicMap[key][i].
+                        distVectorFinalLink = distanceVector;
+
+                this->criticalPointsDynamicMap[key][i].distanceFinalLink = distance;
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceFinalLink =
                         (-(this->criticalPointsDynamicMap[key][i].
@@ -630,7 +655,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     jacobiCriticalPoint = get<1>(result);
                     this->criticalPointsDynamicMap[key][i].hasCriticalPointA = true;
                     this->criticalPointsDynamicMap[key][i].distVectorA = distanceVector;
-                    cout << criticalPointsDynamicMap[key][i].distVectorA << endl;
+                    //cout << criticalPointsDynamicMap[key][i].distVectorA << endl;
                     this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxA = jacobiCriticalPoint(seq(0, 2), all);
                     this->criticalPointsDynamicMap[key][i].jacobiCriticalA = jacobiCriticalPoint(seq(0, 2), all);
                     this->criticalPointsDynamicMap[key][i].jointAnglesCriticalA = jointAngles;
@@ -678,7 +703,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     Eigen::Isometry3d transformation;
                     Eigen::MatrixXd jacobiCriticalPoint;
                     Eigen::Matrix4d relativeTransformation;
-                    cout << "distanceD Link upon entering critical Zone for "+std::to_string(i) +": "<< distance << endl;
+                    cout << "distanceD Link upon entering critical Zone for " + std::to_string(i) + ": " << distance
+                         << endl;
 
                     auto result = criticalPointInformation(jointAngles, closestPointLink, i);
                     relativeTransformation = get<0>(result);
@@ -806,7 +832,7 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
         criticalPoint.jacobiCriticalMaxD = Eigen::MatrixXd::Constant(3, numberOfJoints,
                                                                      std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointAnglesCriticalD = Eigen::VectorXd::Constant(numberOfJoints,
-                                                                      std::numeric_limits<double>::quiet_NaN());
+                                                                       std::numeric_limits<double>::quiet_NaN());
     }
 
     if (bDeleteCriticalFinalLink) {
@@ -866,7 +892,7 @@ Robot::criticalPointInformation(Eigen::VectorXd const &jointAngles, Eigen::Vecto
 }
 
 
-double Robot::computeB0(double const &bFirst,double const &distance) {
+double Robot::computeB0(double const &bFirst, double const &distance) {
     double b0;
     if (bFirst > 0) {
         b0 = smoothingConstraintScheme(distance,
