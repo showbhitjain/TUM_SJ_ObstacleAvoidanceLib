@@ -56,6 +56,28 @@ Obstacles::Obstacles(ConceptLibrary::BoxShape const &box) {
     this->obstacleName = box.obstacleName;
 }
 
+Obstacles::Obstacles(ConceptLibrary::PlaneWidthShape const &planeShapeWithWidth) {
+    this->obstacleType = "Box";
+    double boxWidth = planeShapeWithWidth.width;
+    Vector3d axisNormalized = planeShapeWithWidth.axis.normalized();
+    this->center = planeShapeWithWidth.point - ( boxWidth * axisNormalized );
+    this->dimensions.resize(3);
+    this->dimensions[0] = 100;
+    this->dimensions[1] = 100;
+    this->dimensions[2] = boxWidth;
+    Eigen::Quaterniond orientationPlane = Eigen::Quaterniond::FromTwoVectors(
+                    Eigen::Vector3d::UnitZ(), axisNormalized
+            ).normalized();
+    this->orientation = orientationPlane;
+    // this->center =
+    this->axis = Eigen::Vector3d::Zero();
+    this->obstacleName = planeShapeWithWidth.obstacleName;
+
+
+
+
+}
+
 
 Obstacles::Obstacles(Eigen::Vector3d const &vertexV0, Eigen::Vector3d const &vertexV1, double const &radius) {
     this->obstacleType = "Cylinder";

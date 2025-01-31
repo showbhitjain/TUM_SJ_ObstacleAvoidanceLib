@@ -22,7 +22,7 @@
     "Slacklowerbound": [-0.4,-0.4,-0.4,-2,-2,-60],
     "Slackupperbound": [0.4,0.4,0.4,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 20
+    "SlackObjectiveWeight": 5
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,

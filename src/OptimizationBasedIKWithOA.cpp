@@ -19,10 +19,8 @@ namespace ObstacleAvoidance {
         config.useObjectiveJointAcceleration = objectiveFunctionJson["useObjectiveJointAcceleration"].get<bool>();
         config.weightJointAcceleration = objectiveFunctionJson["weightJointAcceleration"].get<double>();
 
-
         config.useObjectiveTrajectoryFollowing = objectiveFunctionJson["useObjectiveTrajectoryFollowing"].get<bool>();
         config.weightTrajectoryFollowing = objectiveFunctionJson["weightTrajectoryFollowing"].get<double>();
-
 
         config.useObjectiveManipulability = objectiveFunctionJson["useObjectiveManipulability"].get<bool>();
         config.weightManipulability = objectiveFunctionJson["weightManipulability"].get<double>();
@@ -61,13 +59,9 @@ namespace ObstacleAvoidance {
             config.Slack_penalty_weightmatrix[i]  = 0;
         }
 
-
-
         for(int i{0}; i<6; ++i){
             config.Slack_penalty_weightmatrix[7*i] = slackWeightArray[i];
         }
-
-
 
         auto jointLimitAvoidanceJson = configOA.getJson("jointLimitAvoidanceParameters");
         config.gamma = jointLimitAvoidanceJson["gamma"].get<double>();
@@ -75,7 +69,6 @@ namespace ObstacleAvoidance {
         config.jointLimitActivationDistance = jointLimitAvoidanceJson["jointLimitActivationDistance"].get<double>();
         config.jointLimitStopDistance = jointLimitAvoidanceJson["jointLimitStopDistance"].get<double>();
         config.jointLimitGain = jointLimitAvoidanceJson["jointLimitGain"].get<double>();
-
 
     }
 
@@ -90,9 +83,6 @@ namespace ObstacleAvoidance {
                                                         Eigen::MatrixXd const &jG, Eigen::VectorXd const &bG,
                                                         Eigen::MatrixXd const &jointVelocityMatrix) {
 
-
-
-
         double cartesianVelocityEffective[6];
         std::copy(poseVelocityEffective.data(), poseVelocityEffective.data() + poseVelocityEffective.size(),
                   cartesianVelocityEffective);
@@ -106,9 +96,8 @@ namespace ObstacleAvoidance {
                                      EigenToCoder(jointVelocityMatrix),
                                      &configInput, optimalJointVelocity, &exitFlag);
 
-        return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity), exitFlag);
+        return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity),exitFlag);
 
     }
-
 
 }

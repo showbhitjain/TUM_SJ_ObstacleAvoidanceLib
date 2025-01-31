@@ -35,7 +35,6 @@ find_package(Franka REQUIRED)
 find_package(ConceptLibrary REQUIRED)
 find_package(ccd REQUIRED)
 
-
 set(FCL_ROOT "/home/shobhit/fcl_install")
 
 # Include FCL headers
@@ -52,7 +51,6 @@ set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoi
 include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
 message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
-
 
 set(LIB_NAME ${PROJECT_TARGET})
 add_library(${LIB_NAME}
@@ -79,8 +77,6 @@ add_library(${LIB_NAME}
 
         src/OptimizationBasedIKWithOA.cpp
 
-
-
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
@@ -102,6 +98,8 @@ add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybr
 add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
 add_executable(DistanceTest src/distanceTest.cpp)
 add_executable(StaticObstacleAvoidanceTest src/offlineStaticObstacleAvoidance.cpp)
+
+
 
 find_package(OpenMP REQUIRED)
 

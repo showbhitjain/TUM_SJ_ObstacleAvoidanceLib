@@ -29,16 +29,19 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
             whichrobot); // create config file from class Configurationparameters for the type of robot
 
     auto eul = Config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double> >();
-    for (int i = 0; i < eul.size(); i++) {
-        eul[i] = deg2Rad(static_cast<double>(eul[i]));
+    for (auto& angle : eul) {
+        angle = deg2Rad(static_cast<double>(angle));
     }
     this->mdhMatrix = vectorMatrixToEigenMatrix(Config.get<vector<vector<double> > >("mdhParameters"));
     auto translation = Config.getJson("displacementEEtoTCP").at(
             "translation").get<std::vector<double> >();
+    const auto qWorldBase = this->Config.get<std::vector<double>>("qWorldBase");
+    this->worldInBaseFrameRobot = Posed::createFromCoefficients(qWorldBase);
 
+    // ("q_world_base").get<Posed>());
     this->transformationEEToTCP =
             trvec2tform(stdVectorToEigenVector(translation)) * convertEulerToTransform(stdVectorToEigenVector(eul));
-    std::cout << "The trafo_matrix between end effector and Tcp is: \n" << transformationEEToTCP << std::endl;
+    //std::cout << "The trafo_matrix between end effector and Tcp is: \n" << transformationEEToTCP << std::endl;
 
     auto obstacleAvoidanceParameters = Config.getJson("ObstacleAvoidanceParameters");
     this->radiusLinks = stdVectorToEigenVector(obstacleAvoidanceParameters["radiusLinks"].get<vector<double> >());
@@ -56,11 +59,12 @@ Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor
     this->distanceStopOA = obstacleAvoidanceParameters.at("distanceStop").get<double>();
     this->smootheningCoefficient = obstacleAvoidanceParameters.at("smootheningCoefficient").get<double>();
     this->distanceBuffer = obstacleAvoidanceParameters.at("distanceBuffer").get<double>();
-
-    std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
+    // this->
+    //std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
 
     auto Config_joints = Config.getSubConfig("Joints");
     this->joints = make_shared<Joints>(Config_joints);
+
 
     /* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
      auto nr = number_joints;*/
@@ -95,7 +99,7 @@ const shared_ptr<Joints> &Robot::getJoints() const {
 }
 
 Eigen::MatrixXd Robot::jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const {
-    const int numJoints = jointValues.size(); // Number of joints
+    const int numJoints = static_cast<int>(jointValues.size()); // Number of joints
     Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6, numJoints); // Initialize Jacobian matrix with zeros
 
     // Compute the transformation to the end-effector or toIthLink
@@ -171,7 +175,7 @@ Eigen::MatrixXd Robot::jacobianCartesianTCP(const VectorXd &jointValues) const {
                                    this->transformationEEToTCP);
 }
 
-Eigen::Matrix4d Robot::transformMdh(double const a, double const alpha, double const d, double const theta) const {
+Eigen::Matrix4d Robot::transformMdh(double const &a,  double const &alpha,  double const &d,  double  const &theta) {
     Eigen::Matrix4d transform;
 
     transform << std::cos(theta), -std::sin(theta), 0, a,
@@ -206,7 +210,7 @@ Eigen::MatrixXd Robot::fkmCartesianTCP(const Eigen::VectorXd &jointValues) const
 
 
 std::pair<finalLinkRobot, std::vector<LinkSegment> > Robot::createLineSegments(Eigen::VectorXd const &jointValues) {
-    int num_links = mdhMatrix.rows();
+    int num_links = static_cast<int>(mdhMatrix.rows());
     vector<LinkSegment> linkSegments(num_links);
 
     finalLinkRobot finalLink;
@@ -314,7 +318,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     }
     int numberJoints = this->getNumberJoints();
 
-    int maxEntries = 2 * obstaclesDynamicMap.size() * numberLinksRobot;
+    int maxEntries = 2 * static_cast<int>(obstaclesDynamicMap.size()) * numberLinksRobot;
 
     Eigen::MatrixXd j0 = Eigen::MatrixXd::Zero(maxEntries, numberJoints);
     Eigen::VectorXd b0 = Eigen::VectorXd::Zero(maxEntries);
@@ -323,7 +327,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     int bCounter = 0;
 
 
-    int numberObstacles = obstaclesDynamicMap.size();
+    //int numberObstacles = obstaclesDynamicMap.size();
     if (this->criticalPointsDynamicMap.empty()) {
         // Prepare the default vector to be used for all entries
         std::vector<CriticalPoints> defaultVector(numberLinksRobot, CriticalPoints(numberJoints));
@@ -427,10 +431,10 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 closestPointLink = std::get<2>(resultDistanceCalculation);
 
                 Eigen::MatrixXd jacobiCriticalPoint;
-                Eigen::Matrix4d relativeTransformation;
+
 
                 auto result = criticalPointInformation(jointAngles, closestPointLink, i);
-                relativeTransformation = get<0>(result);
+
                 jacobiCriticalPoint = get<1>(result);
 
                 this->criticalPointsDynamicMap[key][i].
@@ -478,10 +482,10 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 Vector3d distanceVector = closestPointLink - closestPointObstacle;
 
                 Eigen::MatrixXd jacobiCriticalPoint;
-                Eigen::Matrix4d relativeTransformation;
+
 
                 auto result = criticalPointInformation(jointAngles, closestPointLink, i);
-                relativeTransformation = get<0>(result);
+
                 jacobiCriticalPoint = get<1>(result);
 
                 std::cout << "D" << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointD << std::endl;
@@ -532,10 +536,10 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 Vector3d distanceVector = closestPointLink - closestPointObstacle;
 
                 Eigen::MatrixXd jacobiCriticalPoint;
-                Eigen::Matrix4d relativeTransformation;
+
 
                 auto result = criticalPointInformation(jointAngles, closestPointLink, numberJoints);
-                relativeTransformation = get<0>(result);
+
                 jacobiCriticalPoint = get<1>(result);
 
                 this->criticalPointsDynamicMap[key][i].
@@ -580,7 +584,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         distance = distance;
 
                 if (distance <= this->distanceActivateOA + this->distanceBuffer) {
-                    Eigen::Isometry3d transformation;
+                    cout << "distance Final Link upon entering critical Zone: " << distance << endl;
                     Eigen::MatrixXd jacobiCriticalPoint;
                     Eigen::Matrix4d relativeTransformation;
 
@@ -645,7 +649,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
                     this->criticalPointsDynamicMap[key][i].distanceA = distance;
 
-                    Eigen::Isometry3d transformation;
+
                     Eigen::MatrixXd jacobiCriticalPoint;
                     Eigen::Matrix4d relativeTransformation;
 
@@ -693,14 +697,15 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
                 Vector3d distanceVector = closestPointLink - closestPointObstacle;
                 if ((distance < this->criticalPointsDynamicMap[key][i].distance &&
-                     !(linkSegments[i].aSegmentV0.size() == 0)) || (linkSegments[i].aSegmentV0.size() == 0)) {
+                     linkSegments[i].aSegmentV0.size() != 0) || (linkSegments[i].aSegmentV0.size() == 0)) {
                     this->criticalPointsDynamicMap[key][i].distance = distance;
-                }
+
+                     }
 
 
                 if (distance <= this->distanceActivateOA + this->distanceBuffer) {
                     //   cout<<"closestPointLink on the entry of critical zone: \n" <<closestPointLink<<endl;
-                    Eigen::Isometry3d transformation;
+
                     Eigen::MatrixXd jacobiCriticalPoint;
                     Eigen::Matrix4d relativeTransformation;
                     cout << "distanceD Link upon entering critical Zone for " + std::to_string(i) + ": " << distance
@@ -867,7 +872,7 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
 
 Eigen::MatrixXd
 Robot::jacobianCriticalPoint(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
-                             int const &indexLink) {
+                             int const &indexLink) const {
     Eigen::Isometry3d transformation;
     Eigen::MatrixXd jacobiCriticalPoint;
     transformation.matrix() = this->fkmCartesian(jointAngles, indexLink);
@@ -879,7 +884,7 @@ Robot::jacobianCriticalPoint(Eigen::VectorXd const &jointAngles, Eigen::Vector3d
 
 std::tuple<Eigen::MatrixXd, Eigen::MatrixXd>
 Robot::criticalPointInformation(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
-                                int const &indexLink) {
+                                int const &indexLink) const {
     Eigen::Isometry3d transformation;
     Eigen::MatrixXd jacobiCriticalPoint;
     transformation.matrix() = this->fkmCartesian(jointAngles, indexLink);
@@ -892,7 +897,7 @@ Robot::criticalPointInformation(Eigen::VectorXd const &jointAngles, Eigen::Vecto
 }
 
 
-double Robot::computeB0(double const &bFirst, double const &distance) {
+double Robot::computeB0(double const &bFirst, double const &distance) const {
     double b0;
     if (bFirst > 0) {
         b0 = smoothingConstraintScheme(distance,

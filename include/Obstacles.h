@@ -32,6 +32,8 @@ namespace ObstacleAvoidance {
 
         Obstacles(ConceptLibrary::BoxShape const &);
 
+        Obstacles(ConceptLibrary::PlaneWidthShape const &);
+
         Obstacles(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius);
 
         std::tuple<Eigen::VectorXd, Eigen::VectorXd, double> distanceCalculation(Obstacles const &otherObstacle);

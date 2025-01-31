@@ -27,7 +27,7 @@
         "rotationXYZ": [0, 0, -45],
         "translation": [0, 0, 0.103399]
     },
-    "q_world_base": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
+    "qWorldBase": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
 
     "Joints": {
         "parametersFor": "Joints",
@@ -41,16 +41,16 @@
     },
     "ObstacleAvoidanceParameters": {
         "applyObstacleAvoidance": true,
-        "distanceActivate": 0.03,
+        "distanceActivate": 0.06,
         "distanceStop": 0.01,
         "distanceBuffer": 0.005,
         "smootheningCoefficient": 2,
-        "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.1],
-        "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.1],
+        "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "finalLinkType": "Box",
-        "finalLinkDimensions": [0.06,0.14,0.11],
+        "finalLinkDimensions": [0.06,0.2,0.11],
         "considerFinalLinkOA": true,
         "considerBaseToFirstJoint": true,
-        "robotLinkAsLineSwept": true
+        "robotLinkAsLineSwept": false
     }
 }

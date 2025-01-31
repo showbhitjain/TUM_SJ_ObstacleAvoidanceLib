@@ -5,15 +5,14 @@
 #ifndef TUM_SJ_OBSTACLEAVOIDANCELIB_ROBOT_H
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_ROBOT_H
 
-//#include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
-#include <dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h>
+
 #include <string>
 #include <vector>
 #include <Eigen/Dense>
 #include <memory>
 #include <AndreiUtils/classes/DualQuaternion.hpp>
 #include <AndreiUtils/classes/ConfigurationParameters.hpp>
-#include <AndreiUtils/classes/DualQuaternion.hpp>
+
 #include <Joints.h>
 #include <tuple>
 #include <Obstacles.h>
@@ -28,14 +27,12 @@ namespace ObstacleAvoidance {
         AndreiUtils::Posed displacementEEToTCP; /**< The displacement from the end effector to the TCP. */
         Eigen::Matrix4d transformationEEToTCP;
         //the transformation between endeffector and TCP. (TCP w.r.t End effector frame)
-        AndreiUtils::Posed baseFrameRobot;
+        AndreiUtils::Posed worldInBaseFrameRobot;
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
         Eigen::MatrixXd mdhMatrix;
         Eigen::VectorXd radiusLinks;
         Eigen::VectorXd radiusJoints;
-        bool bSplitRegion;
-        bool bSplitRegionFinalLink;
         bool bConsiderBaseToFirstJoint;
         bool bConsiderRobotLinkAsLineSwept;
         std::string finalLinkType;
@@ -52,21 +49,21 @@ namespace ObstacleAvoidance {
         std::map<std::string,std::vector<CriticalPoints>> criticalPointsDynamicMap;
         // std::map<int, >
 
-        Eigen::MatrixXd
+        [[nodiscard]] Eigen::MatrixXd
         jacobianCriticalPoint(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
-                              int const &indexLink);
+                              int const &indexLink) const;
         //      size_t number_joints;
 
         //get relative distance of the critical point to the link and the jacobian at critical Point
-        std::tuple<Eigen::MatrixXd, Eigen::MatrixXd>
+        [[nodiscard]] std::tuple<Eigen::MatrixXd, Eigen::MatrixXd>
         criticalPointInformation(Eigen::VectorXd const &jointAngles, Eigen::Vector3d const &closestPointLink,
-                                 int const &indexLink);
+                                 int const &indexLink) const;
 
         void
         deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDeleteCriticalA, bool const &bDeleteCriticalD,
                             bool const &bDeleteCriticalFinalLink) const;
 
-        double computeB0(double const &bFirst,double const &distance);
+        [[nodiscard]] double computeB0(double const &bFirst,double const &distance) const;
 
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
@@ -88,21 +85,21 @@ namespace ObstacleAvoidance {
         [[nodiscard]] const std::shared_ptr<Joints> &getJoints() const;
 
 
-        Eigen::MatrixXd jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const;
+        [[nodiscard]] Eigen::MatrixXd jacobianCartesian(const Eigen::VectorXd &jointValues, const int &toIthLink) const;
 
 
-        Eigen::MatrixXd jacobianCartesianOnLink(Eigen::VectorXd const &jointValues, int const &toIthLink,
+        [[nodiscard]] Eigen::MatrixXd jacobianCartesianOnLink(Eigen::VectorXd const &jointValues, int const &toIthLink,
                                                 Eigen::Matrix4d const &transformationRelative) const;
 
-        Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues) const;
+        [[nodiscard]] Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues) const;
 
-        Eigen::MatrixXd forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const;
+        [[nodiscard]] Eigen::MatrixXd forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const;
 
-        Eigen::Matrix4d transformMdh(double const a,  double const alpha,  double const d,  double  const theta) const;
+        static Eigen::Matrix4d transformMdh(double const &a,  double const &alpha,  double const &d,  double  const &theta) ;
 
-        Eigen::MatrixXd fkmCartesian(const Eigen::VectorXd &joint_positions, int const &ith_link) const;
+        [[nodiscard]] Eigen::MatrixXd fkmCartesian(const Eigen::VectorXd &joint_positions, int const &ith_link) const;
 
-        Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const;
+        [[nodiscard]] Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const;
 
 
         std::pair<finalLinkRobot, std::vector<LinkSegment>> createLineSegments(const Eigen::VectorXd &jointValues);
