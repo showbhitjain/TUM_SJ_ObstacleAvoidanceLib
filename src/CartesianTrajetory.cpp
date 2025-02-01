@@ -2,7 +2,7 @@
 // Created by shobhit on 26.10.24.
 //
 
-#include <CartesianTrajectory.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
 #include <coder_array.h>
 #include <Trajectory.h>
 #include <privateUtils.h>

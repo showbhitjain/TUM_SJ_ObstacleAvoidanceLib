@@ -16,7 +16,7 @@
 #include <ConceptLibrary/instances/geometry/CylinderShape.h>
 #include <ConceptLibrary/instances/geometry/PlaneShape.h>
 
-#include <robotLinkDataTypes.h>
+#include "robotLinkDataTypes.h"
 
 namespace ObstacleAvoidance {
     class Obstacles {

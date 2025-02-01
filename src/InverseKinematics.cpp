@@ -2,7 +2,7 @@
 // Created by shobhit on 11.11.24.
 //
 
-#include "inverseKinematics.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/InverseKinematics.h>
 #include <inverseKinematicsWithConstraints.h>
 #include <privateUtils.h>
 
@@ -11,7 +11,7 @@ using namespace Eigen;
 using namespace AndreiUtils;
 using namespace std;
 
-inverseKinematics::inverseKinematics(const AndreiUtils::ConfigurationParameters &ikConfig) {
+InverseKinematics::InverseKinematics(const AndreiUtils::ConfigurationParameters &ikConfig) {
     auto objectiveConstraints = ikConfig.getJson("ObjectiveConstraints");
     ikStructConfig.useObjective1 = objectiveConstraints["useObjective1"].get<bool>();
     ikStructConfig.useObjective2 = objectiveConstraints["useObjective2"].get<bool>();
@@ -30,7 +30,7 @@ inverseKinematics::inverseKinematics(const AndreiUtils::ConfigurationParameters 
 }
 
 std::tuple<Eigen::VectorXd, double>
-inverseKinematics::ikWithConstraints(const VectorXd &jointValues, const MatrixXd &jacobiMatrix,
+InverseKinematics::ikWithConstraints(const VectorXd &jointValues, const MatrixXd &jacobiMatrix,
                                      const VectorXd &poseVelocityEffective, const VectorXd &jointMinValues,
                                      const VectorXd &jointMaxValues, const VectorXd &jointMinVelValues,
                                      const VectorXd &jointMaxVelValues) {

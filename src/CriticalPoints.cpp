@@ -2,7 +2,7 @@
 // Created by shobhit on 11.12.24.
 //
 
-#include <CriticalPoints.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CriticalPoints.h>
 
 
 CriticalPoints::CriticalPoints(const int &numberOfJoints) :

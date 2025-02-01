@@ -13,11 +13,11 @@
 #include <AndreiUtils/classes/DualQuaternion.hpp>
 #include <AndreiUtils/classes/ConfigurationParameters.hpp>
 
-#include <Joints.h>
+#include "Joints.h"
 #include <tuple>
-#include <Obstacles.h>
-#include <CriticalPoints.h>
-#include <robotLinkDataTypes.h>
+#include "Obstacles.h"
+#include "CriticalPoints.h"
+#include "robotLinkDataTypes.h"
 
 namespace ObstacleAvoidance {
 
@@ -68,6 +68,7 @@ namespace ObstacleAvoidance {
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
 
+        AndreiUtils::Posed getWorldInBaseFrameRobot() const;
 
         Eigen::VectorXd getRobotJointValues() const;
 
@@ -77,7 +78,7 @@ namespace ObstacleAvoidance {
 
         //void updateRobotJointValues();
 
-        void setJointValues(Eigen::VectorXd const &jointValues);
+        void setJointValues(Eigen::VectorXd const &jointValues) const;
 
 
         [[nodiscard]] int getNumberJoints() const;

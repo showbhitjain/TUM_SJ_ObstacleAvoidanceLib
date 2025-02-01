@@ -5,9 +5,6 @@
 #ifndef TUM_SJ_OBSTACLEAVOIDANCELIB_UTILSJOINTVALUESMATLAB_H
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_UTILSJOINTVALUESMATLAB_H
 #include <Eigen/Dense>
-#include <rtwtypes.h>
-#include <cstddef>
-#include <cstdlib>
 
 
 namespace ObstacleAvoidance {

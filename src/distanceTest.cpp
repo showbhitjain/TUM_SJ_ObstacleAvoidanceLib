@@ -3,13 +3,13 @@
 //
 
 
-#include <DistanceObjects.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/DistanceObjects.h>
 #include <Eigen/Dense>
 #include <iostream>
 #include<AndreiUtils/utilsString.h>
-#include <ObstacleAvoidanceUtils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
 #include <AndreiUtils/utilsEigenGeometry.hpp>
-#include <privateUtils.h>
+
 
 using namespace Eigen;
 using namespace std;
@@ -24,10 +24,7 @@ int main() {
     std::cout<<"Part one of string: "<<result[0]<<std::endl;
     std::cout<<"Part second of string: "<<result[1]<<std::endl;
 
-    MatrixXd testMatrix(0,4);
-    auto matrixCoder = EigenToCoder(testMatrix);
-    cout<<matrixCoder.size(0)<<endl;
-    cout<<matrixCoder.size(1)<<endl;
+
     cout<<"smoothening test: "<<ObstacleAvoidance::smoothingConstraintScheme(0.035,0.01,0.04,2)<<endl;
 
 

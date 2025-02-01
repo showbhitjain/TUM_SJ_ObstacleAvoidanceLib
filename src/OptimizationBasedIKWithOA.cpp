@@ -2,7 +2,8 @@
 // Created by shobhit on 18.01.25.
 //
 
-#include <OptimizationBasedIKWithOA.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/OptimizationBasedIKWithOA.h>
+#include<inverseKinematicsOA_types.h>
 #include <inverseKinematicsMatlabObstacleAvoidance.h>
 #include <privateUtils.h>
 #include <AndreiUtils/utilsGeometry.h>
@@ -55,11 +56,11 @@ namespace ObstacleAvoidance {
 
         auto slackWeightArray = slackParametersJson["SlackPenaltyWeight"].get<std::array<double,6>>();
 
-        for(int i{0}; i<36; ++i ){
+        for(int i=0; i<36; ++i ){
             config.Slack_penalty_weightmatrix[i]  = 0;
         }
 
-        for(int i{0}; i<6; ++i){
+        for(int i=0; i<6; ++i){
             config.Slack_penalty_weightmatrix[7*i] = slackWeightArray[i];
         }
 
@@ -89,7 +90,38 @@ namespace ObstacleAvoidance {
 
         coder::array<double,1U> optimalJointVelocity;
         double exitFlag;
-        auto configInput = this->config;
+        //auto configInput = this->config;
+
+        struct0_T configInput;
+        // Manually copy each member from config to configInput
+        // Boolean members
+        configInput.useObjectiveNormInfinity = config.useObjectiveNormInfinity;
+        configInput.useObjectiveNormL2 = config.useObjectiveNormL2;
+        configInput.useObjectiveTrajectoryFollowing = config.useObjectiveTrajectoryFollowing;
+        configInput.useObjectiveJointAcceleration = config.useObjectiveJointAcceleration;
+        configInput.useObjectiveManipulability = config.useObjectiveManipulability;
+        configInput.applyEqualityConstraints = config.applyEqualityConstraints;
+        configInput.applyInequalityConstraints = config.applyInequalityConstraints;
+        configInput.applySlack = config.applySlack;
+        configInput.obstacle_avoidance_scheme = config.obstacle_avoidance_scheme;
+        configInput.applyVelocityDamper = config.applyVelocityDamper;
+
+        // Double members
+        configInput.weightNormInfinity = config.weightNormInfinity;
+        configInput.weightNormL2 = config.weightNormL2;
+        configInput.weightTrajectoryFollowing = config.weightTrajectoryFollowing;
+        configInput.weightJointAcceleration = config.weightJointAcceleration;
+        configInput.weightManipulability = config.weightManipulability;
+        configInput.Slack_objective_weight = config.Slack_objective_weight;
+        configInput.gamma = config.gamma;
+        configInput.jointLimitActivationDistance = config.jointLimitActivationDistance;
+        configInput.jointLimitStopDistance = config.jointLimitStopDistance;
+        configInput.jointLimitGain = config.jointLimitGain;
+
+        // Arrays (copy them manually using std::memcpy)
+        std::memcpy(configInput.Slacklowerbound, config.Slacklowerbound, sizeof(config.Slacklowerbound));
+        std::memcpy(configInput.Slackupperbound, config.Slackupperbound, sizeof(config.Slackupperbound));
+        std::memcpy(configInput.Slack_penalty_weightmatrix, config.Slack_penalty_weightmatrix, sizeof(config.Slack_penalty_weightmatrix));
         inverseKinematicsMatlabObstacleAvoidance ikWithOA;
         ikWithOA.inverseKinematicsOA(EigenVectorToCoder1U(jointValues), EigenToCoder(jacobiMatrix), cartesianVelocityEffective, EigenVectorToCoder1U(jointMinValues), EigenVectorToCoder1U(jointMaxValues),
                                      EigenVectorToCoder1U(jointMinVelValues), EigenVectorToCoder1U(jointMaxVelValues), EigenToCoder(jG), EigenVectorToCoder1U(bG),

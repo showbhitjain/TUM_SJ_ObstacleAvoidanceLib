@@ -2,8 +2,8 @@
 // Created by shobhit on 30.11.24.
 //
 
-#include <Obstacles.h>
-#include <DistanceObjects.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Obstacles.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/DistanceObjects.h>
 
 
 using namespace ObstacleAvoidance;

@@ -1,12 +1,12 @@
 #include <iostream>
-#include <inverseKinematics.h>
-#include <Robot.h>
-#include "utils.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/InverseKinematics.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Robot.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include <cmath>
-#include <CartesianTrajectory.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
 #include <boost/numeric/odeint.hpp>
 //#include <AndreiUtils/utilsGeometry.h>
-#include <utilsJointValuesMatlab.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>
 using namespace ObstacleAvoidance;
@@ -116,7 +116,7 @@ int main() {
     auto jointMinValues = robot.getJoints()->minValues;
     auto jointMaxValues = robot.getJoints()->maxValues;
     cout<<"jointMaxValues"<<jointMaxValues<<endl;
-    inverseKinematics ik(inverseKinematicsConfig);
+    InverseKinematics ik(inverseKinematicsConfig);
 //    using Stepper = runge_kutta_dopri5<State, double, State, double>;
 //    auto controlled_stepper = make_controlled<Stepper>(1e-6, 1e-6);
     VectorXd radius(numberJoints);

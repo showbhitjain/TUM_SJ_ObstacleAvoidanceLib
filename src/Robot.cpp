@@ -1,8 +1,8 @@
 //
 // Created by shobhit on 08.10.24.
 //
-#include <utils.h>
-#include <Robot.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Robot.h>
 #include <AndreiUtils/utils.h>
 #include <AndreiUtils/utilsFiles.h>
 #include <AndreiUtils/utilsGeometry.h>
@@ -10,7 +10,7 @@
 #include <AndreiUtils/utilsJson.h>
 //#include <utility>
 #include <cmath>
-#include <ObstacleAvoidanceUtils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
 
 
 using namespace AndreiUtils;
@@ -75,6 +75,9 @@ VectorXd Robot::getRobotJointValues() const {
     return this->joints->values;
 }
 
+AndreiUtils::Posed Robot::getWorldInBaseFrameRobot() const{
+   return this->worldInBaseFrameRobot;
+}
 
 VectorXd Robot::getCurrentRobotJointValues() const {
     return this->joints->getCurrentJointValues();
@@ -85,7 +88,7 @@ VectorXd Robot::getCurrentRobotJointValues() const {
     this->joints->update();
 }*/
 
-void Robot::setJointValues(VectorXd const &jointValues) {
+void Robot::setJointValues(VectorXd const &jointValues) const {
     this->joints->setJointValues(jointValues);
 }
 
@@ -416,8 +419,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
             }
 
 
-            if (this->criticalPointsDynamicMap[key][i].
-                    hasCriticalPointA) {
+            if (this->criticalPointsDynamicMap[key][i].hasCriticalPointA) {
 
                 double distance;
                 Vector3d closestPointObstacle, closestPointLink;
@@ -440,15 +442,15 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 this->criticalPointsDynamicMap[key][i].
                         distVectorA = closestPointLink - closestPointObstacle;
 
-                std::cout << "A linkindex: " << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointA
-                          << std::endl;
+
                 //cout << closestPointLinkTransform << endl;
 
                 this->criticalPointsDynamicMap[key][i].
                         jacobiCriticalA = jacobiCriticalPoint(seq(0,2),all);
 
                 this->criticalPointsDynamicMap[key][i].distanceA = distance;
-
+                std::cout << "A linkindex: " << i <<" has critical Point" <<this->criticalPointsDynamicMap[key][i].hasCriticalPointA
+                          <<" ,and new distance: "<<distance<< std::endl;
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceA =
                         (-(this->criticalPointsDynamicMap[key][i].
@@ -488,7 +490,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
                 jacobiCriticalPoint = get<1>(result);
 
-                std::cout << "D" << i << this->criticalPointsDynamicMap[key][i].hasCriticalPointD << std::endl;
+
 
                 this->criticalPointsDynamicMap[key][i].
                         jacobiCriticalD = jacobiCriticalPoint(seq(0, 2), all);
@@ -498,6 +500,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 this->criticalPointsDynamicMap[key][i].
                         distVectorD = distanceVector;
                 this->criticalPointsDynamicMap[key][i].distanceD = distance;
+                std::cout << "D linkindex: " << i <<" has critical Point" <<this->criticalPointsDynamicMap[key][i].hasCriticalPointD
+                                       <<" ,and new distance: "<<distance<< std::endl;
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceD =
                         (-(this->criticalPointsDynamicMap[key][i].
@@ -549,6 +553,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         distVectorFinalLink = distanceVector;
 
                 this->criticalPointsDynamicMap[key][i].distanceFinalLink = distance;
+                std::cout << "Final link  has critical Point: " <<this->criticalPointsDynamicMap[key][i].hasCriticalPointFinalLink
+                       <<" ,and new distance: "<<distance<< std::endl;
+
                 this->criticalPointsDynamicMap[key][i].
                         jacobiDistanceFinalLink =
                         (-(this->criticalPointsDynamicMap[key][i].
@@ -911,4 +918,8 @@ double Robot::computeB0(double const &bFirst, double const &distance) const {
     }
     return b0;
 }
+
+
+
+
 

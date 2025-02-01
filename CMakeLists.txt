@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.20)
 project(TUM_SJ_ObstacleAvoidanceLib)
 
 set(PROJECT_VERSION_STRING "1.0.0")
@@ -38,7 +38,7 @@ find_package(ccd REQUIRED)
 set(FCL_ROOT "/home/shobhit/fcl_install")
 
 # Include FCL headers
-include_directories("${FCL_ROOT}/include")
+#include_directories("${FCL_ROOT}/include")
 
 
 find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
@@ -48,7 +48,7 @@ set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
 set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
 
-include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
+#include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
 message(STATUS "Including Inverse Kinematics Package from ${PATHIK}")
 
@@ -58,7 +58,7 @@ add_library(${LIB_NAME}
         src/Joints.cpp
         src/utils.cpp
         src/CartesianTrajetory.cpp
-        src/inverseKinematics.cpp
+        src/InverseKinematics.cpp
         privateSrc/privateUtils.cpp
 
         src/utilsJointValuesMatlab.cpp
@@ -67,11 +67,9 @@ add_library(${LIB_NAME}
 
         src/Obstacles.cpp
 
-        src/controllerFranka.cpp
+        src/ControllerFranka.cpp
         src/examples_common.cpp
         src/CriticalPoints.cpp
-
-        src/LinkSegment.cpp
 
         src/DistanceObjects.cpp
 
@@ -89,7 +87,20 @@ target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
 target_include_directories(${LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${PATHIK}>
+        $<BUILD_INTERFACE:${PATHUTILSIKWITHOA}>
+
 )
+
+# Private includes (only needed for building this lib itself):
+target_include_directories(${LIB_NAME}
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/private_include
+        ${PATHTRAJECTORY}
+        ${PATHUTILSMATLAB}
+        "${FCL_ROOT}/include"
+)
+
 
 add_executable(testInverseKinematics src/offlineInverseKinematics.cpp)
 add_executable(ControllerExperiments src/frankaControllerExperiments.cpp)
@@ -98,7 +109,6 @@ add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybr
 add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
 add_executable(DistanceTest src/distanceTest.cpp)
 add_executable(StaticObstacleAvoidanceTest src/offlineStaticObstacleAvoidance.cpp)
-
 
 
 find_package(OpenMP REQUIRED)
@@ -116,10 +126,9 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(InverseKinematicsDebugMode ${LIB_NAME})
     target_link_libraries(DistanceTest ${LIB_NAME})
     target_link_libraries(StaticObstacleAvoidanceTest ${LIB_NAME})
-endif ()
 
+endif ()
 
 set(ALL_INSTALL_TARGETS ${LIB_NAME} ${ALL_INSTALL_TARGETS})
 
-
-
+include(cmake/installConfig.cmake)

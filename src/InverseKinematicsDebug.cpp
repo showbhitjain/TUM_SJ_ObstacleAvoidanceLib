@@ -5,15 +5,15 @@
 
 
 #include <iostream>
-#include <inverseKinematics.h>
-#include <Robot.h>
-#include "utils.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/InverseKinematics.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Robot.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include <cmath>
-#include <CartesianTrajectory.h>
-#include <utilsJointValuesMatlab.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>
-#include <controllerFranka.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ControllerFranka.h>
 
 using namespace ObstacleAvoidance;
 using namespace std;
@@ -65,8 +65,7 @@ int main() {
     std::copy_n(HomeJointPosition.data(), 7, firstJointPosition.begin());
     cout << "HomeJointPosition:" << HomeJointPosition << endl;
 
-    totalTimesteps =
-    Eigen::MatrixXd actualJointValuesRobotLog(7,timesteps)
+
     FILE *fp;
     const char *filename = "frankaData.txt";
 
@@ -78,8 +77,8 @@ int main() {
     }
 
 
-    Eigen::Map<Eigen::Matrix<double, 7,
-            1> >(realRobot.readOnce().q.data());
+    /*Eigen::Map<Eigen::Matrix<double, 7,
+            1> >(realRobot.readOnce().q.data());*/
 
     try {
         franka::Robot realRobot("192.168.5.10");
@@ -113,10 +112,10 @@ int main() {
         Vector7d maxTorques = {80, 80, 80, 80, 9, 9, 9};
         Vector7d minTorques = {-80, -80, -80, -80, -9, -9, -9};
 
-        controllerFranka controller(maxTorques, minTorques, {600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0},
+        ControllerFranka controller(maxTorques, minTorques, {600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0},
                                     {50.0, 50.0, 50.0, 50.0, 30.0, 25.0, 15.0});
 
-        inverseKinematics ik(inverseKinematicsConfig);
+        InverseKinematics ik(inverseKinematicsConfig);
 
         // Load the kinematics and dynamics model.
 

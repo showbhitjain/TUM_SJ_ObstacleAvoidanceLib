@@ -6,7 +6,7 @@
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_OBSTACLEAVOIDANCEUTILS_H
 
 #include <Eigen/Dense>
-#include <Obstacles.h>
+#include "Obstacles.h"
 
 namespace ObstacleAvoidance {
 

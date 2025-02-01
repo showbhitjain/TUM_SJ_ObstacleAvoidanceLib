@@ -4,13 +4,13 @@
 
 
 #include <iostream>
-#include <OptimizationBasedIKWithOA.h>
-#include <Robot.h>
-#include <utils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/OptimizationBasedIKWithOA.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Robot.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include <cmath>
-#include <CartesianTrajectory.h>
-#include <ObstacleAvoidanceUtils.h>
-#include <utilsJointValuesMatlab.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>
 
@@ -46,7 +46,8 @@ criticalPointInformation( ObstacleAvoidance::Robot const &robot,Eigen::VectorXd 
 }
 
 int main() {
-
+    int booltest = true;
+    cout<<booltest<<endl;
     ConfigurationParameters Config(static_cast<std::string const &>("../config/configurationParameters.json"),
                                    static_cast<std::string const &>("Configuration"));
     auto trajConfig = Config.getSubConfig("Trajectory");

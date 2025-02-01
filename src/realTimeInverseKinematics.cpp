@@ -4,15 +4,15 @@
 
 
 #include <iostream>
-#include <inverseKinematics.h>
-#include <Robot.h>
-#include "utils.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/InverseKinematics.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/Robot.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include <cmath>
-#include <CartesianTrajectory.h>
-#include <utilsJointValuesMatlab.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>
-#include <controllerFranka.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ControllerFranka.h>
 
 using namespace ObstacleAvoidance;
 using namespace std;
@@ -93,8 +93,7 @@ int main() {
         std::cout << "Finished moving to initial joint configuration." << std::endl;
 
 
-        Vector7d startingMeasuredJointPosition = Eigen::Map<Eigen::Matrix<double, 7,
-            1> >(realRobot.readOnce().q.data());
+        Vector7d startingMeasuredJointPosition = Eigen::Map<Eigen::Matrix<double, 7, 1> >(realRobot.readOnce().q.data());
         actualJointValuesMatrix(all, 0) = startingMeasuredJointPosition;
         cout << "Starting Joint Position: \n" << startingMeasuredJointPosition << endl;
         desiredJointValuesMatrix(all, 0) = HomeJointPosition;
@@ -106,10 +105,10 @@ int main() {
         Vector7d maxTorques = {80, 80, 80, 80, 9, 9, 9};
         Vector7d minTorques = {-80, -80, -80, -80, -9, -9, -9};
 
-        controllerFranka controller(maxTorques, minTorques, {600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0},
+        ControllerFranka controller(maxTorques, minTorques, {600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0},
                                     {50.0, 50.0, 50.0, 50.0, 30.0, 25.0, 15.0});
 
-        inverseKinematics ik(inverseKinematicsConfig);
+        InverseKinematics ik(inverseKinematicsConfig);
 
         // Load the kinematics and dynamics model.
 
@@ -117,25 +116,30 @@ int main() {
 
 
         long index = 0;
+        Vector7d desiredJointPositionUpdate;
+        desiredJointPositionUpdate = HomeJointPosition;
+
+        Vector7d desiredJointVelocityUpdate = Vector7d::Zero();
 
         //Just Using External Torque Controller
         std::function<franka::Torques(const franka::RobotState &robotState,
                                       franka::Duration period)> torqueCallback = [&](
-            const franka::RobotState &robotState, franka::Duration period) -> franka::Torques {
+            const franka::RobotState &robotState, const franka::Duration period) -> franka::Torques {
             auto coriolisData = model.coriolis(robotState);
             auto const &jointValues = robotState.q;
             auto const &jointVelocities = robotState.dq;
 
 
             /*if (period.toMSec()> 0) {
-index += static_cast<long>(period.toMSec());
-}*/
+            index += static_cast<long>(period.toMSec());
+            }*/
             if (period.toMSec() == 0) {
                 /*cout << "First value of Period: " << period.toMSec() << endl;
                 cout << "First measured Value: " << Eigen::Map<const Eigen::Matrix<double, 7, 1>>(robotState.q.data())
                         << endl;*/
             }
-            index += static_cast<long>(period.toMSec());
+            long lastPeriod = static_cast<long>(period.toMSec());
+            index += lastPeriod;
             /*if (index > trajTimes.size()-2) {
                 index = desiredJointValuesMatrix.cols() - 2;
             }*/
@@ -147,9 +151,13 @@ index += static_cast<long>(period.toMSec());
                     jointValues[3], jointValues[4], jointValues[5], jointValues[6]);
             fprintf(fp, "%lf %lf %lf %lf %lf %lf %lf\n", jointVelocities[0], jointVelocities[1], jointVelocities[2],
                     jointVelocities[3], jointVelocities[4], jointVelocities[5], jointVelocities[6]);
-            if (index < trajTimes.size() - 1) {
+            if (index < trajTimes.size()) {
                 actualJointValuesMatrix(all, index) = Eigen::Map<const Eigen::Matrix<double, 7, 1>>(
                     robotState.q.data());
+                auto measuredJointValueThisCylcle =  Eigen::Map<const Eigen::Matrix<double, 7, 1>>(robotState.q.data());
+
+
+
                 auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, index));
                 VectorXd positionTcpCurrent = transformTcpToBase(seq(0, 2), 3);
 
@@ -196,18 +204,25 @@ index += static_cast<long>(period.toMSec());
 
                 desiredJointVelocityMatrix(all, index) = optimalJointVelocity;
 
-                double tStart = trajTimes(index);
-                double tEnd = trajTimes(index + 1);
+
+                double tEnd =  trajTimes(index);
+                double tStart = trajTimes(index-lastPeriod);
+
                 double timespan[2] = {tStart, tEnd};
                 //        double dt = (tEnd - tStart) / 10;
 
-                desiredJointValuesMatrix(all, index + 1) = integrateConstantRungeKutta(
-                    desiredJointVelocityMatrix(all, index), timespan, actualJointValuesMatrix(all, index));
 
+                if (index>0) {
+                    desiredJointValuesMatrix(all, index) = integrateConstantRungeKutta(
+                        desiredJointVelocityMatrix(all, index), timespan, desiredJointPositionUpdate);
+                    desiredJointPositionUpdate = desiredJointValuesMatrix(all, index) ;
+
+                }
+                desiredJointVelocityUpdate = optimalJointVelocity;
                 //cout << "desired Joint Value: \n" << desiredJointValuesMatrix(all, index) << endl;
             }
-            VectorXd desiredJointPositionCurrent = (desiredJointValuesMatrix(all, index));
-            VectorXd desiredJointVelocityCurrent = (desiredJointVelocityMatrix(all, index));
+            VectorXd desiredJointPositionCurrent = desiredJointPositionUpdate ;
+            VectorXd desiredJointVelocityCurrent = desiredJointVelocityUpdate;
             /*cout << "index: " << index << endl;
             cout << "control command success rate: " << robotState.control_command_success_rate << endl;*/
             if (index >= trajTimes.size() - 1) {

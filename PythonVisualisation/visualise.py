@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 from fontTools.unicodedata import block
-#from roboticstoolbox import DHRobot, RevoluteMDH
+# from roboticstoolbox import DHRobot, RevoluteMDH
 import json
-#import roboticstoolbox as rtb
+# import roboticstoolbox as rtb
 import math
 from spatialmath.base import *
 from spatialmath import *
@@ -15,6 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from itertools import cycle
 import matplotlib
+
 matplotlib.use('QT5Agg')
 
 
@@ -151,6 +152,7 @@ def plot_line_segments(ax, link_segments, line_width=2):
                                color=color, linestyle='-', linewidth=line_width)  # Same color as 'a' segment
                 plots.extend(plot)
     return plots
+
 
 # Helper function to flatten a list of lists
 def flatten(l):
@@ -299,7 +301,7 @@ class serial_chain_robot:
         self.elapsed_text = self.ax.text2D(0.05, 0.95, 'Elapsed Time: 0s', transform=self.ax.transAxes,
                                            verticalalignment='top', fontsize=12)
         self.frame_text = self.ax.text2D(0.05, 0.90, 'Frame: 0', transform=self.ax.transAxes,
-                                    verticalalignment='top', fontsize=12)
+                                         verticalalignment='top', fontsize=12)
         self.line_segment_plot = None
         self.lineSweptPlot = None
 
@@ -333,8 +335,6 @@ class serial_chain_robot:
 
             elif real_time_elapsed < expected_time:
                 time.sleep((expected_time - real_time_elapsed) / 1000)  # Convert ms back to seconds
-
-
 
             if idx >= joint_angles_matrix.shape[1]:
                 break
@@ -375,8 +375,9 @@ class serial_chain_robot:
             plt.pause(ts)
             idx += 1
 
-        plt.show(block = True)
-    def update_animate(self,frame,joint_angles_matrix, trajectory_time, ts):
+        plt.show(block=True)
+
+    def update_animate(self, frame, joint_angles_matrix, trajectory_time, ts):
         real_time_elapsed = (time.time() - self.real_time_start) * 1000  # Convert to milliseconds
         expected_time = trajectory_time[frame] * 1000  # Convert to milliseconds
         if real_time_elapsed > expected_time:
@@ -392,7 +393,6 @@ class serial_chain_robot:
         else:
             frame_idx = frame
         # Convert ms back to seconds
-
 
         joint_angles = joint_angles_matrix[:, frame_idx]
 
@@ -415,7 +415,6 @@ class serial_chain_robot:
         # Plot the updated lineSweptPlot and line_segment_plot
         self.lineSweptPlot = list(flatten(plot_line_swept_spheres(self.ax, line_segments_robot)))
         self.line_segment_plot = list(flatten(plot_line_segments(self.ax, line_segments_robot, line_width=5)))
-       
 
         self.ax.set_xlim(self.x_lim)
         self.ax.set_ylim(self.y_lim)
@@ -429,9 +428,9 @@ class serial_chain_robot:
             self.anim.event_source.stop()
             return
 
-
-    def plot_animate(self,joint_angles_matrix, trajectory_time, ts, waypoints=None, obstacles=None, mode=True, radius=None,
-             x_lim=None, y_lim=None, z_lim=None):
+    def plot_animate(self, joint_angles_matrix, trajectory_time, ts, waypoints=None, obstacles=None, mode=True,
+                     radius=None,
+                     x_lim=None, y_lim=None, z_lim=None):
         self.init_plot(x_lim, y_lim, z_lim)
         if radius is None:
             radius = np.ones(joint_angles_matrix.shape[0] + 1) * 0.1
@@ -452,9 +451,12 @@ class serial_chain_robot:
         self.real_time_start = time.time()
 
         frames = np.arange(joint_angles_matrix.shape[1])
-        self.anim = FuncAnimation(plt.gcf(), self.update_animate, frames=frames, fargs=(joint_angles_matrix, trajectory_time, ts),
-                             interval=ts * 1000)
+        self.anim = FuncAnimation(plt.gcf(), self.update_animate, frames=frames,
+                                  fargs=(joint_angles_matrix, trajectory_time, ts),
+                                  interval=ts * 1000)
         plt.show(block=True)
+
+
 # %%
 
 
@@ -465,7 +467,7 @@ def read_json_file(filename):
     return data_dict
 
 
-data = pd.read_csv("../output2.csv", header=None)
+data = pd.read_csv("../outputDesiredJoints.csv", header=None)
 print(data.shape)
 joint_values = data.values
 print(joint_values.shape)
@@ -496,52 +498,52 @@ waypoint_times = np.asarray(Trajectory_config['waypointTimes'])
 trajectory_time = np.arange(waypoint_times[0], waypoint_times[-1] + ts, ts)
 
 # %%
-#robot_Serial_chain.plot(joint_values, trajectory_time, ts, Waypoints)
+# robot_Serial_chain.plot(joint_values, trajectory_time, ts, Waypoints)
 robot_Serial_chain.plot_animate(joint_values, trajectory_time, ts, Waypoints)
-l =1+7
-    # pyplot = rtb.backends.PyPlot()  # create a PyPlot backend
-    #
-    # pyplot.add(robot)  # add the robot to the backend
-    #
-    # robot.q = joint_values[:,0]  # set the robot configuration
-    #
-    # pyplot.step()  # update the backend and graphical view
+l = 1 + 7
+# pyplot = rtb.backends.PyPlot()  # create a PyPlot backend
+#
+# pyplot.add(robot)  # add the robot to the backend
+#
+# robot.q = joint_values[:,0]  # set the robot configuration
+#
+# pyplot.step()  # update the backend and graphical view
 
-    # from roboticstoolbox.backends import PyPlot
-    #
-    # pyplot = PyPlot.PyPlot()
-    # env = pyplot.launch()  # Ensure you launch the backend properly
-    # env.add(robot)
-    # # pyplot.add(robot)
-    #
-    # robot.q = joint_values[:, 0]
-    # env.add(robot)
-    # env.step()
-    # pyplot.step()
+# from roboticstoolbox.backends import PyPlot
+#
+# pyplot = PyPlot.PyPlot()
+# env = pyplot.launch()  # Ensure you launch the backend properly
+# env.add(robot)
+# # pyplot.add(robot)
+#
+# robot.q = joint_values[:, 0]
+# env.add(robot)
+# env.step()
+# pyplot.step()
 
-    #print("Robot visualization complete.")
-    #plt.close('all')
-    # Animate the robot movement
-    # for q in joint_values:
-    #     robot.q = q
-    #     pyplot.step()
-    #     pyplot.hold()
-    #
-    # # Block and display the plot (fig stays open)
-    # pyplot.hold()
-    # Create a plot to visualize the animation
-    # fig, ax = plt.subplots()
-    # ax = fig.add_subplot(111, projection='3d')
-    # ax.set_xlim([-1, 1])
-    # ax.set_ylim([-1, 1])
-    # ax.set_zlim([0, 1])
-    #
-    # # Animate the robot movement
-    # ani = robot.plot(joint_values.T,dt=0.001, block=False, movie="robot_motion.html")
-    #
-    # # Show the animation
-    # plt.show()
-    #
-    # rtp.jt
+# print("Robot visualization complete.")
+# plt.close('all')
+# Animate the robot movement
+# for q in joint_values:
+#     robot.q = q
+#     pyplot.step()
+#     pyplot.hold()
+#
+# # Block and display the plot (fig stays open)
+# pyplot.hold()
+# Create a plot to visualize the animation
+# fig, ax = plt.subplots()
+# ax = fig.add_subplot(111, projection='3d')
+# ax.set_xlim([-1, 1])
+# ax.set_ylim([-1, 1])
+# ax.set_zlim([0, 1])
+#
+# # Animate the robot movement
+# ani = robot.plot(joint_values.T,dt=0.001, block=False, movie="robot_motion.html")
+#
+# # Show the animation
+# plt.show()
+#
+# rtp.jt
 
-    # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/

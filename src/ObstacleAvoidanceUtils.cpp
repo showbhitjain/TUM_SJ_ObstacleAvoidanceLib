@@ -2,7 +2,7 @@
 // Created by shobhit on 26.11.24.
 //
 
-#include "ObstacleAvoidanceUtils.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
 #include <cmath>
 
 

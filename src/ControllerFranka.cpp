@@ -2,14 +2,14 @@
 // Created by shobhit on 04.12.24.
 //
 
-#include <controllerFranka.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/ControllerFranka.h>
 
 #include <utility>
 
 using namespace std;
 using namespace franka;
 
-controllerFranka::controllerFranka(Vector7d const &cutOffTorquesMax, Vector7d const &cutOffTorquesMin,
+ControllerFranka::ControllerFranka(Vector7d const &cutOffTorquesMax, Vector7d const &cutOffTorquesMin,
                                    Vector7d const &Kp, Vector7d const &Kd): maxTorques(cutOffTorquesMax),
                                                                             minTorques(cutOffTorquesMin) {
     const Eigen::DiagonalMatrix<double, 7> diagMatrixKp(Kp);
@@ -18,7 +18,7 @@ controllerFranka::controllerFranka(Vector7d const &cutOffTorquesMax, Vector7d co
     this->Kd = diagMatrixKd.toDenseMatrix();
 }
 
-franka::Torques controllerFranka::torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+franka::Torques ControllerFranka::torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
                                            bool const &withCoriolisVector, std::array<double, 7> const &coriolis) {
     Eigen::Map<const Eigen::Matrix<double, 7, 1>> measuredJointPosition(state.q.data());
     Eigen::Map<const Eigen::Matrix<double, 7, 1>> measuredJointVelocity(state.dq.data());
@@ -47,7 +47,7 @@ franka::Torques controllerFranka::torquePD(franka::RobotState const &state, Vect
     return desiredTorques;
 }
 
-franka::Torques controllerFranka::torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+franka::Torques ControllerFranka::torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
                                            Vector7d const &desiredJointVelocity, bool const &withCoriolisVector,
                                            std::array<double, 7> const &coriolis) {
     Eigen::Map<const Eigen::Matrix<double, 7, 1>> measuredJointPosition(state.q.data());
@@ -77,7 +77,7 @@ franka::Torques controllerFranka::torquePD(franka::RobotState const &state, Vect
 }
 
 
-franka::Torques controllerFranka::advancedTorquePD(franka::RobotState const &state,
+franka::Torques ControllerFranka::advancedTorquePD(franka::RobotState const &state,
                                                    Vector7d const &desiredJointPosition,
                                                    std::array<double, 7> const &coriolis,
                                                    std::array<double, 49> const &dynamicMass) {

@@ -2,7 +2,7 @@
 // Created by shobhit on 26.12.24.
 //
 
-#include "DistanceObjects.h"
+#include <TUM_SJ_ObstacleAvoidanceLib/DistanceObjects.h>
 #include <fcl/fcl.h>
 
 

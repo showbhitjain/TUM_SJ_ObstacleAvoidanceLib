@@ -6,14 +6,39 @@
 #define OPTIMIZATIONBASEDIKWITHOA_H
 
 #include <Eigen/Dense>
-#include <inverseKinematicsOA_types.h>
+
 #include <vector>
 #include <Eigen/Dense>
 #include <tuple>
 #include <AndreiUtils/classes/ConfigurationParameters.hpp>
 
 namespace ObstacleAvoidance {
-
+    struct structIkWithOA {
+        bool useObjectiveNormInfinity;
+        double weightNormInfinity;
+        bool useObjectiveNormL2;
+        double weightNormL2;
+        bool useObjectiveTrajectoryFollowing;
+        double weightTrajectoryFollowing;
+        bool useObjectiveJointAcceleration;
+        double weightJointAcceleration;
+        bool useObjectiveManipulability;
+        double weightManipulability;
+        bool applyEqualityConstraints;
+        bool applyInequalityConstraints;
+        bool applySlack;
+        double Slacklowerbound[6];
+        double Slackupperbound[6];
+        double Slack_penalty_weightmatrix[36];
+        double Slack_objective_weight;
+        bool obstacle_avoidance_scheme;
+        double k;
+        double gamma;
+        bool applyVelocityDamper;
+        double jointLimitActivationDistance;
+        double jointLimitStopDistance;
+        double jointLimitGain;
+    };
     class OptimizationBasedIKWithOA {
     public:
         OptimizationBasedIKWithOA(AndreiUtils::ConfigurationParameters const &configOA);
@@ -26,6 +51,8 @@ namespace ObstacleAvoidance {
                                 Eigen::VectorXd const &jointMaxVelValues, Eigen::MatrixXd const &jG, Eigen::VectorXd const &bG, Eigen::MatrixXd const &jointVelocityMatrix);
 
     protected:
+
+
         structIkWithOA config;
 
 

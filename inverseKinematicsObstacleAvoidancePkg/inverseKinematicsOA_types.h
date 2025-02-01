@@ -42,7 +42,7 @@ struct struct0_T {
   double jointLimitStopDistance;
   double jointLimitGain;
 };
-typedef struct0_T  structIkWithOA;
+// typedef struct0_T  structIkWithOA;
 
 struct inverseKinematicsOAPersistentData {
   coder::array<double, 1U> starting_joint_vel;

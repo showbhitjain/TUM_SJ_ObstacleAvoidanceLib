@@ -2,10 +2,10 @@
 // Created by shobhit on 10.10.24.
 //
 
-#include<Joints.h>
+#include<TUM_SJ_ObstacleAvoidanceLib/Joints.h>
 #include <iostream>
 #include <utility>
-#include <utils.h>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 using namespace ObstacleAvoidance;
 using namespace  std;
 
