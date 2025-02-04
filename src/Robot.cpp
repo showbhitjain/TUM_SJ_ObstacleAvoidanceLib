@@ -782,7 +782,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     }
 
     if (jCounter == 0) {
-        j0.conservativeResize(0, 0);
+        j0.conservativeResize(jCounter, jCounter);
     } else {
         j0.conservativeResize(jCounter, numberJoints);
     }

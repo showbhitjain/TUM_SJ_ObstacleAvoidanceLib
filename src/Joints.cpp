@@ -93,9 +93,9 @@ bool Joints::isConfigurationValid(Eigen::VectorXd jointValues, bool verbose) con
     assert(jointValues.size() == number_joints);
     bool valid = true;
     for(int i = 0; i < number_joints; i++){
-        if(jointValues[i] < minValues(i) && jointValues[i] > maxValues(i)){
+        if(jointValues[i] < minValues(i) || jointValues[i] > maxValues(i)){
             valid = false;
-            if(verbose) std::cout << "Limit on joint" << i << " violated: " << jointValues[i] << endl;
+            if(verbose) std::cout << "Limit on joint" << i+1 << " violated: " << jointValues[i] << endl;
         }
     }
     return valid;

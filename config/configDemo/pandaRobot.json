@@ -1,0 +1,56 @@
+{
+    "parametersFor": "PandaRobot",
+    "dhParameters": [
+        [0, 0.333,   0,       -90],
+        [0, 0,       0,        90],
+        [0, 0.316,   0.0825,   90],
+        [0, 0,      -0.0825,  -90],
+        [0, 0.384,   0,        90],
+        [0, 0,       0.088,    90],
+        [0, 0.107,   0.0003,    0]
+    ],
+
+    "mdhParameters": [
+        [0, 0.333,   0,       0],
+        [0, 0,       0,       -90],
+        [0, 0.316,   0,       90],
+        [0, 0,       0.0825,  90],
+        [0, 0.384,  -0.0825, -90],
+        [0, 0,       0,       90],
+        [0, 0.107,   0.088,   90]
+    ],
+    "dhConnectorToHand": 0.0084,
+    "dhWithHand": true,
+    "dhConvention": "modified",
+    "nameEndEffectorFrame": "Franka_connection",
+    "displacementEEtoTCP": {
+        "rotationXYZ": [0, 0, -45],
+        "translation": [0, 0, 0.103399]
+    },
+    "qWorldBase": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
+
+    "Joints": {
+        "parametersFor": "Joints",
+        "numberOfJoints": 7,
+        "jointNames": ["Franka_joint1", "Franka_joint2", "Franka_joint3", "Franka_joint4", "Franka_joint5", "Franka_joint6", "Franka_joint7"],
+        "jointMinValues": [-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, 0.6500, -2.8973],
+        "jointMaxValues": [2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973],
+        "jointVelMinValues" : [-2.1750, -2.1750, -2.1750, -2.1750, -2.6100, -2.6100, -2.6100],
+        "jointVelMaxValues" : [2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100]
+
+    },
+    "ObstacleAvoidanceParameters": {
+        "applyObstacleAvoidance": true,
+        "distanceActivate": 0.08,
+        "distanceStop": 0.03,
+        "distanceBuffer": 0.005,
+        "smootheningCoefficient": 2,
+        "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "finalLinkType": "Box",
+        "finalLinkDimensions": [0.06,0.14,0.11],
+        "considerFinalLinkOA": true,
+        "considerBaseToFirstJoint": true,
+        "robotLinkAsLineSwept": false
+    }
+}

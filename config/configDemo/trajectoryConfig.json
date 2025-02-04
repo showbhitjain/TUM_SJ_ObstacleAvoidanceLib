@@ -1,0 +1,27 @@
+{
+  "parametersFor": "Trajectory",
+  "Waypoints": [
+    [0.35, 0.35, 0.35, 0.35],
+    [-0.50, 0, 0.2000, 0.5000],
+    [0.1, 0.1, 0.1, 0.1]],
+  "orientations": [
+    [0,         0,        0,          0],
+    [1,          1,        1,         1],
+    [0,         0,         0,         0],
+    [0,         0,         0,         0]
+  ],
+  "WayPointVelocity": [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  ],
+  "positionTrajectoryType": "cubic",
+  "orientationTrajectoryType" : "cubic",
+  "trajectorySampleTime": 0.001,
+  "waypointTimes": [0, 8, 16, 18],
+  "inverseKinematics": {
+    "positionKp": [1,1,1],
+    "orientationKo": [1,1,1]
+  }
+}
+

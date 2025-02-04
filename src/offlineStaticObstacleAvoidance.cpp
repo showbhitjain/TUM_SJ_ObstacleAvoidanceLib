@@ -46,10 +46,12 @@ criticalPointInformation( ObstacleAvoidance::Robot const &robot,Eigen::VectorXd 
 }
 
 int main() {
-    int booltest = true;
-    cout<<booltest<<endl;
+
     ConfigurationParameters Config(static_cast<std::string const &>("../config/configurationParameters.json"),
                                    static_cast<std::string const &>("Configuration"));
+
+
+
     auto trajConfig = Config.getSubConfig("Trajectory");
     auto inverseKinematicsConfig = Config.getSubConfig("inverseKinematicsWithOA");
 
@@ -123,11 +125,7 @@ int main() {
     Eigen::DiagonalMatrix<double, Eigen::Dynamic> jointVelocityMatrix(jointVelocityWeight);
     Eigen::MatrixXd jointVelocityWeightMatrix = jointVelocityMatrix.toDenseMatrix();
 
-    //using Stepper = runge_kutta_dopri5<State, double, State, double>;
 
-    //auto controlled_stepper = make_controlled<Stepper>(1e-6, 1e-6);
-    VectorXd radius(numberJoints);
-    radius = Eigen::VectorXd::Constant(numberJoints + 1, 0.1);
 
     //cout<<"ForwardKinematics: \n"<<robot.fkmCartesianTCP(Homejointpositions)(seq(0,2),2)<<endl;
     auto LinkSegments = robot.createLineSegments(HomeJointPosition);

@@ -6,16 +6,16 @@
     "useObjectiveNormL2": true,
     "weightNormL2": 1,
     "jointVelocityWeight": [1,1,1,1,1,1,1],
-    "useObjectiveTrajectoryFollowing": true,
+    "useObjectiveTrajectoryFollowing": false,
     "weightTrajectoryFollowing": 5,
     "useObjectiveJointAcceleration": false,
     "weightJointAcceleration": 0.3,
-    "useObjectiveManipulability": false,
+    "useObjectiveManipulability": true,
     "weightManipulability": 0.1
   },
   "EquationParameters": {
-    "applyEqualityConstraints":false,
-    "applyInequalityConstraints": true
+    "applyEqualityConstraints":true,
+    "applyInequalityConstraints": false
   },
   "SlackParameters": {
     "applySlack": false,

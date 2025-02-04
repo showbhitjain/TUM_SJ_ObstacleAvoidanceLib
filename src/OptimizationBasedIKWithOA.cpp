@@ -122,13 +122,27 @@ namespace ObstacleAvoidance {
         std::memcpy(configInput.Slacklowerbound, config.Slacklowerbound, sizeof(config.Slacklowerbound));
         std::memcpy(configInput.Slackupperbound, config.Slackupperbound, sizeof(config.Slackupperbound));
         std::memcpy(configInput.Slack_penalty_weightmatrix, config.Slack_penalty_weightmatrix, sizeof(config.Slack_penalty_weightmatrix));
+
+
         inverseKinematicsMatlabObstacleAvoidance ikWithOA;
         ikWithOA.inverseKinematicsOA(EigenVectorToCoder1U(jointValues), EigenToCoder(jacobiMatrix), cartesianVelocityEffective, EigenVectorToCoder1U(jointMinValues), EigenVectorToCoder1U(jointMaxValues),
                                      EigenVectorToCoder1U(jointMinVelValues), EigenVectorToCoder1U(jointMaxVelValues), EigenToCoder(jG), EigenVectorToCoder1U(bG),
                                      EigenToCoder(jointVelocityMatrix),
                                      &configInput, optimalJointVelocity, &exitFlag);
 
+
+
         return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity),exitFlag);
+
+    }
+
+    void
+    OptimizationBasedIKWithOA::setConfigSlackWeight(double const &slackObjectiveWeight){
+
+        this->config.Slack_objective_weight = slackObjectiveWeight;
+
+
+
 
     }
 

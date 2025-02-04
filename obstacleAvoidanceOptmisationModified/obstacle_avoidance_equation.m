@@ -1,0 +1,350 @@
+function [J_g,b_g,minimum_distance_robot_obstacle] = obstacle_avoidance_equation(robot,obstacles,jointAngles,joint_velocity_obstacle_avoidance,mdhparams,radius_of_linesegments,d_influence,d_stop,config,logFile) %Homejointpositions,jointMinValues,jointMaxValues,Gripper_position,Gripper_orientation)
+
+
+%d_influence = 0.06;
+%d_stop = 0.02;
+%jointAngles = Homejointpositions;
+%robot = frankarobot_mdh;
+%radius for each link
+radius = radius_of_linesegments;
+d_buffer = 0.005;
+
+% Define persistent variables to store the critical points and related data
+persistent criticalPoints
+
+%persistent robot
+% if isempty(robot)
+% robot = give_robot(mdhparams,Homejointpositions,jointMinValues,jointMaxValues,Gripper_position,Gripper_orientation);
+% end
+
+% Initialize the persistent variables if they are empty (first run)
+numLinks = length(mdhparams); % Number of line segments
+numObstacles = length(obstacles); % Number of obstacles
+number_of_joints = length(jointAngles);
+%default_vector = [NaN NaN NaN];
+if isempty(criticalPoints)
+    criticalPoints = repmat(struct(...
+        'roc_A',nan(1,3), ...
+        'roc_D',nan(1,3), ...
+        'has_criticalpoints_A', false, ...
+        'has_criticalpoints_D', false, ...
+        'jacobi_dist_max_A', nan(3,number_of_joints), ...
+        'jacobi_dist_max_D', nan(3,number_of_joints), ...
+        'jointAngles_critical_A', nan(1,number_of_joints), ...
+        'jointAngles_critical_D', nan(1,number_of_joints), ...
+        'jointVelocity_critical_A', nan(1,number_of_joints), ...
+        'jointVelocity_critical_D', nan(1,number_of_joints), ...
+        'jacobi_distance_A', nan(3,number_of_joints), ...
+        'jacobi_distance_D', nan(3,number_of_joints), ...
+        'jacobi_critical_A',nan(3,number_of_joints), ...
+        'jacobi_critical_A_max',nan(3,number_of_joints), ...
+        'jacobi_critical_D',nan(3,number_of_joints), ...
+        'jacobi_critical_D_max',nan(3,number_of_joints), ...
+        'distance', NaN   ...
+        ), numLinks, numObstacles);
+end
+
+
+%create line swept spheres of robot links with help of modiefied dh
+%parameters and current joint configuration with
+linesegments = createLineSegments(mdhparams,robot,radius,jointAngles);
+
+
+for l = 1:length(obstacles)
+
+    for i = 1:length(linesegments)
+        %Calculate distance for a and dsegments
+        criticalPoints(i,l).jacobi_distance_A = nan(3,number_of_joints);
+        criticalPoints(i,l).jacobi_distance_D = nan(3,number_of_joints);
+
+        % Initialize distance variables
+        dist_roc_A = NaN;
+        dist_roc_D = NaN;
+
+        if criticalPoints(i,l).has_criticalpoints_A && ~any(isnan(criticalPoints(i,l).roc_A)) %&& norm(linesegments(i).roc_A) <= d_influence
+            T_Ca = getTransform(robot,jointAngles,sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l)),'base');
+            position_ca = T_Ca(1:3,4);
+            roc = position_ca-(obstacles(l).center)' ;
+            roc_normalised = roc ./ norm(roc);
+            dist_roc = norm(roc) - obstacles(l).dimensions(1) - linesegments(i).radius;
+            dist_crit_a = dist_roc .* roc_normalised;
+            J = rearrangejacobi(geometricJacobian(robot,jointAngles,sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l))),length(jointAngles));
+            %escape velocity
+            criticalPoints(i,l).jacobi_distance_A = [-dist_crit_a(1) * J(1,1:end); -dist_crit_a(2) * J(2,1:end); -dist_crit_a(3) * J(3,1:end)];
+            dist_roc_A = dist_roc;
+            criticalPoints(i,l).distance = dist_roc_A;
+            criticalPoints(i,l).jacobi_critical_A = J(1:3,:);
+            criticalPoints(i,l).roc_A = dist_crit_a';
+            % Instead of disp, use %fprintf to log to the file
+            %fprintf(logFile, 'distance if link %d%d has Critcal_PointA: %f\n',i,l, norm(criticalPoints(i,l).roc_A));
+        end
+        %Calculate distance between 0 and Critcal Point
+
+        if criticalPoints(i,l).has_criticalpoints_D && ~any(isnan(criticalPoints(i,l).roc_D)) %&& norm(linesegments(i).roc_D) <= d_influence
+            T_Cd = getTransform(robot,jointAngles,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)),'base');
+            position_cd = T_Cd(1:3,4);
+            roc = position_cd-(obstacles(l).center)';
+            roc_normalised = roc ./ norm(roc);
+            dist_roc = norm(roc) - obstacles(l).dimensions(1) - linesegments(i).radius;
+            dist_crit_d = dist_roc .* roc_normalised;
+            J = rearrangejacobi(geometricJacobian(robot,jointAngles,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l))),length(jointAngles));
+            %escape velocity
+            criticalPoints(i,l).jacobi_distance_D = [-dist_crit_d(1) * J(1,1:end); -dist_crit_d(2) * J(2,1:end);-dist_crit_d(3) * J(3,1:end)];
+            dist_roc_D = dist_roc;
+            criticalPoints(i,l).distance = dist_roc_D;
+            criticalPoints(i,l).jacobi_critical_D = J(1:3,:);
+            criticalPoints(i,l).roc_D = dist_crit_d';
+            % Instead of disp, use %fprintf to log to the file
+            %fprintf(logFile, 'distance if link %d%d has Critcal_PointD: %f\n',i,l, norm(criticalPoints(i,l).roc_D));
+        end
+
+       
+
+        if ~any(isnan(linesegments(i).aSegmentV0)) && any(isnan(criticalPoints(i,l).roc_A)) && ~(criticalPoints(i,l).has_criticalpoints_A)
+            %calculate critical point only if in the critical zone
+
+
+            %at each link at jacobis to linesegement struct
+            [s_range_A,dist_A,~,~] =  calculate_distance_lss_pss(linesegments(i).aSegmentV0,linesegments(i).aSegmentV1, ...
+                linesegments(i).radius,obstacles(l).center,obstacles(l).dimensions(1));
+            if norm(dist_A) <= (d_influence+d_buffer)
+                critcal_point_inworldframe_A = linesegments(i).aSegmentV0 + s_range_A * (linesegments(i).aSegmentV1 - linesegments(i).aSegmentV0);
+
+                %dist betweeb i-1 link origin and critical point on that segmentA on i link
+                T_basetolink = getTransform(robot,jointAngles,'base',sprintf('robot_link%d',int32(i-1)));
+                if i == 1
+                    T_basetolink = eye(4);
+                end
+                relative_distance_a_vo_toCrit = relative_distance_in_linkframe(T_basetolink,critcal_point_inworldframe_A);
+
+                addCriticalPoint(robot,sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_A_%d%d', int32(i), int32(l)),relative_distance_a_vo_toCrit,i);
+
+
+                % %critical point a_i w.r.t i-1 frame
+                % body_critical_A = generate_Criticalbody(sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_A_%d%d', int32(i), int32(l)),relative_distance_a_vo_toCrit);
+                % if i == 1
+                %     %add body to base link
+                %     addBody(robot,body_critical_A,"base");
+                % end
+                % addBody(robot,body_critical_A,sprintf('robot_link%d',int32(i-1)));
+
+                J = rearrangejacobi(geometricJacobian(robot,jointAngles,sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l))),length(jointAngles));
+                criticalPoints(i,l).jacobi_distance_A  = [-dist_A(1)*J(1,1:end);-dist_A(2)*J(2,1:end);-dist_A(3)*J(3,1:end)];
+
+                criticalPoints(i,l).jacobi_dist_max_A = criticalPoints(i,l).jacobi_distance_A;
+                criticalPoints(i,l).jacobi_critical_A_max = J(1:3,:);
+                criticalPoints(i,l).jacobi_critical_A = J(1:3,:);
+                criticalPoints(i,l).has_criticalpoints_A = true;
+                criticalPoints(i,l).jointAngles_critical_A = jointAngles;
+                criticalPoints(i,l).jointVelocity_critical_A = joint_velocity_obstacle_avoidance;
+                criticalPoints(i,l).roc_A = dist_A;
+                criticalPoints(i,l).distance = norm(dist_A);
+
+            end
+
+            if ~any(isnan(linesegments(i).dSegmentV0)) && any(isnan(criticalPoints(i,l).roc_D)) && ~(criticalPoints(i,l).has_criticalpoints_D)
+
+                [s_range_D,dist_D,~,~] =  calculate_distance_lss_pss(linesegments(i).dSegmentV0,linesegments(i).dSegmentV1, ...
+                    linesegments(i).radius,obstacles(l).center,obstacles(l).dimensions(1));
+                %if dist <= d_influence
+                %when distance less than influence distance of obstacle avoidance
+                %get critical point and jacobi at this avoidance scheme starting phase
+                criticalPoints(i,l).distance = min(norm(dist_A),norm(dist_D));
+                if norm(dist_D) <= (d_influence+d_buffer)
+                    critcal_point_inworldframe_D = linesegments(i).dSegmentV0 + s_range_D * (linesegments(i).dSegmentV1 - linesegments(i).dSegmentV0);
+
+
+                    %dist betweeb i-1 link origin and critical point on that segmentD on i link
+                    T_basetolink = getTransform(robot,jointAngles,'base',sprintf('robot_link%d',int32(i-1)));
+                    if i == 1
+                        T_basetolink = eye(4);
+                    end
+                    relative_distance_d_vo_toCrit = relative_distance_in_linkframe(T_basetolink,critcal_point_inworldframe_D);
+
+                    addCriticalPoint(robot,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_D_%d%d', int32(i), int32(l)),relative_distance_d_vo_toCrit,i);
+
+
+                    %
+                    %
+                    % body_critical_D = generate_Criticalbody(sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_D_%d%d', int32(i), int32(l)),relative_distance_d_vo_toCrit);
+                    % if i == 1
+                    %
+                    %     addBody(robot,body_critical_D,"base");
+                    % end
+                    %
+                    % addBody(robot,body_critical_D,sprintf('robot_link%d',int32(i-1)));
+                    %Jacobi_max at d = d2
+                    J = rearrangejacobi(geometricJacobian(robot,jointAngles,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l))),length(jointAngles));
+                    criticalPoints(i,l).jacobi_distance_D = [-dist_D(1)*J(1,1:end);-dist_D(2)*J(2,1:end);-dist_D(3)*J(3,1:end)];
+                    criticalPoints(i,l).jacobi_critical_D_max = J(1:3,:);
+                    criticalPoints(i,l).jacobi_critical_D = J(1:3,:);
+                    criticalPoints(i,l).jacobi_dist_max_D = criticalPoints(i,l).jacobi_distance_D;
+                    criticalPoints(i,l).has_criticalpoints_D = true;
+                    criticalPoints(i,l).jointAngles_critical_D = jointAngles;
+                    criticalPoints(i,l).jointVelocity_critical_D = joint_velocity_obstacle_avoidance;
+                    criticalPoints(i,l).roc_D = dist_D;
+                    criticalPoints(i,l).distance =  norm(dist_D);
+
+                end
+            end
+            %end
+
+        end
+
+        if any(isnan(linesegments(i).aSegmentV0)) && ~any(isnan(linesegments(i).dSegmentV0)) && any(isnan(criticalPoints(i,l).roc_D)) && ~(criticalPoints(i,l).has_criticalpoints_D)
+            [s_range_D,dist_D,~,~] =  calculate_distance_lss_pss(linesegments(i).dSegmentV0,linesegments(i).dSegmentV1, ...
+                linesegments(i).radius,obstacles(l).center,obstacles(l).dimensions(1));
+
+            criticalPoints(i,l).distance = norm(dist_D);
+            if norm(dist_D) <= (d_influence+d_buffer)
+                critcal_point_inworldframe_D = linesegments(i).dSegmentV0 + s_range_D * (linesegments(i).dSegmentV1 - linesegments(i).dSegmentV0);
+
+                %dist betweeb i-1 link origin and critical point on that segmentD on i link
+                T_basetolink = getTransform(robot,jointAngles,'base',sprintf('robot_link%d',int32(i-1)));
+                if i == 1
+                    T_basetolink = eye(4);
+                end
+                relative_distance_d_vo_toCrit = relative_distance_in_linkframe(T_basetolink,critcal_point_inworldframe_D);
+
+                addCriticalPoint(robot, sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_D_%d%d', int32(i), int32(l)),relative_distance_d_vo_toCrit,i);
+                % body_critical_D = generate_Criticalbody(sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)),sprintf('Critical_Joint_Frame_D_%d%d', int32(i), int32(l)),relative_distance_d_vo_toCrit);
+                % if i == 1
+                %     %add body to base link
+                %     addBody(robot,body_critical_D,"base");
+                % end
+                % addBody(robot,body_critical_D,sprintf('robot_link%d',int32(i-1)));
+
+
+                %Jacobi_max at d = d2
+                J = rearrangejacobi(geometricJacobian(robot,jointAngles,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l))),length(jointAngles));
+                criticalPoints(i,l).jacobi_distance_D = [-dist_D(1)*J(1,1:end);-dist_D(2)*J(2,1:end);-dist_D(3)*J(3,1:end)];
+                criticalPoints(i,l).jacobi_critical_D_max = J(1:3,:);
+                criticalPoints(i,l).jacobi_critical_D = J(1:3,:);
+                criticalPoints(i,l).jacobi_dist_max_D = criticalPoints(i,l).jacobi_distance_D;
+                criticalPoints(i,l).has_criticalpoints_D = true;
+                criticalPoints(i,l).jointAngles_critical_D = jointAngles;
+                criticalPoints(i,l).jointVelocity_critical_D = joint_velocity_obstacle_avoidance;
+                criticalPoints(i,l).roc_D = dist_D;
+                
+            end
+
+        end
+
+        if criticalPoints(i,l).has_criticalpoints_D && criticalPoints(i,l).has_criticalpoints_A
+            criticalPoints(i,l).distance = min(norm(criticalPoints(i,l).roc_A),norm(criticalPoints(i,l).roc_D));
+        end
+
+        %Delete Critical Points when out of zone (Cleanup of rigidbody
+        %critical points
+        if ~any(isnan(criticalPoints(i,l).roc_A)) && norm(criticalPoints(i,l).roc_A) > (d_influence+d_buffer) && criticalPoints(i,l).has_criticalpoints_A
+            removeCriticalPoint(robot,sprintf('Critical_Point_Link_A_%d%d', int32(i), int32(l)));
+            criticalPoints(i,l).has_criticalpoints_A = false ;
+            criticalPoints(i,l).roc_A  = nan(1,3);
+            criticalPoints(i,l).jacobi_distance_A = nan(3,number_of_joints);
+            criticalPoints(i,l).jacobi_dist_max_A = nan(3,number_of_joints);
+            criticalPoints(i,l).jointAngles_critical_A = nan(1,number_of_joints);
+            criticalPoints(i,l).jointVelocity_critical_A = nan(1,number_of_joints);
+            criticalPoints(i,l).jacobi_critical_A = nan(3,number_of_joints);
+            criticalPoints(i,l).jacobi_critical_A_max = nan(3,number_of_joints);
+            
+            
+            % Instead of disp, use %fprintf to log to the file
+            %fprintf(logFile, 'distance_at_delete link %d%d A: %f\n',i,l,norm(criticalPoints(i,l).roc_A));
+
+        end
+
+        if ~any(isnan(criticalPoints(i,l).roc_D)) && norm(criticalPoints(i,l).roc_D)> (d_influence+d_buffer) && criticalPoints(i,l).has_criticalpoints_D
+            removeCriticalPoint(robot,sprintf('Critical_Point_Link_D_%d%d', int32(i), int32(l)));
+            criticalPoints(i,l).has_criticalpoints_D = false ;
+            criticalPoints(i,l).roc_D  = nan(1,3);
+            criticalPoints(i,l).jacobi_distance_D = nan(3,number_of_joints);
+            criticalPoints(i,l).jacobi_dist_max_D = nan(3,number_of_joints);
+            criticalPoints(i,l).jointAngles_critical_D = nan(1,number_of_joints);
+            criticalPoints(i,l).jointVelocity_critical_D = nan(1,number_of_joints);
+            criticalPoints(i,l).jacobi_critical_D = nan(3,number_of_joints);
+            criticalPoints(i,l).jacobi_critical_D_max = nan(3,number_of_joints);
+            
+            
+            % Instead of disp, use %fprintf to log to the file
+            %fprintf(logFile, 'distance_at_delete link %d%d D: %f\n',i,l, norm(criticalPoints(i,l).roc_D));
+
+        end
+
+    end
+
+end
+
+% The maximum number of entries is defined as:
+% here 3 comes from the row size of result of linesegments(i).jacobi_distance (Jx,Jy ,Jz).
+% 2 comes from two  possible cases  jacobi_distance_A and  jacobi_distance_D
+
+% Define maximum sizes based on potential maximum entries
+
+
+maxEntries_2 = 2 * length(obstacles) * length(linesegments);
+
+
+
+J_0_calculate = zeros(maxEntries_2,number_of_joints);
+b_0_calculate = zeros(maxEntries_2, 1);
+
+% Counter to keep track of the number of filled entries
+J_counter = 0;
+b_counter = 0;
+
+% Initialize the minimum distance to a very large number
+minDistance = inf;
+for l = 1:length(obstacles)
+
+   
+    if config.obstacleAvoidanceScheme
+        for i = 1:length(linesegments)
+            % Concatenate the Jacobians J_0 if they are not empty
+            if ~any(isnan(criticalPoints(i,l).jacobi_distance_A))
+                J_0_calculate(J_counter + 1, :) = -(criticalPoints(i,l).roc_A ./ norm(criticalPoints(i,l).roc_A)) * criticalPoints(i,l).jacobi_critical_A;
+                J_counter = J_counter + 1;
+            end
+
+            if ~any(isnan(criticalPoints(i,l).jacobi_distance_D))
+                J_0_calculate(J_counter + 1, :) = -(criticalPoints(i,l).roc_D ./ norm(criticalPoints(i,l).roc_D)) *  criticalPoints(i,l).jacobi_critical_D;
+                J_counter = J_counter + 1;
+            end
+            % Compute b_0_calculate elements
+            if ~any(isnan(criticalPoints(i,l).roc_A))
+
+                b_0_calculate(b_counter+1) = compute_b0(criticalPoints(i,l).roc_A,criticalPoints(i,l).jacobi_critical_A_max,criticalPoints(i,l).jointVelocity_critical_A',d_stop,d_influence,config.k) ;
+                b_counter = b_counter + 1 ;
+            end
+            if ~any(isnan(criticalPoints(i,l).roc_D))
+
+                b_0_calculate(b_counter+1) = compute_b0(criticalPoints(i,l).roc_D,criticalPoints(i,l).jacobi_critical_D_max,criticalPoints(i,l).jointVelocity_critical_D',d_stop,d_influence,config.k) ;
+                b_counter = b_counter + 1 ;
+            end
+
+            % Ensure the distance is a number and update minDistance if it's the new minimum
+            if ~isnan(criticalPoints(i,l).distance) && criticalPoints(i,l).distance < minDistance
+                minDistance = criticalPoints(i,l).distance;
+            end
+        end
+    end
+
+end
+
+% Trim the J_g_calculate and b_g_calculate matrices to the actual number of filled entries
+
+if  config.obstacleAvoidanceScheme
+    J_g = J_0_calculate(1:J_counter, :);
+    b_g = b_0_calculate(1:b_counter);
+end
+
+minimum_distance_robot_obstacle = minDistance;
+
+% disp('Jg:');
+% disp(J_g);
+% disp('bg:');
+% disp(b_g);
+
+end
+
+
+

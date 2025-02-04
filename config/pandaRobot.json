@@ -44,7 +44,7 @@
         "distanceActivate": 0.08,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,
-        "smootheningCoefficient": 2,
+        "smootheningCoefficient": 1,
         "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "finalLinkType": "Box",

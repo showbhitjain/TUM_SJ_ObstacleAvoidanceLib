@@ -1,0 +1,34 @@
+{
+  "parametersFor": "inverseKinematicsPreTrajectory",
+  "ObjectiveConstraints": {
+    "useObjectiveNormInfinity": false,
+    "weightNormInfinity": 0.1,
+    "useObjectiveNormL2": true,
+    "weightNormL2": 0.5,
+    "jointVelocityWeight": [1,1,1,1,1,1,1],
+    "useObjectiveTrajectoryFollowing": false,
+    "weightTrajectoryFollowing": 5,
+    "useObjectiveJointAcceleration": true,
+    "weightJointAcceleration": 0.5,
+    "useObjectiveManipulability": false,
+    "weightManipulability": 0.1
+  },
+  "EquationParameters": {
+    "applyEqualityConstraints":true,
+    "applyInequalityConstraints": false
+  },
+  "SlackParameters": {
+    "applySlack": false,
+    "Slacklowerbound": [-0.2,-0.2,-0.2,-2,-2,-60],
+    "Slackupperbound": [0.2,0.2,0.2,2,2,60],
+    "SlackPenaltyWeight": [1,1,1,1,1,0.5],
+    "SlackObjectiveWeight": 100
+  },
+  "jointLimitAvoidanceParameters": {
+    "gamma": 2,
+    "applyVelocityDamper": true,
+    "jointLimitActivationDistance": 10,
+    "jointLimitStopDistance": 3,
+    "jointLimitGain": 1
+  }
+}

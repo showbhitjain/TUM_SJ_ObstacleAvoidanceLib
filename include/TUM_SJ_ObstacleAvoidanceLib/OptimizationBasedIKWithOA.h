@@ -50,6 +50,7 @@ namespace ObstacleAvoidance {
                                 Eigen::VectorXd const &jointMinVelValues,
                                 Eigen::VectorXd const &jointMaxVelValues, Eigen::MatrixXd const &jG, Eigen::VectorXd const &bG, Eigen::MatrixXd const &jointVelocityMatrix);
 
+        void setConfigSlackWeight(double const &slackObjectiveWeight);
     protected:
 
 

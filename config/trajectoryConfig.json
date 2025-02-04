@@ -13,7 +13,7 @@
   "positionTrajectoryType": "cubic",
   "orientationTrajectoryType" : "cubic",
   "trajectorySampleTime": 0.001,
-  "waypointTimes": [0, 4, 8, 12, 16],
+  "waypointTimes": [0, 8, 16, 24, 32],
   "inverseKinematics": {
     "positionKp": [1,1,1],
     "orientationKo": [1,1,1]

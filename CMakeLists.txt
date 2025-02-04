@@ -47,6 +47,7 @@ set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
 set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
+set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsOAModifiedPkg")
 
 #include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
@@ -79,7 +80,7 @@ add_library(${LIB_NAME}
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a ${PATHUTILSIKWITHOA}/inverseKinematicsOA.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl)
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a ${PATHUTILSIKWITHOA}/inverseKinematicsOA.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl ${PATHIKWITHOAMODIFIED}/inverseKinematicsOAModified.a)
 
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
@@ -98,6 +99,7 @@ target_include_directories(${LIB_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/private_include
         ${PATHTRAJECTORY}
         ${PATHUTILSMATLAB}
+        ${PATHIKWITHOAMODIFIED}
         "${FCL_ROOT}/include"
 )
 
@@ -109,7 +111,8 @@ add_executable(RealTimeInverseKinematicsHybrid src/realTimeInverseKinematicsHybr
 add_executable(InverseKinematicsDebugMode src/InverseKinematicsDebug.cpp)
 add_executable(DistanceTest src/distanceTest.cpp)
 add_executable(StaticObstacleAvoidanceTest src/offlineStaticObstacleAvoidance.cpp)
-
+add_executable(OfflineObstacleAvoidanceDemo executables/offlineStaticObstacleAvoidanceDemo.cpp)
+add_executable(OfflineObstacleAvoidanceDemoPartTwo executables/offlineStaticObstacleAvoidancePartTwo.cpp)
 
 find_package(OpenMP REQUIRED)
 
@@ -126,7 +129,8 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(InverseKinematicsDebugMode ${LIB_NAME})
     target_link_libraries(DistanceTest ${LIB_NAME})
     target_link_libraries(StaticObstacleAvoidanceTest ${LIB_NAME})
-
+    target_link_libraries(OfflineObstacleAvoidanceDemo ${LIB_NAME})
+    target_link_libraries(OfflineObstacleAvoidanceDemoPartTwo ${LIB_NAME})
 endif ()
 
 set(ALL_INSTALL_TARGETS ${LIB_NAME} ${ALL_INSTALL_TARGETS})

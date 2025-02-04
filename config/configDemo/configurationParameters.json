@@ -1,0 +1,13 @@
+{
+  "parametersFor": "Configuration",
+  "Trajectory": {
+    "TrajectoryConfigFile": "../config/configDemo/trajectoryConfig.json"
+  },
+  "inverseKinematicsPreTrajectory": {
+    "inverseKinematicsPreTrajectoryConfigFile": "../config/configDemo/inverseKinematicsPreTrajectory.json"
+  },
+  "inverseKinematicsWithOA": {
+    "inverseKinematicsWithOAConfigFile": "../config/configDemo/inverseKinematicsWithOAParameters.json"
+  }
+}
+
