@@ -19,8 +19,9 @@
   },
   "SlackParameters": {
     "applySlack": false,
-    "Slacklowerbound": [-0.4,-0.4,-0.4,-2,-2,-60],
-    "Slackupperbound": [0.4,0.4,0.4,2,2,60],
+    "dynamicSlack": true,
+    "SlackLowerBound": [-0.4,-0.4,-0.4,-2,-2,-60],
+    "SlackUpperBound": [0.4,0.4,0.4,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
     "SlackObjectiveWeight": 5
   },

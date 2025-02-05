@@ -19,7 +19,7 @@ import matplotlib
 matplotlib.use('QT5Agg')
 
 
-# %%
+
 def plot_cylinder(ax, v0, v1, radius, face_color='r', face_opacity=0.3, num_points=20):
     # Calculate cylinder length
     height = np.linalg.norm(v1 - v0)
@@ -63,6 +63,134 @@ def plot_cylinder(ax, v0, v1, radius, face_color='r', face_opacity=0.3, num_poin
     ax.set_zlabel('Z-axis')
     return plots
 
+def plot_cylinder_new(ax, radius_cylinder, cylinder_height, cylinder_center, cylinder_axis,
+                  face_color='lightblue', face_opacity=0.7, resolution=50):
+    """
+    Plot a cylinder on the provided 3D axis.
+
+    Parameters:
+      - ax: a matplotlib 3D axis.
+      - radius_cylinder: radius of the cylinder.
+      - cylinder_height: height of the cylinder.
+      - cylinder_center: [x, y, z] coordinates for the center of the cylinder.
+      - cylinder_axis: normalized 3D vector (array-like) indicating the direction of the cylinder's axis.
+      - face_color: color of the cylinder.
+      - face_opacity: transparency (alpha value) of the cylinder.
+      - resolution: number of subdivisions for the surface mesh.
+
+    Returns:
+      - plots: the surface plot object created by ax.plot_surface.
+    """
+    # Create parameters for the cylinder.
+    theta = np.linspace(0, 2 * np.pi, resolution)
+    z_lin = np.linspace(-cylinder_height / 2, cylinder_height / 2, resolution)
+    theta_grid, z_grid = np.meshgrid(theta, z_lin)
+
+    # Create two vectors perpendicular to the cylinder_axis.
+    def get_orthonormal_basis(axis):
+        arbitrary_vec = np.array([0, 0, 1])
+        if np.allclose(axis, arbitrary_vec):
+            arbitrary_vec = np.array([0, 1, 0])
+        basis_vec1 = np.cross(axis, arbitrary_vec)
+        basis_vec1 = basis_vec1 / np.linalg.norm(basis_vec1)
+        basis_vec2 = np.cross(axis, basis_vec1)
+        basis_vec2 = basis_vec2 / np.linalg.norm(basis_vec2)
+        return basis_vec1, basis_vec2
+
+    basis_vec1, basis_vec2 = get_orthonormal_basis(np.array(cylinder_axis))
+
+    # Compute the points on the cylinder's surface.
+    x_grid = (cylinder_center[0] +
+              z_grid * cylinder_axis[0] +
+              radius_cylinder * np.cos(theta_grid) * basis_vec1[0] +
+              radius_cylinder * np.sin(theta_grid) * basis_vec2[0])
+    y_grid = (cylinder_center[1] +
+              z_grid * cylinder_axis[1] +
+              radius_cylinder * np.cos(theta_grid) * basis_vec1[1] +
+              radius_cylinder * np.sin(theta_grid) * basis_vec2[1])
+    z_grid_plot = (cylinder_center[2] +
+                   z_grid * cylinder_axis[2] +
+                   radius_cylinder * np.cos(theta_grid) * basis_vec1[2] +
+                   radius_cylinder * np.sin(theta_grid) * basis_vec2[2])
+
+    # Plot the cylinder surface.
+    plots = ax.plot_surface(x_grid, y_grid, z_grid_plot, color=face_color,
+                            alpha=face_opacity, edgecolor='none')
+
+    # Optionally, you could also plot the central axis if desired.
+    # (Here we focus on returning the surface plot as with the sphere.)
+
+    return plots
+
+def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue', face_opacity=0.3):
+    """
+    Plot a box on the provided 3D axis.
+
+    The box is defined by its center, full dimensions along x, y, and z,
+    and its orientation given as a quaternion [w, x, y, z].
+
+    Parameters:
+      - ax: a matplotlib 3D axis.
+      - box_center: [x, y, z] coordinates for the center of the box.
+      - box_dimensions: [length_x, length_y, length_z] full lengths in each direction.
+      - box_orientation: a 4-element numpy array representing the quaternion [w, x, y, z].
+      - face_color: color of the box faces.
+      - face_opacity: transparency (alpha value) of the box faces.
+
+    Returns:
+      - plots: the Poly3DCollection object representing the box faces.
+    """
+    # Convert the quaternion to a 3x3 rotation matrix.
+    def quaternion_to_rotation_matrix(q):
+        w, x, y, z = q
+        r00 = 1 - 2*(y**2 + z**2)
+        r01 = 2*(x*y - z*w)
+        r02 = 2*(x*z + y*w)
+        r10 = 2*(x*y + z*w)
+        r11 = 1 - 2*(x**2 + z**2)
+        r12 = 2*(y*z - x*w)
+        r20 = 2*(x*z - y*w)
+        r21 = 2*(y*z + x*w)
+        r22 = 1 - 2*(x**2 + y**2)
+        return np.array([[r00, r01, r02],
+                         [r10, r11, r12],
+                         [r20, r21, r22]])
+
+    rotation_matrix = quaternion_to_rotation_matrix(box_orientation)
+
+    # Get the local coordinates for the 8 corners of the box.
+    dx, dy, dz = np.array(box_dimensions) / 2.0
+    local_corners = np.array([
+        [-dx, -dy, -dz],
+        [ dx, -dy, -dz],
+        [ dx,  dy, -dz],
+        [-dx,  dy, -dz],
+        [-dx, -dy,  dz],
+        [ dx, -dy,  dz],
+        [ dx,  dy,  dz],
+        [-dx,  dy,  dz]
+    ])
+
+    # Rotate and translate the corners.
+    global_corners = (rotation_matrix @ local_corners.T).T + np.array(box_center)
+
+    # Define the 6 faces of the box (each as a list of 4 points).
+    faces = [
+        [global_corners[i] for i in [0, 1, 2, 3]],  # bottom face
+        [global_corners[i] for i in [4, 5, 6, 7]],  # top face
+        [global_corners[i] for i in [0, 1, 5, 4]],  # side face
+        [global_corners[i] for i in [1, 2, 6, 5]],  # side face
+        [global_corners[i] for i in [2, 3, 7, 6]],  # side face
+        [global_corners[i] for i in [3, 0, 4, 7]]   # side face
+    ]
+
+    # Create a Poly3DCollection for the faces.
+    poly3d_collection = Poly3DCollection(faces, facecolors=face_color,
+                                         linewidths=1, edgecolors='k',
+                                         alpha=face_opacity)
+    ax.add_collection3d(poly3d_collection)
+
+    return poly3d_collection
 
 def plot_sphere(ax, center, radius, face_color='r', face_opacity=0.3):
     # Generate a unit sphere
@@ -467,7 +595,7 @@ def read_json_file(filename):
     return data_dict
 
 
-data = pd.read_csv("../outputDesiredJoints.csv", header=None)
+data = pd.read_csv("../outputDesiredJointsDemo.csv", header=None)
 print(data.shape)
 joint_values = data.values
 print(joint_values.shape)

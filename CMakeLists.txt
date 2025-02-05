@@ -46,7 +46,7 @@ find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
-set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
+#set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
 set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsOAModifiedPkg")
 
 #include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
@@ -61,36 +61,25 @@ add_library(${LIB_NAME}
         src/CartesianTrajetory.cpp
         src/InverseKinematics.cpp
         privateSrc/privateUtils.cpp
-
         src/utilsJointValuesMatlab.cpp
-
         src/ObstacleAvoidanceUtils.cpp
-
         src/Obstacles.cpp
-
         src/ControllerFranka.cpp
         src/examples_common.cpp
         src/CriticalPoints.cpp
-
         src/DistanceObjects.cpp
-
         src/OptimizationBasedIKWithOA.cpp
-
 )
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a ${PATHUTILSIKWITHOA}/inverseKinematicsOA.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl ${PATHIKWITHOAMODIFIED}/inverseKinematicsOAModified.a)
-
+        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl ${PATHIKWITHOAMODIFIED}/inverseKinematicsOAModified.a)
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
-
 target_include_directories(${LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${PATHIK}>
-        $<BUILD_INTERFACE:${PATHUTILSIKWITHOA}>
-
 )
 
 # Private includes (only needed for building this lib itself):
@@ -102,7 +91,6 @@ target_include_directories(${LIB_NAME}
         ${PATHIKWITHOAMODIFIED}
         "${FCL_ROOT}/include"
 )
-
 
 add_executable(testInverseKinematics src/offlineInverseKinematics.cpp)
 add_executable(ControllerExperiments src/frankaControllerExperiments.cpp)
@@ -136,3 +124,4 @@ endif ()
 set(ALL_INSTALL_TARGETS ${LIB_NAME} ${ALL_INSTALL_TARGETS})
 
 include(cmake/installConfig.cmake)
+

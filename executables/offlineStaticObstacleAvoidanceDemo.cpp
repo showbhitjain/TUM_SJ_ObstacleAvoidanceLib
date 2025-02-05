@@ -58,6 +58,7 @@ int main() {
     Matrix<double,4,2> preOrientations;
     preOrientations(all,0) <<0,1,0,0;
     preOrientations(all,1) <<0,1,0,0;
+    cout<<preOrientations(all,0)<<endl;
     //preOrientations<<
      auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] = CartesianTrajectory::orientationTrajectory(preOrientations,preWaypointTimes,ts,"cubic");
 
@@ -98,6 +99,8 @@ int main() {
     Eigen::MatrixXd jg = Eigen::MatrixXd::Zero(1, numberJoints);
     Eigen::VectorXd bg = Eigen::VectorXd::Zero(1);
     double staticWeightSlack = inverseKinematicsConfig.getJson("SlackParameters").at("SlackObjectiveWeight").get<double>();
+    bg.resize(0);
+    jg.resize(0,0);
 
     for (int i = 0; i < trajTimes.size(); i++) {
         if (i>0) {

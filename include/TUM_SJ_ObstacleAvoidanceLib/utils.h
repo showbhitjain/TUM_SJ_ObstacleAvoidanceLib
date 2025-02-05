@@ -50,6 +50,9 @@ namespace ObstacleAvoidance {
     void writeMatrixToCSV(std::string const &filename, Eigen::MatrixXd const &matrix);
 
     Eigen::MatrixXd readMatrixFromCSV(const std::string& filename);
+
+    Eigen::Vector4d computeQuaternionFromMatrix(Eigen::Matrix4d const& transformationMatrix);
+
 }
 
 

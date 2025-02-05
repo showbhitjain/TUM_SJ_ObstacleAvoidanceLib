@@ -8,7 +8,7 @@
     "jointVelocityWeight": [1,1,1,1,1,1,1],
     "useObjectiveTrajectoryFollowing": false,
     "weightTrajectoryFollowing": 5,
-    "useObjectiveJointAcceleration": false,
+    "useObjectiveJointAcceleration": true,
     "weightJointAcceleration": 0.3,
     "useObjectiveManipulability": true,
     "weightManipulability": 0.1
@@ -18,15 +18,16 @@
     "applyInequalityConstraints": false
   },
   "SlackParameters": {
-    "applySlack": true,
-    "Slacklowerbound": [-0.4,-0.4,-0.4,-2,-2,-60],
-    "Slackupperbound": [0.4,0.4,0.4,2,2,60],
+    "applySlack": false,
+    "dynamicSlack": false,
+    "SlackLowerBound": [-0.4,-0.4,-0.4,-2,-2,-60],
+    "SlackUpperBound": [0.4,0.4,0.4,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 10
+    "SlackObjectiveWeight": 20
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,
-    "applyVelocityDamper": true,
+    "applyVelocityDamper": false,
     "jointLimitActivationDistance": 10,
     "jointLimitStopDistance": 3,
     "jointLimitGain": 1

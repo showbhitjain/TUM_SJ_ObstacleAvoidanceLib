@@ -19,10 +19,11 @@
   },
   "SlackParameters": {
     "applySlack": false,
-    "Slacklowerbound": [-0.2,-0.2,-0.2,-2,-2,-60],
-    "Slackupperbound": [0.2,0.2,0.2,2,2,60],
+    "dynamicSlack": false,
+    "SlackLowerBound": [-0.2,-0.2,-0.2,-1,-1,-60],
+    "SlackUpperBound": [0.2,0.2,0.2,1,1,60],
     "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 100
+    "SlackObjectiveWeight": 5
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,

@@ -23,8 +23,8 @@ using namespace AndreiUtils;
 
 int main() {
     ConfigurationParameters Config(
-            static_cast<std::string const &>("../config/configDemo/configurationParameters.json"),
-            static_cast<std::string const &>("Configuration"));
+        static_cast<std::string const &>("../config/configDemo/configurationParameters.json"),
+        static_cast<std::string const &>("Configuration"));
 
     auto trajConfig = Config.getSubConfig("Trajectory");
     auto inverseKinematicsConfig = Config.getSubConfig("inverseKinematicsWithOA");
@@ -37,33 +37,34 @@ int main() {
     //for real robot get the position from robot and do forward kinematics
     Eigen::VectorXd HomeJointPosition(numberJoints);
 
-    HomeJointPosition<<-0.615455,0.543283,-0.352125,-1.98125,0.292115,2.47558,-0.367273;
+    HomeJointPosition << 0.193716,0.124081,0.167672,-1.41586,-0.020307 , 1.53779,1.14464;
     Matrix4d transformationTCP = robot.fkmCartesianTCP(HomeJointPosition);
     Vector3d waypointOne = transformationTCP(seq(0, 2), 3);
 
     auto waypoints = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double>>>("Waypoints"));
 
-    waypoints(all,0) = waypointOne;
-    cout<<waypoints(all,0)<<endl;
-    auto wayPointVelocities = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double>>>("WayPointVelocity"));
+    waypoints(all, 0) = waypointOne;
+    cout << waypoints(all, 0) << endl;
+    auto wayPointVelocities = vectorMatrixToEigenMatrix(
+        trajConfig.get<std::vector<std::vector<double> > >("WayPointVelocity"));
 
     auto ts = trajConfig.get<double>("trajectorySampleTime");
     auto positionTrajectoryType = trajConfig.get<std::string>("positionTrajectoryType");
-    auto waypointTimes = vectorToEigenMatrixRow(trajConfig.get<std::vector<double>>("waypointTimes"));
+    auto waypointTimes = vectorToEigenMatrixRow(trajConfig.get<std::vector<double> >("waypointTimes"));
 
-    auto [desiredPositionTCP,desiredVelocityTCP,xdAccel] = CartesianTrajectory::positionTrajectory(waypoints, waypointTimes, ts, positionTrajectoryType,
-                                                                                                   wayPointVelocities, Eigen::MatrixXd::Zero(3, 2));
+    auto [desiredPositionTCP,desiredVelocityTCP,xdAccel] = CartesianTrajectory::positionTrajectory(
+        waypoints, waypointTimes, ts, positionTrajectoryType,
+        wayPointVelocities, Eigen::MatrixXd::Zero(3, 2));
 
-    auto orientations = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double>>>("orientations"));
-    Eigen::Matrix3d rotationMatrix =transformationTCP(seq(0,2),seq(0,2));
-    Eigen::Quaterniond firstOrientation(rotationMatrix);
-    orientations(all,0) = firstOrientation.coeffs();
-    cout<< orientations(all,0)<<endl;
+    auto orientations = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double> > >("orientations"));
+    orientations(all,0)= computeQuaternionFromMatrix(transformationTCP);
+
     //preOrientations<<
-    auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] = CartesianTrajectory::orientationTrajectory(orientations,waypointTimes,ts,"cubic");
+    auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] =
+            CartesianTrajectory::orientationTrajectory(orientations, waypointTimes, ts, "cubic");
 
     auto ikJson = readJsonFile("../config/configDemo/inverseKinematicsWithOAParameters.json");
-    ConfigurationParameters ikConfig(ikJson,"inverseKinematicsWithOA");
+    ConfigurationParameters ikConfig(ikJson, "inverseKinematicsWithOA");
 
     VectorXd trajTimes = generateSequence(waypointTimes(0), 0.001, waypointTimes(last));
 
@@ -74,12 +75,12 @@ int main() {
     MatrixXd desiredJointVelocityMatrix = Eigen::MatrixXd::Zero(numberJoints, trajTimes.size());
 
     auto diagValuesKp = stdVectorToEigenVector(
-            trajConfig.getJson("inverseKinematics").at("positionKp").get<vector<double>>());
+        trajConfig.getJson("inverseKinematics").at("positionKp").get<vector<double> >());
     Eigen::DiagonalMatrix<double, Eigen::Dynamic> diagMatrixKp(diagValuesKp);
     Eigen::MatrixXd Kp = diagMatrixKp.toDenseMatrix();
 
     auto diagValuesKo = stdVectorToEigenVector(
-            trajConfig.getJson("inverseKinematics").at("orientationKo").get<vector<double> >());
+        trajConfig.getJson("inverseKinematics").at("orientationKo").get<vector<double> >());
     Eigen::DiagonalMatrix<double, Eigen::Dynamic> diagMatrixKo(diagValuesKo);
     Eigen::MatrixXd Ko = diagMatrixKo.toDenseMatrix();
 
@@ -92,19 +93,20 @@ int main() {
 
     OptimizationBasedIKWithOA ik(ikConfig);
     auto jointVelocityWeight = stdVectorToEigenVector(inverseKinematicsConfig.getJson("ObjectiveConstraints").at(
-            "jointVelocityWeight").get<std::vector<double>>());
+        "jointVelocityWeight").get<std::vector<double> >());
     Eigen::DiagonalMatrix<double, Eigen::Dynamic> jointVelocityMatrix(jointVelocityWeight);
     Eigen::MatrixXd jointVelocityWeightMatrix = jointVelocityMatrix.toDenseMatrix();
 
 
-    double staticWeightSlack = inverseKinematicsConfig.getJson("SlackParameters").at("SlackObjectiveWeight").get<double>();
+    double staticWeightSlack = inverseKinematicsConfig.getJson("SlackParameters").at("SlackObjectiveWeight").get<
+        double>();
 
     VectorXd jointVelocityObstacleAvoidance = VectorXd::Zero(numberJoints);
 
     Vector3d center1 = {0.4, 0.20, 0.1};
     VectorXd dimensions1(3);
-    dimensions1<< 0.04,0.04,0.08;
-    auto obstacle1 = Obstacles("Box", center1, dimensions1,{1,0,0,0});
+    dimensions1 << 0.04, 0.04, 0.08;
+    auto obstacle1 = Obstacles("Box", center1, dimensions1, {1, 0, 0, 0});
 
     /* Vector3d center2 = {0.5545, 0.20, 0.3211};
 
@@ -116,21 +118,19 @@ int main() {
 
     std::vector<Obstacles> obstaclesArray;
     obstaclesArray.push_back(obstacle1);
-//        obstaclesArray.push_back(obstacle2);
+    //        obstaclesArray.push_back(obstacle2);
     auto obstaclesMap = conversionObstaclesVectorToMap(obstaclesArray);
     Eigen::MatrixXd jg = Eigen::MatrixXd::Zero(1, numberJoints);
     Eigen::VectorXd bg = Eigen::VectorXd::Zero(1);
 
-   /*
 
-   jg.resize(0,0);
-   bg.resize(0);
+    jg.resize(0,0);
+    bg.resize(0);
 
-    */
 
     for (int i = 0; i < trajTimes.size(); i++) {
-        if (i>0) {
-            actualJointValuesMatrix(all,i) = actualJointValuesMatrix(all,i-1);
+        if (i > 0) {
+            actualJointValuesMatrix(all, i) = actualJointValuesMatrix(all, i - 1);
             //cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
         }
 
@@ -140,7 +140,7 @@ int main() {
         auto errorCartesian = (desiredPositionTCP(all, i) - positionTcpCurrent);
         auto xdEffective = desiredVelocityTCP(all, i) + (Kp * errorCartesian);
 
-        auto orientationError = computeOrientationError(transformTcpToBase,desiredQuaternionsTCP(all, i));
+        auto orientationError = computeOrientationError(transformTcpToBase, desiredQuaternionsTCP(all, i));
 
 
         auto angularVelocityEffective =
@@ -150,23 +150,22 @@ int main() {
         Eigen::VectorXd poseVelocityEffective(6);
         poseVelocityEffective(seq(0, 2)) = xdEffective;
         poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
-//        cout<<"error between final and current: "<<((waypointOne - positionTcpCurrent).norm())<<endl;
+        //        cout<<"error between final and current: "<<((waypointOne - positionTcpCurrent).norm())<<endl;
 
-        cout<<"error current: "<<errorCartesian.norm()<<endl;
-
-
-
-//
-    /*  auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMap, actualJointValuesMatrix(all, i),
-                                                                   jointVelocityObstacleAvoidance);
+        cout << "error current: " << errorCartesian.norm() << endl;
 
 
-*/
-        cout<<"jg at " +std::to_string(i)+ ": \n"<<jg<<endl;
+        //
+        /*  auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMap, actualJointValuesMatrix(all, i),
+                                                                       jointVelocityObstacleAvoidance);
 
-        cout<<"bg at " +std::to_string(i)+ ": \n"<<bg<<endl;
 
-//        cout<< "minimum distance at " + std::to_string(i) + ": "<<minDistance<<endl;
+    */
+        cout << "jg at " + std::to_string(i) + ": \n" << jg << endl;
+
+        cout << "bg at " + std::to_string(i) + ": \n" << bg << endl;
+
+        //        cout<< "minimum distance at " + std::to_string(i) + ": "<<minDistance<<endl;
 
 
         auto [optimalJointVelocity, ExitFlag] = ik.inverseKinematicsWithOA(actualJointValuesMatrix(all, i),
@@ -181,7 +180,7 @@ int main() {
         desiredJointVelocityMatrix(all, i) = optimalJointVelocity;
 
         if (ExitFlag < 0) {
-            cout << "At this step: "<<i << endl;
+            cout << "At this step: " << i << endl;
             cout << "ExitFlag: " << ExitFlag << endl;
             cout << "optimal Joint Velocity: \n" << optimalJointVelocity << endl;
             break;
@@ -194,11 +193,11 @@ int main() {
                 },
                 desiredJointPosition, tStart, tEnd, 0.01  // Provide an initial step size estimate
         );*/
-        if(i>0) {
-            double tStart = trajTimes(i-1);
-            double tEnd = trajTimes(i );
+        if (i > 0) {
+            double tStart = trajTimes(i - 1);
+            double tEnd = trajTimes(i);
             double timespan[2] = {tStart, tEnd};
-            VectorXd desiredJointPosition = (desiredJointValuesMatrix.col(i-1));
+            VectorXd desiredJointPosition = (desiredJointValuesMatrix.col(i - 1));
             VectorXd desiredJointVelocityCurrent = (desiredJointVelocityMatrix.col(i));
             desiredJointValuesMatrix(all, i) = integrateConstantRungeKutta(desiredJointVelocityCurrent, timespan,
                                                                            desiredJointPosition);
@@ -206,8 +205,8 @@ int main() {
         actualJointValuesMatrix(all, i) = addRandomNoisetoJointsSignal(desiredJointValuesMatrix(all, i), -0.005,
                                                                        0.005);
         bool valid = robot.getJoints()->isConfigurationValid(actualJointValuesMatrix(all, i), true);
-        if(!valid){
-            cout << "At this step: "<<i << endl;
+        if (!valid) {
+            cout << "At this step: " << i << endl;
             break;
         }
         //cout<<"desired Joint Value: \n"<< desiredJointValuesMatrix(all, i+1)<<endl;
@@ -217,5 +216,5 @@ int main() {
     writeMatrixToCSV("../outputDesiredJointsDemoPartTwo.csv", desiredJointValuesMatrix);
 
 
-    return 0 ;
+    return 0;
 }
