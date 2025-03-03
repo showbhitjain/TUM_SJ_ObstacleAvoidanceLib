@@ -4,7 +4,9 @@
 
 #ifndef TUM_SJ_OBSTACLEAVOIDANCELIB_CRITICALPOINTS_H
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_CRITICALPOINTS_H
+
 #include <Eigen/Dense>
+
 
 class CriticalPoints {
 public:
@@ -32,6 +34,11 @@ public:
     Eigen::VectorXd jointVelocityCriticalA;
     Eigen::VectorXd jointVelocityCriticalD;
     Eigen::VectorXd jointVelocityCriticalFinalLink;
+    Eigen::VectorXd jointVelocityCurrentA;
+    Eigen::VectorXd jointVelocityCurrentD;
+    Eigen::VectorXd jointVelocityCurrentFinalLink;
+
+
     Eigen::MatrixXd jacobiDistanceA;
     Eigen::MatrixXd jacobiDistanceD;
     Eigen::MatrixXd jacobiDistanceFinalLink;
@@ -43,6 +50,13 @@ public:
     Eigen::MatrixXd jacobiCriticalFinalLink;
     Eigen::MatrixXd jacobiCriticalMaxFinalLink;
 
+    Eigen::MatrixXd jacobiDistanceDynamicMaxA;
+    Eigen::MatrixXd jacobiDistanceDynamicMaxD;
+    Eigen::MatrixXd jacobiDistanceDynamicMaxFinalLink;
+    Eigen::MatrixXd jacobiDistanceDynamicA;
+    Eigen::MatrixXd jacobiDistanceDynamicD;
+    Eigen::MatrixXd jacobiDistanceDynamicFinalLink;
+
     Eigen::Vector3d  closestPointObstacleA;
     Eigen::Matrix4d  closestPointRelativeRobotLinkA;
     Eigen::Vector3d  closestPointObstacleD;
@@ -50,8 +64,9 @@ public:
     Eigen::Vector3d closestPointObstacleFinalLink;
     Eigen::Matrix4d  closestPointRelativeFinalLink;
 
-
-
+    Eigen::Vector3d obstacleVelocityForLinkA;
+    Eigen::Vector3d obstacleVelocityForLinkD;
+    Eigen::Vector3d obstacleVelocityForFinalLink;
 
 
 

@@ -64,7 +64,7 @@ def plot_cylinder(ax, v0, v1, radius, face_color='r', face_opacity=0.3, num_poin
     return plots
 
 def plot_cylinder_new(ax, radius_cylinder, cylinder_height, cylinder_center, cylinder_axis,
-                  face_color='lightblue', face_opacity=0.7, resolution=50):
+                      face_color='lightblue', face_opacity=0.7, resolution=50):
     """
     Plot a cylinder on the provided 3D axis.
 
@@ -353,7 +353,8 @@ class serial_chain_robot:
                           'aSegmentV1': np.array([np.nan, np.nan, np.nan]),
                           'dSegmentV0': np.array([np.nan, np.nan, np.nan]),
                           'dSegmentV1': np.array([np.nan, np.nan, np.nan]),
-                          'radius': np.nan} for x in range(self.mdh_matrix.shape[0])]
+                          'radius': np.nan,
+                          'radiusJoint':np.nan} for x in range(self.mdh_matrix.shape[0])]
         link_segments.append({'Tool_V0': np.array([np.nan, np.nan, np.nan]),
                               'Tool_V1': np.array([np.nan, np.nan, np.nan]),
                               'radius': np.nan})
@@ -574,7 +575,10 @@ class serial_chain_robot:
         # Plot obstacles if available
         if obstacles is not None:
             for obstacle in obstacles:
-                plot_sphere(self.ax, obstacle['center'], obstacle['dimensions'][0])
+                if obstacle['type'] == "Sphere":
+                    plot_sphere(self.ax, obstacle['center'], obstacle['dimensions'][0])
+                elif obstacle['type'] == "Box":
+                    plot_box(self.ax,obstacle['center'],obstacle['dimensions'],np.asarray([1,0,0,0]))
 
         self.real_time_start = time.time()
 
@@ -595,12 +599,12 @@ def read_json_file(filename):
     return data_dict
 
 
-data = pd.read_csv("../outputDesiredJointsDemo.csv", header=None)
+data = pd.read_csv("../outputDesiredJointsDemoPartTwo.csv", header=None)
 print(data.shape)
 joint_values = data.values
 print(joint_values.shape)
-robot_config = read_json_file("../config/pandaRobot.json")
-Trajectory_config = read_json_file("../config/trajectoryConfig.json")
+robot_config = read_json_file("../config/configDemo/pandaRobot.json")
+Trajectory_config = read_json_file("../config/configDemo/trajectoryConfig.json")
 mdh_params = robot_config["mdhParameters"]
 # new_joint_values = joint_values[:, 0:10000:50]
 
@@ -621,14 +625,32 @@ link_segments_plot = robot_Serial_chain.create_link_segments(radius, joint_value
 
 # %%
 Waypoints = np.asarray(Trajectory_config['Waypoints'])
+print(Waypoints)
 ts = Trajectory_config['trajectorySampleTime']
 waypoint_times = np.asarray(Trajectory_config['waypointTimes'])
 trajectory_time = np.arange(waypoint_times[0], waypoint_times[-1] + ts, ts)
 
+# Create Obstacles dictionary array
+obstacles = [
+    #{"type": "Sphere", "center": [0.5545, 0.20, 0.5211], "dimensions": [0.04, 0.04, 0.04]},
+    #{"type": "Sphere", "center": [0.5545, 0.20, 0.3211], "dimensions": [0.05, 0.05, 0.05]},
+    # {"type": "Box", "center": [0.600, 0.0, 0.1211], "dimensions": [0.04, 0.04, 0.12]}
+]
+
+
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
+#
+# plot_box(ax,[0.5545,0,0.5945],[0.06,0.14,0.11],[0,1,0,0])
+#
+# link_segments_plot= robot_Serial_chain.create_link_segments([0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1],[0, 0, 0, -math.pi / 2, 0, math.pi/ 2, math.pi/4])
+# plot_line_swept_spheres(ax, link_segments_plot)
 # %%
-# robot_Serial_chain.plot(joint_values, trajectory_time, ts, Waypoints)
-robot_Serial_chain.plot_animate(joint_values, trajectory_time, ts, Waypoints)
+robot_Serial_chain.plot(joint_values, trajectory_time, ts, Waypoints)
+robot_Serial_chain.plot_animate(joint_values, trajectory_time, ts, Waypoints,obstacles)
 l = 1 + 7
+
+
 # pyplot = rtb.backends.PyPlot()  # create a PyPlot backend
 #
 # pyplot.add(robot)  # add the robot to the backend
@@ -675,3 +697,5 @@ l = 1 + 7
 # rtp.jt
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#comment
+

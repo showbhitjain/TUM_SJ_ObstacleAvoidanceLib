@@ -3,5 +3,5 @@
 /build/
 /PythonVisualisation/.idea/
 /PythonVisualisation/venv/
-
+.idea/
 /venv/

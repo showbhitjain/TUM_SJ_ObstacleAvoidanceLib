@@ -20,10 +20,12 @@
   "SlackParameters": {
     "applySlack": false,
     "dynamicSlack": true,
+    "forObstacleAvoidance": true,
     "SlackLowerBound": [-0.4,-0.4,-0.4,-2,-2,-60],
     "SlackUpperBound": [0.4,0.4,0.4,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 5
+    "SlackObjectiveWeight": 5,
+    "useDynamicSlackObjectiveWeightPreTrajectory": true
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,

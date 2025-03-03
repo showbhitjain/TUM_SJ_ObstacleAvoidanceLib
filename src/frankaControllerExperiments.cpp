@@ -13,8 +13,8 @@ using namespace ObstacleAvoidance;
 using namespace Eigen;
 
 int main() {
-    auto desiredJointValuesMatrix = readMatrixFromCSV("../outputDesiredJoints.csv");
-    auto desiredJointVelocityMatrix = readMatrixFromCSV("../outputDesiredJointVelocity.csv");
+    auto desiredJointValuesMatrix = readMatrixFromCSV("../outputDesiredJointValuesDemoPartTwo.csv");
+    auto desiredJointVelocityMatrix = readMatrixFromCSV("../outputDesiredJointVelocityDemoPartTwo.csv");
     try {
         franka::Robot realRobot("192.168.5.10");
         setDefaultBehavior(realRobot);

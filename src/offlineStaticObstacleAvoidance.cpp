@@ -46,7 +46,7 @@ criticalPointInformation( ObstacleAvoidance::Robot const &robot,Eigen::VectorXd 
 }
 
 int main() {
-
+    //auto matrixCSV = readMatrixFromCSV("../outputDesiredJointsDemoPartTwo.csv");
     ConfigurationParameters Config(static_cast<std::string const &>("../config/configurationParameters.json"),
                                    static_cast<std::string const &>("Configuration"));
 
@@ -91,8 +91,10 @@ int main() {
     Eigen::MatrixXd Ko = diagMatrixKo.toDenseMatrix();
 
     Eigen::VectorXd HomeJointPosition(numberJoints);
+    //HomeJointPosition = matrixCSV(all,last);
     HomeJointPosition << 0, 0, 0, -M_PI / 2, 0, M_PI / 2, M_PI / 4;
-    std::array<double, 7> firstJointPosition{};
+
+std::array<double, 7> firstJointPosition{};
     std::copy_n(HomeJointPosition.data(), 7, firstJointPosition.begin());
 //      cout << "HomeJointPosition:" << HomeJointPosition << endl;
     //get the starting Joint position from the sensor value of the robot or manually
@@ -104,12 +106,19 @@ int main() {
     auto jointMaxValues = robot.getJoints()->maxValues;
 
 
-    auto[finalLinkTesting, linkSegmentsTesting] = robot.createLineSegments(HomeJointPosition);
+    auto[finalLinkTesting, linkSegmentsTesting] = robot.createLinkSegments(HomeJointPosition);
+    cout<<"finalLink center: \n"<<finalLinkTesting.center<<endl;
+    cout<<"finalLink dimensions: \n"<<finalLinkTesting.dimensions<<endl;
+    cout<<"finalLink orientations: \n"<<finalLinkTesting.orientation<<endl;
+
+    cout<<"norm:" << (linkSegmentsTesting[2].dSegmentV1 - linkSegmentsTesting[4].dSegmentV0).norm()<<endl  ;
+    cout<<"norm:" << (linkSegmentsTesting[2].dSegmentV1 - linkSegmentsTesting[4].aSegmentV1).norm()<<endl  ;
+    cout<<"norm:" << (linkSegmentsTesting[4].dSegmentV1 - robot.fkmCartesianTCP(HomeJointPosition)(seq(0,2),3)).norm()<<endl  ;
 
     VectorXd sphereDimension(1);
     sphereDimension(0)  = 0.08;
-    auto sphereObstacle = Obstacles("Sphere",{0.5545,0.20,0.5211},sphereDimension,{1, 0, 0, 0});
-    auto [distance, closestPointObstacleTesting, closestPointLinkTesting]= sphereObstacle.calculateDistanceRobotLinkObstacle(linkSegmentsTesting[6].aSegmentV0,linkSegmentsTesting[6].aSegmentV1,0.1,0.1,true);
+    auto sphereObstacle = Obstacle("Sphere",{0.5545,0.20,0.5211},sphereDimension,{1, 0, 0, 0});
+    auto [distance, closestPointObstacleTesting, closestPointLinkTesting]= sphereObstacle.calculateDistanceRobotLinkObstacle(linkSegmentsTesting[6].aSegmentV0,linkSegmentsTesting[6].aSegmentV1,0.1,0.1,true,false);
     cout<<"distance testing: "<<distance<<endl;
     cout<<"closestPointObstacle testing: "<<closestPointObstacleTesting<<endl;
     cout<<"closestPointLinkTesting testing: "<<closestPointLinkTesting<<endl;
@@ -128,22 +137,22 @@ int main() {
 
 
     //cout<<"ForwardKinematics: \n"<<robot.fkmCartesianTCP(Homejointpositions)(seq(0,2),2)<<endl;
-    auto LinkSegments = robot.createLineSegments(HomeJointPosition);
+    auto LinkSegments = robot.createLinkSegments(HomeJointPosition);
 
     Vector3d center1 = {0.5545, 0.20, 0.5211};
     VectorXd dimensions1(1);
     dimensions1(0) = 0.04;
-    auto obstacle1 = Obstacles("Sphere", center1, dimensions1,{1,0,0,0});
+    auto obstacle1 = Obstacle("Sphere", center1, dimensions1,{1,0,0,0});
 
     Vector3d center2 = {0.5545, 0.20, 0.3211};
 
     VectorXd dimensions2(1);
     dimensions2(0) = 0.05;
     cout << dimensions2 << endl;
-    auto obstacle2 = Obstacles("Sphere", center2, dimensions2,{1,0,0,0});
+    auto obstacle2 = Obstacle("Sphere", center2, dimensions2,{1,0,0,0});
 
 
-    std::vector<Obstacles> obstaclesArray;
+    std::vector<Obstacle> obstaclesArray;
     obstaclesArray.push_back(obstacle1);
     obstaclesArray.push_back(obstacle2);
     auto obstaclesMap = conversionObstaclesVectorToMap(obstaclesArray);

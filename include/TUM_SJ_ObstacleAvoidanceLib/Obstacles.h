@@ -39,7 +39,7 @@ namespace ObstacleAvoidance {
         std::tuple<Eigen::VectorXd, Eigen::VectorXd, double> distanceCalculation(Obstacles const &otherObstacle);
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
-        calculateDistanceFinalLinkObstacle(finalLinkRobot const &linkEEtoTCP) const ;
+        calculateDistanceFinalLinkObstacle(FinalLinkRobot const &linkEEtoTCP) const ;
 
 
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>

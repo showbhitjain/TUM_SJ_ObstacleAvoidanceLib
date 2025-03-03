@@ -43,21 +43,25 @@ int main() {
     Vector3d preWaypoint = transformationTCP(seq(0, 2), 3);
 
     auto waypoints = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double>>>("Waypoints"));
+    auto orientations = vectorMatrixToEigenMatrix(trajConfig.get<std::vector<std::vector<double>>>("orientations"));
+
 
     Vector3d waypointOne = waypoints(all, 0);
     Matrix<double, 3, 2> preWaypointMatrix;
     preWaypointMatrix(all, 0) = preWaypoint;
     preWaypointMatrix(all, 1) = waypointOne;
+
     Eigen::RowVector2d preWaypointTimes;
-    preWaypointTimes << 0, 2;
+    preWaypointTimes << 0, 4;
 
     double ts = 0.001;
     auto [desiredPositionTCP,desiredVelocityTCP,xdAccel] = CartesianTrajectory::positionTrajectory(preWaypointMatrix, preWaypointTimes, ts, "cubic",
                                             Eigen::MatrixXd::Zero(3, 2), Eigen::MatrixXd::Zero(3, 2));
 
     Matrix<double,4,2> preOrientations;
-    preOrientations(all,0) <<0,1,0,0;
-    preOrientations(all,1) <<0,1,0,0;
+    preOrientations(all,0) = computeQuaternionFromMatrix(transformationTCP);
+    preOrientations(all,1) = orientations(all,0);
+
     cout<<preOrientations(all,0)<<endl;
     //preOrientations<<
      auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] = CartesianTrajectory::orientationTrajectory(preOrientations,preWaypointTimes,ts,"cubic");

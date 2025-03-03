@@ -8,6 +8,7 @@
 
 using namespace std;
 using namespace franka;
+using namespace ObstacleAvoidance;
 
 ControllerFranka::ControllerFranka(Vector7d const &cutOffTorquesMax, Vector7d const &cutOffTorquesMin,
                                    Vector7d const &Kp, Vector7d const &Kd): maxTorques(cutOffTorquesMax),
@@ -31,6 +32,7 @@ franka::Torques ControllerFranka::torquePD(franka::RobotState const &state, Vect
     } else {
         Torques = this->Kp * (desiredJointPosition - measuredJointPosition) + this->Kd * (
                       desiredJointVelocity - measuredJointVelocity);
+
     }
 
     for (int i=0; i<Torques.size(); ++i) {

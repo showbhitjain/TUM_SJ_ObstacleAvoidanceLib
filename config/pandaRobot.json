@@ -41,16 +41,18 @@
     },
     "ObstacleAvoidanceParameters": {
         "applyObstacleAvoidance": true,
-        "distanceActivate": 0.08,
+        "distanceActivate": 0.06,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,
-        "smootheningCoefficient": 1,
+        "smootheningCoefficient": 2,
         "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "finalLinkType": "Box",
         "finalLinkDimensions": [0.06,0.14,0.11],
         "considerFinalLinkOA": true,
         "considerBaseToFirstJoint": true,
-        "robotLinkAsLineSwept": false
+        "robotLinkAsLineSwept": false,
+        "selfCollision": false,
+        "convergenceBetaDynamicObstacleAvoidance": 1
     }
 }

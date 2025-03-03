@@ -47,7 +47,7 @@ set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
 #set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
-set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsOAModifiedPkg")
+set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsOAModifiedPkgNew")
 
 #include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
@@ -63,7 +63,7 @@ add_library(${LIB_NAME}
         privateSrc/privateUtils.cpp
         src/utilsJointValuesMatlab.cpp
         src/ObstacleAvoidanceUtils.cpp
-        src/Obstacles.cpp
+        src/Obstacle.cpp
         src/ControllerFranka.cpp
         src/examples_common.cpp
         src/CriticalPoints.cpp

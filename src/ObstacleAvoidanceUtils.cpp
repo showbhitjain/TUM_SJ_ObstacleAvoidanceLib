@@ -39,14 +39,28 @@ namespace ObstacleAvoidance {
     }
 
     //convert obstacles vector into map by assigning the keys as index of obstacles Array
-    std::map<std::string, Obstacles> conversionObstaclesVectorToMap(std::vector<Obstacles> const &obstaclesArray) {
-        std::map<std::string, Obstacles> obstaclesMap;
+    std::map<std::string, Obstacle> conversionObstaclesVectorToMap(std::vector<Obstacle> const &obstaclesArray) {
+        std::map<std::string, Obstacle> obstaclesMap;
         for (size_t i = 0; i < obstaclesArray.size(); ++i) {
             obstaclesMap.emplace("Obstacle"+std::to_string(i),obstaclesArray[i]);
 //            obstaclesMap["Obstacle" + std::to_string(i)] = obstaclesArray[i];
         }
         return obstaclesMap;
 
+    }
+
+    // Decompose a free vector v0 into components parallel and perpendicular to rc.
+// Both returned vectors are free vectors that “start” at the origin.
+    std::tuple<Eigen::Vector3d, Eigen::Vector3d> decomposeVector(
+             Eigen::Vector3d const &v0,
+             Eigen::Vector3d const &rc)
+    {
+        // Compute the projection of v0 onto rc.
+        Eigen::Vector3d vParallel = (v0.dot(rc) / rc.dot(rc)) * rc;
+        // The perpendicular component is what remains.
+        Eigen::Vector3d vPerpendicular = v0 - vParallel;
+
+        return std::make_tuple(vParallel, vPerpendicular);
     }
 
 

@@ -122,7 +122,7 @@ int main() {
     VectorXd radius(numberJoints);
     radius = Eigen::VectorXd::Constant(numberJoints+1,0.1);
     cout<<"ForwardKinematics: \n"<<robot.fkmCartesianTCP(Homejointpositions)(seq(0,2),2)<<endl;
-    auto LinkSegments = robot.createLineSegments(Homejointpositions);
+    auto LinkSegments = robot.createLinkSegments(Homejointpositions);
 
     for (int i = 0; i < trajTimes.size()-1; i++) {
         auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));

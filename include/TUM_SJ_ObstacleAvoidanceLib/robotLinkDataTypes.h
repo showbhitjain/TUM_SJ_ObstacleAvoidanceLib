@@ -17,19 +17,22 @@ namespace ObstacleAvoidance {
         Eigen::VectorXd toolV0;
         Eigen::VectorXd toolV1;
         double radiusJoint;
+        bool hasSegmentA;
+        bool hasSegmentD;
 
         Eigen::Vector3d finalLinkDimensionsTCP;
         Eigen::Quaterniond finalLinkOrientationTCP;
         Eigen::Vector3d CenterFinalLink;
         double radiusLink;
     };
-    struct finalLinkRobot{
+    struct FinalLinkRobot{
         Eigen::Vector3d finalV0;
         Eigen::Vector3d finalV1;
         std::string type;
         Eigen::Vector3d dimensions;
         Eigen::Quaterniond orientation;
         Eigen::Vector3d center;
+        std::string directionPartialFinalLink;
     };
 
 }

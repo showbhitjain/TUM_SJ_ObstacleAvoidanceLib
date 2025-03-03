@@ -35,8 +35,8 @@ namespace ObstacleAvoidance {
         auto slackParametersJson = configOA.getJson("SlackParameters");
         config.SlackObjectiveWeight = slackParametersJson["SlackObjectiveWeight"].get<double>();
         config.applySlack = slackParametersJson["applySlack"].get<bool>();
-        config.dynamicSlack = slackParametersJson["dynamicSlack"].get<bool>();
-
+        config.dynamicSlackForOA = slackParametersJson["dynamicSlack"].get<bool>();
+        config.obstacleAvoidanceScheme = slackParametersJson["forObstacleAvoidance"].get<bool>();
         auto slackLowerArray = slackParametersJson["SlackLowerBound"].get<std::array<double, 6> >();
 
         for (int i = 3; i < 6; ++i) {
@@ -113,7 +113,8 @@ namespace ObstacleAvoidance {
         configInput.jointLimitActivationDistance = config.jointLimitActivationDistance;
         configInput.jointLimitStopDistance = config.jointLimitStopDistance;
         configInput.jointLimitGain = config.jointLimitGain;
-        configInput.dynamicSlack = config.dynamicSlack;
+        configInput.dynamicSlack = config.dynamicSlackForOA;
+
         // Arrays (copy them manually using std::memcpy)
         std::memcpy(configInput.Slacklowerbound, config.SlackLowerBound, sizeof(config.SlackLowerBound));
         std::memcpy(configInput.Slackupperbound, config.SlackUpperBound, sizeof(config.SlackUpperBound));
@@ -132,7 +133,6 @@ namespace ObstacleAvoidance {
 
 
         return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity), exitFlag);
-
     }
 
     void
@@ -140,6 +140,12 @@ namespace ObstacleAvoidance {
         this->config.SlackObjectiveWeight = slackObjectiveWeight;
     }
 
+    void
+    OptimizationBasedIKWithOA::setDynamicSlackFlagValueForOA(bool const &value) {
+        this->config.dynamicSlackForOA = value;
+    }
 
-
+    void OptimizationBasedIKWithOA::setValueInequalityConstraints(bool const &value) {
+        this->config.applyInequalityConstraints = value;
+    }
 }

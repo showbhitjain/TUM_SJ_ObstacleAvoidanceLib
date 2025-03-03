@@ -20,41 +20,47 @@
 #include "examples_common.h"
 
 
+namespace ObstacleAvoidance {
+    typedef Eigen::Matrix<double, 7, 1> Vector7d;
+    typedef Eigen::Matrix<double, 7, 7> Matrix7d;
 
-typedef Eigen::Matrix<double,7,1> Vector7d;
-typedef Eigen::Matrix<double,7,7> Matrix7d;
+    class ControllerFranka {
+    protected:
+        Matrix7d Kp;
+        Matrix7d Kd;
+        Vector7d maxTorques;
+        Vector7d minTorques;
 
-class ControllerFranka {
-protected:
-   Matrix7d Kp;
-   Matrix7d Kd;
-    Vector7d maxTorques;
-    Vector7d minTorques;
+    public:
+        explicit ControllerFranka(Vector7d const &cutOffTorquesMax, Vector7d const &cutOffTorquesMin,
+                                  Vector7d const &Kp = Vector7d::Ones(), Vector7d const &Kd = Vector7d::Ones());
 
-public:
-    explicit ControllerFranka(Vector7d const &cutOffTorquesMax, Vector7d const &cutOffTorquesMin, Vector7d const &Kp = Vector7d::Ones(), Vector7d const &Kd = Vector7d::Ones());
+        franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+                                 bool const &withCoriolisVector, std::array<double, 7> const &
+                                         coriolis = {});
 
-    franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition, bool const  &withCoriolisVector, std::array<double, 7> const &
-                             coriolis = {});
+        franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+                                 Vector7d const &desiredJointVelocity, bool const &withCoriolisVector,
+                                 std::array<double, 7> const &coriolis = {});
 
-     franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
-                                           Vector7d const &desiredJointVelocity, bool const &withCoriolisVector,
-                                           std::array<double, 7> const &coriolis = {});
-    franka::Torques advancedTorquePD(franka::RobotState const & state,Vector7d const & desiredJointPosition,std::array<double,7> const & coriolis, std::array<double,49> const & dynamicMass );
+        franka::Torques advancedTorquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+                                         std::array<double, 7> const &coriolis,
+                                         std::array<double, 49> const &dynamicMass);
 
-    //franka::Torques torquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
+        //franka::Torques torquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
 
-    //franka::Torques advancedTorquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
+        //franka::Torques advancedTorquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
 
-    franka::Torques torquePD(franka::RobotState const & state,Vector7d const & desiredJointPosition,Vector7d const & desiredJointVelocity);
+        franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+                                 Vector7d const &desiredJointVelocity);
 
-    franka::Torques advancedTorquePD(franka::RobotState const & state,Vector7d const & desiredJointPosition,Vector7d const & desiredJointVelocity);
+        franka::Torques advancedTorquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
+                                         Vector7d const &desiredJointVelocity);
 
 
-    /*franka::Torques torqueControlPD(franka::RobotState const &);
-    torqueControlAdvancedPD();*/
-
-};
-
+        /*franka::Torques torqueControlPD(franka::RobotState const &);
+        torqueControlAdvancedPD();*/
+    };
+}
 
 #endif //CONTROLLERPD_H

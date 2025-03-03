@@ -33,6 +33,10 @@ CriticalPoints::CriticalPoints(const int &numberOfJoints) :
         jointVelocityCriticalA(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
         jointVelocityCriticalD(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
         jointVelocityCriticalFinalLink(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
+        jointVelocityCurrentA(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
+        jointVelocityCurrentD(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
+        jointVelocityCurrentFinalLink(Eigen::VectorXd::Constant(numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
+
 
         jacobiDistanceA(Eigen::MatrixXd::Constant(1, numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
         jacobiDistanceD(Eigen::MatrixXd::Constant(1, numberOfJoints, std::numeric_limits<double>::quiet_NaN())),
@@ -49,6 +53,21 @@ CriticalPoints::CriticalPoints(const int &numberOfJoints) :
         distance(std::numeric_limits<double>::quiet_NaN()),
         distanceA(std::numeric_limits<double>::quiet_NaN()),
         distanceD(std::numeric_limits<double>::quiet_NaN()),
-        distanceFinalLink(std::numeric_limits<double>::quiet_NaN())
+        distanceFinalLink(std::numeric_limits<double>::quiet_NaN()),
+
+        obstacleVelocityForLinkA(Eigen::MatrixXd::Constant(3, 1, 0)),
+        obstacleVelocityForLinkD(Eigen::MatrixXd::Constant(3, 1, 0)),
+        obstacleVelocityForFinalLink(Eigen::MatrixXd::Constant(3, 1, 0)),
+
+        jacobiDistanceDynamicMaxA(Eigen::MatrixXd::Constant( 1, numberOfJoints, 0)),
+        jacobiDistanceDynamicMaxD(Eigen::MatrixXd::Constant(1, numberOfJoints, 0)),
+        jacobiDistanceDynamicMaxFinalLink(Eigen::MatrixXd::Constant(1, numberOfJoints, 0)),
+
+        jacobiDistanceDynamicA(Eigen::MatrixXd::Constant(1, numberOfJoints, 0)),
+        jacobiDistanceDynamicD(Eigen::MatrixXd::Constant(1, numberOfJoints,0)),
+        jacobiDistanceDynamicFinalLink(Eigen::MatrixXd::Constant(1, numberOfJoints, 0))
+
+
+
 
         {}

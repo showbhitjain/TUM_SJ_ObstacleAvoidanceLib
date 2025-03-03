@@ -15,7 +15,7 @@
 
 #include "Joints.h"
 #include <tuple>
-#include "Obstacles.h"
+#include "Obstacle.h"
 #include "CriticalPoints.h"
 #include "robotLinkDataTypes.h"
 
@@ -27,6 +27,7 @@ namespace ObstacleAvoidance {
         AndreiUtils::Posed displacementEEToTCP; /**< The displacement from the end effector to the TCP. */
         Eigen::Matrix4d transformationEEToTCP;
         //the transformation between endeffector and TCP. (TCP w.r.t End effector frame)
+        // TODO: remove below!
         AndreiUtils::Posed worldInBaseFrameRobot;
         AndreiUtils::ConfigurationParameters Config;
         std::shared_ptr<Joints> joints;
@@ -38,14 +39,16 @@ namespace ObstacleAvoidance {
         std::string finalLinkType;
         Eigen::Vector3d finalLinkDimensions;
         std::vector<LinkSegment> robotLinks;
-        finalLinkRobot finalLinkGripper;
+        FinalLinkRobot finalLinkGripper;
         bool bConsiderFinalLink;
         double distanceActivateOA;
         double distanceStopOA;
         double smootheningCoefficient;
         double distanceBuffer;
+        bool doSelfCollisionAvoidance;
+        double convergenceBeta;
 
-        std::map<std::string,Obstacles> obstaclesDynamicMap;
+        std::map<std::string,Obstacle> obstaclesDynamicMap;
         std::map<std::string,std::vector<CriticalPoints>> criticalPointsDynamicMap;
         // std::map<int, >
 
@@ -65,8 +68,13 @@ namespace ObstacleAvoidance {
 
         [[nodiscard]] double computeB0(double const &bFirst,double const &distance) const;
 
+        std::tuple<double,double> calculateDynamicSelfCollisionParameters(CriticalPoints &criticalPoint, std::vector<std::string> const &keySplit, bool const &enterCriticalZone, bool const &forFinalLink, bool const &forLinkA, bool const &forLinkD);
+
+        void synchronizeMaps( std::map<std::string, Obstacle> const &obstaclesDynamicMap);
     public:
         Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot);
+
+        Robot(AndreiUtils::ConfigurationParameters const & config);
 
         AndreiUtils::Posed getWorldInBaseFrameRobot() const;
 
@@ -103,15 +111,17 @@ namespace ObstacleAvoidance {
         [[nodiscard]] Eigen::MatrixXd fkmCartesianTCP(const Eigen::VectorXd &jointValues) const;
 
 
-        std::pair<finalLinkRobot, std::vector<LinkSegment>> createLineSegments(const Eigen::VectorXd &jointValues);
+        std::pair<FinalLinkRobot, std::vector<LinkSegment>> createLinkSegments(const Eigen::VectorXd &jointValues);
 
         std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> obstacleAvoidanceEquation(
-                std::map<std::string,Obstacles> const &obstaclesMap, Eigen::VectorXd const &jointAngles, Eigen::VectorXd const&jointVelocityOA);
+                std::map<std::string,Obstacle> const &obstaclesMap, Eigen::VectorXd const &jointAngles, Eigen::VectorXd const&jointVelocityOA);
 
         /*    std::vector<LinkSegment>
-            createLineSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,
+            createLinkSegments(const Eigen::VectorXd &jointValues, const Eigen::VectorXd &radius,
                                const std::string finalLinkType,
                                const Eigen::VectorXd &dimensions);*/
+        void setObstacleMap(std::map<std::string,Obstacle> const & obstacleMap,bool saveLastSeenPosition = true);
+
 
 
     };

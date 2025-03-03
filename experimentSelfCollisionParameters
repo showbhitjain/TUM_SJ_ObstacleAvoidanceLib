@@ -1,0 +1,226 @@
+
+{
+  "parametersFor": "Trajectory",
+  "Waypoints": [
+    [ 0.5545, 0.5545, 0.5545,  0.15],
+    [ 0.2000, 0.2000,-0.4, 0.30],
+    [ 0.2211, 0, 0,  0]],
+  "orientations": [
+    [0,         0,        0,          0],
+    [1,          1,        0.7071,         0.7071],
+    [0,         0,         0.7071,         0.7071],
+    [0,         0,         0,         0]
+  ],
+  "WayPointVelocity": [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  ],
+  "positionTrajectoryType": "cubic",
+  "orientationTrajectoryType" : "cubic",
+  "trajectorySampleTime": 0.001,
+  "waypointTimes": [0, 4, 10, 16],
+  "inverseKinematics": {
+    "positionKp": [1,1,1],
+    "orientationKo": [1,1,1]
+  }
+}
+
+
+
+****////without self collision
+
+{
+  "parametersFor": "inverseKinematicsWithOA",
+  "ObjectiveConstraints": {
+    "useObjectiveNormInfinity": false,
+    "weightNormInfinity": 0.1,
+    "useObjectiveNormL2": true,
+    "weightNormL2": 1,
+    "jointVelocityWeight": [1,1,1,1,1,1,1],
+    "useObjectiveTrajectoryFollowing": false,
+    "weightTrajectoryFollowing": 5,
+    "useObjectiveJointAcceleration": true,
+    "weightJointAcceleration": 0.3,
+    "useObjectiveManipulability": true,
+    "weightManipulability": 0.1
+  },
+  "EquationParameters": {
+    "applyEqualityConstraints":true,
+    "applyInequalityConstraints": false
+  },
+  "SlackParameters": {
+    "applySlack": true,
+    "dynamicSlack": false,
+    "SlackLowerBound": [-0.3,-0.3,-0.3,-2,-2,-60],
+    "SlackUpperBound": [0.3,0.3,0.3,2,2,60],
+     "SlackPenaltyWeight": [1,1,1,1,1,0.5],
+    "SlackObjectiveWeight": 10
+  },
+  "jointLimitAvoidanceParameters": {
+    "gamma": 2,
+    "applyVelocityDamper": true,
+    "jointLimitActivationDistance": 10,
+    "jointLimitStopDistance": 3,
+    "jointLimitGain": 1
+  }
+}
+
+
+{
+    "parametersFor": "PandaRobot",
+    "dhParameters": [
+        [0, 0.333,   0,       -90],
+        [0, 0,       0,        90],
+        [0, 0.316,   0.0825,   90],
+        [0, 0,      -0.0825,  -90],
+        [0, 0.384,   0,        90],
+        [0, 0,       0.088,    90],
+        [0, 0.107,   0.0003,    0]
+    ],
+
+    "mdhParameters": [
+        [0, 0.333,   0,       0],
+        [0, 0,       0,       -90],
+        [0, 0.316,   0,       90],
+        [0, 0,       0.0825,  90],
+        [0, 0.384,  -0.0825, -90],
+        [0, 0,       0,       90],
+        [0, 0.107,   0.088,   90]
+    ],
+    "dhConnectorToHand": 0.0084,
+    "dhWithHand": true,
+    "dhConvention": "modified",
+    "nameEndEffectorFrame": "Franka_connection",
+    "displacementEEtoTCP": {
+        "rotationXYZ": [0, 0, -45],
+        "translation": [0, 0, 0.103399]
+    },
+    "qWorldBase": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
+
+    "Joints": {
+        "parametersFor": "Joints",
+        "numberOfJoints": 7,
+        "jointNames": ["Franka_joint1", "Franka_joint2", "Franka_joint3", "Franka_joint4", "Franka_joint5", "Franka_joint6", "Franka_joint7"],
+        "jointMinValues": [-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, 0.6500, -2.8973],
+        "jointMaxValues": [2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973],
+        "jointVelMinValues" : [-2.1750, -2.1750, -2.1750, -2.1750, -2.6100, -2.6100, -2.6100],
+        "jointVelMaxValues" : [2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100]
+
+    },
+    "ObstacleAvoidanceParameters": {
+        "applyObstacleAvoidance": true,
+        "distanceActivate": 0.06,
+        "distanceStop": 0.03,
+        "distanceBuffer": 0.005,
+        "smootheningCoefficient": 2,
+        "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "finalLinkType": "Box",
+        "finalLinkDimensions": [0.06,0.14,0.11],
+        "considerFinalLinkOA": true,
+        "considerBaseToFirstJoint": true,
+        "robotLinkAsLineSwept": false,
+        "selfCollision": false,
+        "convergenceBetaDynamicObstacleAvoidance": 1
+    }
+}
+
+
+
+*******//////### with self collision
+{
+  "parametersFor": "inverseKinematicsWithOA",
+  "ObjectiveConstraints": {
+    "useObjectiveNormInfinity": false,
+    "weightNormInfinity": 0.1,
+    "useObjectiveNormL2": true,
+    "weightNormL2": 1,
+    "jointVelocityWeight": [1,1,1,1,1,1,1],
+    "useObjectiveTrajectoryFollowing": false,
+    "weightTrajectoryFollowing": 5,
+    "useObjectiveJointAcceleration": true,
+    "weightJointAcceleration": 0.3,
+    "useObjectiveManipulability": true,
+    "weightManipulability": 0.1
+  },
+  "EquationParameters": {
+    "applyEqualityConstraints":true,
+    "applyInequalityConstraints": true
+  },
+  "SlackParameters": {
+    "applySlack": true,
+    "dynamicSlack": true,
+    "SlackLowerBound": [-0.3,-0.3,-0.3,-2,-2,-60],
+    "SlackUpperBound": [0.3,0.3,0.3,2,2,60],
+     "SlackPenaltyWeight": [1,1,1,1,1,0.5],
+    "SlackObjectiveWeight": 10
+  },
+  "jointLimitAvoidanceParameters": {
+    "gamma": 2,
+    "applyVelocityDamper": true,
+    "jointLimitActivationDistance": 10,
+    "jointLimitStopDistance": 3,
+    "jointLimitGain": 1
+  }
+}
+
+{
+    "parametersFor": "PandaRobot",
+    "dhParameters": [
+        [0, 0.333,   0,       -90],
+        [0, 0,       0,        90],
+        [0, 0.316,   0.0825,   90],
+        [0, 0,      -0.0825,  -90],
+        [0, 0.384,   0,        90],
+        [0, 0,       0.088,    90],
+        [0, 0.107,   0.0003,    0]
+    ],
+
+    "mdhParameters": [
+        [0, 0.333,   0,       0],
+        [0, 0,       0,       -90],
+        [0, 0.316,   0,       90],
+        [0, 0,       0.0825,  90],
+        [0, 0.384,  -0.0825, -90],
+        [0, 0,       0,       90],
+        [0, 0.107,   0.088,   90]
+    ],
+    "dhConnectorToHand": 0.0084,
+    "dhWithHand": true,
+    "dhConvention": "modified",
+    "nameEndEffectorFrame": "Franka_connection",
+    "displacementEEtoTCP": {
+        "rotationXYZ": [0, 0, -45],
+        "translation": [0, 0, 0.103399]
+    },
+    "qWorldBase": [0.7071067811865476,0.0,0.0,0.7071067811865475,0.0032605735368182627,0.06401332101374885,-0.34142961248072945,-0.0032605735368182636],
+
+    "Joints": {
+        "parametersFor": "Joints",
+        "numberOfJoints": 7,
+        "jointNames": ["Franka_joint1", "Franka_joint2", "Franka_joint3", "Franka_joint4", "Franka_joint5", "Franka_joint6", "Franka_joint7"],
+        "jointMinValues": [-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, 0.6500, -2.8973],
+        "jointMaxValues": [2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973],
+        "jointVelMinValues" : [-2.1750, -2.1750, -2.1750, -2.1750, -2.6100, -2.6100, -2.6100],
+        "jointVelMaxValues" : [2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100]
+
+    },
+    "ObstacleAvoidanceParameters": {
+        "applyObstacleAvoidance": true,
+        "distanceActivate": 0.05,
+        "distanceStop": 0.03,
+        "distanceBuffer": 0.005,
+        "smootheningCoefficient": 1,
+        "radiusLinks": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
+        "percentagePartialLinks": [50,50,50,50,50,50,50,50],
+        "finalLinkType": "Box",
+        "finalLinkDimensions": [0.06,0.14,0.11],
+        "considerFinalLinkOA": true,
+        "considerBaseToFirstJoint": true,
+        "robotLinkAsLineSwept": false,
+        "selfCollision": true,
+        "convergenceBetaDynamicObstacleAvoidance": 0.5
+    }
+}

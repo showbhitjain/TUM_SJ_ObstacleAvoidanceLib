@@ -111,7 +111,6 @@ int main() {
         InverseKinematics ik(inverseKinematicsConfig);
 
         // Load the kinematics and dynamics model.
-
         franka::Model model = realRobot.loadModel();
 
 

@@ -15,19 +15,20 @@
   },
   "EquationParameters": {
     "applyEqualityConstraints":true,
-    "applyInequalityConstraints": false
+    "applyInequalityConstraints": true
   },
   "SlackParameters": {
-    "applySlack": false,
-    "dynamicSlack": false,
-    "SlackLowerBound": [-0.4,-0.4,-0.4,-2,-2,-60],
-    "SlackUpperBound": [0.4,0.4,0.4,2,2,60],
+    "applySlack": true,
+    "dynamicSlack": true,
+    "forObstacleAvoidance": true,
+    "SlackLowerBound": [-0.3,-0.3,-0.3,-2,-2,-60],
+    "SlackUpperBound": [0.3,0.3,0.3,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 20
+    "SlackObjectiveWeight": 10
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,
-    "applyVelocityDamper": false,
+    "applyVelocityDamper": true,
     "jointLimitActivationDistance": 10,
     "jointLimitStopDistance": 3,
     "jointLimitGain": 1

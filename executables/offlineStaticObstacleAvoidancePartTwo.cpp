@@ -37,7 +37,7 @@ int main() {
     //for real robot get the position from robot and do forward kinematics
     Eigen::VectorXd HomeJointPosition(numberJoints);
 
-    HomeJointPosition << 0.193716,0.124081,0.167672,-1.41586,-0.020307 , 1.53779,1.14464;
+    HomeJointPosition << 0.196728, 0.247911, 0.155609, -2.03656, -0.0501048 , 2.28091, 1.1657;
     Matrix4d transformationTCP = robot.fkmCartesianTCP(HomeJointPosition);
     Vector3d waypointOne = transformationTCP(seq(0, 2), 3);
 
@@ -101,12 +101,14 @@ int main() {
     double staticWeightSlack = inverseKinematicsConfig.getJson("SlackParameters").at("SlackObjectiveWeight").get<
         double>();
 
+
+
     VectorXd jointVelocityObstacleAvoidance = VectorXd::Zero(numberJoints);
 
-    Vector3d center1 = {0.4, 0.20, 0.1};
+    Vector3d center1 = {0.6000, 0.0, 0.1211};
     VectorXd dimensions1(3);
-    dimensions1 << 0.04, 0.04, 0.08;
-    auto obstacle1 = Obstacles("Box", center1, dimensions1, {1, 0, 0, 0});
+    dimensions1 << 0.04, 0.04, 0.12;
+    auto obstacle1 = Obstacle("Box", center1, dimensions1, {1, 0, 0, 0});
 
     /* Vector3d center2 = {0.5545, 0.20, 0.3211};
 
@@ -116,7 +118,7 @@ int main() {
      auto obstacle2 = Obstacles("Sphere", center2, dimensions2,{1,0,0,0});
 */
 
-    std::vector<Obstacles> obstaclesArray;
+    std::vector<Obstacle> obstaclesArray;
     obstaclesArray.push_back(obstacle1);
     //        obstaclesArray.push_back(obstacle2);
     auto obstaclesMap = conversionObstaclesVectorToMap(obstaclesArray);
@@ -129,6 +131,7 @@ int main() {
 
 
     for (int i = 0; i < trajTimes.size(); i++) {
+        std::map<std::string, Obstacle> obstaclesMapNew;
         if (i > 0) {
             actualJointValuesMatrix(all, i) = actualJointValuesMatrix(all, i - 1);
             //cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
@@ -156,16 +159,15 @@ int main() {
 
 
         //
-        /*  auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMap, actualJointValuesMatrix(all, i),
+          auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMapNew, actualJointValuesMatrix(all, i),
                                                                        jointVelocityObstacleAvoidance);
 
 
-    */
         cout << "jg at " + std::to_string(i) + ": \n" << jg << endl;
 
         cout << "bg at " + std::to_string(i) + ": \n" << bg << endl;
 
-        //        cout<< "minimum distance at " + std::to_string(i) + ": "<<minDistance<<endl;
+        cout<< "minimum distance at " + std::to_string(i) + ": "<<minDistance<<endl;
 
 
         auto [optimalJointVelocity, ExitFlag] = ik.inverseKinematicsWithOA(actualJointValuesMatrix(all, i),
@@ -178,13 +180,19 @@ int main() {
 
         //cout<<"optimal Joint Velocity: \n" <<optimalJointVelocity<<endl;
         desiredJointVelocityMatrix(all, i) = optimalJointVelocity;
-
+        jointVelocityObstacleAvoidance = optimalJointVelocity;
         if (ExitFlag < 0) {
             cout << "At this step: " << i << endl;
             cout << "ExitFlag: " << ExitFlag << endl;
             cout << "optimal Joint Velocity: \n" << optimalJointVelocity << endl;
             break;
         }
+
+        /*if (minDistance < 0.01){
+            cout<<"minDistance has become less than 0.01 at " +std::to_string(i)+ ": "<<minDistance<<endl;
+            break;
+
+        }*/
 
         /*integrate_adaptive(
                 controlled_stepper,

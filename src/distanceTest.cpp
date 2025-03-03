@@ -6,6 +6,7 @@
 #include <TUM_SJ_ObstacleAvoidanceLib/DistanceObjects.h>
 #include <Eigen/Dense>
 #include <iostream>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include<AndreiUtils/utilsString.h>
 #include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
 #include <AndreiUtils/utilsEigenGeometry.hpp>
@@ -16,18 +17,52 @@ using namespace std;
 using namespace ObstacleAvoidance;
 
 int main() {
+    std::map<std::string,Obstacle> obstaclesMap;
 
     //Box and Sphere Distance Test
+   auto sequence=  generateSequence(4,0.001,6);
+
+    Vector2d timepoints;
+    timepoints<<0,4;
+    auto addtime = (2+0.001) * VectorXd::Ones(timepoints.size());
+    timepoints = timepoints + addtime;
+    cout<<timepoints<<endl;
+    cout<<sequence<<endl;
+    std::map<int,bool> tryMap;
+    tryMap.emplace(5,true);
+    cout<<"tryMAP KEY:" << tryMap.begin()->first<<endl;
+    cout<<"tryMAP value:" << tryMap.begin()->second<<endl;
+
     std::string testString = "Teststring_45";
     auto result = AndreiUtils::splitString(testString,"_");
     std::cout<<testString<<std::endl;
     std::cout<<"Part one of string: "<<result[0]<<std::endl;
     std::cout<<"Part second of string: "<<result[1]<<std::endl;
+    cout<<24.0+std::numeric_limits<double>::quiet_NaN()<<endl;
+    Vector3d ut;
+    Vector3d zt(3,5,7);
 
+    cout<<"difference :"<<zt-ut<<endl;
+    cout<<"Smoothening test: "<<ObstacleAvoidance::smoothingConstraintScheme(0.035,0.01,0.04,2)<<endl;
 
-    cout<<"smoothening test: "<<ObstacleAvoidance::smoothingConstraintScheme(0.035,0.01,0.04,2)<<endl;
+    Vector3d obstacleCenter = {0.113538,0.0291476,0.629339};
+    Vector3d obstacleAxis = {0.908948,0.339189,-0.242415};
+    double  obstacleRadius = 0.1;
+    double  obstacleHeight = 0.0825;
 
+    Vector3d  linkSphereCenter(0.472804,0.167345,0.431461);
+    Vector3d  linkStartingPoint(0.472804,0.167345,0.431461);
+    Vector3d  linkEndPoint(0.5545150,0.2000130,0.4314560);
+    Vector3d LinkAxis = linkEndPoint - linkStartingPoint;
+    double linkNorm = LinkAxis.norm();
+    Vector3d linkAxisNormalized = LinkAxis.normalized();
+    Vector3d linkCenter = linkStartingPoint + (linkNorm/2)*linkAxisNormalized;
 
+    auto[distanceDebug,closestPointObstacleLink,closestPointOnRobotLink] = calculateDistanceCylinderCylinder(0.1,obstacleHeight,obstacleCenter,obstacleAxis,0.05,linkNorm,linkCenter,linkAxisNormalized);
+    cout<<distanceDebug<<endl;
+    double linkSphereRadius = 0.05;
+   auto[distanceCalc,closestPointSphere,closestPointCylinder]= calculateDistanceSphereCylinder(linkSphereRadius,linkSphereCenter,obstacleRadius,obstacleHeight,obstacleCenter,obstacleAxis);
+cout<<"distance Calc: "<<distanceCalc<<endl;
     Vector3d testSphereCenter(0.5545,0.20,0.5211);
     double testSphereRadius = 0.08;
     Vector3d v1 = {0.5545,   -0.0000,    0.7315};
@@ -73,6 +108,8 @@ int main() {
     double cylinderHeight2 = 2;
     Vector3d cylinderCenter2(-3, 0, 0);
     double cylinderRadius2 = 1;
+
+
 
     auto [distance, closestPoint1, closestPoint2] = calculateDistanceCylinderCylinder(cylinderRadius1, cylinderHeight1,
                                                                                       cylinderCenter1, cylinderAxis1,

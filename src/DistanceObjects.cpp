@@ -270,8 +270,8 @@ namespace ObstacleAvoidance {
 
         // -------------------------------------------------------------
         // 2. Construct the cylinder geometry
-        //    FCL’s Cylinder(r, lz) => r = radius, lz = half-length
-        //    So we pass (radiusCylinder, cylinderHeight/2).
+        //    FCL’s Cylinder(r, lz) => r = radius, lz = length
+        //    So we pass (radiusCylinder, cylinderHeight).
         // -------------------------------------------------------------
         fcl::Cylinderd fclCylinder(radiusCylinder, cylinderHeight);
 
@@ -436,6 +436,11 @@ namespace ObstacleAvoidance {
         request.enable_nearest_points = true;   // get the actual closest points
         request.enable_signed_distance = true;  // negative if they intersect
         request.gjk_solver_type = fcl::GJKSolverType::GST_LIBCCD;
+
+        // Increase tolerances
+        request.distance_tolerance = 1e-5;   // or even 1e-4
+        request.rel_err           = 1e-6;
+        request.abs_err           = 1e-6;
         /*   request.rel_err = 0.0;
            request.abs_err = 0.0;
            request.distance_tolerance = 1e-6;*/

@@ -34,7 +34,7 @@ namespace ObstacleAvoidance {
         bool obstacleAvoidanceScheme;
         double k;
         double gamma;
-        bool dynamicSlack;
+        bool dynamicSlackForOA;
         bool applyVelocityDamper;
         double jointLimitActivationDistance;
         double jointLimitStopDistance;
@@ -52,6 +52,11 @@ namespace ObstacleAvoidance {
                                 Eigen::VectorXd const &jointMaxVelValues, Eigen::MatrixXd const &jG, Eigen::VectorXd const &bG, Eigen::MatrixXd const &jointVelocityMatrix);
 
         void setConfigSlackWeight(double const &slackObjectiveWeight);
+
+        void setDynamicSlackFlagValueForOA(bool const &value);
+
+        void setValueInequalityConstraints(bool const &value);
+
     protected:
 
 

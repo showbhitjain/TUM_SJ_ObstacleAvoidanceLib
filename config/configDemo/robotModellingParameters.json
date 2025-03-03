@@ -14,7 +14,7 @@
         "PandaGripperConfigFile": "../config/pandaGripper.json"
     },
     "PandaRobot": {
-        "PandaRobotConfigFile": "../config/pandaRobot.json"
+        "PandaRobotConfigFile": "../config/configDemo/pandaRobot.json"
     },
     "UR5Robot": {
         "UR5RobotConfigFile": "../config/ur5Robot.json"
