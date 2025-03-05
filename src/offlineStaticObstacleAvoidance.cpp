@@ -126,7 +126,6 @@ std::array<double, 7> firstJointPosition{};
     cout <<"relativeTransformation point : \n"<< relativeTransformation.block<3,1>(0,3)<<endl;
     cout<<"relativeJacobi: \n" <<relativeJacobi<<endl;
     cout<<"avo: \n"<<linkSegmentsTesting[6].aSegmentV0<<"av1: \n"<<linkSegmentsTesting[6].aSegmentV1<<endl;
-    cout<<"avo: \n"<<linkSegmentsTesting[7].aSegmentV0<<"av1: \n"<<linkSegmentsTesting[7].aSegmentV1<<endl;
 
     OptimizationBasedIKWithOA ik(inverseKinematicsConfig);
     auto jointVelocityWeight = stdVectorToEigenVector(inverseKinematicsConfig.getJson("ObjectiveConstraints").at(
