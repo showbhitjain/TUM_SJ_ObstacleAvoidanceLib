@@ -5,12 +5,11 @@
 // File: xnrm2.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xnrm2.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
@@ -35,9 +34,6 @@ double xnrm2(int n, const array<double, 1U> &x)
     } else {
       double scale;
       scale = 3.3121686421112381E-170;
-      if (n > 2147483646) {
-        check_forloop_overflow_error();
-      }
       for (int k{0}; k < n; k++) {
         double absxk;
         absxk = std::abs(x[k]);
@@ -76,9 +72,6 @@ double xnrm2(int n, const array<double, 2U> &x, int ix0)
       int kend;
       scale = 3.3121686421112381E-170;
       kend = (ix0 + n) - 1;
-      if ((ix0 <= kend) && (kend > 2147483646)) {
-        check_forloop_overflow_error();
-      }
       for (int k{ix0}; k <= kend; k++) {
         double absxk;
         absxk = std::abs(x[k - 1]);

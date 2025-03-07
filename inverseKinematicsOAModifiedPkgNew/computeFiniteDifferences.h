@@ -5,7 +5,7 @@
 // File: computeFiniteDifferences.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef COMPUTEFINITEDIFFERENCES_H
@@ -26,12 +26,11 @@ namespace optim {
 namespace coder {
 namespace utils {
 namespace FiniteDifferences {
-boolean_T computeFiniteDifferences(
-    l_struct_T &obj, double fCurrent, array<double, 1U> &xk,
-    array<double, 1U> &gradf, const array<double, 2U> &lb,
-    const array<double, 2U> &ub,
-    const array<double, 1U> &runTimeOptions_FiniteDifferenceStepSize,
-    const array<double, 1U> &runTimeOptions_TypicalX);
+boolean_T computeFiniteDifferences(l_struct_T &obj, double fCurrent,
+                                   array<double, 1U> &xk,
+                                   array<double, 1U> &gradf,
+                                   const array<double, 2U> &lb,
+                                   const array<double, 2U> &ub);
 
 }
 } // namespace utils

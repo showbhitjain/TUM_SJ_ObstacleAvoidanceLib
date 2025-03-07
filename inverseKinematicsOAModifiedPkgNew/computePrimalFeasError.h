@@ -5,7 +5,7 @@
 // File: computePrimalFeasError.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef COMPUTEPRIMALFEASERROR_H
@@ -25,7 +25,7 @@ namespace fminconsqp {
 namespace stopping {
 double computePrimalFeasError(const array<double, 1U> &x, int mLinIneq,
                               const array<double, 1U> &cIneq, int mLinEq,
-                              const double cEq_data[], int cEq_size,
+                              const double cEq_data[],
                               const array<int, 1U> &finiteLB, int mLB,
                               const array<double, 2U> &lb,
                               const array<int, 1U> &finiteUB, int mUB,

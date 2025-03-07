@@ -5,12 +5,11 @@
 // File: xgetrf.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xgetrf.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include <cstring>
@@ -36,6 +35,8 @@ void xgetrf(double A[36], int ipiv[6])
     int b_tmp;
     int jA;
     int jp1j;
+    int mmj_tmp;
+    mmj_tmp = 4 - j;
     b_tmp = j * 7;
     jp1j = b_tmp + 2;
     jA = 6 - j;
@@ -66,17 +67,14 @@ void xgetrf(double A[36], int ipiv[6])
         A[jA - 1] /= A[b_tmp];
       }
     }
-    i = 4 - j;
-    jA = b_tmp + 8;
-    for (jp1j = 0; jp1j <= i; jp1j++) {
+    jA = b_tmp;
+    for (jp1j = 0; jp1j <= mmj_tmp; jp1j++) {
       smax = A[(b_tmp + jp1j * 6) + 6];
       if (smax != 0.0) {
-        a = (jA - j) + 4;
-        if ((jA <= a) && (a > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (int k{jA}; k <= a; k++) {
-          A[k - 1] += A[((b_tmp + k) - jA) + 1] * -smax;
+        i = jA + 8;
+        a = (jA - j) + 12;
+        for (int k{i}; k <= a; k++) {
+          A[k - 1] += A[((b_tmp + k) - jA) - 7] * -smax;
         }
       }
       jA += 6;

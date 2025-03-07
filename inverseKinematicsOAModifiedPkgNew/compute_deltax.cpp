@@ -5,25 +5,18 @@
 // File: compute_deltax.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "compute_deltax.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "factor.h"
-#include "factor1.h"
 #include "fullColLDL2_.h"
-#include "inverseKinematicsOAModified_data.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "partialColLDL3_.h"
 #include "rt_nonfinite.h"
 #include "solve.h"
-#include "solve1.h"
 #include "xgemm.h"
-#include "xgemv.h"
 #include "xpotrf.h"
 #include "coder_array.h"
 #include <cmath>
@@ -49,68 +42,39 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
                     f_struct_T &cholmanager, const g_struct_T &objective,
                     boolean_T alwaysPositiveDef)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
-      1,                // lineNo
-      1,                // colNo
-      "",               // aName
-      "compute_deltax", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+qpactiveset/"
-      "compute_deltax.p", // pName
-      0                   // checkKind
-  };
-  static rtBoundsCheckInfo x_emlrtBCI{
-      -1,                                    // iFirst
-      -1,                                    // iLast
-      1,                                     // lineNo
-      1,                                     // colNo
-      "",                                    // aName
-      "computeProjectedHessian_regularized", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/+step/"
-      "+relaxed/computeProjectedHessian_regularized.p", // pName
-      0                                                 // checkKind
-  };
   int mNull_tmp;
-  int nVar;
-  nVar = qrmanager.mrows - 1;
+  int nVar_tmp;
+  nVar_tmp = qrmanager.mrows - 1;
   mNull_tmp = qrmanager.mrows - qrmanager.ncols;
   if (mNull_tmp <= 0) {
-    if (qrmanager.mrows > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (int nVars{0}; nVars <= nVar; nVars++) {
-      int i;
-      i = solution.searchDir.size(0);
-      if ((nVars + 1 < 1) || (nVars + 1 > i)) {
-        rtDynamicBoundsError(nVars + 1, 1, i, w_emlrtBCI);
-      }
-      solution.searchDir[nVars] = 0.0;
+    for (int ix{0}; ix <= nVar_tmp; ix++) {
+      solution.searchDir[ix] = 0.0;
     }
   } else {
-    int i;
-    int nVars;
-    if (qrmanager.mrows > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (nVars = 0; nVars <= nVar; nVars++) {
-      i = objective.grad.size(0);
-      if ((nVars + 1 < 1) || (nVars + 1 > i)) {
-        rtDynamicBoundsError(nVars + 1, 1, i, w_emlrtBCI);
-      }
-      i = solution.searchDir.size(0);
-      if (nVars + 1 > i) {
-        rtDynamicBoundsError(nVars + 1, 1, i, w_emlrtBCI);
-      }
-      solution.searchDir[nVars] = -objective.grad[nVars];
+    int ix;
+    for (ix = 0; ix <= nVar_tmp; ix++) {
+      solution.searchDir[ix] = -objective.grad[ix];
     }
     if (qrmanager.ncols <= 0) {
       switch (objective.objtype) {
       case 5:
         break;
-      case 3:
+      case 3: {
+        int LD_diagOffset;
+        int LDimSizeP1;
         if (alwaysPositiveDef) {
-          CholManager::factor(cholmanager, H, qrmanager.mrows, qrmanager.mrows);
+          cholmanager.ndims = qrmanager.mrows;
+          if ((H.size(0) != 0) && (H.size(1) != 0)) {
+            for (ix = 0; ix <= nVar_tmp; ix++) {
+              LDimSizeP1 = (nVar_tmp + 1) * ix;
+              LD_diagOffset = cholmanager.ldm * ix;
+              for (int k{0}; k <= nVar_tmp; k++) {
+                cholmanager.FMat[LD_diagOffset + k] = H[LDimSizeP1 + k];
+              }
+            }
+          }
+          cholmanager.info = internal::lapack::xpotrf(
+              qrmanager.mrows, cholmanager.FMat, cholmanager.ldm);
         } else {
           DynamicRegCholManager::factor(cholmanager, H, qrmanager.mrows,
                                         qrmanager.mrows);
@@ -120,28 +84,74 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
         } else if (alwaysPositiveDef) {
           CholManager::solve(cholmanager, solution.searchDir);
         } else {
-          DynamicRegCholManager::solve(cholmanager, solution.searchDir);
+          int i;
+          int nVars;
+          LD_diagOffset = cholmanager.ndims - 2;
+          if ((solution.searchDir.size(0) != 0) && (cholmanager.ndims != 0)) {
+            for (LDimSizeP1 = 0; LDimSizeP1 <= LD_diagOffset + 1;
+                 LDimSizeP1++) {
+              nVars = LDimSizeP1 + LDimSizeP1 * cholmanager.ldm;
+              i = LD_diagOffset - LDimSizeP1;
+              for (int iac{0}; iac <= i; iac++) {
+                ix = (LDimSizeP1 + iac) + 1;
+                solution.searchDir[ix] =
+                    solution.searchDir[ix] -
+                    solution.searchDir[LDimSizeP1] *
+                        cholmanager.FMat[(nVars + iac) + 1];
+              }
+            }
+          }
+          i = cholmanager.ndims;
+          for (ix = 0; ix < i; ix++) {
+            solution.searchDir[ix] =
+                solution.searchDir[ix] /
+                cholmanager.FMat[ix + cholmanager.ldm * ix];
+          }
+          LD_diagOffset = cholmanager.ndims;
+          if ((solution.searchDir.size(0) != 0) && (cholmanager.ndims != 0)) {
+            for (LDimSizeP1 = LD_diagOffset; LDimSizeP1 >= 1; LDimSizeP1--) {
+              double smax;
+              nVars = (LDimSizeP1 - 1) * cholmanager.ldm;
+              smax = solution.searchDir[LDimSizeP1 - 1];
+              i = LDimSizeP1 + 1;
+              for (int iac{LD_diagOffset}; iac >= i; iac--) {
+                smax -= cholmanager.FMat[(nVars + iac) - 1] *
+                        solution.searchDir[iac - 1];
+              }
+              solution.searchDir[LDimSizeP1 - 1] = smax;
+            }
+          }
         }
-        break;
+      } break;
       default: {
         if (alwaysPositiveDef) {
-          CholManager::factor(cholmanager, H, objective.nvar, objective.nvar);
+          int LDimSizeP1;
+          int nVars;
+          nVars = objective.nvar;
+          cholmanager.ndims = objective.nvar;
+          if ((H.size(0) != 0) && (H.size(1) != 0)) {
+            for (ix = 0; ix < nVars; ix++) {
+              int LD_diagOffset;
+              LDimSizeP1 = nVars * ix;
+              LD_diagOffset = cholmanager.ldm * ix;
+              for (int k{0}; k < nVars; k++) {
+                cholmanager.FMat[LD_diagOffset + k] = H[LDimSizeP1 + k];
+              }
+            }
+          }
+          cholmanager.info = internal::lapack::xpotrf(
+              objective.nvar, cholmanager.FMat, cholmanager.ldm);
           if (cholmanager.info != 0) {
             solution.state = -6;
           } else {
             double smax;
-            int LD_diagOffset;
-            int b;
+            int i;
             CholManager::solve(cholmanager, solution.searchDir);
             smax = 1.0 / objective.beta;
-            LD_diagOffset = objective.nvar + 1;
-            b = qrmanager.mrows;
-            if ((LD_diagOffset <= b) && (b > 2147483646)) {
-              check_forloop_overflow_error();
-            }
-            for (int idx_row{LD_diagOffset}; idx_row <= b; idx_row++) {
-              solution.searchDir[idx_row - 1] =
-                  smax * solution.searchDir[idx_row - 1];
+            LDimSizeP1 = objective.nvar + 1;
+            i = qrmanager.mrows;
+            for (int k{LDimSizeP1}; k <= i; k++) {
+              solution.searchDir[k - 1] = smax * solution.searchDir[k - 1];
             }
           }
         }
@@ -151,33 +161,40 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
       int nullStartIdx_tmp;
       nullStartIdx_tmp = qrmanager.ldq * qrmanager.ncols + 1;
       if (objective.objtype == 5) {
-        if (mNull_tmp > 2147483646) {
-          check_forloop_overflow_error();
+        int LD_diagOffset;
+        for (ix = 0; ix < mNull_tmp; ix++) {
+          memspace.workspace_double[ix] =
+              -qrmanager.Q[nVar_tmp + qrmanager.ldq * (qrmanager.ncols + ix)];
         }
-        i = qrmanager.Q.size(0) * qrmanager.Q.size(1);
-        for (nVars = 0; nVars < mNull_tmp; nVars++) {
-          int LD_diagOffset;
-          int iac;
-          iac = (nVar + qrmanager.ldq * (qrmanager.ncols + nVars)) + 1;
-          if ((iac < 1) || (iac > i)) {
-            rtDynamicBoundsError(iac, 1, i, w_emlrtBCI);
+        LD_diagOffset = qrmanager.ldq;
+        if (qrmanager.mrows != 0) {
+          int i;
+          int nVars;
+          for (nVars = 0; nVars <= nVar_tmp; nVars++) {
+            solution.searchDir[nVars] = 0.0;
           }
-          LD_diagOffset = memspace.workspace_double.size(0) *
-                          memspace.workspace_double.size(1);
-          if (nVars + 1 > LD_diagOffset) {
-            rtDynamicBoundsError(nVars + 1, 1, LD_diagOffset, w_emlrtBCI);
+          ix = 0;
+          i = nullStartIdx_tmp + qrmanager.ldq * (mNull_tmp - 1);
+          for (int iac{nullStartIdx_tmp};
+               LD_diagOffset < 0 ? iac >= i : iac <= i; iac += LD_diagOffset) {
+            int LDimSizeP1;
+            LDimSizeP1 = iac + nVar_tmp;
+            for (int ia{iac}; ia <= LDimSizeP1; ia++) {
+              nVars = ia - iac;
+              solution.searchDir[nVars] =
+                  solution.searchDir[nVars] +
+                  qrmanager.Q[ia - 1] * memspace.workspace_double[ix];
+            }
+            ix++;
           }
-          memspace.workspace_double[nVars] = -qrmanager.Q[iac - 1];
         }
-        internal::blas::xgemv(qrmanager.mrows, mNull_tmp, qrmanager.Q,
-                              nullStartIdx_tmp, qrmanager.ldq,
-                              memspace.workspace_double, solution.searchDir);
       } else {
         double smax;
         int LD_diagOffset;
         int LDimSizeP1;
-        int iac;
-        int idx_row;
+        int i;
+        int k;
+        int nVars;
         if (objective.objtype == 3) {
           internal::blas::xgemm(qrmanager.mrows, mNull_tmp, qrmanager.mrows, H,
                                 qrmanager.mrows, qrmanager.Q, nullStartIdx_tmp,
@@ -189,42 +206,23 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
                                 memspace.workspace_double.size(0),
                                 cholmanager.FMat, cholmanager.ldm);
         } else if (alwaysPositiveDef) {
-          LD_diagOffset = objective.nvar + 1;
           nVars = qrmanager.mrows;
           internal::blas::xgemm(objective.nvar, mNull_tmp, objective.nvar, H,
                                 objective.nvar, qrmanager.Q, nullStartIdx_tmp,
                                 qrmanager.ldq, memspace.workspace_double,
                                 memspace.workspace_double.size(0));
-          if (mNull_tmp > 2147483646) {
-            check_forloop_overflow_error();
-          }
-          for (LDimSizeP1 = 0; LDimSizeP1 < mNull_tmp; LDimSizeP1++) {
-            if ((LD_diagOffset <= nVars) && (nVars > 2147483646)) {
-              check_forloop_overflow_error();
-            }
-            for (idx_row = LD_diagOffset; idx_row <= nVars; idx_row++) {
-              i = qrmanager.Q.size(0);
-              if ((idx_row < 1) || (idx_row > i)) {
-                rtDynamicBoundsError(idx_row, 1, i, x_emlrtBCI);
-              }
-              i = qrmanager.Q.size(1);
-              iac = (LDimSizeP1 + qrmanager.ncols) + 1;
-              if ((iac < 1) || (iac > i)) {
-                rtDynamicBoundsError(iac, 1, i, x_emlrtBCI);
-              }
-              i = memspace.workspace_double.size(0);
-              if (idx_row > i) {
-                rtDynamicBoundsError(idx_row, 1, i, x_emlrtBCI);
-              }
-              i = memspace.workspace_double.size(1);
-              if (LDimSizeP1 + 1 > i) {
-                rtDynamicBoundsError(LDimSizeP1 + 1, 1, i, x_emlrtBCI);
-              }
-              memspace.workspace_double
-                  [(idx_row + memspace.workspace_double.size(0) * LDimSizeP1) -
-                   1] =
+          i = objective.nvar + 1;
+          for (LD_diagOffset = 0; LD_diagOffset < mNull_tmp; LD_diagOffset++) {
+            for (LDimSizeP1 = i; LDimSizeP1 <= nVars; LDimSizeP1++) {
+              memspace.workspace_double[(LDimSizeP1 +
+                                         memspace.workspace_double.size(0) *
+                                             LD_diagOffset) -
+                                        1] =
                   objective.beta *
-                  qrmanager.Q[(idx_row + qrmanager.Q.size(0) * (iac - 1)) - 1];
+                  qrmanager
+                      .Q[(LDimSizeP1 + qrmanager.Q.size(0) *
+                                           (LD_diagOffset + qrmanager.ncols)) -
+                         1];
             }
           }
           internal::blas::xgemm(mNull_tmp, mNull_tmp, qrmanager.mrows,
@@ -240,41 +238,34 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
         } else {
           LDimSizeP1 = cholmanager.ldm + 1;
           cholmanager.ndims = mNull_tmp;
-          LD_diagOffset = cholmanager.ldm + 1;
-          nVars = 1;
+          nVars = 0;
           if (mNull_tmp > 1) {
             smax = std::abs(cholmanager.FMat[0]);
-            if (mNull_tmp > 2147483646) {
-              check_forloop_overflow_error();
-            }
-            for (idx_row = 2; idx_row <= mNull_tmp; idx_row++) {
+            for (k = 2; k <= mNull_tmp; k++) {
               double s;
-              s = std::abs(cholmanager.FMat[(idx_row - 1) * LD_diagOffset]);
+              s = std::abs(cholmanager.FMat[(k - 1) * LDimSizeP1]);
               if (s > smax) {
-                nVars = idx_row;
+                nVars = k - 1;
                 smax = s;
               }
             }
           }
-          i = cholmanager.FMat.size(0) * cholmanager.FMat.size(1);
-          iac = (nVars + cholmanager.ldm * (nVars - 1)) - 1;
-          if ((iac + 1 < 1) || (iac + 1 > i)) {
-            rtDynamicBoundsError(iac + 1, 1, i, s_emlrtBCI);
-          }
           cholmanager.regTol_ = std::fmax(
-              std::abs(cholmanager.FMat[iac]) * 2.2204460492503131E-16, 0.0);
+              std::abs(cholmanager.FMat[nVars + cholmanager.ldm * nVars]) *
+                  2.2204460492503131E-16,
+              0.0);
           if ((cholmanager.FMat.size(0) * cholmanager.FMat.size(1) > 16384) &&
               (mNull_tmp > 128)) {
             boolean_T exitg1;
-            idx_row = 0;
+            k = 0;
             exitg1 = false;
-            while ((!exitg1) && (idx_row < mNull_tmp)) {
-              LD_diagOffset = LDimSizeP1 * idx_row + 1;
-              nVars = mNull_tmp - idx_row;
-              if (idx_row + 48 <= mNull_tmp) {
+            while ((!exitg1) && (k < mNull_tmp)) {
+              LD_diagOffset = LDimSizeP1 * k + 1;
+              nVars = mNull_tmp - k;
+              if (k + 48 <= mNull_tmp) {
                 DynamicRegCholManager::partialColLDL3_(cholmanager,
                                                        LD_diagOffset, nVars);
-                idx_row += 48;
+                k += 48;
               } else {
                 DynamicRegCholManager::fullColLDL2_(cholmanager, LD_diagOffset,
                                                     nVars);
@@ -282,24 +273,19 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
               }
             }
           } else {
-            DynamicRegCholManager::fullColLDL2_(cholmanager, mNull_tmp);
+            DynamicRegCholManager::fullColLDL2_(cholmanager, 1, mNull_tmp);
           }
           if (cholmanager.ConvexCheck) {
-            nVars = 0;
+            ix = 0;
             int exitg2;
             do {
               exitg2 = 0;
-              if (nVars <= mNull_tmp - 1) {
-                i = cholmanager.FMat.size(0) * cholmanager.FMat.size(1);
-                iac = (nVars + cholmanager.ldm * nVars) + 1;
-                if ((iac < 1) || (iac > i)) {
-                  rtDynamicBoundsError(iac, 1, i, s_emlrtBCI);
-                }
-                if (cholmanager.FMat[iac - 1] <= 0.0) {
-                  cholmanager.info = -(nVars + 1);
+              if (ix <= mNull_tmp - 1) {
+                if (cholmanager.FMat[ix + cholmanager.ldm * ix] <= 0.0) {
+                  cholmanager.info = -ix - 1;
                   exitg2 = 1;
                 } else {
-                  nVars++;
+                  ix++;
                 }
               } else {
                 cholmanager.ConvexCheck = false;
@@ -311,133 +297,109 @@ void compute_deltax(const array<double, 2U> &H, j_struct_T &solution,
         if (cholmanager.info != 0) {
           solution.state = -6;
         } else {
-          int b;
-          LD_diagOffset = qrmanager.ldq;
+          k = qrmanager.ldq;
           if (qrmanager.mrows != 0) {
-            if (mNull_tmp > 2147483646) {
-              check_forloop_overflow_error();
+            for (nVars = 0; nVars < mNull_tmp; nVars++) {
+              memspace.workspace_double[nVars] = 0.0;
             }
-            for (LDimSizeP1 = 0; LDimSizeP1 < mNull_tmp; LDimSizeP1++) {
-              memspace.workspace_double[LDimSizeP1] = 0.0;
-            }
-            LDimSizeP1 = 0;
-            b = nullStartIdx_tmp + qrmanager.ldq * (mNull_tmp - 1);
-            if ((nullStartIdx_tmp <= b) && (b > MAX_int32_T - qrmanager.ldq)) {
-              check_forloop_overflow_error();
-            }
-            for (iac = nullStartIdx_tmp;
-                 LD_diagOffset < 0 ? iac >= b : iac <= b;
-                 iac += LD_diagOffset) {
+            nVars = 0;
+            i = nullStartIdx_tmp + qrmanager.ldq * (mNull_tmp - 1);
+            for (int iac{nullStartIdx_tmp}; k < 0 ? iac >= i : iac <= i;
+                 iac += k) {
               smax = 0.0;
-              nVars = iac + nVar;
-              if ((iac <= nVars) && (nVars > 2147483646)) {
-                check_forloop_overflow_error();
+              LDimSizeP1 = iac + nVar_tmp;
+              for (int ia{iac}; ia <= LDimSizeP1; ia++) {
+                smax += qrmanager.Q[ia - 1] * objective.grad[ia - iac];
               }
-              for (idx_row = iac; idx_row <= nVars; idx_row++) {
-                smax +=
-                    qrmanager.Q[idx_row - 1] * objective.grad[idx_row - iac];
-              }
-              memspace.workspace_double[LDimSizeP1] =
-                  memspace.workspace_double[LDimSizeP1] - smax;
-              LDimSizeP1++;
+              memspace.workspace_double[nVars] =
+                  memspace.workspace_double[nVars] - smax;
+              nVars++;
             }
           }
           if (alwaysPositiveDef) {
-            LDimSizeP1 = cholmanager.ndims;
+            LD_diagOffset = cholmanager.ndims;
             if (cholmanager.ndims != 0) {
-              if (cholmanager.ndims > 2147483646) {
-                check_forloop_overflow_error();
-              }
-              for (idx_row = 0; idx_row < LDimSizeP1; idx_row++) {
-                LD_diagOffset = idx_row * cholmanager.ldm;
-                smax = memspace.workspace_double[idx_row];
-                if (idx_row > 2147483646) {
-                  check_forloop_overflow_error();
-                }
-                for (iac = 0; iac < idx_row; iac++) {
-                  smax -= cholmanager.FMat[LD_diagOffset + iac] *
+              for (LDimSizeP1 = 0; LDimSizeP1 < LD_diagOffset; LDimSizeP1++) {
+                nVars = LDimSizeP1 * cholmanager.ldm;
+                smax = memspace.workspace_double[LDimSizeP1];
+                for (int iac{0}; iac < LDimSizeP1; iac++) {
+                  smax -= cholmanager.FMat[nVars + iac] *
                           memspace.workspace_double[iac];
                 }
-                memspace.workspace_double[idx_row] =
-                    smax / cholmanager.FMat[LD_diagOffset + idx_row];
+                memspace.workspace_double[LDimSizeP1] =
+                    smax / cholmanager.FMat[nVars + LDimSizeP1];
               }
             }
-            LDimSizeP1 = cholmanager.ndims;
+            LD_diagOffset = cholmanager.ndims;
             if (cholmanager.ndims != 0) {
-              for (idx_row = LDimSizeP1; idx_row >= 1; idx_row--) {
-                LD_diagOffset = (idx_row + (idx_row - 1) * cholmanager.ldm) - 1;
-                memspace.workspace_double[idx_row - 1] =
-                    memspace.workspace_double[idx_row - 1] /
-                    cholmanager.FMat[LD_diagOffset];
-                for (iac = 0; iac <= idx_row - 2; iac++) {
-                  nVars = (idx_row - iac) - 2;
-                  memspace.workspace_double[nVars] =
-                      memspace.workspace_double[nVars] -
-                      memspace.workspace_double[idx_row - 1] *
-                          cholmanager.FMat[(LD_diagOffset - iac) - 1];
+              for (LDimSizeP1 = LD_diagOffset; LDimSizeP1 >= 1; LDimSizeP1--) {
+                nVars = (LDimSizeP1 + (LDimSizeP1 - 1) * cholmanager.ldm) - 1;
+                memspace.workspace_double[LDimSizeP1 - 1] =
+                    memspace.workspace_double[LDimSizeP1 - 1] /
+                    cholmanager.FMat[nVars];
+                for (int iac{0}; iac <= LDimSizeP1 - 2; iac++) {
+                  ix = (LDimSizeP1 - iac) - 2;
+                  memspace.workspace_double[ix] =
+                      memspace.workspace_double[ix] -
+                      memspace.workspace_double[LDimSizeP1 - 1] *
+                          cholmanager.FMat[(nVars - iac) - 1];
                 }
               }
             }
           } else {
-            LDimSizeP1 = cholmanager.ndims - 1;
+            LD_diagOffset = cholmanager.ndims - 2;
             if (cholmanager.ndims != 0) {
-              if (cholmanager.ndims > 2147483646) {
-                check_forloop_overflow_error();
-              }
-              for (idx_row = 0; idx_row <= LDimSizeP1; idx_row++) {
-                LD_diagOffset = idx_row + idx_row * cholmanager.ldm;
-                b = LDimSizeP1 - idx_row;
-                if (b > 2147483646) {
-                  check_forloop_overflow_error();
-                }
-                for (iac = 0; iac < b; iac++) {
-                  nVars = (idx_row + iac) + 1;
-                  memspace.workspace_double[nVars] =
-                      memspace.workspace_double[nVars] -
-                      memspace.workspace_double[idx_row] *
-                          cholmanager.FMat[(LD_diagOffset + iac) + 1];
+              for (LDimSizeP1 = 0; LDimSizeP1 <= LD_diagOffset + 1;
+                   LDimSizeP1++) {
+                nVars = LDimSizeP1 + LDimSizeP1 * cholmanager.ldm;
+                i = LD_diagOffset - LDimSizeP1;
+                for (int iac{0}; iac <= i; iac++) {
+                  ix = (LDimSizeP1 + iac) + 1;
+                  memspace.workspace_double[ix] =
+                      memspace.workspace_double[ix] -
+                      memspace.workspace_double[LDimSizeP1] *
+                          cholmanager.FMat[(nVars + iac) + 1];
                 }
               }
             }
-            b = cholmanager.ndims;
-            if (cholmanager.ndims > 2147483646) {
-              check_forloop_overflow_error();
+            i = cholmanager.ndims;
+            for (ix = 0; ix < i; ix++) {
+              memspace.workspace_double[ix] =
+                  memspace.workspace_double[ix] /
+                  cholmanager.FMat[ix + cholmanager.ldm * ix];
             }
-            for (nVars = 0; nVars < b; nVars++) {
-              i = memspace.workspace_double.size(0) *
-                  memspace.workspace_double.size(1);
-              if ((nVars + 1 < 1) || (nVars + 1 > i)) {
-                rtDynamicBoundsError(nVars + 1, 1, i, t_emlrtBCI);
-              }
-              iac = cholmanager.FMat.size(0) * cholmanager.FMat.size(1);
-              LD_diagOffset = (nVars + cholmanager.ldm * nVars) + 1;
-              if ((LD_diagOffset < 1) || (LD_diagOffset > iac)) {
-                rtDynamicBoundsError(LD_diagOffset, 1, iac, t_emlrtBCI);
-              }
-              if (nVars + 1 > i) {
-                rtDynamicBoundsError(nVars + 1, 1, i, t_emlrtBCI);
-              }
-              memspace.workspace_double[nVars] =
-                  memspace.workspace_double[nVars] /
-                  cholmanager.FMat[LD_diagOffset - 1];
-            }
-            LDimSizeP1 = cholmanager.ndims;
+            LD_diagOffset = cholmanager.ndims;
             if (cholmanager.ndims != 0) {
-              for (idx_row = LDimSizeP1; idx_row >= 1; idx_row--) {
-                LD_diagOffset = (idx_row - 1) * cholmanager.ldm;
-                smax = memspace.workspace_double[idx_row - 1];
-                i = idx_row + 1;
-                for (iac = LDimSizeP1; iac >= i; iac--) {
-                  smax -= cholmanager.FMat[(LD_diagOffset + iac) - 1] *
+              for (LDimSizeP1 = LD_diagOffset; LDimSizeP1 >= 1; LDimSizeP1--) {
+                nVars = (LDimSizeP1 - 1) * cholmanager.ldm;
+                smax = memspace.workspace_double[LDimSizeP1 - 1];
+                i = LDimSizeP1 + 1;
+                for (int iac{LD_diagOffset}; iac >= i; iac--) {
+                  smax -= cholmanager.FMat[(nVars + iac) - 1] *
                           memspace.workspace_double[iac - 1];
                 }
-                memspace.workspace_double[idx_row - 1] = smax;
+                memspace.workspace_double[LDimSizeP1 - 1] = smax;
               }
             }
           }
-          internal::blas::xgemv(qrmanager.mrows, mNull_tmp, qrmanager.Q,
-                                nullStartIdx_tmp, qrmanager.ldq,
-                                memspace.workspace_double, solution.searchDir);
+          if (qrmanager.mrows != 0) {
+            for (nVars = 0; nVars <= nVar_tmp; nVars++) {
+              solution.searchDir[nVars] = 0.0;
+            }
+            ix = 0;
+            i = nullStartIdx_tmp + qrmanager.ldq * (mNull_tmp - 1);
+            for (int iac{nullStartIdx_tmp}; k < 0 ? iac >= i : iac <= i;
+                 iac += k) {
+              LDimSizeP1 = iac + nVar_tmp;
+              for (int ia{iac}; ia <= LDimSizeP1; ia++) {
+                nVars = ia - iac;
+                solution.searchDir[nVars] =
+                    solution.searchDir[nVars] +
+                    qrmanager.Q[ia - 1] * memspace.workspace_double[ix];
+              }
+              ix++;
+            }
+          }
         }
       }
     }

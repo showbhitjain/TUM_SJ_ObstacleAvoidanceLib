@@ -5,7 +5,7 @@
 // File: relaxed.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef RELAXED_H
@@ -40,11 +40,11 @@ namespace optim {
 namespace coder {
 namespace fminconsqp {
 namespace step {
-void b_relaxed(const array<double, 2U> &Hessian, const array<double, 1U> &grad,
-               j_struct_T &b_TrialState, struct_T &b_MeritFunction,
-               h_struct_T &memspace, d_struct_T &WorkingSet,
-               e_struct_T &b_QRManager, f_struct_T &b_CholManager,
-               g_struct_T &QPObjective, k_struct_T &qpoptions);
+void relaxed(const array<double, 2U> &Hessian, const array<double, 1U> &grad,
+             j_struct_T &b_TrialState, struct_T &b_MeritFunction,
+             h_struct_T &memspace, d_struct_T &WorkingSet,
+             e_struct_T &b_QRManager, f_struct_T &b_CholManager,
+             g_struct_T &QPObjective, k_struct_T &qpoptions);
 
 }
 } // namespace fminconsqp

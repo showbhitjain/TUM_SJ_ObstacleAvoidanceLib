@@ -31,6 +31,7 @@ configure_package_config_file(cmake/packageConfig.cmake.in ${PROJECT_NAME}Config
 configure_file("cmake/cmakeUninstall.cmake" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
 configure_file("cmake/package.pc.in" "${PROJECT_NAME}.pc" @ONLY)
 
+message(${ALL_INSTALL_TARGETS})
 install(TARGETS ${ALL_INSTALL_TARGETS}
         EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

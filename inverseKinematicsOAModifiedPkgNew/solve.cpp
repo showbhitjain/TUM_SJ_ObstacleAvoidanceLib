@@ -5,12 +5,11 @@
 // File: solve.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "solve.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -32,16 +31,10 @@ void solve(const f_struct_T &obj, array<double, 1U> &rhs)
   int n_tmp;
   n_tmp = obj.ndims;
   if ((rhs.size(0) != 0) && (obj.ndims != 0)) {
-    if (obj.ndims > 2147483646) {
-      check_forloop_overflow_error();
-    }
     for (int j{0}; j < n_tmp; j++) {
       double temp;
       jA = j * obj.ldm;
       temp = rhs[j];
-      if (j > 2147483646) {
-        check_forloop_overflow_error();
-      }
       for (int i{0}; i < j; i++) {
         temp -= obj.FMat[jA + i] * rhs[i];
       }

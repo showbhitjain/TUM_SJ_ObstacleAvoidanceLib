@@ -5,15 +5,11 @@
 // File: BFGSUpdate.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "BFGSUpdate.h"
-#include "eml_int_forloop_overflow_check.h"
-#include "inverseKinematicsOAModified_data.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cstring>
@@ -38,8 +34,8 @@ boolean_T BFGSUpdate(int nvar, array<double, 2U> &Bk,
   double curvatureS;
   double dotSY;
   double theta;
-  int b;
-  int ijA;
+  int i;
+  int i1;
   int ix;
   int k;
   int ldBk;
@@ -47,39 +43,21 @@ boolean_T BFGSUpdate(int nvar, array<double, 2U> &Bk,
   ldBk = Bk.size(0);
   dotSY = 0.0;
   if (nvar >= 1) {
-    if (nvar > 2147483646) {
-      check_forloop_overflow_error();
-    }
     for (k = 0; k < nvar; k++) {
       dotSY += sk[k] * yk[k];
     }
   }
   if (nvar != 0) {
-    boolean_T overflow;
     for (ix = 0; ix < nvar; ix++) {
       workspace[ix] = 0.0;
     }
     ix = 0;
-    k = Bk.size(0) * (nvar - 1) + 1;
-    if ((Bk.size(0) == 0) || (k < 1)) {
-      overflow = false;
-    } else {
-      overflow = (k > MAX_int32_T - Bk.size(0));
-    }
-    if (Bk.size(0) == 0) {
-      m_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
-    }
-    if (overflow) {
-      check_forloop_overflow_error();
-    }
-    for (int iac{1}; ldBk < 0 ? iac >= k : iac <= k; iac += ldBk) {
-      b = (iac + nvar) - 1;
-      if ((iac <= b) && (b > 2147483646)) {
-        check_forloop_overflow_error();
-      }
-      for (int ia{iac}; ia <= b; ia++) {
-        ijA = ia - iac;
-        workspace[ijA] = workspace[ijA] + Bk[ia - 1] * sk[ix];
+    i = Bk.size(0) * (nvar - 1) + 1;
+    for (int iac{1}; ldBk < 0 ? iac >= i : iac <= i; iac += ldBk) {
+      i1 = (iac + nvar) - 1;
+      for (int ia{iac}; ia <= i1; ia++) {
+        k = ia - iac;
+        workspace[k] = workspace[k] + Bk[ia - 1] * sk[ix];
       }
       ix++;
     }
@@ -117,16 +95,14 @@ boolean_T BFGSUpdate(int nvar, array<double, 2U> &Bk,
   if (success) {
     curvatureS = -1.0 / curvatureS;
     if (!(curvatureS == 0.0)) {
-      ix = 1;
+      ix = 0;
       for (k = 0; k < nvar; k++) {
         if (workspace[k] != 0.0) {
           theta = workspace[k] * curvatureS;
-          b = (nvar + ix) - 1;
-          if ((ix <= b) && (b > 2147483646)) {
-            check_forloop_overflow_error();
-          }
-          for (ijA = ix; ijA <= b; ijA++) {
-            Bk[ijA - 1] = Bk[ijA - 1] + workspace[ijA - ix] * theta;
+          i = ix + 1;
+          i1 = nvar + ix;
+          for (int iac{i}; iac <= i1; iac++) {
+            Bk[iac - 1] = Bk[iac - 1] + workspace[(iac - ix) - 1] * theta;
           }
         }
         ix += ldBk;
@@ -134,17 +110,15 @@ boolean_T BFGSUpdate(int nvar, array<double, 2U> &Bk,
     }
     curvatureS = 1.0 / dotSY;
     if (!(curvatureS == 0.0)) {
-      ix = 1;
+      ix = 0;
       for (k = 0; k < nvar; k++) {
         theta = yk[k];
         if (theta != 0.0) {
           theta *= curvatureS;
-          b = (nvar + ix) - 1;
-          if ((ix <= b) && (b > 2147483646)) {
-            check_forloop_overflow_error();
-          }
-          for (ijA = ix; ijA <= b; ijA++) {
-            Bk[ijA - 1] = Bk[ijA - 1] + yk[ijA - ix] * theta;
+          i = ix + 1;
+          i1 = nvar + ix;
+          for (int iac{i}; iac <= i1; iac++) {
+            Bk[iac - 1] = Bk[iac - 1] + yk[(iac - ix) - 1] * theta;
           }
         }
         ix += ldBk;

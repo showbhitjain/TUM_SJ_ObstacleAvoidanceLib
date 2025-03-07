@@ -5,7 +5,7 @@
 // File: factor.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef FACTOR_H
@@ -24,7 +24,7 @@ struct f_struct_T;
 namespace coder {
 namespace optim {
 namespace coder {
-namespace CholManager {
+namespace DynamicRegCholManager {
 void factor(f_struct_T &obj, const array<double, 2U> &A, int ndims, int ldA);
 
 }

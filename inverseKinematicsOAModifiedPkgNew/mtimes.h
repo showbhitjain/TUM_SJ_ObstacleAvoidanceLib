@@ -5,7 +5,7 @@
 // File: mtimes.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef MTIMES_H
@@ -21,12 +21,10 @@
 namespace coder {
 namespace internal {
 namespace blas {
-void mtimes(const array<double, 2U> &B, array<double, 2U> &C);
-
 void mtimes(const array<double, 1U> &A, const array<double, 2U> &B,
             array<double, 2U> &C);
 
-} // namespace blas
+}
 } // namespace internal
 } // namespace coder
 

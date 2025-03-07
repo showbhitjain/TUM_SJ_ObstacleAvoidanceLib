@@ -5,29 +5,21 @@
 // File: OptimizationBasedIKWithOAModified.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "OptimizationBasedIKWithOAModified.h"
 #include "anonymous_function.h"
 #include "configurableObjective.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "fmincon.h"
-#include "indexShapeCheck.h"
-#include "inverseKinematicsOAModified_data.h"
 #include "inverseKinematicsOAModified_internal_types1.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
 #include "inverseKinematicsOAModified_types.h"
 #include "ixfun.h"
-#include "mtimes.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
 #include <cstring>
-#include <sstream>
-#include <stdexcept>
-#include <string>
 
 // Function Declarations
 static void binary_expand_op(coder::array<double, 1U> &in1,
@@ -37,8 +29,6 @@ static void binary_expand_op(coder::array<double, 1U> &in1,
 
 static void inverseKinematicsOAModified_init(
     OptimizationBasedIKWithOAModified *aInstancePtr);
-
-static void rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -117,20 +107,6 @@ static void inverseKinematicsOAModified_init(
 }
 
 //
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::stringstream outStream;
-  outStream << "Dimensions of arrays being concatenated are not consistent.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  throw std::runtime_error(outStream.str());
-}
-
-//
 // Arguments    : void
 // Return Type  : void
 //
@@ -199,161 +175,9 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     const struct0_T *configInput,
     coder::array<double, 1U> &optimal_joint_velocity, double *Exit_Flag)
 {
-  static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      68,                            // lineNo
-      51,                            // colNo
-      "min_dist",                    // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      68,                            // lineNo
-      20,                            // colNo
-      "bp",                          // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      214,                           // lineNo
-      44,                            // colNo
-      "q_vel_opt",                   // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      214,                           // lineNo
-      46,                            // colNo
-      "q_vel_opt",                   // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      66,                            // lineNo
-      25,                            // colNo
-      "min_dist",                    // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo x_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      67,                            // lineNo
-      20,                            // colNo
-      "In",                          // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      67,                            // lineNo
-      22,                            // colNo
-      "In",                          // aName
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m", // pName
-      0                                    // checkKind
-  };
-  static rtEqualityCheckInfo b_emlrtECI{
-      1,                             // nDims
-      64,                            // lineNo
-      28,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtEqualityCheckInfo c_emlrtECI{
-      1,                             // nDims
-      135,                           // lineNo
-      39,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtEqualityCheckInfo d_emlrtECI{
-      1,                             // nDims
-      136,                           // lineNo
-      39,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtEqualityCheckInfo e_emlrtECI{
-      1,                             // nDims
-      150,                           // lineNo
-      46,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtEqualityCheckInfo emlrtECI{
-      1,                             // nDims
-      63,                            // lineNo
-      28,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtEqualityCheckInfo f_emlrtECI{
-      1,                             // nDims
-      151,                           // lineNo
-      46,                            // colNo
-      "inverseKinematicsOAModified", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/inverseKinematicsOAModified.m" // pName
-  };
-  static rtRunTimeErrorInfo e_emlrtRTEI{
-      288,                  // lineNo
-      "check_non_axis_size" // fName
-  };
+  static const signed char iv[36]{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+                                  0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+                                  0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1};
   coder::anonymous_function b_this;
   coder::array<double, 2U> A;
   coder::array<double, 2U> Aeq;
@@ -370,9 +194,9 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
   double b_varargin_2;
   double infuence_dist;
   double stop_dist;
-  int input_sizes[2];
+  int beq_size[2];
   int i;
-  int k;
+  int input_sizes_idx_1;
   int loop_ub;
   int loop_ub_tmp;
   int nx;
@@ -397,7 +221,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     for (i = 0; i < loop_ub; i++) {
       pd_.starting_joint_vel[i] = 0.0;
     }
-    pd_.starting_joint_vel_not_empty = (pd_.starting_joint_vel.size(0) != 0);
     //  Default
   }
   // 'inverseKinematicsOAModified:29' if is_first_step
@@ -456,16 +279,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     // 'inverseKinematicsOAModified:63' min_dist = min(abs(jointminvalues -
     // joint_values), ... 'inverseKinematicsOAModified:64' abs(jointmaxvalues -
     // joint_values));
-    if ((jointminvalues.size(0) != joint_values.size(0)) &&
-        ((jointminvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(jointminvalues.size(0), joint_values.size(0),
-                                  emlrtECI);
-    }
-    if ((jointmaxvalues.size(0) != joint_values.size(0)) &&
-        ((jointmaxvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(jointmaxvalues.size(0), joint_values.size(0),
-                                  b_emlrtECI);
-    }
     if (jointminvalues.size(0) == joint_values.size(0)) {
       min_dist.set_size(jointminvalues.size(0));
       loop_ub = jointminvalues.size(0);
@@ -477,10 +290,7 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     }
     nx = min_dist.size(0);
     varargin_1.set_size(min_dist.size(0));
-    if (min_dist.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    for (k = 0; k < nx; k++) {
+    for (int k{0}; k < nx; k++) {
       varargin_1[k] = std::abs(min_dist[k]);
     }
     if (jointmaxvalues.size(0) == joint_values.size(0)) {
@@ -494,10 +304,7 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     }
     nx = min_dist.size(0);
     varargin_2.set_size(min_dist.size(0));
-    if (min_dist.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    for (k = 0; k < nx; k++) {
+    for (int k{0}; k < nx; k++) {
       varargin_2[k] = std::abs(min_dist[k]);
     }
     if (varargin_1.size(0) == varargin_2.size(0)) {
@@ -513,31 +320,15 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     }
     // 'inverseKinematicsOAModified:65' for i = 1:n_joints
     i = joint_values.size(0);
-    for (nx = 0; nx < i; nx++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       // 'inverseKinematicsOAModified:66' if min_dist(i) < infuence_dist
-      if (nx + 1 > min_dist.size(0)) {
-        rtDynamicBoundsError(nx + 1, 1, min_dist.size(0), w_emlrtBCI);
-      }
-      b_varargin_1 = min_dist[nx];
-      if (b_varargin_1 < infuence_dist) {
+      if (min_dist[b_i] < infuence_dist) {
         // 'inverseKinematicsOAModified:67' In(i,i)  = 1;
-        if (nx + 1 > In.size(0)) {
-          rtDynamicBoundsError(nx + 1, 1, In.size(0), x_emlrtBCI);
-        }
-        if (nx + 1 > In.size(1)) {
-          rtDynamicBoundsError(nx + 1, 1, In.size(1), y_emlrtBCI);
-        }
-        In[nx + In.size(0) * nx] = 1;
+        In[b_i + In.size(0) * b_i] = 1;
         // 'inverseKinematicsOAModified:68' bp(i)    = joint_gain * (min_dist(i)
         // - stop_dist)/(infuence_dist - stop_dist);
-        if (nx + 1 > min_dist.size(0)) {
-          rtDynamicBoundsError(nx + 1, 1, min_dist.size(0), ab_emlrtBCI);
-        }
-        if (nx + 1 > bp.size(0)) {
-          rtDynamicBoundsError(nx + 1, 1, bp.size(0), bb_emlrtBCI);
-        }
-        bp[nx] = configInput->jointLimitGain * (b_varargin_1 - stop_dist) /
-                 (infuence_dist - stop_dist);
+        bp[b_i] = configInput->jointLimitGain * (min_dist[b_i] - stop_dist) /
+                  (infuence_dist - stop_dist);
       }
     }
   }
@@ -548,8 +339,8 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
   // 'inverseKinematicsOAModified:77' Aeq = [];
   Aeq.set_size(0, 0);
   // 'inverseKinematicsOAModified:78' beq = [];
-  input_sizes[0] = 0;
-  input_sizes[1] = 0;
+  beq_size[0] = 0;
+  beq_size[1] = 0;
   // 'inverseKinematicsOAModified:79' A   = [];
   A.set_size(0, 0);
   // 'inverseKinematicsOAModified:80' b   = [];
@@ -562,10 +353,22 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
   // 'inverseKinematicsOAModified:88' if config.applyEqualityConstraints
   if (configInput->applyEqualityConstraints) {
     // 'inverseKinematicsOAModified:89' Aeq = JacobiWeightMatrix * jacobi;
-    coder::internal::blas::mtimes(jacobi, Aeq);
+    nx = jacobi.size(1);
+    Aeq.set_size(6, jacobi.size(1));
+    for (loop_ub = 0; loop_ub < nx; loop_ub++) {
+      input_sizes_idx_1 = loop_ub * 6;
+      for (int b_i{0}; b_i < 6; b_i++) {
+        infuence_dist = 0.0;
+        for (int k{0}; k < 6; k++) {
+          infuence_dist += static_cast<double>(iv[k * 6 + b_i]) *
+                           jacobi[input_sizes_idx_1 + k];
+        }
+        Aeq[input_sizes_idx_1 + b_i] = infuence_dist;
+      }
+    }
     // 'inverseKinematicsOAModified:90' beq = xd_eff_vel;
-    input_sizes[0] = 6;
-    input_sizes[1] = 1;
+    beq_size[0] = 6;
+    beq_size[1] = 1;
     for (i = 0; i < 6; i++) {
       beq_data[i] = xd_eff_vel[i];
     }
@@ -579,24 +382,20 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
       if (configInput->applyVelocityDamper) {
         //  Combine both standard inequalities and velocity damper
         // 'inverseKinematicsOAModified:98' A = [J_g; In];
-        if ((In.size(1) != J_g.size(1)) &&
-            ((In.size(0) != 0) && (In.size(1) != 0))) {
-          rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
-        }
-        nx = J_g.size(0);
+        loop_ub_tmp = J_g.size(0);
         if ((In.size(0) != 0) && (In.size(1) != 0)) {
-          loop_ub_tmp = In.size(0);
+          nx = In.size(0);
         } else {
-          loop_ub_tmp = 0;
+          nx = 0;
         }
-        A.set_size(J_g.size(0) + loop_ub_tmp, J_g.size(1));
+        A.set_size(J_g.size(0) + nx, J_g.size(1));
         loop_ub = J_g.size(1);
         for (i = 0; i < loop_ub; i++) {
-          for (int i1{0}; i1 < nx; i1++) {
-            A[i1 + A.size(0) * i] = J_g[i1 + nx * i];
+          for (int k{0}; k < loop_ub_tmp; k++) {
+            A[k + A.size(0) * i] = J_g[k + loop_ub_tmp * i];
           }
-          for (int i1{0}; i1 < loop_ub_tmp; i1++) {
-            A[(i1 + nx) + A.size(0) * i] = In[i1 + loop_ub_tmp * i];
+          for (int k{0}; k < nx; k++) {
+            A[(k + loop_ub_tmp) + A.size(0) * i] = In[k + nx * i];
           }
         }
         // 'inverseKinematicsOAModified:99' b = [b_g; bp];
@@ -694,11 +493,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
       //  Normal bounds: scale the move by config.gamma
       // 'inverseKinematicsOAModified:135' lb = max(config.gamma .*
       // (jointminvalues - joint_values), joint_min_vel);
-      if ((jointminvalues.size(0) != joint_values.size(0)) &&
-          ((jointminvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(jointminvalues.size(0),
-                                    joint_values.size(0), c_emlrtECI);
-      }
       if (jointminvalues.size(0) == joint_values.size(0)) {
         varargin_1.set_size(jointminvalues.size(0));
         loop_ub = jointminvalues.size(0);
@@ -727,11 +521,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
       }
       // 'inverseKinematicsOAModified:136' ub = min(config.gamma .*
       // (jointmaxvalues - joint_values), joint_max_vel);
-      if ((jointmaxvalues.size(0) != joint_values.size(0)) &&
-          ((jointmaxvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(jointmaxvalues.size(0),
-                                    joint_values.size(0), d_emlrtECI);
-      }
       if (jointmaxvalues.size(0) == joint_values.size(0)) {
         varargin_1.set_size(jointmaxvalues.size(0));
         loop_ub = jointmaxvalues.size(0);
@@ -802,11 +591,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     // 'inverseKinematicsOAModified:149' else
     // 'inverseKinematicsOAModified:150' lb_joints = max(config.gamma .*
     // (jointminvalues - joint_values), joint_min_vel);
-    if ((jointminvalues.size(0) != joint_values.size(0)) &&
-        ((jointminvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(jointminvalues.size(0), joint_values.size(0),
-                                  e_emlrtECI);
-    }
     if (jointminvalues.size(0) == joint_values.size(0)) {
       varargin_1.set_size(jointminvalues.size(0));
       loop_ub = jointminvalues.size(0);
@@ -830,11 +614,6 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
     }
     // 'inverseKinematicsOAModified:151' ub_joints = min(config.gamma .*
     // (jointmaxvalues - joint_values), joint_max_vel);
-    if ((jointmaxvalues.size(0) != joint_values.size(0)) &&
-        ((jointmaxvalues.size(0) != 1) && (joint_values.size(0) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(jointmaxvalues.size(0), joint_values.size(0),
-                                  f_emlrtECI);
-    }
     if (jointmaxvalues.size(0) == joint_values.size(0)) {
       varargin_1.set_size(jointmaxvalues.size(0));
       loop_ub = jointmaxvalues.size(0);
@@ -896,23 +675,35 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
       signed char b_I[36];
       // 'inverseKinematicsOAModified:165' Aeq = [JacobiWeightMatrix * jacobi,
       // eye(n_slack)];
-      coder::internal::blas::mtimes(jacobi, Aeq);
       for (i = 0; i < 36; i++) {
         b_I[i] = 0;
       }
-      for (k = 0; k < 6; k++) {
+      for (int k{0}; k < 6; k++) {
         b_I[k + 6 * k] = 1;
+      }
+      nx = jacobi.size(1);
+      Aeq.set_size(6, jacobi.size(1));
+      for (loop_ub = 0; loop_ub < nx; loop_ub++) {
+        input_sizes_idx_1 = loop_ub * 6;
+        for (int b_i{0}; b_i < 6; b_i++) {
+          infuence_dist = 0.0;
+          for (int k{0}; k < 6; k++) {
+            infuence_dist += static_cast<double>(iv[k * 6 + b_i]) *
+                             jacobi[input_sizes_idx_1 + k];
+          }
+          Aeq[input_sizes_idx_1 + b_i] = infuence_dist;
+        }
       }
       i = Aeq.size(1);
       Aeq.set_size(Aeq.size(0), Aeq.size(1) + 6);
       // 'inverseKinematicsOAModified:166' beq = xd_eff_vel;
-      input_sizes[0] = 6;
-      input_sizes[1] = 1;
-      for (int i1{0}; i1 < 6; i1++) {
+      beq_size[0] = 6;
+      beq_size[1] = 1;
+      for (int k{0}; k < 6; k++) {
         for (nx = 0; nx < 6; nx++) {
-          Aeq[nx + Aeq.size(0) * (i1 + i)] = b_I[nx + 6 * i1];
+          Aeq[nx + Aeq.size(0) * (k + i)] = b_I[nx + 6 * k];
         }
-        beq_data[i1] = xd_eff_vel[i1];
+        beq_data[k] = xd_eff_vel[k];
       }
     }
     //  Expand the inequality constraints
@@ -921,17 +712,17 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
       // 'inverseKinematicsOAModified:171' A = [A, zeros(size(A,1), n_slack)];
       nx = A.size(0);
       loop_ub_tmp = A.size(0);
-      k = A.size(1);
+      input_sizes_idx_1 = A.size(1);
       loop_ub = A.size(1);
       for (i = 0; i < loop_ub; i++) {
-        for (int i1{0}; i1 < nx; i1++) {
-          A[i1 + A.size(0) * i] = A[i1 + loop_ub_tmp * i];
+        for (int k{0}; k < nx; k++) {
+          A[k + A.size(0) * i] = A[k + loop_ub_tmp * i];
         }
       }
       A.set_size(A.size(0), A.size(1) + 6);
       for (i = 0; i < 6; i++) {
-        for (int i1{0}; i1 < nx; i1++) {
-          A[i1 + A.size(0) * (i + k)] = 0.0;
+        for (int k{0}; k < nx; k++) {
+          A[k + A.size(0) * (i + input_sizes_idx_1)] = 0.0;
         }
       }
     }
@@ -992,8 +783,8 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
   for (i = 0; i < loop_ub; i++) {
     b_this.workspace.jacobi[i] = jacobi[i];
   }
-  for (nx = 0; nx < 6; nx++) {
-    b_this.workspace.xd_eff_vel[nx] = xd_eff_vel[nx];
+  for (int b_i{0}; b_i < 6; b_i++) {
+    b_this.workspace.xd_eff_vel[b_i] = xd_eff_vel[b_i];
   }
   b_this.workspace.starting_joint_vel.set_size(pd_.starting_joint_vel.size(0));
   loop_ub = pd_.starting_joint_vel.size(0);
@@ -1014,8 +805,8 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
         jointVelocityWeightMatrix[i];
   }
   b_this.workspace.config = *configInput;
-  coder::fmincon(b_this, optimal_joint_velocity, A, b, Aeq, beq_data,
-                 input_sizes, lb, ub, Exit_Flag);
+  coder::fmincon(b_this, optimal_joint_velocity, A, b, Aeq, beq_data, beq_size,
+                 lb, ub, Exit_Flag);
   // ----------------------------------------------------------------------
   //  8. EXTRACT THE RESULT
   // ----------------------------------------------------------------------
@@ -1023,23 +814,7 @@ void OptimizationBasedIKWithOAModified::inverseKinematicsOAModified(
   if (slackIsUsed) {
     // 'inverseKinematicsOAModified:214' optimal_joint_velocity =
     // q_vel_opt(1:n_joints);
-    if (joint_values.size(0) < 1) {
-      i = 0;
-    } else {
-      if (optimal_joint_velocity.size(0) < 1) {
-        rtDynamicBoundsError(1, 1, optimal_joint_velocity.size(0), cb_emlrtBCI);
-      }
-      if (joint_values.size(0) > optimal_joint_velocity.size(0)) {
-        rtDynamicBoundsError(joint_values.size(0), 1,
-                             optimal_joint_velocity.size(0), db_emlrtBCI);
-      }
-      i = joint_values.size(0);
-    }
-    input_sizes[0] = 1;
-    input_sizes[1] = i;
-    coder::internal::indexShapeCheck(optimal_joint_velocity.size(0),
-                                     input_sizes);
-    optimal_joint_velocity.set_size(i);
+    optimal_joint_velocity.set_size(joint_values.size(0));
   } else {
     // 'inverseKinematicsOAModified:216' else
     // 'inverseKinematicsOAModified:217' optimal_joint_velocity = q_vel_opt;
@@ -1078,111 +853,6 @@ double inverseKinematicsOAModified_anonFcn1(
     const struct0_T &config, boolean_T slackIsUsed,
     const coder::array<double, 1U> &q_vel)
 {
-  static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      192,      // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      42,       // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      44,       // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo db_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      8,        // lineNo
-      42,       // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      8,        // lineNo
-      44,       // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      240,      // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo x_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      251,      // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      6,        // lineNo
-      181,      // colNo
-      "q_vel",  // aName
-      "objFun", // fName
-      "/home/shobhit/ShobhitRobotModelling/robotmodelling/"
-      "Matlab_implementation/functions_for_codegen/"
-      "obstacleAvoidanceOptmisationModif"
-      "ied/objFun.m", // pName
-      0               // checkKind
-  };
-  coder::array<double, 2U> y;
   coder::array<double, 1U> b_q_vel;
   double b[36];
   double varargout_1;
@@ -1199,114 +869,40 @@ double inverseKinematicsOAModified_anonFcn1(
   //  Add the cost for the slack variables
   // 'objFun:4' if slackIsUsed
   if (slackIsUsed) {
-    double b_y;
-    int iv[2];
-    int b_loop_ub;
+    double b_config;
     int i;
     int i1;
-    int i2;
     int loop_ub;
     // 'objFun:6' objVal = configurableObjective(q_vel(1:n_joints), jacobi,
     // xd_eff_vel, starting_joint_vel, joint_values,jointVelocityWeightMatrix,
     // config) + config.SlackObjectiveWeight * q_vel(n_joints+1:end)' *
     // diag(config.SlackPenaltyWeight) * q_vel(n_joints+1:end);
-    if (joint_values.size(0) < 1) {
-      loop_ub = 0;
-    } else {
-      if (q_vel.size(0) < 1) {
-        rtDynamicBoundsError(1, 1, q_vel.size(0), bb_emlrtBCI);
-      }
-      if (joint_values.size(0) > q_vel.size(0)) {
-        rtDynamicBoundsError(joint_values.size(0), 1, q_vel.size(0),
-                             cb_emlrtBCI);
-      }
-      loop_ub = joint_values.size(0);
-    }
-    iv[0] = 1;
-    iv[1] = loop_ub;
-    coder::internal::indexShapeCheck(q_vel.size(0), iv);
+    loop_ub = joint_values.size(0);
     if (static_cast<unsigned int>(joint_values.size(0)) + 1U >
         static_cast<unsigned int>(q_vel.size(0))) {
       i = 0;
       i1 = 0;
     } else {
-      if ((static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                            1U) < 1) ||
-          (static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                            1U) > q_vel.size(0))) {
-        rtDynamicBoundsError(
-            static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                             1U),
-            1, q_vel.size(0), y_emlrtBCI);
-      }
       i = joint_values.size(0);
-      if (q_vel.size(0) < 1) {
-        rtDynamicBoundsError(q_vel.size(0), 1, q_vel.size(0), ab_emlrtBCI);
-      }
-      i1 = q_vel.size(0);
-    }
-    iv[0] = 1;
-    b_loop_ub = i1 - i;
-    iv[1] = b_loop_ub;
-    coder::internal::indexShapeCheck(q_vel.size(0), iv);
-    if (static_cast<unsigned int>(joint_values.size(0)) + 1U >
-        static_cast<unsigned int>(q_vel.size(0))) {
-      i1 = 0;
-      i2 = 0;
-    } else {
-      if ((static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                            1U) < 1) ||
-          (static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                            1U) > q_vel.size(0))) {
-        rtDynamicBoundsError(
-            static_cast<int>(static_cast<unsigned int>(joint_values.size(0)) +
-                             1U),
-            1, q_vel.size(0), w_emlrtBCI);
-      }
       i1 = joint_values.size(0);
-      if (q_vel.size(0) < 1) {
-        rtDynamicBoundsError(q_vel.size(0), 1, q_vel.size(0), x_emlrtBCI);
-      }
-      i2 = q_vel.size(0);
-    }
-    iv[0] = 1;
-    i2 -= i1;
-    iv[1] = i2;
-    coder::internal::indexShapeCheck(q_vel.size(0), iv);
-    y.set_size(1, b_loop_ub);
-    for (int i3{0}; i3 < b_loop_ub; i3++) {
-      y[i3] = config.SlackObjectiveWeight * q_vel[i + i3];
     }
     std::memset(&b[0], 0, 36U * sizeof(double));
-    for (b_loop_ub = 0; b_loop_ub < 6; b_loop_ub++) {
-      b[b_loop_ub + 6 * b_loop_ub] = config.SlackPenaltyWeight[b_loop_ub];
+    for (int j{0}; j < 6; j++) {
+      b[j + 6 * j] = config.SlackPenaltyWeight[j];
     }
-    if (y.size(1) != 6) {
-      if (y.size(1) == 1) {
-        h_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
-      } else {
-        g_rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
-      }
+    b_q_vel.set_size(joint_values.size(0));
+    for (int j{0}; j < loop_ub; j++) {
+      b_q_vel[j] = q_vel[j];
     }
-    if (i2 != 6) {
-      if (i2 == 1) {
-        h_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
-      } else {
-        g_rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
-      }
-    }
-    b_q_vel.set_size(loop_ub);
-    for (i = 0; i < loop_ub; i++) {
-      b_q_vel[i] = q_vel[i];
-    }
-    b_y = 0.0;
-    for (i = 0; i < 6; i++) {
+    b_config = 0.0;
+    for (int j{0}; j < 6; j++) {
       double d;
       d = 0.0;
-      for (i2 = 0; i2 < 6; i2++) {
-        d += y[i2] * b[i2 + 6 * i];
+      for (loop_ub = 0; loop_ub < 6; loop_ub++) {
+        d += config.SlackObjectiveWeight * q_vel[i + loop_ub] *
+             b[loop_ub + 6 * j];
       }
-      b_y += d * q_vel[i1 + i];
+      b_config += d * q_vel[i1 + j];
     }
     varargout_1 =
         configurableObjective(
@@ -1318,30 +914,15 @@ double inverseKinematicsOAModified_anonFcn1(
             config.useObjectiveJointAcceleration,
             config.weightJointAcceleration, config.useObjectiveManipulability,
             config.weightManipulability) +
-        b_y;
+        b_config;
   } else {
-    int iv[2];
     int loop_ub;
     // 'objFun:7' else
     // 'objFun:8' objVal = configurableObjective(q_vel(1:n_joints), jacobi,
     // xd_eff_vel, starting_joint_vel, joint_values,jointVelocityWeightMatrix,
     // config);
-    if (joint_values.size(0) < 1) {
-      loop_ub = 0;
-    } else {
-      if (q_vel.size(0) < 1) {
-        rtDynamicBoundsError(1, 1, q_vel.size(0), db_emlrtBCI);
-      }
-      if (joint_values.size(0) > q_vel.size(0)) {
-        rtDynamicBoundsError(joint_values.size(0), 1, q_vel.size(0),
-                             eb_emlrtBCI);
-      }
-      loop_ub = joint_values.size(0);
-    }
-    iv[0] = 1;
-    iv[1] = loop_ub;
-    coder::internal::indexShapeCheck(q_vel.size(0), iv);
-    b_q_vel.set_size(loop_ub);
+    loop_ub = joint_values.size(0);
+    b_q_vel.set_size(joint_values.size(0));
     for (int i{0}; i < loop_ub; i++) {
       b_q_vel[i] = q_vel[i];
     }

@@ -5,19 +5,16 @@
 // File: removeDependentLinearEq.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "removeDependentLinearEq.h"
 #include "ComputeNumDependentEq_.h"
-#include "IndexOfDependentEq_.h"
 #include "countsort.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
+#include "xgeqp3.h"
 #include "coder_array.h"
 #include <cstring>
 
@@ -46,17 +43,6 @@ int removeDependentLinearEq(const array<double, 2U> &Aeq, double beq_data[],
                             j_struct_T &b_TrialState, d_struct_T &WorkingSet,
                             e_struct_T &b_QRManager, g_struct_T &QPObjective)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                        // iFirst
-      -1,                        // iLast
-      1,                         // lineNo
-      1,                         // colNo
-      "",                        // aName
-      "removeDependentLinearEq", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/"
-      "+internal/removeDependentLinearEq.p", // pName
-      0                                      // checkKind
-  };
   int mFixed;
   int mLinEq;
   int mTotalLinEq;
@@ -64,238 +50,175 @@ int removeDependentLinearEq(const array<double, 2U> &Aeq, double beq_data[],
   int nVar_tmp;
   nVar_tmp = WorkingSet.nVar;
   mFixed = WorkingSet.sizes[0];
-  mLinEq = beq_size;
+  mLinEq = beq_size - 1;
   mTotalLinEq = beq_size + WorkingSet.sizes[0];
   nDepInd = 0;
   if (beq_size > 0) {
-    int colOffsetEqRead;
-    int i;
-    int i1;
     int idx;
     int idxQR;
     int k;
-    if (WorkingSet.sizes[0] > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (colOffsetEqRead = 0; colOffsetEqRead < mFixed; colOffsetEqRead++) {
-      i = WorkingSet.indexFixed.size(0);
-      if ((colOffsetEqRead + 1 < 1) || (colOffsetEqRead + 1 > i)) {
-        rtDynamicBoundsError(colOffsetEqRead + 1, 1, i, w_emlrtBCI);
-      }
+    int mUB;
+    for (mUB = 0; mUB < mFixed; mUB++) {
       idx = 1;
-      idxQR = colOffsetEqRead + 1;
-      while (idx < WorkingSet.indexFixed[colOffsetEqRead]) {
-        i = b_QRManager.QR.size(0) * b_QRManager.QR.size(1);
-        if ((idxQR < 1) || (idxQR > i)) {
-          rtDynamicBoundsError(idxQR, 1, i, w_emlrtBCI);
-        }
-        b_QRManager.QR[idxQR - 1] = 0.0;
+      idxQR = mUB;
+      while (idx < WorkingSet.indexFixed[mUB]) {
+        b_QRManager.QR[idxQR] = 0.0;
         idx++;
         idxQR += b_QRManager.ldq;
       }
-      i = b_QRManager.QR.size(0) * b_QRManager.QR.size(1);
-      if ((idxQR < 1) || (idxQR > i)) {
-        rtDynamicBoundsError(idxQR, 1, i, w_emlrtBCI);
-      }
-      b_QRManager.QR[idxQR - 1] = 1.0;
+      b_QRManager.QR[idxQR] = 1.0;
       while (idx + 1 <= nVar_tmp) {
         idxQR += b_QRManager.ldq;
-        if ((idxQR < 1) || (idxQR > i)) {
-          rtDynamicBoundsError(idxQR, 1, i, w_emlrtBCI);
-        }
-        b_QRManager.QR[idxQR - 1] = 0.0;
+        b_QRManager.QR[idxQR] = 0.0;
         idx++;
       }
-      i = WorkingSet.indexFixed[colOffsetEqRead];
-      if ((i < 1) || (i > bnd.size(0))) {
-        rtDynamicBoundsError(i, 1, bnd.size(0), w_emlrtBCI);
-      }
-      i1 = WorkingSet.bwset.size(0);
-      if ((colOffsetEqRead + 1 < 1) || (colOffsetEqRead + 1 > i1)) {
-        rtDynamicBoundsError(colOffsetEqRead + 1, 1, i1, w_emlrtBCI);
-      }
-      WorkingSet.bwset[colOffsetEqRead] = bnd[i - 1];
+      WorkingSet.bwset[mUB] = bnd[WorkingSet.indexFixed[mUB] - 1];
     }
-    for (colOffsetEqRead = 0; colOffsetEqRead < mLinEq; colOffsetEqRead++) {
-      idxQR = (mFixed + colOffsetEqRead) + 1;
-      if (WorkingSet.nVar > 2147483646) {
-        check_forloop_overflow_error();
-      }
+    for (mUB = 0; mUB <= mLinEq; mUB++) {
+      idxQR = mFixed + mUB;
       for (k = 0; k < nVar_tmp; k++) {
-        b_QRManager.QR[(idxQR + k * b_QRManager.ldq) - 1] =
-            Aeq[colOffsetEqRead + k * mLinEq];
+        b_QRManager.QR[idxQR + k * b_QRManager.ldq] =
+            Aeq[mUB + k * (mLinEq + 1)];
       }
-      i = beq_size;
-      if (colOffsetEqRead + 1 > i) {
-        rtDynamicBoundsError(colOffsetEqRead + 1, 1, i, w_emlrtBCI);
-      }
-      i = WorkingSet.bwset.size(0);
-      if ((idxQR < 1) || (idxQR > i)) {
-        rtDynamicBoundsError(idxQR, 1, i, w_emlrtBCI);
-      }
-      WorkingSet.bwset[idxQR - 1] = beq_data[colOffsetEqRead];
+      WorkingSet.bwset[idxQR] = beq_data[mUB];
     }
     nDepInd = qpactiveset::initialize::ComputeNumDependentEq_(
         b_QRManager, WorkingSet.bwset, mTotalLinEq, WorkingSet.nVar);
     if (nDepInd > 0) {
-      int colOffsetEqWrite;
-      boolean_T overflow;
-      if (WorkingSet.sizes[0] > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (colOffsetEqRead = 0; colOffsetEqRead < mFixed; colOffsetEqRead++) {
-        i = WorkingSet.indexFixed.size(0);
-        if ((colOffsetEqRead + 1 < 1) || (colOffsetEqRead + 1 > i)) {
-          rtDynamicBoundsError(colOffsetEqRead + 1, 1, i, w_emlrtBCI);
-        }
+      int colOffsetEqRead;
+      int i;
+      for (mUB = 0; mUB < mFixed; mUB++) {
         idx = 1;
-        idxQR = b_QRManager.ldq * colOffsetEqRead;
-        while (idx < WorkingSet.indexFixed[colOffsetEqRead]) {
-          i = b_QRManager.QR.size(0) * b_QRManager.QR.size(1);
-          i1 = idx + idxQR;
-          if ((i1 < 1) || (i1 > i)) {
-            rtDynamicBoundsError(i1, 1, i, w_emlrtBCI);
-          }
-          b_QRManager.QR[i1 - 1] = 0.0;
+        idxQR = b_QRManager.ldq * mUB;
+        while (idx < WorkingSet.indexFixed[mUB]) {
+          b_QRManager.QR[(idx + idxQR) - 1] = 0.0;
           idx++;
         }
-        i = b_QRManager.QR.size(0) * b_QRManager.QR.size(1);
-        i1 = idx + idxQR;
-        if ((i1 < 1) || (i1 > i)) {
-          rtDynamicBoundsError(i1, 1, i, w_emlrtBCI);
-        }
-        b_QRManager.QR[i1 - 1] = 1.0;
-        for (idx++; idx <= nVar_tmp; idx++) {
-          i1 = idx + idxQR;
-          if ((i1 < 1) || (i1 > i)) {
-            rtDynamicBoundsError(i1, 1, i, w_emlrtBCI);
-          }
-          b_QRManager.QR[i1 - 1] = 0.0;
+        b_QRManager.QR[(idx + idxQR) - 1] = 1.0;
+        while (idx + 1 <= nVar_tmp) {
+          b_QRManager.QR[idx + idxQR] = 0.0;
+          idx++;
         }
       }
-      overflow = (nVar_tmp > 2147483646);
-      for (colOffsetEqRead = 0; colOffsetEqRead < mLinEq; colOffsetEqRead++) {
-        idxQR = WorkingSet.ldA * colOffsetEqRead;
-        colOffsetEqWrite = b_QRManager.ldq * (mFixed + colOffsetEqRead);
-        if (overflow) {
-          check_forloop_overflow_error();
-        }
+      for (mUB = 0; mUB <= mLinEq; mUB++) {
+        idxQR = WorkingSet.ldA * mUB;
+        colOffsetEqRead = b_QRManager.ldq * (mFixed + mUB);
         for (k = 0; k < nVar_tmp; k++) {
-          b_QRManager.QR[colOffsetEqWrite + k] = WorkingSet.Aeq[idxQR + k];
+          b_QRManager.QR[colOffsetEqRead + k] = WorkingSet.Aeq[idxQR + k];
         }
       }
-      qpactiveset::initialize::IndexOfDependentEq_(
-          idxArray, WorkingSet.sizes[0], nDepInd, b_QRManager, WorkingSet.nVar,
-          mTotalLinEq);
-      utils::countsort(idxArray, nDepInd, memspace.workspace_sort, mTotalLinEq);
-      i = idxArray.size(0);
-      for (idx = nDepInd; idx >= 1; idx--) {
-        if (idx > i) {
-          rtDynamicBoundsError(idx, 1, i, w_emlrtBCI);
+      idxQR = WorkingSet.sizes[0];
+      for (idx = 0; idx < idxQR; idx++) {
+        b_QRManager.jpvt[idx] = 1;
+      }
+      i = WorkingSet.sizes[0] + 1;
+      for (idx = i; idx <= mTotalLinEq; idx++) {
+        b_QRManager.jpvt[idx - 1] = 0;
+      }
+      if (WorkingSet.nVar * mTotalLinEq == 0) {
+        b_QRManager.mrows = WorkingSet.nVar;
+        b_QRManager.ncols = mTotalLinEq;
+        b_QRManager.minRowCol = 0;
+      } else {
+        b_QRManager.usedPivoting = true;
+        b_QRManager.mrows = WorkingSet.nVar;
+        b_QRManager.ncols = mTotalLinEq;
+        idxQR = WorkingSet.nVar;
+        if (idxQR > mTotalLinEq) {
+          idxQR = mTotalLinEq;
         }
-        i1 = idxArray[idx - 1];
-        idxQR = (mLinEq + idx) - nDepInd;
-        if (i1 < idxQR) {
-          colOffsetEqWrite = WorkingSet.ldA * (i1 - 1);
-          colOffsetEqRead = WorkingSet.ldA * (idxQR - 1);
-          if (nVar_tmp > 2147483646) {
-            check_forloop_overflow_error();
+        b_QRManager.minRowCol = idxQR;
+        ::coder::internal::lapack::xgeqp3(b_QRManager.QR, WorkingSet.nVar,
+                                          mTotalLinEq, b_QRManager.jpvt,
+                                          b_QRManager.tau);
+      }
+      for (idx = 0; idx < nDepInd; idx++) {
+        idxArray[idx] = b_QRManager.jpvt[(mTotalLinEq - nDepInd) + idx];
+      }
+      utils::countsort(idxArray, nDepInd, memspace.workspace_sort, 1,
+                       mTotalLinEq);
+      for (idx = nDepInd; idx >= 1; idx--) {
+        i = idxArray[idx - 1];
+        k = (mLinEq + idx) - nDepInd;
+        if (i < k + 1) {
+          idxQR = WorkingSet.ldA * (i - 1);
+          colOffsetEqRead = WorkingSet.ldA * k;
+          for (mUB = 0; mUB < nVar_tmp; mUB++) {
+            WorkingSet.Aeq[mUB + idxQR] = WorkingSet.Aeq[mUB + colOffsetEqRead];
           }
-          for (int row{0}; row < nVar_tmp; row++) {
-            int i2;
-            mTotalLinEq = WorkingSet.Aeq.size(0);
-            k = (row + colOffsetEqRead) + 1;
-            if ((k < 1) || (k > mTotalLinEq)) {
-              rtDynamicBoundsError(k, 1, mTotalLinEq, w_emlrtBCI);
-            }
-            mTotalLinEq = WorkingSet.Aeq.size(0);
-            i2 = (row + colOffsetEqWrite) + 1;
-            if ((i2 < 1) || (i2 > mTotalLinEq)) {
-              rtDynamicBoundsError(i2, 1, mTotalLinEq, w_emlrtBCI);
-            }
-            WorkingSet.Aeq[i2 - 1] = WorkingSet.Aeq[k - 1];
-          }
-          mTotalLinEq = beq_size;
-          if ((idxQR < 1) || (idxQR > mTotalLinEq)) {
-            rtDynamicBoundsError(idxQR, 1, mTotalLinEq, w_emlrtBCI);
-          }
-          if ((i1 < 1) || (i1 > mTotalLinEq)) {
-            rtDynamicBoundsError(i1, 1, mTotalLinEq, w_emlrtBCI);
-          }
-          beq_data[i1 - 1] = beq_data[idxQR - 1];
+          beq_data[i - 1] = beq_data[k];
         }
       }
       idxQR = WorkingSet.sizes[1] - nDepInd;
-      colOffsetEqWrite = WorkingSet.sizes[2];
-      colOffsetEqRead = WorkingSet.sizes[3];
-      mTotalLinEq = WorkingSet.sizes[4];
+      colOffsetEqRead = WorkingSet.sizes[2];
+      mTotalLinEq = WorkingSet.sizes[3];
+      mUB = WorkingSet.sizes[4];
       WorkingSet.sizes[1] = idxQR;
       WorkingSet.sizesPhaseOne[0] = mFixed;
       WorkingSet.sizesPhaseOne[1] = idxQR;
-      WorkingSet.sizesPhaseOne[2] = colOffsetEqWrite;
-      WorkingSet.sizesPhaseOne[3] = colOffsetEqRead + 1;
-      WorkingSet.sizesPhaseOne[4] = mTotalLinEq;
+      WorkingSet.sizesPhaseOne[2] = colOffsetEqRead;
+      WorkingSet.sizesPhaseOne[3] = mTotalLinEq + 1;
+      WorkingSet.sizesPhaseOne[4] = mUB;
       WorkingSet.sizesRegularized[0] = mFixed;
       WorkingSet.sizesRegularized[1] = idxQR;
-      WorkingSet.sizesRegularized[2] = colOffsetEqWrite;
-      i = (colOffsetEqRead + colOffsetEqWrite) + (idxQR << 1);
+      WorkingSet.sizesRegularized[2] = colOffsetEqRead;
+      i = (mTotalLinEq + colOffsetEqRead) + (idxQR << 1);
       WorkingSet.sizesRegularized[3] = i;
-      WorkingSet.sizesRegularized[4] = mTotalLinEq;
+      WorkingSet.sizesRegularized[4] = mUB;
       WorkingSet.sizesRegPhaseOne[0] = mFixed;
       WorkingSet.sizesRegPhaseOne[1] = idxQR;
-      WorkingSet.sizesRegPhaseOne[2] = colOffsetEqWrite;
+      WorkingSet.sizesRegPhaseOne[2] = colOffsetEqRead;
       WorkingSet.sizesRegPhaseOne[3] = i + 1;
-      WorkingSet.sizesRegPhaseOne[4] = mTotalLinEq;
+      WorkingSet.sizesRegPhaseOne[4] = mUB;
       WorkingSet.isActiveIdxRegPhaseOne[0] = 1;
       WorkingSet.isActiveIdxRegPhaseOne[1] = mFixed;
       WorkingSet.isActiveIdxRegPhaseOne[2] = idxQR;
-      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqWrite;
-      WorkingSet.isActiveIdxRegPhaseOne[4] = colOffsetEqRead;
-      WorkingSet.isActiveIdxRegPhaseOne[5] = mTotalLinEq;
+      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqRead;
+      WorkingSet.isActiveIdxRegPhaseOne[4] = mTotalLinEq;
+      WorkingSet.isActiveIdxRegPhaseOne[5] = mUB;
       for (k = 0; k < 5; k++) {
         WorkingSet.sizesNormal[k] = WorkingSet.sizes[k];
         WorkingSet.isActiveIdxRegPhaseOne[k + 1] +=
             WorkingSet.isActiveIdxRegPhaseOne[k];
       }
-      for (i1 = 0; i1 < 6; i1++) {
-        WorkingSet.isActiveIdx[i1] = WorkingSet.isActiveIdxRegPhaseOne[i1];
-        WorkingSet.isActiveIdxNormal[i1] =
-            WorkingSet.isActiveIdxRegPhaseOne[i1];
+      for (k = 0; k < 6; k++) {
+        WorkingSet.isActiveIdx[k] = WorkingSet.isActiveIdxRegPhaseOne[k];
+        WorkingSet.isActiveIdxNormal[k] = WorkingSet.isActiveIdxRegPhaseOne[k];
       }
       WorkingSet.isActiveIdxRegPhaseOne[0] = 1;
       WorkingSet.isActiveIdxRegPhaseOne[1] = mFixed;
       WorkingSet.isActiveIdxRegPhaseOne[2] = idxQR;
-      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqWrite;
-      WorkingSet.isActiveIdxRegPhaseOne[4] = colOffsetEqRead + 1;
-      WorkingSet.isActiveIdxRegPhaseOne[5] = mTotalLinEq;
+      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqRead;
+      WorkingSet.isActiveIdxRegPhaseOne[4] = mTotalLinEq + 1;
+      WorkingSet.isActiveIdxRegPhaseOne[5] = mUB;
       for (k = 0; k < 5; k++) {
         WorkingSet.isActiveIdxRegPhaseOne[k + 1] +=
             WorkingSet.isActiveIdxRegPhaseOne[k];
       }
-      for (i1 = 0; i1 < 6; i1++) {
-        WorkingSet.isActiveIdxPhaseOne[i1] =
-            WorkingSet.isActiveIdxRegPhaseOne[i1];
+      for (k = 0; k < 6; k++) {
+        WorkingSet.isActiveIdxPhaseOne[k] =
+            WorkingSet.isActiveIdxRegPhaseOne[k];
       }
       WorkingSet.isActiveIdxRegPhaseOne[0] = 1;
       WorkingSet.isActiveIdxRegPhaseOne[1] = mFixed;
       WorkingSet.isActiveIdxRegPhaseOne[2] = idxQR;
-      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqWrite;
+      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqRead;
       WorkingSet.isActiveIdxRegPhaseOne[4] = i;
-      WorkingSet.isActiveIdxRegPhaseOne[5] = mTotalLinEq;
+      WorkingSet.isActiveIdxRegPhaseOne[5] = mUB;
       for (k = 0; k < 5; k++) {
         WorkingSet.isActiveIdxRegPhaseOne[k + 1] +=
             WorkingSet.isActiveIdxRegPhaseOne[k];
       }
-      for (i1 = 0; i1 < 6; i1++) {
-        WorkingSet.isActiveIdxRegularized[i1] =
-            WorkingSet.isActiveIdxRegPhaseOne[i1];
+      for (k = 0; k < 6; k++) {
+        WorkingSet.isActiveIdxRegularized[k] =
+            WorkingSet.isActiveIdxRegPhaseOne[k];
       }
       WorkingSet.isActiveIdxRegPhaseOne[0] = 1;
       WorkingSet.isActiveIdxRegPhaseOne[1] = mFixed;
       WorkingSet.isActiveIdxRegPhaseOne[2] = idxQR;
-      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqWrite;
+      WorkingSet.isActiveIdxRegPhaseOne[3] = colOffsetEqRead;
       WorkingSet.isActiveIdxRegPhaseOne[4] = i + 1;
-      WorkingSet.isActiveIdxRegPhaseOne[5] = mTotalLinEq;
+      WorkingSet.isActiveIdxRegPhaseOne[5] = mUB;
       for (k = 0; k < 5; k++) {
         WorkingSet.isActiveIdxRegPhaseOne[k + 1] +=
             WorkingSet.isActiveIdxRegPhaseOne[k];

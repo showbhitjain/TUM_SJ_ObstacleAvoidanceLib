@@ -5,7 +5,7 @@
 // File: test_exit.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef TEST_EXIT_H
@@ -43,10 +43,9 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                  const array<double, 2U> &ub,
                  int runTimeOptions_MaxFunctionEvaluations);
 
-boolean_T test_exit(struct_T &b_MeritFunction,
-                    const array<double, 1U> &fscales_lineq_constraint,
-                    const d_struct_T &WorkingSet, j_struct_T &b_TrialState,
-                    const array<double, 2U> &lb, const array<double, 2U> &ub,
+boolean_T test_exit(struct_T &b_MeritFunction, const d_struct_T &WorkingSet,
+                    j_struct_T &b_TrialState, const array<double, 2U> &lb,
+                    const array<double, 2U> &ub,
                     int runTimeOptions_MaxFunctionEvaluations,
                     boolean_T &Flags_fevalOK, boolean_T &Flags_done,
                     boolean_T &Flags_stepAccepted,

@@ -5,12 +5,11 @@
 // File: xzlarfg.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xzlarfg.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "xnrm2.h"
 #include "coder_array.h"
@@ -65,54 +64,46 @@ double xzlarfg(int n, double &alpha1, array<double, 2U> &x, int ix0)
     double xnorm;
     xnorm = blas::xnrm2(n - 1, x, ix0);
     if (xnorm != 0.0) {
-      xnorm = rt_hypotd_snf(alpha1, xnorm);
+      double beta1;
+      beta1 = rt_hypotd_snf(alpha1, xnorm);
       if (alpha1 >= 0.0) {
-        xnorm = -xnorm;
+        beta1 = -beta1;
       }
-      if (std::abs(xnorm) < 1.0020841800044864E-292) {
-        int b_tmp;
+      if (std::abs(beta1) < 1.0020841800044864E-292) {
+        int i;
         int knt;
-        boolean_T overflow_tmp;
         knt = 0;
-        b_tmp = (ix0 + n) - 2;
-        overflow_tmp = ((ix0 <= b_tmp) && (b_tmp > 2147483646));
+        i = (ix0 + n) - 2;
         do {
           knt++;
-          if (overflow_tmp) {
-            check_forloop_overflow_error();
-          }
-          for (int k{ix0}; k <= b_tmp; k++) {
+          for (int k{ix0}; k <= i; k++) {
             x[k - 1] = 9.9792015476736E+291 * x[k - 1];
           }
-          xnorm *= 9.9792015476736E+291;
+          beta1 *= 9.9792015476736E+291;
           alpha1 *= 9.9792015476736E+291;
-        } while ((std::abs(xnorm) < 1.0020841800044864E-292) && (knt < 20));
-        xnorm = blas::xnrm2(n - 1, x, ix0);
-        xnorm = rt_hypotd_snf(alpha1, xnorm);
+        } while ((std::abs(beta1) < 1.0020841800044864E-292) && (knt < 20));
+        beta1 = rt_hypotd_snf(alpha1, blas::xnrm2(n - 1, x, ix0));
         if (alpha1 >= 0.0) {
-          xnorm = -xnorm;
+          beta1 = -beta1;
         }
-        tau = (xnorm - alpha1) / xnorm;
-        alpha1 = 1.0 / (alpha1 - xnorm);
-        for (int k{ix0}; k <= b_tmp; k++) {
-          x[k - 1] = alpha1 * x[k - 1];
+        tau = (beta1 - alpha1) / beta1;
+        xnorm = 1.0 / (alpha1 - beta1);
+        for (int k{ix0}; k <= i; k++) {
+          x[k - 1] = xnorm * x[k - 1];
         }
         for (int k{0}; k < knt; k++) {
-          xnorm *= 1.0020841800044864E-292;
+          beta1 *= 1.0020841800044864E-292;
         }
-        alpha1 = xnorm;
+        alpha1 = beta1;
       } else {
-        int knt;
-        tau = (xnorm - alpha1) / xnorm;
-        alpha1 = 1.0 / (alpha1 - xnorm);
-        knt = (ix0 + n) - 2;
-        if ((ix0 <= knt) && (knt > 2147483646)) {
-          check_forloop_overflow_error();
+        int i;
+        tau = (beta1 - alpha1) / beta1;
+        xnorm = 1.0 / (alpha1 - beta1);
+        i = (ix0 + n) - 2;
+        for (int k{ix0}; k <= i; k++) {
+          x[k - 1] = xnorm * x[k - 1];
         }
-        for (int k{ix0}; k <= knt; k++) {
-          x[k - 1] = alpha1 * x[k - 1];
-        }
-        alpha1 = xnorm;
+        alpha1 = beta1;
       }
     }
   }

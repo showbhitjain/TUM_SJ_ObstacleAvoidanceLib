@@ -5,42 +5,23 @@
 // File: test_exit.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "test_exit.h"
 #include "computeComplError.h"
-#include "computeDualFeasError.h"
 #include "computeGradLag.h"
 #include "computePrimalFeasError.h"
 #include "computeQ_.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
-#include "isDeltaXTooSmall.h"
 #include "rt_nonfinite.h"
 #include "sortLambdaQP.h"
-#include "xgemv.h"
 #include "xgeqp3.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <cmath>
 #include <cstring>
-
-// Variable Definitions
-static rtBoundsCheckInfo e_emlrtBCI{
-    -1,          // iFirst
-    -1,          // iLast
-    1,           // lineNo
-    1,           // colNo
-    "",          // aName
-    "test_exit", // fName
-    "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/"
-    "test_exit.p", // pName
-    0              // checkKind
-};
 
 // Function Definitions
 //
@@ -68,35 +49,27 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                  const array<double, 2U> &ub,
                  int runTimeOptions_MaxFunctionEvaluations)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      1,                  // lineNo
-      1,                  // colNo
-      "",                 // aName
-      "computeLambdaLSQ", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/"
-      "+stopping/computeLambdaLSQ.p", // pName
-      0                               // checkKind
-  };
+  array<double, 2U> *b_gradLag;
+  array<double, 1U> *gradLag;
   double optimRelativeFactor;
   double s;
   double smax;
-  int fullRank_R;
+  int idx;
   int idx_max;
-  int k;
   int mLambda;
   int mLambda_tmp;
+  int nVar_tmp;
+  int rankR;
+  boolean_T dxTooSmall;
+  boolean_T exitg1;
   boolean_T isFeasible;
-  fullRank_R = WorkingSet.nVar;
+  nVar_tmp = WorkingSet.nVar;
   mLambda_tmp = WorkingSet.sizes[0] + WorkingSet.sizes[1];
-  mLambda = ((mLambda_tmp + WorkingSet.sizes[2]) + WorkingSet.sizes[3]) +
-            WorkingSet.sizes[4];
-  if (mLambda > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (k = 0; k < mLambda; k++) {
-    b_TrialState.lambdaStopTest[k] = b_TrialState.lambdasqp[k];
+  mLambda = (((mLambda_tmp + WorkingSet.sizes[2]) + WorkingSet.sizes[3]) +
+             WorkingSet.sizes[4]) -
+            1;
+  for (rankR = 0; rankR <= mLambda; rankR++) {
+    b_TrialState.lambdaStopTest[rankR] = b_TrialState.lambdasqp[rankR];
   }
   stopping::computeGradLag(
       b_TrialState.gradLag, WorkingSet.ldA, WorkingSet.nVar, b_TrialState.grad,
@@ -104,27 +77,20 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
       WorkingSet.Aeq, WorkingSet.indexFixed, WorkingSet.sizes[0],
       WorkingSet.indexLB, WorkingSet.sizes[3], WorkingSet.indexUB,
       WorkingSet.sizes[4], b_TrialState.lambdaStopTest);
-  if (fullRank_R < 1) {
+  if (WorkingSet.nVar < 1) {
     idx_max = 0;
   } else {
     idx_max = 1;
-    if (fullRank_R > 1) {
+    if (WorkingSet.nVar > 1) {
       smax = std::abs(b_TrialState.grad[0]);
-      if (fullRank_R > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (k = 2; k <= fullRank_R; k++) {
-        s = std::abs(b_TrialState.grad[k - 1]);
+      for (rankR = 2; rankR <= nVar_tmp; rankR++) {
+        s = std::abs(b_TrialState.grad[rankR - 1]);
         if (s > smax) {
-          idx_max = k;
+          idx_max = rankR;
           smax = s;
         }
       }
     }
-  }
-  k = b_TrialState.grad.size(0);
-  if ((idx_max < 1) || (idx_max > k)) {
-    rtDynamicBoundsError(idx_max, 1, k, e_emlrtBCI);
   }
   optimRelativeFactor =
       std::fmax(1.0, std::abs(b_TrialState.grad[idx_max - 1]));
@@ -133,17 +99,31 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
   }
   b_MeritFunction.nlpPrimalFeasError = stopping::computePrimalFeasError(
       b_TrialState.xstarsqp, WorkingSet.sizes[2], b_TrialState.cIneq,
-      WorkingSet.sizes[1], b_TrialState.cEq.data, b_TrialState.cEq.size[0],
-      WorkingSet.indexLB, WorkingSet.sizes[3], lb, WorkingSet.indexUB,
-      WorkingSet.sizes[4], ub);
+      WorkingSet.sizes[1], b_TrialState.cEq.data, WorkingSet.indexLB,
+      WorkingSet.sizes[3], lb, WorkingSet.indexUB, WorkingSet.sizes[4], ub);
   if (b_TrialState.sqpIterations == 0) {
     b_MeritFunction.feasRelativeFactor =
         std::fmax(1.0, b_MeritFunction.nlpPrimalFeasError);
   }
   isFeasible = (b_MeritFunction.nlpPrimalFeasError <=
                 1.0E-6 * b_MeritFunction.feasRelativeFactor);
-  Flags.gradOK = stopping::computeDualFeasError(
-      WorkingSet.nVar, b_TrialState.gradLag, b_MeritFunction.nlpDualFeasError);
+  gradLag = &b_TrialState.gradLag;
+  dxTooSmall = true;
+  smax = 0.0;
+  idx = 0;
+  exitg1 = false;
+  while ((!exitg1) && (idx <= nVar_tmp - 1)) {
+    dxTooSmall =
+        ((!std::isinf((*gradLag)[idx])) && (!std::isnan((*gradLag)[idx])));
+    if (!dxTooSmall) {
+      exitg1 = true;
+    } else {
+      smax = std::fmax(smax, std::abs((*gradLag)[idx]));
+      idx++;
+    }
+  }
+  Flags.gradOK = dxTooSmall;
+  b_MeritFunction.nlpDualFeasError = smax;
   if (!Flags.gradOK) {
     Flags.done = true;
     if (isFeasible) {
@@ -156,8 +136,7 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
         fscales_lineq_constraint, b_TrialState.xstarsqp, WorkingSet.sizes[2],
         b_TrialState.cIneq, WorkingSet.indexLB, WorkingSet.sizes[3], lb,
         WorkingSet.indexUB, WorkingSet.sizes[4], ub,
-        b_TrialState.lambdaStopTest,
-        (WorkingSet.sizes[0] + WorkingSet.sizes[1]) + 1);
+        b_TrialState.lambdaStopTest, mLambda_tmp + 1);
     smax = std::fmax(b_MeritFunction.nlpDualFeasError,
                      b_MeritFunction.nlpComplError);
     b_MeritFunction.firstOrderOpt = smax;
@@ -171,30 +150,44 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
           WorkingSet.sizes[0], WorkingSet.indexLB, WorkingSet.sizes[3],
           WorkingSet.indexUB, WorkingSet.sizes[4],
           b_TrialState.lambdaStopTestPrev);
-      stopping::computeDualFeasError(WorkingSet.nVar, memspace.workspace_double,
-                                     s);
+      b_gradLag = &memspace.workspace_double;
+      s = 0.0;
+      idx = 0;
+      exitg1 = false;
+      while ((!exitg1) && (idx <= nVar_tmp - 1)) {
+        dxTooSmall = ((!std::isinf((*b_gradLag)[idx])) &&
+                      (!std::isnan((*b_gradLag)[idx])));
+        if (!dxTooSmall) {
+          exitg1 = true;
+        } else {
+          s = std::fmax(s, std::abs((*b_gradLag)[idx]));
+          idx++;
+        }
+      }
       nlpComplErrorTmp = stopping::computeComplError(
           fscales_lineq_constraint, b_TrialState.xstarsqp, WorkingSet.sizes[2],
           b_TrialState.cIneq, WorkingSet.indexLB, WorkingSet.sizes[3], lb,
           WorkingSet.indexUB, WorkingSet.sizes[4], ub,
-          b_TrialState.lambdaStopTestPrev,
-          (WorkingSet.sizes[0] + WorkingSet.sizes[1]) + 1);
+          b_TrialState.lambdaStopTestPrev, mLambda_tmp + 1);
       d = std::fmax(s, nlpComplErrorTmp);
       if (d < smax) {
         b_MeritFunction.nlpDualFeasError = s;
         b_MeritFunction.nlpComplError = nlpComplErrorTmp;
         b_MeritFunction.firstOrderOpt = d;
-        for (k = 0; k < mLambda; k++) {
-          b_TrialState.lambdaStopTest[k] = b_TrialState.lambdaStopTestPrev[k];
+        for (rankR = 0; rankR <= mLambda; rankR++) {
+          b_TrialState.lambdaStopTest[rankR] =
+              b_TrialState.lambdaStopTestPrev[rankR];
         }
       } else {
-        for (k = 0; k < mLambda; k++) {
-          b_TrialState.lambdaStopTestPrev[k] = b_TrialState.lambdaStopTest[k];
+        for (rankR = 0; rankR <= mLambda; rankR++) {
+          b_TrialState.lambdaStopTestPrev[rankR] =
+              b_TrialState.lambdaStopTest[rankR];
         }
       }
     } else {
-      for (k = 0; k < mLambda; k++) {
-        b_TrialState.lambdaStopTestPrev[k] = b_TrialState.lambdaStopTest[k];
+      for (rankR = 0; rankR <= mLambda; rankR++) {
+        b_TrialState.lambdaStopTestPrev[rankR] =
+            b_TrialState.lambdaStopTest[rankR];
       }
     }
     if (isFeasible &&
@@ -211,9 +204,18 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
         boolean_T guard1;
         guard1 = false;
         if (b_TrialState.sqpIterations > 0) {
-          boolean_T dxTooSmall;
-          dxTooSmall = stopping::isDeltaXTooSmall(
-              b_TrialState.xstarsqp, b_TrialState.delta_x, WorkingSet.nVar);
+          dxTooSmall = true;
+          idx = 0;
+          exitg1 = false;
+          while ((!exitg1) && (idx <= nVar_tmp - 1)) {
+            if (1.0E-6 * std::fmax(1.0, std::abs(b_TrialState.xstarsqp[idx])) <=
+                std::abs(b_TrialState.delta_x[idx])) {
+              dxTooSmall = false;
+              exitg1 = true;
+            } else {
+              idx++;
+            }
+          }
           if (dxTooSmall) {
             if (!isFeasible) {
               if (Flags.stepType != 2) {
@@ -229,31 +231,25 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
               int nActiveConstr;
               nActiveConstr = WorkingSet.nActiveConstr - 1;
               if (WorkingSet.nActiveConstr > 0) {
-                int iQR_diag;
-                boolean_T exitg1;
+                int fullRank_R;
+                int ix;
                 boolean_T guard2;
-                if (WorkingSet.nActiveConstr > 2147483646) {
-                  check_forloop_overflow_error();
+                for (rankR = 0; rankR <= nActiveConstr; rankR++) {
+                  b_TrialState.lambda[rankR] = 0.0;
                 }
-                for (k = 0; k <= nActiveConstr; k++) {
-                  b_TrialState.lambda[k] = 0.0;
-                }
-                k = WorkingSet.nVar * WorkingSet.nActiveConstr;
+                ix = WorkingSet.nVar * WorkingSet.nActiveConstr;
                 guard2 = false;
-                if (k > 0) {
-                  if (WorkingSet.nActiveConstr > 2147483646) {
-                    check_forloop_overflow_error();
-                  }
-                  for (int idx{0}; idx <= nActiveConstr; idx++) {
+                if (ix > 0) {
+                  for (idx = 0; idx <= nActiveConstr; idx++) {
                     idx_max = WorkingSet.ldA * idx;
-                    iQR_diag = b_QRManager.ldq * idx;
-                    for (k = 0; k < fullRank_R; k++) {
-                      b_QRManager.QR[iQR_diag + k] =
-                          WorkingSet.ATwset[idx_max + k];
+                    ix = b_QRManager.ldq * idx;
+                    for (rankR = 0; rankR < nVar_tmp; rankR++) {
+                      b_QRManager.QR[ix + rankR] =
+                          WorkingSet.ATwset[idx_max + rankR];
                     }
                   }
                   guard2 = true;
-                } else if (k == 0) {
+                } else if (ix == 0) {
                   b_QRManager.mrows = WorkingSet.nVar;
                   b_QRManager.ncols = WorkingSet.nActiveConstr;
                   b_QRManager.minRowCol = 0;
@@ -264,10 +260,10 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                   b_QRManager.usedPivoting = true;
                   b_QRManager.mrows = WorkingSet.nVar;
                   b_QRManager.ncols = WorkingSet.nActiveConstr;
-                  iQR_diag = WorkingSet.nVar;
+                  ix = WorkingSet.nVar;
                   idx_max = WorkingSet.nActiveConstr;
-                  if (iQR_diag <= idx_max) {
-                    idx_max = iQR_diag;
+                  if (ix <= idx_max) {
+                    idx_max = ix;
                   }
                   b_QRManager.minRowCol = idx_max;
                   ::coder::internal::lapack::xgeqp3(
@@ -275,93 +271,75 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                       b_QRManager.jpvt, b_QRManager.tau);
                 }
                 QRManager::computeQ_(b_QRManager, b_QRManager.mrows);
-                ::coder::internal::blas::xgemv(WorkingSet.nVar, WorkingSet.nVar,
-                                               b_QRManager.Q, b_QRManager.ldq,
-                                               b_TrialState.grad,
-                                               memspace.workspace_double);
-                iQR_diag = WorkingSet.nVar;
+                ix = WorkingSet.nVar;
                 idx_max = WorkingSet.nActiveConstr;
-                if (iQR_diag >= idx_max) {
-                  idx_max = iQR_diag;
+                if (ix >= idx_max) {
+                  idx_max = ix;
                 }
                 smax = std::abs(b_QRManager.QR[0]) *
                        std::fmin(1.4901161193847656E-8,
                                  static_cast<double>(idx_max) *
                                      2.2204460492503131E-16);
-                iQR_diag = WorkingSet.nVar;
+                ix = WorkingSet.nVar;
                 fullRank_R = WorkingSet.nActiveConstr;
-                if (iQR_diag <= fullRank_R) {
-                  fullRank_R = iQR_diag;
+                if (ix <= fullRank_R) {
+                  fullRank_R = ix;
                 }
-                nActiveConstr = 0;
-                iQR_diag = 1;
-                exitg1 = false;
-                while ((!exitg1) && (nActiveConstr < fullRank_R)) {
-                  k = b_QRManager.QR.size(0) * b_QRManager.QR.size(1);
-                  if ((iQR_diag < 1) || (iQR_diag > k)) {
-                    rtDynamicBoundsError(iQR_diag, 1, k, w_emlrtBCI);
+                rankR = 0;
+                idx_max = 0;
+                while ((rankR < fullRank_R) &&
+                       (std::abs(b_QRManager.QR[idx_max]) > smax)) {
+                  rankR++;
+                  idx_max = (idx_max + b_QRManager.ldq) + 1;
+                }
+                idx_max = b_QRManager.ldq;
+                b_gradLag = &memspace.workspace_double;
+                if (nVar_tmp != 0) {
+                  for (idx = 0; idx < nVar_tmp; idx++) {
+                    (*b_gradLag)[idx] = 0.0;
                   }
-                  if (std::abs(b_QRManager.QR[iQR_diag - 1]) > smax) {
-                    nActiveConstr++;
-                    iQR_diag = (iQR_diag + b_QRManager.ldq) + 1;
-                  } else {
-                    exitg1 = true;
+                  idx = 0;
+                  ix = idx_max * (nVar_tmp - 1) + 1;
+                  for (int iac{1}; idx_max < 0 ? iac >= ix : iac <= ix;
+                       iac += idx_max) {
+                    smax = 0.0;
+                    nActiveConstr = (iac + nVar_tmp) - 1;
+                    for (int ia{iac}; ia <= nActiveConstr; ia++) {
+                      smax +=
+                          b_QRManager.Q[ia - 1] * b_TrialState.grad[ia - iac];
+                    }
+                    (*b_gradLag)[idx] = (*b_gradLag)[idx] + smax;
+                    idx++;
                   }
                 }
-                if (nActiveConstr != 0) {
-                  for (k = nActiveConstr; k >= 1; k--) {
-                    idx_max = (k + (k - 1) * b_QRManager.ldq) - 1;
-                    memspace.workspace_double[k - 1] =
-                        memspace.workspace_double[k - 1] /
+                if (rankR != 0) {
+                  for (nActiveConstr = rankR; nActiveConstr >= 1;
+                       nActiveConstr--) {
+                    idx_max = (nActiveConstr +
+                               (nActiveConstr - 1) * b_QRManager.ldq) -
+                              1;
+                    memspace.workspace_double[nActiveConstr - 1] =
+                        memspace.workspace_double[nActiveConstr - 1] /
                         b_QRManager.QR[idx_max];
-                    for (int idx{0}; idx <= k - 2; idx++) {
-                      iQR_diag = (k - idx) - 2;
-                      memspace.workspace_double[iQR_diag] =
-                          memspace.workspace_double[iQR_diag] -
-                          memspace.workspace_double[k - 1] *
+                    for (idx = 0; idx <= nActiveConstr - 2; idx++) {
+                      ix = (nActiveConstr - idx) - 2;
+                      memspace.workspace_double[ix] =
+                          memspace.workspace_double[ix] -
+                          memspace.workspace_double[nActiveConstr - 1] *
                               b_QRManager.QR[(idx_max - idx) - 1];
                     }
                   }
                 }
-                iQR_diag = WorkingSet.nActiveConstr;
-                if (iQR_diag <= fullRank_R) {
-                  fullRank_R = iQR_diag;
+                ix = WorkingSet.nActiveConstr;
+                if (ix <= fullRank_R) {
+                  fullRank_R = ix;
                 }
-                if (fullRank_R > 2147483646) {
-                  check_forloop_overflow_error();
-                }
-                for (int idx{0}; idx < fullRank_R; idx++) {
-                  k = b_QRManager.jpvt.size(0);
-                  if ((idx + 1 < 1) || (idx + 1 > k)) {
-                    rtDynamicBoundsError(idx + 1, 1, k, w_emlrtBCI);
-                  }
-                  k = memspace.workspace_double.size(0) *
-                      memspace.workspace_double.size(1);
-                  if ((idx + 1 < 1) || (idx + 1 > k)) {
-                    rtDynamicBoundsError(idx + 1, 1, k, w_emlrtBCI);
-                  }
-                  k = b_TrialState.lambda.size(0);
-                  idx_max = b_QRManager.jpvt[idx];
-                  if ((idx_max < 1) || (idx_max > k)) {
-                    rtDynamicBoundsError(idx_max, 1, k, w_emlrtBCI);
-                  }
-                  b_TrialState.lambda[idx_max - 1] =
+                for (idx = 0; idx < fullRank_R; idx++) {
+                  b_TrialState.lambda[b_QRManager.jpvt[idx] - 1] =
                       memspace.workspace_double[idx];
                 }
-                idx_max = WorkingSet.sizes[0] + 1;
-                if ((WorkingSet.sizes[0] + 1 <= mLambda_tmp) &&
-                    (mLambda_tmp > 2147483646)) {
-                  check_forloop_overflow_error();
-                }
-                for (int idx{idx_max}; idx <= mLambda_tmp; idx++) {
-                  k = b_TrialState.lambda.size(0);
-                  if ((idx < 1) || (idx > k)) {
-                    rtDynamicBoundsError(idx, 1, k, e_emlrtBCI);
-                  }
-                  k = b_TrialState.lambda.size(0);
-                  if (idx > k) {
-                    rtDynamicBoundsError(idx, 1, k, e_emlrtBCI);
-                  }
+                ix = WorkingSet.sizes[0] + 1;
+                for (idx = ix; idx <= mLambda_tmp; idx++) {
                   b_TrialState.lambda[idx - 1] = -b_TrialState.lambda[idx - 1];
                 }
                 qpactiveset::parseoutput::sortLambdaQP(
@@ -375,8 +353,20 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                     WorkingSet.sizes[0], WorkingSet.indexLB,
                     WorkingSet.sizes[3], WorkingSet.indexUB,
                     WorkingSet.sizes[4], b_TrialState.lambda);
-                stopping::computeDualFeasError(WorkingSet.nVar,
-                                               memspace.workspace_double, smax);
+                b_gradLag = &memspace.workspace_double;
+                smax = 0.0;
+                idx = 0;
+                exitg1 = false;
+                while ((!exitg1) && (idx <= nVar_tmp - 1)) {
+                  dxTooSmall = ((!std::isinf((*b_gradLag)[idx])) &&
+                                (!std::isnan((*b_gradLag)[idx])));
+                  if (!dxTooSmall) {
+                    exitg1 = true;
+                  } else {
+                    smax = std::fmax(smax, std::abs((*b_gradLag)[idx]));
+                    idx++;
+                  }
+                }
                 s = stopping::computeComplError(
                     fscales_lineq_constraint, b_TrialState.xstarsqp,
                     WorkingSet.sizes[2], b_TrialState.cIneq, WorkingSet.indexLB,
@@ -388,8 +378,9 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
                   b_MeritFunction.nlpDualFeasError = smax;
                   b_MeritFunction.nlpComplError = s;
                   b_MeritFunction.firstOrderOpt = std::fmax(smax, s);
-                  for (k = 0; k < mLambda; k++) {
-                    b_TrialState.lambdaStopTest[k] = b_TrialState.lambda[k];
+                  for (rankR = 0; rankR <= mLambda; rankR++) {
+                    b_TrialState.lambdaStopTest[rankR] =
+                        b_TrialState.lambda[rankR];
                   }
                   Flags.done = true;
                   b_TrialState.sqpExitFlag = 1;
@@ -425,7 +416,6 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
 
 //
 // Arguments    : struct_T &b_MeritFunction
-//                const array<double, 1U> &fscales_lineq_constraint
 //                const d_struct_T &WorkingSet
 //                j_struct_T &b_TrialState
 //                const array<double, 2U> &lb
@@ -438,34 +428,35 @@ void b_test_exit(b_struct_T &Flags, h_struct_T &memspace,
 //                int &Flags_stepType
 // Return Type  : boolean_T
 //
-boolean_T test_exit(struct_T &b_MeritFunction,
-                    const array<double, 1U> &fscales_lineq_constraint,
-                    const d_struct_T &WorkingSet, j_struct_T &b_TrialState,
-                    const array<double, 2U> &lb, const array<double, 2U> &ub,
+boolean_T test_exit(struct_T &b_MeritFunction, const d_struct_T &WorkingSet,
+                    j_struct_T &b_TrialState, const array<double, 2U> &lb,
+                    const array<double, 2U> &ub,
                     int runTimeOptions_MaxFunctionEvaluations,
                     boolean_T &Flags_fevalOK, boolean_T &Flags_done,
                     boolean_T &Flags_stepAccepted,
                     boolean_T &Flags_failedLineSearch, int &Flags_stepType)
 {
+  array<double, 1U> *gradLag;
+  double s;
   double smax;
   int idx_max;
   int mLambda;
-  int n;
+  int nVar_tmp;
   boolean_T Flags_gradOK;
+  boolean_T exitg1;
   boolean_T isFeasible;
   Flags_fevalOK = true;
   Flags_done = false;
   Flags_stepAccepted = false;
   Flags_failedLineSearch = false;
   Flags_stepType = 1;
+  nVar_tmp = WorkingSet.nVar;
   mLambda =
-      (((WorkingSet.sizes[0] + WorkingSet.sizes[1]) + WorkingSet.sizes[2]) +
-       WorkingSet.sizes[3]) +
-      WorkingSet.sizes[4];
-  if (mLambda > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (int k{0}; k < mLambda; k++) {
+      ((((WorkingSet.sizes[0] + WorkingSet.sizes[1]) + WorkingSet.sizes[2]) +
+        WorkingSet.sizes[3]) +
+       WorkingSet.sizes[4]) -
+      1;
+  for (int k{0}; k <= mLambda; k++) {
     b_TrialState.lambdaStopTest[k] = b_TrialState.lambdasqp[k];
   }
   stopping::computeGradLag(
@@ -474,18 +465,13 @@ boolean_T test_exit(struct_T &b_MeritFunction,
       WorkingSet.Aeq, WorkingSet.indexFixed, WorkingSet.sizes[0],
       WorkingSet.indexLB, WorkingSet.sizes[3], WorkingSet.indexUB,
       WorkingSet.sizes[4], b_TrialState.lambdaStopTest);
-  n = WorkingSet.nVar;
-  if (n < 1) {
+  if (WorkingSet.nVar < 1) {
     idx_max = 0;
   } else {
     idx_max = 1;
-    if (n > 1) {
+    if (WorkingSet.nVar > 1) {
       smax = std::abs(b_TrialState.grad[0]);
-      if (n > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int k{2}; k <= n; k++) {
-        double s;
+      for (int k{2}; k <= nVar_tmp; k++) {
         s = std::abs(b_TrialState.grad[k - 1]);
         if (s > smax) {
           idx_max = k;
@@ -494,25 +480,34 @@ boolean_T test_exit(struct_T &b_MeritFunction,
       }
     }
   }
-  n = b_TrialState.grad.size(0);
-  if ((idx_max < 1) || (idx_max > n)) {
-    rtDynamicBoundsError(idx_max, 1, n, e_emlrtBCI);
-  }
   smax = std::fmax(1.0, std::abs(b_TrialState.grad[idx_max - 1]));
   if (std::isinf(smax)) {
     smax = 1.0;
   }
   b_MeritFunction.nlpPrimalFeasError = stopping::computePrimalFeasError(
       b_TrialState.xstarsqp, WorkingSet.sizes[2], b_TrialState.cIneq,
-      WorkingSet.sizes[1], b_TrialState.cEq.data, b_TrialState.cEq.size[0],
-      WorkingSet.indexLB, WorkingSet.sizes[3], lb, WorkingSet.indexUB,
-      WorkingSet.sizes[4], ub);
+      WorkingSet.sizes[1], b_TrialState.cEq.data, WorkingSet.indexLB,
+      WorkingSet.sizes[3], lb, WorkingSet.indexUB, WorkingSet.sizes[4], ub);
   b_MeritFunction.feasRelativeFactor =
       std::fmax(1.0, b_MeritFunction.nlpPrimalFeasError);
   isFeasible = (b_MeritFunction.nlpPrimalFeasError <=
                 1.0E-6 * b_MeritFunction.feasRelativeFactor);
-  Flags_gradOK = stopping::computeDualFeasError(
-      WorkingSet.nVar, b_TrialState.gradLag, b_MeritFunction.nlpDualFeasError);
+  gradLag = &b_TrialState.gradLag;
+  Flags_gradOK = true;
+  s = 0.0;
+  idx_max = 0;
+  exitg1 = false;
+  while ((!exitg1) && (idx_max <= nVar_tmp - 1)) {
+    Flags_gradOK = ((!std::isinf((*gradLag)[idx_max])) &&
+                    (!std::isnan((*gradLag)[idx_max])));
+    if (!Flags_gradOK) {
+      exitg1 = true;
+    } else {
+      s = std::fmax(s, std::abs((*gradLag)[idx_max]));
+      idx_max++;
+    }
+  }
+  b_MeritFunction.nlpDualFeasError = s;
   if (!Flags_gradOK) {
     Flags_done = true;
     if (isFeasible) {
@@ -521,16 +516,10 @@ boolean_T test_exit(struct_T &b_MeritFunction,
       b_TrialState.sqpExitFlag = -2;
     }
   } else {
-    stopping::computeComplError(
-        fscales_lineq_constraint, b_TrialState.xstarsqp, WorkingSet.sizes[2],
-        b_TrialState.cIneq, WorkingSet.indexLB, WorkingSet.sizes[3], lb,
-        WorkingSet.indexUB, WorkingSet.sizes[4], ub,
-        b_TrialState.lambdaStopTest,
-        (WorkingSet.sizes[0] + WorkingSet.sizes[1]) + 1);
     b_MeritFunction.nlpComplError = 0.0;
     b_MeritFunction.firstOrderOpt =
         std::fmax(b_MeritFunction.nlpDualFeasError, 0.0);
-    for (int k{0}; k < mLambda; k++) {
+    for (int k{0}; k <= mLambda; k++) {
       b_TrialState.lambdaStopTestPrev[k] = b_TrialState.lambdaStopTest[k];
     }
     if (isFeasible && (b_MeritFunction.nlpDualFeasError <= 1.0E-6 * smax)) {

@@ -5,36 +5,16 @@
 // File: inverseKinematicsOAModified_data.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef INVERSEKINEMATICSOAMODIFIED_DATA_H
 #define INVERSEKINEMATICSOAMODIFIED_DATA_H
 
 // Include Files
-#include "inverseKinematicsOAModified_types.h"
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
-
-// Variable Declarations
-extern rtRunTimeErrorInfo emlrtRTEI;
-extern rtRunTimeErrorInfo b_emlrtRTEI;
-extern rtBoundsCheckInfo b_emlrtBCI;
-extern rtRunTimeErrorInfo c_emlrtRTEI;
-extern rtRunTimeErrorInfo d_emlrtRTEI;
-extern rtBoundsCheckInfo d_emlrtBCI;
-extern rtBoundsCheckInfo g_emlrtBCI;
-extern rtBoundsCheckInfo h_emlrtBCI;
-extern rtBoundsCheckInfo i_emlrtBCI;
-extern rtBoundsCheckInfo j_emlrtBCI;
-extern rtBoundsCheckInfo k_emlrtBCI;
-extern rtBoundsCheckInfo l_emlrtBCI;
-extern rtBoundsCheckInfo m_emlrtBCI;
-extern rtBoundsCheckInfo q_emlrtBCI;
-extern rtBoundsCheckInfo r_emlrtBCI;
-extern rtBoundsCheckInfo s_emlrtBCI;
-extern rtBoundsCheckInfo t_emlrtBCI;
 
 #endif
 //

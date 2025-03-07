@@ -5,12 +5,11 @@
 // File: xzgeqp3.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xzgeqp3.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "xzlarf.h"
 #include "xzlarfg.h"
@@ -41,9 +40,6 @@ void qrf(array<double, 2U> &A, int m, int n, int nfxd, array<double, 1U> &tau)
   ii = A.size(1);
   for (mmi = 0; mmi < ii; mmi++) {
     work[mmi] = 0.0;
-  }
-  if (nfxd > 2147483646) {
-    check_forloop_overflow_error();
   }
   for (int i{0}; i < nfxd; i++) {
     double d;

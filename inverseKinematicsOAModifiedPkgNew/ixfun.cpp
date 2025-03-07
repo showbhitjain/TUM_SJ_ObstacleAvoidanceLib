@@ -5,38 +5,17 @@
 // File: ixfun.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "ixfun.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
 #include <cstring>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-
-// Function Declarations
-static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::stringstream outStream;
-  outStream << "Arrays have incompatible sizes for this operation.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  throw std::runtime_error(outStream.str());
-}
-
 //
 // Arguments    : const array<double, 1U> &a
 //                const array<double, 1U> &b
@@ -48,25 +27,19 @@ namespace internal {
 void expand_max(const array<double, 1U> &a, const array<double, 1U> &b,
                 array<double, 1U> &c)
 {
-  static rtRunTimeErrorInfo e_emlrtRTEI{
-      225,         // lineNo
-      "expand_max" // fName
-  };
   int csz_idx_0;
-  int u0;
+  int u1;
+  csz_idx_0 = a.size(0);
+  u1 = b.size(0);
+  if (csz_idx_0 <= u1) {
+    u1 = csz_idx_0;
+  }
   if (b.size(0) == 1) {
     csz_idx_0 = a.size(0);
   } else if (a.size(0) == 1) {
     csz_idx_0 = b.size(0);
   } else {
-    u0 = a.size(0);
-    csz_idx_0 = b.size(0);
-    if (u0 <= csz_idx_0) {
-      csz_idx_0 = u0;
-    }
-    if (a.size(0) != b.size(0)) {
-      b_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
-    }
+    csz_idx_0 = u1;
   }
   c.set_size(csz_idx_0);
   if (csz_idx_0 != 0) {
@@ -74,9 +47,9 @@ void expand_max(const array<double, 1U> &a, const array<double, 1U> &b,
     boolean_T b_b;
     b_b = (a.size(0) != 1);
     b1 = (b.size(0) != 1);
-    u0 = csz_idx_0 - 1;
-    for (csz_idx_0 = 0; csz_idx_0 <= u0; csz_idx_0++) {
-      c[csz_idx_0] = std::fmax(a[b_b * csz_idx_0], b[b1 * csz_idx_0]);
+    csz_idx_0--;
+    for (u1 = 0; u1 <= csz_idx_0; u1++) {
+      c[u1] = std::fmax(a[b_b * u1], b[b1 * u1]);
     }
   }
 }
@@ -90,25 +63,19 @@ void expand_max(const array<double, 1U> &a, const array<double, 1U> &b,
 void expand_min(const array<double, 1U> &a, const array<double, 1U> &b,
                 array<double, 1U> &c)
 {
-  static rtRunTimeErrorInfo e_emlrtRTEI{
-      225,         // lineNo
-      "expand_min" // fName
-  };
   int csz_idx_0;
-  int u0;
+  int u1;
+  csz_idx_0 = a.size(0);
+  u1 = b.size(0);
+  if (csz_idx_0 <= u1) {
+    u1 = csz_idx_0;
+  }
   if (b.size(0) == 1) {
     csz_idx_0 = a.size(0);
   } else if (a.size(0) == 1) {
     csz_idx_0 = b.size(0);
   } else {
-    u0 = a.size(0);
-    csz_idx_0 = b.size(0);
-    if (u0 <= csz_idx_0) {
-      csz_idx_0 = u0;
-    }
-    if (a.size(0) != b.size(0)) {
-      b_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
-    }
+    csz_idx_0 = u1;
   }
   c.set_size(csz_idx_0);
   if (csz_idx_0 != 0) {
@@ -116,9 +83,9 @@ void expand_min(const array<double, 1U> &a, const array<double, 1U> &b,
     boolean_T b_b;
     b_b = (a.size(0) != 1);
     b1 = (b.size(0) != 1);
-    u0 = csz_idx_0 - 1;
-    for (csz_idx_0 = 0; csz_idx_0 <= u0; csz_idx_0++) {
-      c[csz_idx_0] = std::fmin(a[b_b * csz_idx_0], b[b1 * csz_idx_0]);
+    csz_idx_0--;
+    for (u1 = 0; u1 <= csz_idx_0; u1++) {
+      c[u1] = std::fmin(a[b_b * u1], b[b1 * u1]);
     }
   }
 }

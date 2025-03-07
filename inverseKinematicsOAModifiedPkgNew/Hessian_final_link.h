@@ -5,7 +5,7 @@
 // File: Hessian_final_link.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef HESSIAN_FINAL_LINK_H
@@ -13,13 +13,11 @@
 
 // Include Files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
-void Hessian_final_link(const coder::array<double, 2U> &in1,
-                        double Hessian[294]);
+void ft_1(const double ct[362], double Hessian[294]);
 
 #endif
 //

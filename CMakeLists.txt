@@ -47,7 +47,17 @@ set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
 set(PATHIK "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsPkg")
 set(PATHUTILSMATLAB "${CMAKE_CURRENT_SOURCE_DIR}/jointValuesUtilPkg")
 #set(PATHUTILSIKWITHOA "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsObstacleAvoidancePkg")
-set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/inverseKinematicsOAModifiedPkgNew")
+set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/include/inverseKinematicsOAModifiedPkgNewSourceCode")
+#set(PATHIKWITHOAMODIFIED "${CMAKE_CURRENT_SOURCE_DIR}/include/inverseKinematicsOAModifiedPkgNewSourceCodeOptimzedMax2Threads")
+
+set(IK_LIB_NAME "ikOptLib")
+file(GLOB SOURCES "${PATHIKWITHOAMODIFIED}/*.cpp")
+add_library(${IK_LIB_NAME} ${SOURCES})
+target_include_directories(${IK_LIB_NAME} PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${PATHIK}>
+)
 
 #include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
 
@@ -73,7 +83,13 @@ add_library(${LIB_NAME}
 
 set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
-        ${PATHIK}/inverseKinematics.a ${PATHUTILSMATLAB}/utilsMatlab.a Franka::Franka ${ConceptLibrary_LIBRARY} ${CCD_LIBRARIES} fcl ${PATHIKWITHOAMODIFIED}/inverseKinematicsOAModified.a)
+        ${PATHIK}/inverseKinematics.a
+        ${PATHUTILSMATLAB}/utilsMatlab.a
+        Franka::Franka
+        ${ConceptLibrary_LIBRARY}
+        ${CCD_LIBRARIES}
+        fcl
+)
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})
 target_include_directories(${LIB_NAME} PUBLIC
@@ -109,7 +125,9 @@ if (OpenMP_CXX_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-    target_link_libraries(${LIB_NAME} ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
+    target_link_libraries(${LIB_NAME} PRIVATE ${IK_LIB_NAME})
+    target_link_libraries(${LIB_NAME} PUBLIC ${LIBRARIES_SOURCES} OpenMP::OpenMP_CXX)
+
     target_link_libraries(testInverseKinematics ${LIB_NAME})
     target_link_libraries(ControllerExperiments ${LIB_NAME})
     target_link_libraries(RealTimeInverseKinematics ${LIB_NAME})
@@ -121,7 +139,6 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(OfflineObstacleAvoidanceDemoPartTwo ${LIB_NAME})
 endif ()
 
-set(ALL_INSTALL_TARGETS ${LIB_NAME} ${ALL_INSTALL_TARGETS})
+set(ALL_INSTALL_TARGETS ${LIB_NAME} ikOptLib ${ALL_INSTALL_TARGETS})
 
 include(cmake/installConfig.cmake)
-

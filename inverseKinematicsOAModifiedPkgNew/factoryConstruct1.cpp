@@ -5,16 +5,13 @@
 // File: factoryConstruct1.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "factoryConstruct1.h"
 #include "anonymous_function.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
@@ -38,17 +35,6 @@ void factoryConstruct(const anonymous_function &objfun, int nVar,
                       const array<double, 2U> &lb, const array<double, 2U> &ub,
                       l_struct_T &obj)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      1,                 // lineNo
-      1,                 // colNo
-      "",                // aName
-      "hasFiniteBounds", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/shared/optimlib/+optim/+coder/+utils/"
-      "hasFiniteBounds.p", // pName
-      0                    // checkKind
-  };
   int idx;
   boolean_T b;
   obj.objfun = objfun;
@@ -65,149 +51,53 @@ void factoryConstruct(const anonymous_function &objfun, int nVar,
   obj.hasUB.set_size(nVar);
   obj.FiniteDifferenceType = 0;
   b = false;
-  idx = 1;
+  idx = 0;
   switch (static_cast<unsigned int>(ub.size(0) == 0) << 1 |
           static_cast<unsigned int>(lb.size(0) == 0)) {
-  case 0U: {
-    double d;
-    while ((!b) && (idx <= nVar)) {
-      if ((idx < 1) || (idx > lb.size(0))) {
-        rtDynamicBoundsError(idx, 1, lb.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      d = lb[idx - 1];
-      obj.hasLB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > ub.size(0)) {
-        rtDynamicBoundsError(idx, 1, ub.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      d = ub[idx - 1];
-      obj.hasUB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      if (obj.hasLB[idx - 1]) {
+  case 0U:
+    while ((!b) && (idx + 1 <= nVar)) {
+      obj.hasLB[idx] = ((!std::isinf(lb[idx])) && (!std::isnan(lb[idx])));
+      obj.hasUB[idx] = ((!std::isinf(ub[idx])) && (!std::isnan(ub[idx])));
+      if (obj.hasLB[idx] || obj.hasUB[idx]) {
         b = true;
-      } else {
-        if (idx > obj.hasUB.size(0)) {
-          rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-        }
-        if (obj.hasUB[idx - 1]) {
-          b = true;
-        }
       }
       idx++;
     }
-    while (idx <= nVar) {
-      if ((idx < 1) || (idx > lb.size(0))) {
-        rtDynamicBoundsError(idx, 1, lb.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      d = lb[idx - 1];
-      obj.hasLB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > ub.size(0)) {
-        rtDynamicBoundsError(idx, 1, ub.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      d = ub[idx - 1];
-      obj.hasUB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
+    while (idx + 1 <= nVar) {
+      obj.hasLB[idx] = ((!std::isinf(lb[idx])) && (!std::isnan(lb[idx])));
+      obj.hasUB[idx] = ((!std::isinf(ub[idx])) && (!std::isnan(ub[idx])));
       idx++;
     }
-  } break;
-  case 1U: {
-    double d;
-    while ((!b) && (idx <= nVar)) {
-      if ((idx < 1) || (idx > obj.hasLB.size(0))) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      obj.hasLB[idx - 1] = false;
-      if (idx > ub.size(0)) {
-        rtDynamicBoundsError(idx, 1, ub.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      d = ub[idx - 1];
-      obj.hasUB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      b = obj.hasUB[idx - 1];
-      idx++;
-    }
-    while (idx <= nVar) {
-      if ((idx < 1) || (idx > obj.hasLB.size(0))) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      obj.hasLB[idx - 1] = false;
-      if (idx > ub.size(0)) {
-        rtDynamicBoundsError(idx, 1, ub.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      d = ub[idx - 1];
-      obj.hasUB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      idx++;
-    }
-  } break;
-  case 2U: {
-    double d;
-    while ((!b) && (idx <= nVar)) {
-      if ((idx < 1) || (idx > lb.size(0))) {
-        rtDynamicBoundsError(idx, 1, lb.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      d = lb[idx - 1];
-      obj.hasLB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      obj.hasUB[idx - 1] = false;
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      b = obj.hasLB[idx - 1];
-      idx++;
-    }
-    while (idx <= nVar) {
-      if ((idx < 1) || (idx > lb.size(0))) {
-        rtDynamicBoundsError(idx, 1, lb.size(0), w_emlrtBCI);
-      }
-      if (idx > obj.hasLB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
-      d = lb[idx - 1];
-      obj.hasLB[idx - 1] = ((!std::isinf(d)) && (!std::isnan(d)));
-      if (idx > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
-      obj.hasUB[idx - 1] = false;
-      idx++;
-    }
-  } break;
-  default:
-    if (nVar > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (idx = 0; idx < nVar; idx++) {
-      if ((idx + 1 < 1) || (idx + 1 > obj.hasLB.size(0))) {
-        rtDynamicBoundsError(idx + 1, 1, obj.hasLB.size(0), w_emlrtBCI);
-      }
+    break;
+  case 1U:
+    while ((!b) && (idx + 1 <= nVar)) {
       obj.hasLB[idx] = false;
-      if (idx + 1 > obj.hasUB.size(0)) {
-        rtDynamicBoundsError(idx + 1, 1, obj.hasUB.size(0), w_emlrtBCI);
-      }
+      obj.hasUB[idx] = ((!std::isinf(ub[idx])) && (!std::isnan(ub[idx])));
+      b = obj.hasUB[idx];
+      idx++;
+    }
+    while (idx + 1 <= nVar) {
+      obj.hasLB[idx] = false;
+      obj.hasUB[idx] = ((!std::isinf(ub[idx])) && (!std::isnan(ub[idx])));
+      idx++;
+    }
+    break;
+  case 2U:
+    while ((!b) && (idx + 1 <= nVar)) {
+      obj.hasLB[idx] = ((!std::isinf(lb[idx])) && (!std::isnan(lb[idx])));
+      obj.hasUB[idx] = false;
+      b = obj.hasLB[idx];
+      idx++;
+    }
+    while (idx + 1 <= nVar) {
+      obj.hasLB[idx] = ((!std::isinf(lb[idx])) && (!std::isnan(lb[idx])));
+      obj.hasUB[idx] = false;
+      idx++;
+    }
+    break;
+  default:
+    for (idx = 0; idx < nVar; idx++) {
+      obj.hasLB[idx] = false;
       obj.hasUB[idx] = false;
     }
     break;

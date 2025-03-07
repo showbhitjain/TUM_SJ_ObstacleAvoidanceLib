@@ -5,7 +5,7 @@
 // File: fullColLDL2_.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef FULLCOLLDL2__H
@@ -24,11 +24,9 @@ namespace coder {
 namespace optim {
 namespace coder {
 namespace DynamicRegCholManager {
-void fullColLDL2_(f_struct_T &obj, int NColsRemain);
-
 void fullColLDL2_(f_struct_T &obj, int LD_offset, int NColsRemain);
 
-} // namespace DynamicRegCholManager
+}
 } // namespace coder
 } // namespace optim
 } // namespace coder

@@ -5,7 +5,7 @@
 // File: inverseKinematicsOAModified_types.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef INVERSEKINEMATICSOAMODIFIED_TYPES_H
@@ -42,30 +42,6 @@ struct struct0_T {
   double jointLimitActivationDistance;
   double jointLimitStopDistance;
   double jointLimitGain;
-};
-
-struct rtBoundsCheckInfo {
-  int iFirst;
-  int iLast;
-  int lineNo;
-  int colNo;
-  const char *aName;
-  const char *fName;
-  const char *pName;
-  int checkKind;
-};
-
-struct rtEqualityCheckInfo {
-  int nDims;
-  int lineNo;
-  int colNo;
-  const char *fName;
-  const char *pName;
-};
-
-struct rtRunTimeErrorInfo {
-  int lineNo;
-  const char *fName;
 };
 
 struct inverseKinematicsOAModifiedPersistentData {

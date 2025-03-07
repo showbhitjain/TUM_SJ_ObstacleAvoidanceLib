@@ -5,12 +5,11 @@
 // File: xgeqp3.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xgeqp3.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "xnrm2.h"
 #include "xzgeqp3.h"
@@ -60,9 +59,6 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
     tau[i] = 0.0;
   }
   if (minmn_tmp < 1) {
-    if (n > 2147483646) {
-      check_forloop_overflow_error();
-    }
     for (int ii{0}; ii < n; ii++) {
       jpvt[ii] = ii + 1;
     }
@@ -72,18 +68,12 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
     int nfxd;
     int temp_tmp;
     nfxd = 0;
-    if (n > 2147483646) {
-      check_forloop_overflow_error();
-    }
     for (ii = 0; ii < n; ii++) {
       if (jpvt[ii] != 0) {
         nfxd++;
         if (ii + 1 != nfxd) {
           ix = ii * ma;
           minmana = (nfxd - 1) * ma;
-          if (m > 2147483646) {
-            check_forloop_overflow_error();
-          }
           for (int k{0}; k < m; k++) {
             temp_tmp = ix + k;
             temp = A[temp_tmp];
@@ -106,7 +96,6 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
     reflapack::qrf(A, m, n, nfxd, tau);
     if (nfxd < minmn_tmp) {
       double d;
-      int a_tmp;
       ma = A.size(0);
       work.set_size(A.size(1));
       ij = A.size(1);
@@ -117,13 +106,13 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
         vn1[i] = 0.0;
         vn2[i] = 0.0;
       }
-      a_tmp = nfxd + 1;
-      for (ii = a_tmp; ii <= n; ii++) {
+      i = nfxd + 1;
+      for (ii = i; ii <= n; ii++) {
         d = blas::xnrm2(m - nfxd, A, (nfxd + (ii - 1) * ma) + 1);
         vn1[ii - 1] = d;
         vn2[ii - 1] = d;
       }
-      for (int b_i{a_tmp}; b_i <= minmn_tmp; b_i++) {
+      for (int b_i{i}; b_i <= minmn_tmp; b_i++) {
         double s;
         int ip1;
         int mmi;
@@ -139,9 +128,6 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
           minmana = -1;
           if (nmi > 1) {
             temp = std::abs(vn1[b_i - 1]);
-            if (nmi > 2147483646) {
-              check_forloop_overflow_error();
-            }
             for (int k{2}; k <= nmi; k++) {
               s = std::abs(vn1[(b_i + k) - 2]);
               if (s > temp) {
@@ -154,15 +140,12 @@ void xgeqp3(array<double, 2U> &A, int m, int n, array<int, 1U> &jpvt,
         nfxd = b_i + minmana;
         if (nfxd + 1 != b_i) {
           ix = nfxd * ma;
-          if (m > 2147483646) {
-            check_forloop_overflow_error();
-          }
           for (int k{0}; k < m; k++) {
             temp_tmp = ix + k;
             temp = A[temp_tmp];
-            i = ij + k;
-            A[temp_tmp] = A[i];
-            A[i] = temp;
+            minmana = ij + k;
+            A[temp_tmp] = A[minmana];
+            A[minmana] = temp;
           }
           minmana = jpvt[nfxd];
           jpvt[nfxd] = jpvt[b_i - 1];

@@ -5,7 +5,7 @@
 // File: addBoundToActiveSetMatrix_.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef ADDBOUNDTOACTIVESETMATRIX__H
@@ -25,11 +25,9 @@ namespace optim {
 namespace coder {
 namespace qpactiveset {
 namespace WorkingSet {
-void addBoundToActiveSetMatrix_(d_struct_T &obj, int idx_local);
+void addBoundToActiveSetMatrix_(d_struct_T &obj, int TYPE, int idx_local);
 
-void b_addBoundToActiveSetMatrix_(d_struct_T &obj, int idx_local);
-
-} // namespace WorkingSet
+}
 } // namespace qpactiveset
 } // namespace coder
 } // namespace optim

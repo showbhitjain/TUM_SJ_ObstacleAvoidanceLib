@@ -199,7 +199,7 @@ std::array<double, 7> firstJointPosition{};
                                                                            jointMinValues, jointMaxValues,
                                                                            jointVelMinValues,
                                                                            jointVelMaxValues, jg, bg,
-                                                                           jointVelocityWeightMatrix);
+                                                                           jointVelocityWeightMatrix, 1e-6,400,1e-6,1e-6);
 
         //cout<<"optimal Joint Velocity: \n" <<optimalJointVelocity<<endl;
 

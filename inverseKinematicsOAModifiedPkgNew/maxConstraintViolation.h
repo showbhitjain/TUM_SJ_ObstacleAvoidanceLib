@@ -5,7 +5,7 @@
 // File: maxConstraintViolation.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef MAXCONSTRAINTVIOLATION_H
@@ -26,8 +26,6 @@ namespace optim {
 namespace coder {
 namespace qpactiveset {
 namespace WorkingSet {
-double maxConstraintViolation(d_struct_T &obj, const array<double, 2U> &x);
-
 double maxConstraintViolation(d_struct_T &obj, const array<double, 2U> &x,
                               int ix0);
 

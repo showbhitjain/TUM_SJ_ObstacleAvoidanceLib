@@ -5,7 +5,7 @@
 // File: inverseKinematicsOAModified_internal_types.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef INVERSEKINEMATICSOAMODIFIED_INTERNAL_TYPES_H
@@ -183,8 +183,8 @@ struct j_struct_T {
 
 struct k_struct_T {
   char SolverName[7];
-  int MaxIterations;
-  double StepTolerance;
+  int MaxIterations;  //
+  double StepTolerance;  //
   double ObjectiveLimit;
 };
 

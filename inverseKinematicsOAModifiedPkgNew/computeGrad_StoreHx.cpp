@@ -5,17 +5,13 @@
 // File: computeGrad_StoreHx.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "computeGrad_StoreHx.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
-#include "xgemv.h"
 #include "coder_array.h"
 #include <cstring>
 
@@ -35,108 +31,94 @@ namespace Objective {
 void computeGrad_StoreHx(g_struct_T &obj, const array<double, 2U> &H,
                          const array<double, 1U> &f, const array<double, 1U> &x)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                    // iFirst
-      -1,                    // iLast
-      1,                     // lineNo
-      1,                     // colNo
-      "",                    // aName
-      "computeGrad_StoreHx", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+qpactiveset/"
-      "+Objective/computeGrad_StoreHx.p", // pName
-      0                                   // checkKind
-  };
   switch (obj.objtype) {
   case 5: {
     int i;
-    int ixlast;
-    ixlast = obj.nvar;
-    if (obj.nvar - 1 > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (int idx{0}; idx <= ixlast - 2; idx++) {
-      i = obj.grad.size(0);
-      if ((idx + 1 < 1) || (idx + 1 > i)) {
-        rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-      }
-      obj.grad[idx] = 0.0;
-    }
-    i = obj.grad.size(0);
-    if ((obj.nvar < 1) || (obj.nvar > i)) {
-      rtDynamicBoundsError(obj.nvar, 1, i, w_emlrtBCI);
+    i = obj.nvar;
+    for (int ix{0}; ix <= i - 2; ix++) {
+      obj.grad[ix] = 0.0;
     }
     obj.grad[obj.nvar - 1] = obj.gammaScalar;
   } break;
   case 3: {
-    int ixlast;
-    internal::blas::xgemv(obj.nvar, obj.nvar, H, obj.nvar, x, obj.Hx);
-    ixlast = obj.nvar;
-    if (obj.nvar > 2147483646) {
-      check_forloop_overflow_error();
+    int i;
+    int ix;
+    int lda;
+    int m_tmp;
+    m_tmp = obj.nvar - 1;
+    lda = obj.nvar;
+    if (obj.nvar != 0) {
+      int iy;
+      for (iy = 0; iy <= m_tmp; iy++) {
+        obj.Hx[iy] = 0.0;
+      }
+      ix = 0;
+      i = obj.nvar * m_tmp + 1;
+      for (int iac{1}; lda < 0 ? iac >= i : iac <= i; iac += lda) {
+        int i1;
+        i1 = iac + m_tmp;
+        for (int ia{iac}; ia <= i1; ia++) {
+          iy = ia - iac;
+          obj.Hx[iy] = obj.Hx[iy] + H[ia - 1] * x[ix];
+        }
+        ix++;
+      }
     }
-    for (int idx{0}; idx < ixlast; idx++) {
-      int i;
-      i = obj.Hx.size(0);
-      if ((idx + 1 < 1) || (idx + 1 > i)) {
-        rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-      }
-      i = obj.grad.size(0);
-      if (idx + 1 > i) {
-        rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-      }
-      obj.grad[idx] = obj.Hx[idx];
+    i = obj.nvar;
+    for (ix = 0; ix < i; ix++) {
+      obj.grad[ix] = obj.Hx[ix];
     }
     if (obj.hasLinear && (obj.nvar >= 1)) {
-      ixlast = obj.nvar - 1;
-      for (int idx{0}; idx <= ixlast; idx++) {
-        obj.grad[idx] = obj.grad[idx] + f[idx];
+      for (ix = 0; ix <= m_tmp; ix++) {
+        obj.grad[ix] = obj.grad[ix] + f[ix];
       }
     }
   } break;
   default: {
     int i;
-    int ixlast;
+    int i1;
+    int ix;
     int iy;
-    iy = obj.maxVar - 1;
-    internal::blas::xgemv(obj.nvar, obj.nvar, H, obj.nvar, x, obj.Hx);
-    ixlast = obj.nvar + 1;
-    if ((ixlast <= iy) && (iy > 2147483646)) {
-      check_forloop_overflow_error();
+    int lda;
+    int m_tmp;
+    int maxRegVar;
+    maxRegVar = obj.maxVar - 1;
+    m_tmp = obj.nvar - 1;
+    lda = obj.nvar;
+    if (obj.nvar != 0) {
+      for (iy = 0; iy <= m_tmp; iy++) {
+        obj.Hx[iy] = 0.0;
+      }
+      ix = 0;
+      i = obj.nvar * (obj.nvar - 1) + 1;
+      for (int iac{1}; lda < 0 ? iac >= i : iac <= i; iac += lda) {
+        i1 = iac + m_tmp;
+        for (int ia{iac}; ia <= i1; ia++) {
+          iy = ia - iac;
+          obj.Hx[iy] = obj.Hx[iy] + H[ia - 1] * x[ix];
+        }
+        ix++;
+      }
     }
-    for (int idx{ixlast}; idx <= iy; idx++) {
-      if ((idx < 1) || (idx > x.size(0))) {
-        rtDynamicBoundsError(idx, 1, x.size(0), w_emlrtBCI);
-      }
-      i = obj.Hx.size(0);
-      if (idx > i) {
-        rtDynamicBoundsError(idx, 1, i, w_emlrtBCI);
-      }
-      obj.Hx[idx - 1] = obj.beta * x[idx - 1];
+    i = obj.nvar + 1;
+    for (ix = i; ix <= maxRegVar; ix++) {
+      obj.Hx[ix - 1] = obj.beta * x[ix - 1];
     }
-    for (int idx{0}; idx < iy; idx++) {
-      i = obj.Hx.size(0);
-      if ((idx + 1 < 1) || (idx + 1 > i)) {
-        rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-      }
-      i = obj.grad.size(0);
-      if (idx + 1 > i) {
-        rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-      }
-      obj.grad[idx] = obj.Hx[idx];
+    for (ix = 0; ix < maxRegVar; ix++) {
+      obj.grad[ix] = obj.Hx[ix];
     }
     if (obj.hasLinear && (obj.nvar >= 1)) {
-      ixlast = obj.nvar - 1;
-      for (int idx{0}; idx <= ixlast; idx++) {
-        obj.grad[idx] = obj.grad[idx] + f[idx];
+      for (ix = 0; ix <= m_tmp; ix++) {
+        obj.grad[ix] = obj.grad[ix] + f[ix];
       }
     }
-    ixlast = (obj.maxVar - obj.nvar) - 1;
-    if (ixlast >= 1) {
+    ix = (obj.maxVar - obj.nvar) - 1;
+    if (ix >= 1) {
       iy = obj.nvar;
-      i = ixlast - 1;
-      for (int idx{0}; idx <= i; idx++) {
-        ixlast = iy + idx;
-        obj.grad[ixlast] = obj.grad[ixlast] + obj.rho;
+      i = ix - 1;
+      for (ix = 0; ix <= i; ix++) {
+        i1 = iy + ix;
+        obj.grad[i1] = obj.grad[i1] + obj.rho;
       }
     }
   } break;

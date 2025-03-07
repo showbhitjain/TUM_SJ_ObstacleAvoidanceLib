@@ -5,21 +5,15 @@
 // File: step.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "step.h"
 #include "addAeqConstr.h"
 #include "driver1.h"
-#include "eml_int_forloop_overflow_check.h"
-#include "inverseKinematicsOAModified_data.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
-#include "makeBoundFeasible.h"
 #include "relaxed.h"
-#include "removeAllIneqConstr.h"
 #include "rt_nonfinite.h"
 #include "soc.h"
 #include "sortLambdaQP.h"
@@ -55,77 +49,26 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
                  e_struct_T &b_QRManager, f_struct_T &b_CholManager,
                  g_struct_T &QPObjective, k_struct_T &qpoptions)
 {
-  static rtBoundsCheckInfo
-      ab_emlrtBCI{
-          -1,     // iFirst
-          -1,     // iLast
-          1,      // lineNo
-          1,      // colNo
-          "",     // aName
-          "step", // fName
-          "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/"
-          "step.p", // pName
-          0         // checkKind
-      };
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,          // iFirst
-      -1,          // iLast
-      1,           // lineNo
-      1,           // colNo
-      "",          // aName
-      "BFGSReset", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/"
-      "BFGSReset.p", // pName
-      0              // checkKind
-  };
-  static rtBoundsCheckInfo x_emlrtBCI{
-      -1,                  // iFirst
-      -1,                  // iLast
-      1,                   // lineNo
-      1,                   // colNo
-      "",                  // aName
-      "saturateDirection", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/+step/"
-      "saturateDirection.p", // pName
-      0                      // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,       // iFirst
-      -1,       // iLast
-      1,        // lineNo
-      1,        // colNo
-      "",       // aName
-      "normal", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+fminconsqp/+step/"
-      "normal.p", // pName
-      0           // checkKind
-  };
   array<double, 1U> r;
   k_struct_T b_qpoptions;
   double constrViolationEq;
   double constrViolationIneq;
-  int i;
+  int b_nVar;
   int iH0;
-  int loop_ub;
-  int n;
+  int idxEndIneq;
+  int idxStartIneq;
   int nVar;
   boolean_T checkBoundViolation;
   boolean_T stepSuccess;
   stepSuccess = true;
   checkBoundViolation = true;
-  nVar = WorkingSet.nVar;
+  nVar = WorkingSet.nVar - 1;
   if (STEP_TYPE != 3) {
-    if (WorkingSet.nVar > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (int k{0}; k < nVar; k++) {
+    for (int k{0}; k <= nVar; k++) {
       b_TrialState.xstar[k] = b_TrialState.xstarsqp[k];
     }
   } else {
-    if (WorkingSet.nVar > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (int k{0}; k < nVar; k++) {
+    for (int k{0}; k <= nVar; k++) {
       b_TrialState.searchDir[k] = b_TrialState.xstar[k];
     }
   }
@@ -137,9 +80,9 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
     switch (STEP_TYPE) {
     case 1: {
       r.set_size(b_TrialState.grad.size(0));
-      loop_ub = b_TrialState.grad.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        r[i] = b_TrialState.grad[i];
+      iH0 = b_TrialState.grad.size(0);
+      for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+        r[b_nVar] = b_TrialState.grad[b_nVar];
       }
       b_qpoptions = qpoptions;
       ::coder::optim::coder::qpactiveset::driver(
@@ -148,33 +91,19 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
       if (b_TrialState.state > 0) {
         double constrViolation;
         double penaltyParamTrial;
-        loop_ub = WorkingSet.sizes[2];
+        iH0 = WorkingSet.sizes[2];
         penaltyParamTrial = b_MeritFunction.penaltyParam;
         constrViolationEq = 0.0;
         if (WorkingSet.sizes[1] >= 1) {
-          if (WorkingSet.sizes[1] > 2147483646) {
-            check_forloop_overflow_error();
-          }
-          i = static_cast<unsigned char>(WorkingSet.sizes[1]);
-          for (int k{0}; k < i; k++) {
+          b_nVar = static_cast<unsigned char>(WorkingSet.sizes[1]);
+          for (int k{0}; k < b_nVar; k++) {
             constrViolationEq += std::abs(b_TrialState.cEq.data[k]);
           }
         }
         constrViolationIneq = 0.0;
-        if (WorkingSet.sizes[2] > 2147483646) {
-          check_forloop_overflow_error();
-        }
-        for (int idx{0}; idx < loop_ub; idx++) {
-          i = b_TrialState.cIneq.size(0);
-          if ((idx + 1 < 1) || (idx + 1 > i)) {
-            rtDynamicBoundsError(idx + 1, 1, i, b_emlrtBCI);
-          }
+        for (int idx{0}; idx < iH0; idx++) {
           constrViolation = b_TrialState.cIneq[idx];
           if (constrViolation > 0.0) {
-            i = b_TrialState.cIneq.size(0);
-            if (idx + 1 > i) {
-              rtDynamicBoundsError(idx + 1, 1, i, b_emlrtBCI);
-            }
             constrViolationIneq += constrViolation;
           }
         }
@@ -227,81 +156,123 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
           WorkingSet.isActiveIdx, WorkingSet.Wid, WorkingSet.Wlocalidx,
           memspace.workspace_double);
       if (WorkingSet.indexEqRemoved.size[0] > 0) {
-        boolean_T exitg2;
-        exitg2 = false;
-        while ((!exitg2) && (WorkingSet.mEqRemoved > 0)) {
-          i = WorkingSet.indexEqRemoved.size[0];
-          if ((WorkingSet.mEqRemoved < 1) || (WorkingSet.mEqRemoved > i)) {
-            rtDynamicBoundsError(WorkingSet.mEqRemoved, 1, i, y_emlrtBCI);
-          }
-          i = WorkingSet.indexEqRemoved.data[WorkingSet.mEqRemoved - 1];
-          if (i >= b_TrialState.iNonEq0) {
-            loop_ub = WorkingSet.indexEqRemoved.size[0];
-            if ((WorkingSet.mEqRemoved < 1) ||
-                (WorkingSet.mEqRemoved > loop_ub)) {
-              rtDynamicBoundsError(WorkingSet.mEqRemoved, 1, loop_ub,
-                                   y_emlrtBCI);
-            }
-            qpactiveset::WorkingSet::addAeqConstr(WorkingSet, i);
-            WorkingSet.mEqRemoved--;
-          } else {
-            exitg2 = true;
-          }
+        while ((WorkingSet.mEqRemoved > 0) &&
+               (WorkingSet.indexEqRemoved.data[WorkingSet.mEqRemoved - 1] >=
+                b_TrialState.iNonEq0)) {
+          qpactiveset::WorkingSet::addAeqConstr(
+              WorkingSet,
+              WorkingSet.indexEqRemoved.data[WorkingSet.mEqRemoved - 1]);
+          WorkingSet.mEqRemoved--;
         }
       }
       if ((b_TrialState.state <= 0) && (b_TrialState.state != -6)) {
         STEP_TYPE = 2;
       } else {
-        if (nVar > 2147483646) {
-          check_forloop_overflow_error();
-        }
-        for (int k{0}; k < nVar; k++) {
+        for (int k{0}; k <= nVar; k++) {
           b_TrialState.delta_x[k] = b_TrialState.xstar[k];
         }
         guard1 = true;
       }
     } break;
-    case 2:
-      qpactiveset::WorkingSet::removeAllIneqConstr(WorkingSet);
-      step::makeBoundFeasible(b_TrialState.xstar, WorkingSet, lb, ub);
-      step::b_relaxed(Hessian, b_TrialState.grad, b_TrialState, b_MeritFunction,
-                      memspace, WorkingSet, b_QRManager, b_CholManager,
-                      QPObjective, qpoptions);
-      if (nVar > 2147483646) {
-        check_forloop_overflow_error();
+    case 2: {
+      double constrViolation;
+      iH0 = WorkingSet.nWConstr[0] + WorkingSet.nWConstr[1];
+      idxStartIneq = iH0 + 1;
+      idxEndIneq = WorkingSet.nActiveConstr;
+      for (b_nVar = idxStartIneq; b_nVar <= idxEndIneq; b_nVar++) {
+        WorkingSet.isActiveConstr
+            [(WorkingSet.isActiveIdx[WorkingSet.Wid[b_nVar - 1] - 1] +
+              WorkingSet.Wlocalidx[b_nVar - 1]) -
+             2] = false;
       }
-      for (int k{0}; k < nVar; k++) {
+      WorkingSet.nWConstr[2] = 0;
+      WorkingSet.nWConstr[3] = 0;
+      WorkingSet.nWConstr[4] = 0;
+      WorkingSet.nActiveConstr = iH0;
+      r.set_size(b_TrialState.xstar.size(0));
+      iH0 = b_TrialState.xstar.size(0);
+      for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+        r[b_nVar] = b_TrialState.xstar[b_nVar];
+      }
+      idxStartIneq = WorkingSet.sizes[3] - 1;
+      idxEndIneq = WorkingSet.sizes[4] - 1;
+      if (lb.size(0) != 0) {
+        if (ub.size(0) == 0) {
+          for (int idx{0}; idx <= idxStartIneq; idx++) {
+            constrViolation = WorkingSet.lb[WorkingSet.indexLB[idx] - 1];
+            if (-r[WorkingSet.indexLB[idx] - 1] > constrViolation) {
+              r[WorkingSet.indexLB[idx] - 1] =
+                  -constrViolation + std::abs(constrViolation);
+            }
+          }
+        } else {
+          for (int idx{0}; idx <= idxStartIneq; idx++) {
+            constrViolation = WorkingSet.lb[WorkingSet.indexLB[idx] - 1];
+            if (-r[WorkingSet.indexLB[idx] - 1] > constrViolation) {
+              if (std::isinf(ub[WorkingSet.indexLB[idx] - 1])) {
+                r[WorkingSet.indexLB[idx] - 1] =
+                    -constrViolation + std::abs(constrViolation);
+              } else {
+                r[WorkingSet.indexLB[idx] - 1] =
+                    (WorkingSet.ub[WorkingSet.indexLB[idx] - 1] -
+                     constrViolation) /
+                    2.0;
+              }
+            }
+          }
+        }
+      }
+      if (ub.size(0) != 0) {
+        if (lb.size(0) == 0) {
+          for (int idx{0}; idx <= idxEndIneq; idx++) {
+            constrViolation = WorkingSet.ub[WorkingSet.indexUB[idx] - 1];
+            if (r[WorkingSet.indexUB[idx] - 1] > constrViolation) {
+              r[WorkingSet.indexUB[idx] - 1] =
+                  constrViolation - std::abs(constrViolation);
+            }
+          }
+        } else {
+          for (int idx{0}; idx <= idxEndIneq; idx++) {
+            constrViolation = WorkingSet.ub[WorkingSet.indexUB[idx] - 1];
+            if (r[WorkingSet.indexUB[idx] - 1] > constrViolation) {
+              if (std::isinf(lb[WorkingSet.indexUB[idx] - 1])) {
+                r[WorkingSet.indexUB[idx] - 1] =
+                    constrViolation - std::abs(constrViolation);
+              } else {
+                r[WorkingSet.indexUB[idx] - 1] =
+                    (constrViolation -
+                     WorkingSet.lb[WorkingSet.indexUB[idx] - 1]) /
+                    2.0;
+              }
+            }
+          }
+        }
+      }
+      b_TrialState.xstar.set_size(r.size(0));
+      iH0 = r.size(0);
+      for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+        b_TrialState.xstar[b_nVar] = r[b_nVar];
+      }
+      step::relaxed(Hessian, b_TrialState.grad, b_TrialState, b_MeritFunction,
+                    memspace, WorkingSet, b_QRManager, b_CholManager,
+                    QPObjective, qpoptions);
+      for (int k{0}; k <= nVar; k++) {
         b_TrialState.delta_x[k] = b_TrialState.xstar[k];
       }
       guard1 = true;
-      break;
+    } break;
     default:
       r.set_size(b_TrialState.grad.size(0));
-      loop_ub = b_TrialState.grad.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        r[i] = b_TrialState.grad[i];
+      iH0 = b_TrialState.grad.size(0);
+      for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+        r[b_nVar] = b_TrialState.grad[b_nVar];
       }
       stepSuccess =
           step::soc(Hessian, r, b_TrialState, memspace, WorkingSet, b_QRManager,
                     b_CholManager, QPObjective, qpoptions);
       checkBoundViolation = stepSuccess;
       if (stepSuccess && (b_TrialState.state != -6)) {
-        if (nVar > 2147483646) {
-          check_forloop_overflow_error();
-        }
-        for (int idx{0}; idx < nVar; idx++) {
-          i = b_TrialState.xstar.size(0);
-          if ((idx + 1 < 1) || (idx + 1 > i)) {
-            rtDynamicBoundsError(idx + 1, 1, i, ab_emlrtBCI);
-          }
-          i = b_TrialState.socDirection.size(0);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, ab_emlrtBCI);
-          }
-          i = b_TrialState.delta_x.size(0);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, ab_emlrtBCI);
-          }
+        for (int idx{0}; idx <= nVar; idx++) {
           b_TrialState.delta_x[idx] =
               b_TrialState.xstar[idx] + b_TrialState.socDirection[idx];
         }
@@ -313,117 +284,50 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
       if (b_TrialState.state != -6) {
         exitg1 = 1;
       } else {
-        int b_nVar;
-        if ((Hessian.size(0) == 0) || (Hessian.size(1) == 0)) {
-          d_rtErrorWithMessageID("input", c_emlrtRTEI.fName,
-                                 c_emlrtRTEI.lineNo);
-        }
         b_nVar = Hessian.size(0) - 1;
         constrViolationEq = 0.0;
         constrViolationIneq = 1.0;
-        if (Hessian.size(0) > 2147483646) {
-          check_forloop_overflow_error();
-        }
         for (int idx{0}; idx <= b_nVar; idx++) {
-          i = b_TrialState.grad.size(0);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-          }
           constrViolationEq =
               std::fmax(constrViolationEq, std::abs(b_TrialState.grad[idx]));
-          i = b_TrialState.xstar.size(0);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-          }
           constrViolationIneq =
               std::fmax(constrViolationIneq, std::abs(b_TrialState.xstar[idx]));
         }
         constrViolationEq = std::fmax(2.2204460492503131E-16,
                                       constrViolationEq / constrViolationIneq);
-        if (Hessian.size(0) > 2147483646) {
-          check_forloop_overflow_error();
-        }
         for (int idx{0}; idx <= b_nVar; idx++) {
-          loop_ub = idx + 1;
           iH0 = (b_nVar + 1) * idx;
-          for (int k{0}; k <= loop_ub - 2; k++) {
+          for (int k{0}; k < idx; k++) {
             Hessian[iH0 + k] = 0.0;
           }
-          i = Hessian.size(0);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-          }
-          i = Hessian.size(1);
-          if (idx + 1 > i) {
-            rtDynamicBoundsError(idx + 1, 1, i, w_emlrtBCI);
-          }
           Hessian[idx + Hessian.size(0) * idx] = constrViolationEq;
-          loop_ub = (iH0 + idx) + 1;
-          n = (b_nVar - idx) - 1;
-          for (int k{0}; k <= n; k++) {
-            Hessian[loop_ub + k] = 0.0;
+          idxStartIneq = iH0 + idx;
+          idxEndIneq = b_nVar - idx;
+          for (int k{0}; k < idxEndIneq; k++) {
+            Hessian[(idxStartIneq + k) + 1] = 0.0;
           }
         }
       }
     }
   } while (exitg1 == 0);
   if (checkBoundViolation) {
-    n = WorkingSet.sizes[3];
-    iH0 = WorkingSet.sizes[4];
+    idxStartIneq = WorkingSet.sizes[3];
+    idxEndIneq = WorkingSet.sizes[4];
     r.set_size(b_TrialState.delta_x.size(0));
-    loop_ub = b_TrialState.delta_x.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      r[i] = b_TrialState.delta_x[i];
+    iH0 = b_TrialState.delta_x.size(0);
+    for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+      r[b_nVar] = b_TrialState.delta_x[b_nVar];
     }
     if (lb.size(0) != 0) {
-      if (WorkingSet.sizes[3] > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int idx{0}; idx < n; idx++) {
-        i = WorkingSet.indexLB.size(0);
-        if ((idx + 1 < 1) || (idx + 1 > i)) {
-          rtDynamicBoundsError(idx + 1, 1, i, x_emlrtBCI);
-        }
-        i = b_TrialState.xstarsqp.size(0);
-        if ((WorkingSet.indexLB[idx] < 1) || (WorkingSet.indexLB[idx] > i)) {
-          rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, i, x_emlrtBCI);
-        }
-        if ((WorkingSet.indexLB[idx] < 1) ||
-            (WorkingSet.indexLB[idx] > r.size(0))) {
-          rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, r.size(0),
-                               x_emlrtBCI);
-        }
-        if ((WorkingSet.indexLB[idx] < 1) ||
-            (WorkingSet.indexLB[idx] > lb.size(0))) {
-          rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, lb.size(0),
-                               x_emlrtBCI);
-        }
+      for (int idx{0}; idx < idxStartIneq; idx++) {
         constrViolationEq = r[WorkingSet.indexLB[idx] - 1];
         constrViolationIneq =
             (b_TrialState.xstarsqp[WorkingSet.indexLB[idx] - 1] +
              constrViolationEq) -
             lb[WorkingSet.indexLB[idx] - 1];
         if (constrViolationIneq < 0.0) {
-          if ((WorkingSet.indexLB[idx] < 1) ||
-              (WorkingSet.indexLB[idx] > r.size(0))) {
-            rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, r.size(0),
-                                 x_emlrtBCI);
-          }
-          if ((WorkingSet.indexLB[idx] < 1) ||
-              (WorkingSet.indexLB[idx] > r.size(0))) {
-            rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, r.size(0),
-                                 x_emlrtBCI);
-          }
           r[WorkingSet.indexLB[idx] - 1] =
               constrViolationEq - constrViolationIneq;
-          i = b_TrialState.xstar.size(0);
-          if ((WorkingSet.indexLB[idx] < 1) || (WorkingSet.indexLB[idx] > i)) {
-            rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, i, x_emlrtBCI);
-          }
-          i = b_TrialState.xstar.size(0);
-          if ((WorkingSet.indexLB[idx] < 1) || (WorkingSet.indexLB[idx] > i)) {
-            rtDynamicBoundsError(WorkingSet.indexLB[idx], 1, i, x_emlrtBCI);
-          }
           b_TrialState.xstar[WorkingSet.indexLB[idx] - 1] =
               b_TrialState.xstar[WorkingSet.indexLB[idx] - 1] -
               constrViolationIneq;
@@ -431,54 +335,15 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
       }
     }
     if (ub.size(0) != 0) {
-      if (WorkingSet.sizes[4] > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int idx{0}; idx < iH0; idx++) {
-        i = WorkingSet.indexUB.size(0);
-        if ((idx + 1 < 1) || (idx + 1 > i)) {
-          rtDynamicBoundsError(idx + 1, 1, i, x_emlrtBCI);
-        }
-        if ((WorkingSet.indexUB[idx] < 1) ||
-            (WorkingSet.indexUB[idx] > ub.size(0))) {
-          rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, ub.size(0),
-                               x_emlrtBCI);
-        }
-        i = b_TrialState.xstarsqp.size(0);
-        if ((WorkingSet.indexUB[idx] < 1) || (WorkingSet.indexUB[idx] > i)) {
-          rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, i, x_emlrtBCI);
-        }
-        if ((WorkingSet.indexUB[idx] < 1) ||
-            (WorkingSet.indexUB[idx] > r.size(0))) {
-          rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, r.size(0),
-                               x_emlrtBCI);
-        }
+      for (int idx{0}; idx < idxEndIneq; idx++) {
         constrViolationEq = r[WorkingSet.indexUB[idx] - 1];
         constrViolationIneq =
             (ub[WorkingSet.indexUB[idx] - 1] -
              b_TrialState.xstarsqp[WorkingSet.indexUB[idx] - 1]) -
             constrViolationEq;
         if (constrViolationIneq < 0.0) {
-          if ((WorkingSet.indexUB[idx] < 1) ||
-              (WorkingSet.indexUB[idx] > r.size(0))) {
-            rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, r.size(0),
-                                 x_emlrtBCI);
-          }
-          if ((WorkingSet.indexUB[idx] < 1) ||
-              (WorkingSet.indexUB[idx] > r.size(0))) {
-            rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, r.size(0),
-                                 x_emlrtBCI);
-          }
           r[WorkingSet.indexUB[idx] - 1] =
               constrViolationEq + constrViolationIneq;
-          i = b_TrialState.xstar.size(0);
-          if ((WorkingSet.indexUB[idx] < 1) || (WorkingSet.indexUB[idx] > i)) {
-            rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, i, x_emlrtBCI);
-          }
-          i = b_TrialState.xstar.size(0);
-          if ((WorkingSet.indexUB[idx] < 1) || (WorkingSet.indexUB[idx] > i)) {
-            rtDynamicBoundsError(WorkingSet.indexUB[idx], 1, i, x_emlrtBCI);
-          }
           b_TrialState.xstar[WorkingSet.indexUB[idx] - 1] =
               b_TrialState.xstar[WorkingSet.indexUB[idx] - 1] +
               constrViolationIneq;
@@ -486,9 +351,9 @@ boolean_T b_step(int &STEP_TYPE, array<double, 2U> &Hessian,
       }
     }
     b_TrialState.delta_x.set_size(r.size(0));
-    loop_ub = r.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      b_TrialState.delta_x[i] = r[i];
+    iH0 = r.size(0);
+    for (b_nVar = 0; b_nVar < iH0; b_nVar++) {
+      b_TrialState.delta_x[b_nVar] = r[b_nVar];
     }
   }
   return stepSuccess;

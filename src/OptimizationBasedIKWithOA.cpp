@@ -79,7 +79,8 @@ namespace ObstacleAvoidance {
                                                        Eigen::VectorXd const &jointMinVelValues,
                                                        Eigen::VectorXd const &jointMaxVelValues,
                                                        Eigen::MatrixXd const &jG, Eigen::VectorXd const &bG,
-                                                       Eigen::MatrixXd const &jointVelocityMatrix) {
+                                                       Eigen::MatrixXd const &jointVelocityMatrix,
+                                                       double constraintTolerance,int maxIterations,double optimalityTolerance,double stepTolerance) {
         double cartesianVelocityEffective[6];
         std::copy(poseVelocityEffective.data(), poseVelocityEffective.data() + poseVelocityEffective.size(),
                   cartesianVelocityEffective);
@@ -129,7 +130,7 @@ namespace ObstacleAvoidance {
                                              EigenVectorToCoder1U(jointMaxVelValues), EigenToCoder(jG),
                                              EigenVectorToCoder1U(bG),
                                              EigenToCoder(jointVelocityMatrix),
-                                             &configInput, optimalJointVelocity, &exitFlag);
+                                             &configInput, optimalJointVelocity, constraintTolerance, maxIterations, optimalityTolerance, stepTolerance, &exitFlag);
 
 
         return std::make_tuple(coder1UtoEigenVector(optimalJointVelocity), exitFlag);

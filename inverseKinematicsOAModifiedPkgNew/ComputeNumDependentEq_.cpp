@@ -5,16 +5,13 @@
 // File: ComputeNumDependentEq_.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "ComputeNumDependentEq_.h"
 #include "computeQ_.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
-#include "inverseKinematicsOAModified_rtwutil.h"
-#include "inverseKinematicsOAModified_types.h"
 #include "rt_nonfinite.h"
 #include "xgeqp3.h"
 #include "coder_array.h"
@@ -37,35 +34,15 @@ namespace initialize {
 int ComputeNumDependentEq_(e_struct_T &qrmanager, const array<double, 1U> &beqf,
                            int mConstr, int nVar)
 {
-  static rtBoundsCheckInfo w_emlrtBCI{
-      -1,                       // iFirst
-      -1,                       // iLast
-      1,                        // lineNo
-      1,                        // colNo
-      "",                       // aName
-      "ComputeNumDependentEq_", // fName
-      "/usr/local/MATLAB/R2023b/toolbox/optim/+optim/+coder/+qpactiveset/"
-      "+initialize/ComputeNumDependentEq_.p", // pName
-      0                                       // checkKind
-  };
   double tol;
   int idx;
-  int k;
   int numDependent;
   int totalRank;
-  boolean_T exitg1;
   numDependent = mConstr - nVar;
   if (numDependent <= 0) {
     numDependent = 0;
   }
-  if (nVar > 2147483646) {
-    check_forloop_overflow_error();
-  }
   for (idx = 0; idx < nVar; idx++) {
-    k = qrmanager.jpvt.size(0);
-    if ((idx + 1 < 1) || (idx + 1 > k)) {
-      rtDynamicBoundsError(idx + 1, 1, k, w_emlrtBCI);
-    }
     qrmanager.jpvt[idx] = 0;
   }
   if (mConstr * nVar == 0) {
@@ -92,24 +69,13 @@ int ComputeNumDependentEq_(e_struct_T &qrmanager, const array<double, 1U> &beqf,
     totalRank = mConstr;
   }
   totalRank += qrmanager.ldq * (totalRank - 1);
-  exitg1 = false;
-  while ((!exitg1) && (totalRank > 0)) {
-    k = qrmanager.QR.size(0) * qrmanager.QR.size(1);
-    if (totalRank > k) {
-      rtDynamicBoundsError(totalRank, 1, k, w_emlrtBCI);
-    }
-    if (std::abs(qrmanager.QR[totalRank - 1]) < tol) {
-      totalRank = (totalRank - qrmanager.ldq) - 1;
-      numDependent++;
-    } else {
-      exitg1 = true;
-    }
+  while ((totalRank > 0) && (std::abs(qrmanager.QR[totalRank - 1]) < tol)) {
+    totalRank = (totalRank - qrmanager.ldq) - 1;
+    numDependent++;
   }
   if (numDependent > 0) {
+    boolean_T exitg1;
     QRManager::computeQ_(qrmanager, qrmanager.mrows);
-    if (numDependent > 2147483646) {
-      check_forloop_overflow_error();
-    }
     idx = 0;
     exitg1 = false;
     while ((!exitg1) && (idx <= numDependent - 1)) {
@@ -117,10 +83,7 @@ int ComputeNumDependentEq_(e_struct_T &qrmanager, const array<double, 1U> &beqf,
       qtb = 0.0;
       if (mConstr >= 1) {
         totalRank = qrmanager.ldq * ((mConstr - idx) - 1);
-        if (mConstr > 2147483646) {
-          check_forloop_overflow_error();
-        }
-        for (k = 0; k < mConstr; k++) {
+        for (int k{0}; k < mConstr; k++) {
           qtb += qrmanager.Q[totalRank + k] * beqf[k];
         }
       }

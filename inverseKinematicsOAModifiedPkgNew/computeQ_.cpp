@@ -5,15 +5,13 @@
 // File: computeQ_.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "computeQ_.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "inverseKinematicsOAModified_internal_types.h"
 #include "rt_nonfinite.h"
-#include "xgemv.h"
 #include "coder_array.h"
 #include <cstring>
 
@@ -31,77 +29,70 @@ void computeQ_(e_struct_T &obj, int nrows)
 {
   array<double, 2U> *A;
   array<double, 1U> work;
-  int colbottom;
+  int i;
   int iQR0;
-  int iaii;
-  int jA;
   int lastc;
   int lastv;
   int lda;
   int m;
+  int n;
   lastv = obj.minRowCol;
-  if (obj.minRowCol > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (lastc = 0; lastc < lastv; lastc++) {
-    iQR0 = obj.ldq * lastc + lastc;
-    colbottom = (obj.mrows - lastc) - 1;
-    if (colbottom > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (jA = 0; jA < colbottom; jA++) {
-      iaii = (iQR0 + jA) + 1;
-      obj.Q[iaii] = obj.QR[iaii];
+  for (int idx{0}; idx < lastv; idx++) {
+    iQR0 = obj.ldq * idx + idx;
+    n = obj.mrows - idx;
+    for (lastc = 0; lastc <= n - 2; lastc++) {
+      i = (iQR0 + lastc) + 1;
+      obj.Q[i] = obj.QR[i];
     }
   }
   m = obj.mrows;
   lda = obj.ldq;
   if (nrows >= 1) {
+    int ia;
     int itau;
-    iaii = nrows - 1;
-    for (int j{lastv}; j <= iaii; j++) {
-      iQR0 = j * lda;
-      colbottom = m - 1;
-      for (int i{0}; i <= colbottom; i++) {
-        obj.Q[iQR0 + i] = 0.0;
+    i = nrows - 1;
+    for (n = lastv; n <= i; n++) {
+      ia = n * lda;
+      iQR0 = m - 1;
+      for (int b_i{0}; b_i <= iQR0; b_i++) {
+        obj.Q[ia + b_i] = 0.0;
       }
-      obj.Q[iQR0 + j] = 1.0;
+      obj.Q[ia + n] = 1.0;
     }
     itau = obj.minRowCol - 1;
     work.set_size(obj.Q.size(1));
     iQR0 = obj.Q.size(1);
-    for (iaii = 0; iaii < iQR0; iaii++) {
-      work[iaii] = 0.0;
+    for (i = 0; i < iQR0; i++) {
+      work[i] = 0.0;
     }
-    for (int i{obj.minRowCol}; i >= 1; i--) {
-      iaii = i + (i - 1) * lda;
-      if (i < nrows) {
+    for (int b_i{obj.minRowCol}; b_i >= 1; b_i--) {
+      int iaii;
+      iaii = b_i + (b_i - 1) * lda;
+      if (b_i < nrows) {
+        int jA;
         obj.Q[iaii - 1] = 1.0;
         jA = iaii + lda;
         if (obj.tau[itau] != 0.0) {
           boolean_T exitg2;
-          lastv = (m - i) + 1;
-          iQR0 = (iaii + m) - i;
+          lastv = (m - b_i) + 1;
+          iQR0 = (iaii + m) - b_i;
           while ((lastv > 0) && (obj.Q[iQR0 - 1] == 0.0)) {
             lastv--;
             iQR0--;
           }
-          lastc = nrows - i;
+          lastc = nrows - b_i;
           exitg2 = false;
           while ((!exitg2) && (lastc > 0)) {
             int exitg1;
             iQR0 = jA + (lastc - 1) * lda;
-            colbottom = (iQR0 + lastv) - 1;
-            if ((iQR0 <= colbottom) && (colbottom > 2147483646)) {
-              check_forloop_overflow_error();
-            }
+            ia = iQR0;
             do {
               exitg1 = 0;
-              if (iQR0 <= colbottom) {
-                if (obj.Q[iQR0 - 1] != 0.0) {
+              if (ia <= (iQR0 + lastv) - 1) {
+                if (obj.Q[ia - 1] != 0.0) {
                   exitg1 = 1;
                 } else {
-                  iQR0++;
+                  ia++;
                 }
               } else {
                 lastc--;
@@ -117,21 +108,32 @@ void computeQ_(e_struct_T &obj, int nrows)
           lastc = 0;
         }
         if (lastv > 0) {
-          double alpha1;
-          internal::blas::xgemv(lastv, lastc, obj.Q, jA, lda, obj.Q, iaii,
-                                work);
-          alpha1 = -obj.tau[itau];
+          double c;
+          if (lastc != 0) {
+            for (n = 0; n < lastc; n++) {
+              work[n] = 0.0;
+            }
+            n = 0;
+            i = jA + lda * (lastc - 1);
+            for (int idx{jA}; lda < 0 ? idx >= i : idx <= i; idx += lda) {
+              c = 0.0;
+              iQR0 = (idx + lastv) - 1;
+              for (ia = idx; ia <= iQR0; ia++) {
+                c += obj.Q[ia - 1] * obj.Q[((iaii + ia) - idx) - 1];
+              }
+              work[n] = work[n] + c;
+              n++;
+            }
+          }
+          c = -obj.tau[itau];
           A = &obj.Q;
-          if (!(alpha1 == 0.0)) {
-            for (int j{0}; j < lastc; j++) {
-              if (work[j] != 0.0) {
+          if (!(c == 0.0)) {
+            for (n = 0; n < lastc; n++) {
+              if (work[n] != 0.0) {
                 double temp;
-                temp = work[j] * alpha1;
-                colbottom = (lastv + jA) - 1;
-                if ((jA <= colbottom) && (colbottom > 2147483646)) {
-                  check_forloop_overflow_error();
-                }
-                for (iQR0 = jA; iQR0 <= colbottom; iQR0++) {
+                temp = work[n] * c;
+                i = lastv + jA;
+                for (iQR0 = jA; iQR0 < i; iQR0++) {
                   (*A)[iQR0 - 1] =
                       (*A)[iQR0 - 1] + (*A)[((iaii + iQR0) - jA) - 1] * temp;
                 }
@@ -141,19 +143,16 @@ void computeQ_(e_struct_T &obj, int nrows)
           }
         }
       }
-      if (i < m) {
+      if (b_i < m) {
         iQR0 = iaii + 1;
-        colbottom = (iaii + m) - i;
-        if ((iaii + 1 <= colbottom) && (colbottom > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (jA = iQR0; jA <= colbottom; jA++) {
-          obj.Q[jA - 1] = -obj.tau[itau] * obj.Q[jA - 1];
+        i = (iaii + m) - b_i;
+        for (lastv = iQR0; lastv <= i; lastv++) {
+          obj.Q[lastv - 1] = -obj.tau[itau] * obj.Q[lastv - 1];
         }
       }
       obj.Q[iaii - 1] = 1.0 - obj.tau[itau];
-      for (int j{0}; j <= i - 2; j++) {
-        obj.Q[(iaii - j) - 2] = 0.0;
+      for (n = 0; n <= b_i - 2; n++) {
+        obj.Q[(iaii - n) - 2] = 0.0;
       }
       itau--;
     }

@@ -5,7 +5,7 @@
 // File: countsort.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef COUNTSORT_H
@@ -22,13 +22,10 @@ namespace coder {
 namespace optim {
 namespace coder {
 namespace utils {
-void countsort(array<int, 1U> &x, int xLen, array<int, 1U> &workspace,
-               int xMax);
-
 void countsort(array<int, 1U> &x, int xLen, array<int, 1U> &workspace, int xMin,
                int xMax);
 
-} // namespace utils
+}
 } // namespace coder
 } // namespace optim
 } // namespace coder

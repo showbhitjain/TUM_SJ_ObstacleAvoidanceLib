@@ -5,12 +5,11 @@
 // File: xgerc.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 // Include Files
 #include "xgerc.h"
-#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cstring>
@@ -36,19 +35,13 @@ void xgerc(int m, int n, double alpha1, int ix0, const array<double, 1U> &y,
   if (!(alpha1 == 0.0)) {
     int jA;
     jA = ia0;
-    if (n > 2147483646) {
-      check_forloop_overflow_error();
-    }
     for (int j{0}; j < n; j++) {
       if (y[j] != 0.0) {
         double temp;
-        int b;
+        int i;
         temp = y[j] * alpha1;
-        b = (m + jA) - 1;
-        if ((jA <= b) && (b > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (int ijA{jA}; ijA <= b; ijA++) {
+        i = m + jA;
+        for (int ijA{jA}; ijA < i; ijA++) {
           A[ijA - 1] = A[ijA - 1] + A[((ix0 + ijA) - jA) - 1] * temp;
         }
       }

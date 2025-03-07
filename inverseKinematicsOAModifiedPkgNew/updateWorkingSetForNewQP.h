@@ -5,7 +5,7 @@
 // File: updateWorkingSetForNewQP.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef UPDATEWORKINGSETFORNEWQP_H
@@ -29,7 +29,7 @@ namespace internal {
 void updateWorkingSetForNewQP(const array<double, 1U> &xk,
                               d_struct_T &WorkingSet, int mIneq,
                               const array<double, 1U> &cIneq, int mEq,
-                              const double cEq_data[], int cEq_size, int mLB,
+                              const double cEq_data[], int mLB,
                               const array<double, 2U> &lb, int mUB,
                               const array<double, 2U> &ub, int mFixed);
 

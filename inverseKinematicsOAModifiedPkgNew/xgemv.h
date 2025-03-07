@@ -5,7 +5,7 @@
 // File: xgemv.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 03-Mar-2025 23:23:36
+// C/C++ source code generated on  : 05-Mar-2025 16:53:20
 //
 
 #ifndef XGEMV_H
@@ -21,17 +21,8 @@
 namespace coder {
 namespace internal {
 namespace blas {
-void b_xgemv(int m, int n, const array<double, 1U> &A, int lda,
-             const array<double, 1U> &x, array<double, 1U> &y);
-
-void xgemv(int m, int n, const array<double, 2U> &A, int ia0, int lda,
-           const array<double, 2U> &x, array<double, 1U> &y);
-
 void xgemv(int m, int n, const array<double, 1U> &A, int lda,
            const array<double, 1U> &x, array<double, 2U> &y);
-
-void xgemv(int m, int n, const array<double, 2U> &A, int lda,
-           const array<double, 1U> &x, array<double, 1U> &y);
 
 void xgemv(int m, int n, const array<double, 1U> &A, int lda,
            const array<double, 2U> &x, array<double, 1U> &y);
@@ -41,18 +32,6 @@ void xgemv(int m, int n, const array<double, 1U> &A, int lda,
 
 void xgemv(int m, int n, const array<double, 1U> &A, int lda,
            const array<double, 1U> &x, array<double, 1U> &y);
-
-void xgemv(int m, int n, const array<double, 1U> &A, int lda,
-           const array<double, 1U> &x, int ix0, array<double, 1U> &y);
-
-void xgemv(int m, int n, const array<double, 2U> &A, int ia0, int lda,
-           const array<double, 2U> &x, int ix0, array<double, 1U> &y);
-
-void xgemv(int m, int n, const array<double, 2U> &A, int lda,
-           const array<double, 1U> &x, array<double, 2U> &y);
-
-void xgemv(int m, int n, const array<double, 1U> &A, int lda,
-           const array<double, 1U> &x, int ix0, array<double, 2U> &y);
 
 } // namespace blas
 } // namespace internal

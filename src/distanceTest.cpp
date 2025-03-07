@@ -18,7 +18,7 @@ using namespace ObstacleAvoidance;
 
 int main() {
     std::map<std::string,Obstacle> obstaclesMap;
-
+    cout << "Size of int: " << sizeof(int) << " bytes" << endl;
     //Box and Sphere Distance Test
    auto sequence=  generateSequence(4,0.001,6);
 
