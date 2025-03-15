@@ -123,6 +123,11 @@ namespace ObstacleAvoidance {
         void setObstacleMap(std::map<std::string,Obstacle> const & obstacleMap,bool saveLastSeenPosition = true);
 
 
+        double getMinimumDistanceLinkAllObstacles(int const &linkIndex);
+
+        Eigen::VectorXd minimumDistanceAllLinks();
+
+        double getDistanceStopOA() const;
 
     };
 }

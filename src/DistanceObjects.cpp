@@ -321,7 +321,10 @@ namespace ObstacleAvoidance {
         request.enable_nearest_points = true;   // get the actual nearest points
         request.enable_signed_distance = true;  // so we can detect penetration with negative distance
         request.gjk_solver_type = fcl::GJKSolverType::GST_LIBCCD;
-
+        // Increase tolerances
+        /*request.distance_tolerance = 1e-5;   // or even 1e-4
+        request.rel_err           = 1e-6;
+        request.abs_err           = 1e-6;*/
         fcl::DistanceResultd result;
 
         // -------------------------------------------------------------

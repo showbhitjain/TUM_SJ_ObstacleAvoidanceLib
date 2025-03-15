@@ -22,8 +22,10 @@ using json = nlohmann::json;
 
 //configFile_Path : path to the file which contains paths to config file for the type of robot
 //which_robot = type of robot
-Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor, const std::string &whichrobot) :
-    Robot(ConfigurationParameters(configFile_Path, parameterFor).getSubConfig( whichrobot)) {}
+Robot::Robot(const std::string &configFile_Path, const std::string &parameterFor,
+             const std::string &whichrobot) : Robot(
+    ConfigurationParameters(configFile_Path, parameterFor).getSubConfig(whichrobot)) {
+}
 
 Robot::Robot(AndreiUtils::ConfigurationParameters const &config) {
     auto eul = config.getJson("displacementEEtoTCP").at("rotationXYZ").get<std::vector<double> >();
@@ -32,23 +34,23 @@ Robot::Robot(AndreiUtils::ConfigurationParameters const &config) {
     }
     this->mdhMatrix = vectorMatrixToEigenMatrix(config.get<vector<vector<double> > >("mdhParameters"));
     auto translation = config.getJson("displacementEEtoTCP").at(
-            "translation").get<std::vector<double> >();
+        "translation").get<std::vector<double> >();
 
-// ("q_world_base").get<Posed>());
+    // ("q_world_base").get<Posed>());
     this->transformationEEToTCP =
             trvec2tform(stdVectorToEigenVector(translation)) * convertEulerToTransform(stdVectorToEigenVector(eul));
-//std::cout << "The trafo_matrix between end effector and Tcp is: \n" << transformationEEToTCP << std::endl;
+    //std::cout << "The trafo_matrix between end effector and Tcp is: \n" << transformationEEToTCP << std::endl;
 
     auto obstacleAvoidanceParameters = config.getJson("ObstacleAvoidanceParameters");
     this->radiusLinks = stdVectorToEigenVector(obstacleAvoidanceParameters["radiusLinks"].get<vector<double> >());
-//    this->radiusLinks = stdVectorToEigenVector(config.get<vector<double>>("radiusLinks"));
+    //    this->radiusLinks = stdVectorToEigenVector(config.get<vector<double>>("radiusLinks"));
     this->radiusJoints = stdVectorToEigenVector(
-            obstacleAvoidanceParameters["radiusJoints"].get<vector<double> >());
+        obstacleAvoidanceParameters["radiusJoints"].get<vector<double> >());
     this->finalLinkType = obstacleAvoidanceParameters["finalLinkType"].get<std::string>();
     this->finalLinkDimensions = stdVectorToEigenVector(
-            obstacleAvoidanceParameters.at("finalLinkDimensions").get<vector<double> >());
-//this->bSplitRegion = obstacleAvoidanceParameters.at("bSplitRegion").get<bool>();
-//this->bSplitRegionFinalLink = obstacleAvoidanceParameters.at("bSplitRegionFinalLink").get<bool>();
+        obstacleAvoidanceParameters.at("finalLinkDimensions").get<vector<double> >());
+    //this->bSplitRegion = obstacleAvoidanceParameters.at("bSplitRegion").get<bool>();
+    //this->bSplitRegionFinalLink = obstacleAvoidanceParameters.at("bSplitRegionFinalLink").get<bool>();
     this->bConsiderFinalLink = obstacleAvoidanceParameters.at("considerFinalLinkOA").get<bool>();
     this->bConsiderBaseToFirstJoint = obstacleAvoidanceParameters.at("considerBaseToFirstJoint").get<bool>();
     this->bConsiderRobotLinkAsLineSwept = obstacleAvoidanceParameters.at("robotLinkAsLineSwept").get<bool>();
@@ -57,16 +59,16 @@ Robot::Robot(AndreiUtils::ConfigurationParameters const &config) {
     this->smootheningCoefficient = obstacleAvoidanceParameters.at("smootheningCoefficient").get<double>();
     this->distanceBuffer = obstacleAvoidanceParameters.at("distanceBuffer").get<double>();
     this->convergenceBeta = obstacleAvoidanceParameters.at("convergenceBetaDynamicObstacleAvoidance").get<double>();
-// this->
-//std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
+    // this->
+    //std::cout << "Fetching joints config under: " << whichrobot + "/Joints" << std::endl;
     this->doSelfCollisionAvoidance = obstacleAvoidanceParameters.at("selfCollision").get<bool>();
 
     auto Config_joints = config.getSubConfig("Joints");
     this->joints = make_shared<Joints>(Config_joints);
 
 
-/* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
- auto nr = number_joints;*/
+    /* this->number_joints = Config_joints.get<size_t>("numberOfJoints");
+     auto nr = number_joints;*/
 }
 
 
@@ -182,7 +184,7 @@ Eigen::Matrix4d Robot::transformMdh(double const &a, double const &alpha, double
 
     transform << std::cos(theta), -std::sin(theta), 0, a,
             std::sin(theta) * std::cos(alpha), std::cos(theta) * std::cos(alpha), -std::sin(alpha), -std::sin(alpha) *
-                                                                                                    d,
+            d,
             std::sin(theta) * std::sin(alpha), std::cos(theta) * std::sin(alpha), std::cos(alpha), std::cos(alpha) * d,
             0, 0, 0, 1;
 
@@ -234,7 +236,6 @@ std::pair<FinalLinkRobot, std::vector<LinkSegment> > Robot::createLinkSegments(c
             linkSegments[i - 1].aSegmentV0 = prevTransform.block<3, 1>(0, 3);
             aTransform = prevTransform * trvec2tform({mdhMatrix(i - 1, 2), 0, 0});
             linkSegments[i - 1].aSegmentV1 = aTransform.block<3, 1>(0, 3);
-
         }
 
         if (mdhMatrix(i - 1, 1) != 0) {
@@ -300,13 +301,13 @@ std::pair<FinalLinkRobot, std::vector<LinkSegment> > Robot::createLinkSegments(c
 
 
 std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEquation(
-        std::map<std::string, Obstacle> const &obstaclesMap, Eigen::VectorXd const &jointAngles,
-        Eigen::VectorXd const &jointVelocityOA) {
+    std::map<std::string, Obstacle> const &obstaclesMap, Eigen::VectorXd const &jointAngles,
+    Eigen::VectorXd const &jointVelocityOA) {
     double minimumDistance = std::numeric_limits<double>::infinity();
 
     int numberLinksRobot = this->getNumberJoints();
 
-    auto [finalLinkTCP, linkSegments] = this->createLinkSegments(jointAngles);
+    auto [finalLinkTCP, robotLink] = this->createLinkSegments(jointAngles);
 
 
     if (this->bConsiderFinalLink == true) {
@@ -319,29 +320,29 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     //self collision avoidance: add all the links as obstacles
     if (this->doSelfCollisionAvoidance) {
         if (this->bConsiderBaseToFirstJoint) {
-            if (linkSegments[0].aSegmentV0.size() > 0) {
-                obstaclesDynamicMap.insert_or_assign("RobotLinkASegment_0", Obstacle(linkSegments[0].aSegmentV0,
-                                                                                     linkSegments[0].aSegmentV1,
-                                                                                     linkSegments[0].radiusLink));
+            if (robotLink[0].aSegmentV0.size() > 0) {
+                obstaclesDynamicMap.insert_or_assign("RobotLinkASegment_0", Obstacle(robotLink[0].aSegmentV0,
+                                                         robotLink[0].aSegmentV1,
+                                                         robotLink[0].radiusLink));
             }
-            if (linkSegments[0].dSegmentV0.size() > 0) {
-                obstaclesDynamicMap.insert_or_assign("RobotLinkDSegment_0", Obstacle(linkSegments[0].dSegmentV0,
-                                                                                     linkSegments[0].dSegmentV1,
-                                                                                     linkSegments[0].radiusLink));
+            if (robotLink[0].dSegmentV0.size() > 0) {
+                obstaclesDynamicMap.insert_or_assign("RobotLinkDSegment_0", Obstacle(robotLink[0].dSegmentV0,
+                                                         robotLink[0].dSegmentV1,
+                                                         robotLink[0].radiusLink));
             }
         }
-        for (int i = 1; i < linkSegments.size() - 1; i++) {
-            if (linkSegments[i].aSegmentV0.size() > 0) {
+        for (int i = 1; i < robotLink.size() - 1; i++) {
+            if (robotLink[i].aSegmentV0.size() > 0) {
                 obstaclesDynamicMap.insert_or_assign("RobotLinkASegment_" + std::to_string(i),
-                                                     Obstacle(linkSegments[i].aSegmentV0,
-                                                              linkSegments[i].aSegmentV1,
-                                                              linkSegments[i].radiusLink));
+                                                     Obstacle(robotLink[i].aSegmentV0,
+                                                              robotLink[i].aSegmentV1,
+                                                              robotLink[i].radiusLink));
             }
-            if (linkSegments[i].dSegmentV0.size() > 0) {
+            if (robotLink[i].dSegmentV0.size() > 0) {
                 obstaclesDynamicMap.insert_or_assign("RobotLinkDSegment_" + std::to_string(i),
-                                                     Obstacle(linkSegments[i].dSegmentV0,
-                                                              linkSegments[i].dSegmentV1,
-                                                              linkSegments[i].radiusLink));
+                                                     Obstacle(robotLink[i].dSegmentV0,
+                                                              robotLink[i].dSegmentV1,
+                                                              robotLink[i].radiusLink));
             }
         }
     }
@@ -349,15 +350,15 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
     // TODO: if bConsiderBaseToFirstJoint == false, add first link to the obstacles
     if (!this->bConsiderBaseToFirstJoint) {
-        if (linkSegments[0].aSegmentV0.size() > 0) {
-            obstaclesDynamicMap.insert_or_assign("RobotLinkASegment_0", Obstacle(linkSegments[0].aSegmentV0,
-                                                                                 linkSegments[0].aSegmentV1,
-                                                                                 linkSegments[0].radiusLink));
+        if (robotLink[0].aSegmentV0.size() > 0) {
+            obstaclesDynamicMap.insert_or_assign("RobotLinkASegment_0", Obstacle(robotLink[0].aSegmentV0,
+                                                     robotLink[0].aSegmentV1,
+                                                     robotLink[0].radiusLink));
         }
-        if (linkSegments[0].dSegmentV0.size() > 0) {
-            obstaclesDynamicMap.insert_or_assign("RobotLinkDSegment_0", Obstacle(linkSegments[0].dSegmentV0,
-                                                                                 linkSegments[0].dSegmentV1,
-                                                                                 linkSegments[0].radiusLink));
+        if (robotLink[0].dSegmentV0.size() > 0) {
+            obstaclesDynamicMap.insert_or_assign("RobotLinkDSegment_0", Obstacle(robotLink[0].dSegmentV0,
+                                                     robotLink[0].dSegmentV1,
+                                                     robotLink[0].radiusLink));
         }
     }
 
@@ -375,134 +376,135 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
         // auto robotLinkIndex = AndreiUtils::stringToInteger(AndreiUtils::splitString().back());
         for (auto &[obstacleId, obstacleFromMap]: obstaclesDynamicMap) {
             auto key = obstacleId;
-            int startIndex = 0;
+            int startIndex;
             auto keySplit = AndreiUtils::splitString(key, "_");
             if (keySplit[0] == "RobotLinkASegment" || keySplit[0] == "RobotLinkDSegment") {
                 int linkObstacleIndex = AndreiUtils::stringToInteger(keySplit.back());
                 if (linkObstacleIndex < numberJoints - 1) {
-                    if ((linkSegments[linkObstacleIndex + 1].aSegmentV0.size() != 0) || (
-                            linkSegments[linkObstacleIndex + 1].dSegmentV0.size() != 0)) {
+                    if ((robotLink[linkObstacleIndex + 1].aSegmentV0.size() != 0) || (
+                            robotLink[linkObstacleIndex + 1].dSegmentV0.size() != 0)) {
                         startIndex = linkObstacleIndex + 2;
-
+                        //ToDO: consider a segment collisions as well
+                        //
                         if (startIndex < numberJoints) {
-                            if (linkSegments[startIndex].dSegmentV1.size() != 0) {
-                                if (linkSegments[linkObstacleIndex].dSegmentV1.size() != 0) {
-                                    if (((linkSegments[startIndex].dSegmentV0 -
-                                          linkSegments[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
-                                        ((linkSegments[startIndex].dSegmentV1 -
-                                          linkSegments[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
+                            if (robotLink[startIndex].dSegmentV1.size() != 0) {
+                                if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
+                                    if (((robotLink[startIndex].dSegmentV0 -
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
+                                        ((robotLink[startIndex].dSegmentV1 -
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      false,
-                                                                                                      true,
-                                                                                                      false
-                                                                                              });
-                                    } else if ((linkSegments[startIndex].dSegmentV1 -
-                                                linkSegments[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                            linkProperty{
+                                                false,
+                                                true,
+                                                false
+                                            });
+                                    } else if ((robotLink[startIndex].dSegmentV1 -
+                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true, true,
-                                                                                                      false
-                                                                                              });
+                                            linkProperty{
+                                                true, true,
+                                                false
+                                            });
                                     }
-                                } else if (linkSegments[linkObstacleIndex].aSegmentV1.size() != 0) {
-                                    if (((linkSegments[startIndex].dSegmentV0 -
-                                          linkSegments[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
-                                        ((linkSegments[startIndex].dSegmentV1 -
-                                          linkSegments[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
+                                } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
+                                    if (((robotLink[startIndex].dSegmentV0 -
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
+                                        ((robotLink[startIndex].dSegmentV1 -
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      false,
-                                                                                                      true,
-                                                                                                      false
-                                                                                              });
-                                    } else if ((linkSegments[startIndex].dSegmentV1 -
-                                                linkSegments[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                            linkProperty{
+                                                false,
+                                                true,
+                                                false
+                                            });
+                                    } else if ((robotLink[startIndex].dSegmentV1 -
+                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true, true,
-                                                                                                      false
-                                                                                              });
+                                            linkProperty{
+                                                true, true,
+                                                false
+                                            });
                                     }
                                 }
-                            } else if (linkSegments[startIndex].aSegmentV1.size() != 0) {
-                                if (linkSegments[linkObstacleIndex].dSegmentV1.size() != 0) {
-                                    /*cout << linkSegments[startIndex].aSegmentV1 << endl;
-                                    cout << linkSegments[linkObstacleIndex].dSegmentV1 << endl;
-                                    cout << "norm: " << (linkSegments[startIndex].aSegmentV1 -
-                                                         linkSegments[linkObstacleIndex].dSegmentV1).norm() << endl;*/
-                                    if (((linkSegments[startIndex].aSegmentV0 -
-                                          linkSegments[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
-                                        ((linkSegments[startIndex].aSegmentV1 -
-                                          linkSegments[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
+                            } else if (robotLink[startIndex].aSegmentV1.size() != 0) {
+                                if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
+                                    /*cout << robotLink[startIndex].aSegmentV1 << endl;
+                                    cout << robotLink[linkObstacleIndex].dSegmentV1 << endl;
+                                    cout << "norm: " << (robotLink[startIndex].aSegmentV1 -
+                                                         robotLink[linkObstacleIndex].dSegmentV1).norm() << endl;*/
+                                    if (((robotLink[startIndex].aSegmentV0 -
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
+                                        ((robotLink[startIndex].aSegmentV1 -
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
                                         //startIndex = startIndex + 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true,
-                                                                                                      false,
-                                                                                                      false
-                                                                                              });
-                                    } else if ((linkSegments[startIndex].aSegmentV1 -
-                                                linkSegments[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                            linkProperty{
+                                                true,
+                                                false,
+                                                false
+                                            });
+                                    } else if ((robotLink[startIndex].aSegmentV1 -
+                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true, true,
-                                                                                                      false
-                                                                                              });
+                                            linkProperty{
+                                                true, true,
+                                                false
+                                            });
                                     }
-                                } else if (linkSegments[linkObstacleIndex].aSegmentV1.size() != 0) {
-                                    if (((linkSegments[startIndex].aSegmentV0 -
-                                          linkSegments[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
-                                        ((linkSegments[startIndex].aSegmentV1 -
-                                          linkSegments[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
+                                } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
+                                    if (((robotLink[startIndex].aSegmentV0 -
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
+                                        ((robotLink[startIndex].aSegmentV1 -
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true,
-                                                                                                      false,
-                                                                                                      false
-                                                                                              });
-                                    } else if ((linkSegments[startIndex].aSegmentV1 -
-                                                linkSegments[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                            linkProperty{
+                                                true,
+                                                false,
+                                                false
+                                            });
+                                    } else if ((robotLink[startIndex].aSegmentV1 -
+                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                              linkProperty{
-                                                                                                      true, true,
-                                                                                                      false
-                                                                                              });
+                                            linkProperty{
+                                                true, true,
+                                                false
+                                            });
                                     }
                                 }
 
-                                /*cout << linkSegments[startIndex].aSegmentV1.size() << endl;
-                                cout << linkSegments[startIndex].aSegmentV1 << endl;*/
+                                /*cout << robotLink[startIndex].aSegmentV1.size() << endl;
+                                cout << robotLink[startIndex].aSegmentV1 << endl;*/
                             }
                         }
-                    } else if (linkSegments[linkObstacleIndex + 1].aSegmentV0.size() == 0 &&
-                               linkSegments[linkObstacleIndex + 1].dSegmentV0.size() == 0) {
+                    } else if (robotLink[linkObstacleIndex + 1].aSegmentV0.size() == 0 &&
+                               robotLink[linkObstacleIndex + 1].dSegmentV0.size() == 0) {
                         startIndex = linkObstacleIndex + 3;
 
 
                         if (startIndex == numberJoints) {
-                            if (linkSegments[linkObstacleIndex].dSegmentV1.size() != 0) {
+                            if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
                                 if ((this->fkmCartesian(jointAngles, startIndex)(seq(0, 2), 3) -
-                                     linkSegments[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                     robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
                                     obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                          linkProperty{
-                                                                                                  false,
-                                                                                                  false,
-                                                                                                  true
-                                                                                          });
+                                        linkProperty{
+                                            false,
+                                            false,
+                                            true
+                                        });
                                 }
-                            } else if (linkSegments[linkObstacleIndex].aSegmentV1.size() != 0) {
+                            } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
                                 if ((this->fkmCartesian(jointAngles, startIndex)(seq(0, 2), 3) -
-                                     linkSegments[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                     robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
                                     obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
-                                                                                          linkProperty{
-                                                                                                  false, false,
-                                                                                                  true
-                                                                                          });
+                                        linkProperty{
+                                            false, false,
+                                            true
+                                        });
                                 }
                             }
                         }
@@ -513,6 +515,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
             }
             /*cout << key << endl;
             cout << "startIndex" << startIndex << endl;*/
+
+            obstacleFromMap.startIndex = startIndex;
+
             for (int i = startIndex; i < numberLinksRobot; ++i) {
                 /*this->criticalPointsDynamicMap[key][i].distVectorA = Eigen::MatrixXd::Constant(3, 1,
                                                                                          std::numeric_limits<double>::quiet_NaN());
@@ -524,8 +529,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 //Delete Critical points if distance becomes greater
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointA && (this->criticalPointsDynamicMap[key][i].distanceA >
-                                              (this->distanceActivateOA + this->distanceBuffer))) {
+                    hasCriticalPointA && (this->criticalPointsDynamicMap[key][i].distanceA >
+                                          (this->distanceActivateOA + this->distanceBuffer))) {
                     /*cout << "checking if distance A > distance critical zone: "
                             << this->criticalPointsDynamicMap[key][i].distanceA << endl;
                             */
@@ -534,16 +539,16 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 }
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointD &&
+                    hasCriticalPointD &&
                     (this->criticalPointsDynamicMap[key][i].distanceD >
                      (this->distanceActivateOA + this->distanceBuffer))) {
                     deleteCriticalPoint(this->criticalPointsDynamicMap[key][i], false, true, false);
                 }
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointFinalLink &&
+                    hasCriticalPointFinalLink &&
                     (this->criticalPointsDynamicMap[key][i].
-                            distanceFinalLink >
+                     distanceFinalLink >
                      (this->distanceActivateOA + this->distanceBuffer))) {
                     deleteCriticalPoint(this->criticalPointsDynamicMap[key][i], false, false, true);
                 }
@@ -560,21 +565,21 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             distance = std::numeric_limits<double>::infinity();
                         } else {
                             auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                    linkSegments[i].aSegmentV0,
-                                    linkSegments[i].aSegmentV1,
-                                    linkSegments[i].radiusLink,
-                                    linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
-                                    obstacleFromMap.partialSelfCollision[i].useLinkSegmentA);
+                                robotLink[i].aSegmentV0,
+                                robotLink[i].aSegmentV1,
+                                robotLink[i].radiusLink,
+                                robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
+                                obstacleFromMap.partialSelfCollision[i].useLinkSegmentA);
                             distance = std::get<0>(resultDistanceCalculation);
                             closestPointObstacle = std::get<1>(resultDistanceCalculation);
                             closestPointLink = std::get<2>(resultDistanceCalculation);
                         }
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                linkSegments[i].aSegmentV0,
-                                linkSegments[i].aSegmentV1,
-                                linkSegments[i].radiusLink,
-                                linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
+                            robotLink[i].aSegmentV0,
+                            robotLink[i].aSegmentV1,
+                            robotLink[i].radiusLink,
+                            robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
@@ -602,7 +607,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     this->criticalPointsDynamicMap[key][i].
                             jacobiDistanceA =
                             (-(this->criticalPointsDynamicMap[key][i].
-                                    distVectorA.normalized())).transpose() *
+                                distVectorA.normalized())).transpose() *
                             this->criticalPointsDynamicMap[key][i].jacobiCriticalA;
 
                     /* double bFirst =  (-(this->criticalPointsDynamicMap[key][i].
@@ -613,8 +618,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     criticalPointsDynamicMap[key][i].jointVelocityCurrentA = jointVelocityOA;
 
                     auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(criticalPointsDynamicMap[key][i],
-                                                                                     keySplit, false, false, true,
-                                                                                     false);
+                        keySplit, false, false, true,
+                        false);
 
                     bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceA);
                     double bFirst = (this->criticalPointsDynamicMap[key][i].jacobiDistMaxA *
@@ -624,8 +629,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     bCounter += 1;
 
                     j0(jCounter, all) = (lambda * this->criticalPointsDynamicMap[key][i].jacobiDistanceA) + (
-                            (1 - lambda) * this->criticalPointsDynamicMap[key][i].
-                                    jacobiDistanceDynamicA);
+                                            (1 - lambda) * this->criticalPointsDynamicMap[key][i].
+                                            jacobiDistanceDynamicA);
 
                     jCounter += 1;
                 }
@@ -641,17 +646,17 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             distance = std::numeric_limits<double>::infinity();
                         } else {
                             auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                    linkSegments[i].dSegmentV0, linkSegments[i].dSegmentV1, linkSegments[i].radiusLink,
-                                    linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
-                                    obstacleFromMap.partialSelfCollision[i].useLinkSegmentD);
+                                robotLink[i].dSegmentV0, robotLink[i].dSegmentV1, robotLink[i].radiusLink,
+                                robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
+                                obstacleFromMap.partialSelfCollision[i].useLinkSegmentD);
                             distance = std::get<0>(resultDistanceCalculation);
                             closestPointObstacle = std::get<1>(resultDistanceCalculation);
                             closestPointLink = std::get<2>(resultDistanceCalculation);
                         }
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                linkSegments[i].dSegmentV0, linkSegments[i].dSegmentV1, linkSegments[i].radiusLink,
-                                linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
+                            robotLink[i].dSegmentV0, robotLink[i].dSegmentV1, robotLink[i].radiusLink,
+                            robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
@@ -680,9 +685,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     this->criticalPointsDynamicMap[key][i].
                             jacobiDistanceD =
                             (-(this->criticalPointsDynamicMap[key][i].
-                                    distVectorD.normalized())).transpose() *
+                                distVectorD.normalized())).transpose() *
                             this->criticalPointsDynamicMap[key][i].
-                                    jacobiCriticalD;
+                            jacobiCriticalD;
 
                     /*   double bFirst =  (-(this->criticalPointsDynamicMap[key][i].
                                distVectorD.normalized())).transpose() * this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxD * this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD;
@@ -693,20 +698,20 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     criticalPointsDynamicMap[key][i].jointVelocityCurrentD = jointVelocityOA;
 
                     auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(criticalPointsDynamicMap[key][i],
-                                                                                     keySplit, false, false, false,
-                                                                                     true);
+                        keySplit, false, false, false,
+                        true);
 
                     bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceD);
 
                     double bFirst = (this->criticalPointsDynamicMap[key][i].jacobiDistMaxD *
                                      this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD).value();
                     bFirst = this->computeB0(bFirst, this->criticalPointsDynamicMap[key][i].
-                            distanceD);
+                                             distanceD);
                     b0(bCounter) = lambda * bFirst + ((1 - lambda) * bSecond);
                     bCounter += 1;
 
                     j0(jCounter, all) = lambda * this->criticalPointsDynamicMap[key][i].jacobiDistanceD + (1 - lambda) *
-                                                                                                          this->criticalPointsDynamicMap[key][i].jacobiDistanceDynamicD;
+                                        this->criticalPointsDynamicMap[key][i].jacobiDistanceDynamicD;
                     jCounter += 1;
                     /*
 
@@ -716,7 +721,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 }
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointFinalLink && bConsiderFinalLink &&
+                    hasCriticalPointFinalLink && bConsiderFinalLink &&
                     i == numberLinksRobot - 1) {
                     double distance;
                     Vector3d closestPointObstacle, closestPointLink;
@@ -724,13 +729,13 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         (!obstacleFromMap.partialSelfCollision.empty()) &&
                         (obstacleFromMap.partialSelfCollision.count(i))) {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceFinalLinkObstacle(
-                                finalLinkTCP, obstacleFromMap.partialSelfCollision[i].useFinalLink);
+                            finalLinkTCP, obstacleFromMap.partialSelfCollision[i].useFinalLink);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceFinalLinkObstacle(
-                                finalLinkTCP, false);
+                            finalLinkTCP, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
@@ -761,7 +766,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     this->criticalPointsDynamicMap[key][i].
                             jacobiDistanceFinalLink =
                             (-(this->criticalPointsDynamicMap[key][i].
-                                    distVectorFinalLink.normalized())).transpose() *
+                                distVectorFinalLink.normalized())).transpose() *
                             this->criticalPointsDynamicMap[key][i].jacobiCriticalFinalLink;
 
 
@@ -773,8 +778,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                     criticalPointsDynamicMap[key][i].jointVelocityCurrentFinalLink = jointVelocityOA;
 
                     auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(criticalPointsDynamicMap[key][i],
-                                                                                     keySplit, false, true, false,
-                                                                                     false);
+                        keySplit, false, true, false,
+                        false);
 
                     bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceFinalLink);
 
@@ -787,13 +792,13 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
                     j0(jCounter, all) =
                             lambda * this->criticalPointsDynamicMap[key][i].jacobiDistanceFinalLink + (1 - lambda) *
-                                                                                                      this->criticalPointsDynamicMap[key][i].
-                                                                                                              jacobiDistanceDynamicFinalLink;
+                            this->criticalPointsDynamicMap[key][i].
+                            jacobiDistanceDynamicFinalLink;
                     jCounter += 1;
                 }
 
                 if (!this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointFinalLink && bConsiderFinalLink &&
+                    hasCriticalPointFinalLink && bConsiderFinalLink &&
                     i == numberLinksRobot - 1) {
                     double distance;
                     Vector3d closestPointObstacle, closestPointLink;
@@ -801,13 +806,13 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         (!obstacleFromMap.partialSelfCollision.empty()) &&
                         (obstacleFromMap.partialSelfCollision.count(i))) {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceFinalLinkObstacle(
-                                finalLinkTCP, obstacleFromMap.partialSelfCollision[i].useFinalLink);
+                            finalLinkTCP, obstacleFromMap.partialSelfCollision[i].useFinalLink);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceFinalLinkObstacle(
-                                finalLinkTCP, false);
+                            finalLinkTCP, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
@@ -836,7 +841,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                 hasCriticalPointFinalLink = true;
                         this->criticalPointsDynamicMap[key][i].distVectorFinalLink = distanceVector;
                         this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxFinalLink = jacobiCriticalPoint(
-                                seq(0, 2), all);
+                            seq(0, 2), all);
                         this->criticalPointsDynamicMap[key][i].jacobiCriticalFinalLink =
                                 jacobiCriticalPoint(seq(0, 2), all);
                         this->criticalPointsDynamicMap[key][i].jointAnglesCriticalFinalLink = jointAngles;
@@ -850,7 +855,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                 (-(this->criticalPointsDynamicMap[key][i].distVectorFinalLink.normalized())).transpose()
                                 *
                                 this->criticalPointsDynamicMap[key][i].
-                                        jacobiCriticalFinalLink;
+                                jacobiCriticalFinalLink;
                         this->criticalPointsDynamicMap[key][i].closestPointObstacleFinalLink = closestPointObstacle;
                         this->criticalPointsDynamicMap[key][i].closestPointRelativeFinalLink = relativeTransformation;
                         this->criticalPointsDynamicMap[key][i].jointVelocityCriticalFinalLink = jointVelocityOA;
@@ -858,8 +863,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
 
                         auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(
-                                criticalPointsDynamicMap[key][i],
-                                keySplit, true, true, false, false);
+                            criticalPointsDynamicMap[key][i],
+                            keySplit, true, true, false, false);
 
                         bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceFinalLink);
 
@@ -877,20 +882,20 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         b0(bCounter) = lambda * bFirst + (1 - lambda) * bSecond;
                         j0(jCounter, all) = lambda * this->criticalPointsDynamicMap[key][i].jacobiDistanceFinalLink +
                                             (1 - lambda) * this->criticalPointsDynamicMap[key][i].
-                                                    jacobiDistanceDynamicFinalLink;
+                                            jacobiDistanceDynamicFinalLink;
                         bCounter += 1;
                         jCounter += 1;
                     }
                 }
 
                 if ((!this->criticalPointsDynamicMap[key][i].hasCriticalPointA) && (i < numberJoints) &&
-                    (linkSegments[i].aSegmentV0.size() != 0)) {
+                    (robotLink[i].aSegmentV0.size() != 0)) {
                     double distance;
                     Vector3d closestPointObstacle, closestPointLink;
                     Vector3d distanceVector;
-                    /*cout << "Link Segment av0:" << linkSegments[i].aSegmentV0 << endl;
-                    cout << "Link Segment av1:" << linkSegments[i].aSegmentV1 << endl;
-                    cout << "Link Segment radius:" << linkSegments[i].radiusLink << endl;
+                    /*cout << "Link Segment av0:" << robotLink[i].aSegmentV0 << endl;
+                    cout << "Link Segment av1:" << robotLink[i].aSegmentV1 << endl;
+                    cout << "Link Segment radius:" << robotLink[i].radiusLink << endl;
 
                     cout << "obstacle center: " << obstacleFromMap.center << endl;
                     cout << "obstacle axis: " << obstacleFromMap.axis << endl;
@@ -903,21 +908,21 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             distance = std::numeric_limits<double>::infinity();
                         } else {
                             auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                    linkSegments[i].aSegmentV0,
-                                    linkSegments[i].aSegmentV1,
-                                    linkSegments[i].radiusLink,
-                                    linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
-                                    obstacleFromMap.partialSelfCollision[i].useLinkSegmentA);
+                                robotLink[i].aSegmentV0,
+                                robotLink[i].aSegmentV1,
+                                robotLink[i].radiusLink,
+                                robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
+                                obstacleFromMap.partialSelfCollision[i].useLinkSegmentA);
                             distance = std::get<0>(resultDistanceCalculation);
                             closestPointObstacle = std::get<1>(resultDistanceCalculation);
                             closestPointLink = std::get<2>(resultDistanceCalculation);
                         }
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                linkSegments[i].aSegmentV0,
-                                linkSegments[i].aSegmentV1,
-                                linkSegments[i].radiusLink,
-                                linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
+                            robotLink[i].aSegmentV0,
+                            robotLink[i].aSegmentV1,
+                            robotLink[i].radiusLink,
+                            robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
@@ -958,8 +963,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         this->criticalPointsDynamicMap[key][i].jointVelocityCriticalA = jointVelocityOA;
                         this->criticalPointsDynamicMap[key][i].jointVelocityCurrentA = jointVelocityOA;
                         auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(
-                                criticalPointsDynamicMap[key][i],
-                                keySplit, true, false, true, false);
+                            criticalPointsDynamicMap[key][i],
+                            keySplit, true, false, true, false);
 
                         bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceA);
 
@@ -978,7 +983,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                 }
 
                 if ((!this->criticalPointsDynamicMap[key][i].hasCriticalPointD) && (i < numberJoints) &&
-                    (linkSegments[i].dSegmentV0.size() != 0)) {
+                    (robotLink[i].dSegmentV0.size() != 0)) {
                     double distance;
                     Vector3d closestPointObstacle, closestPointLink;
                     Vector3d distanceVector;
@@ -989,24 +994,24 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             distance = std::numeric_limits<double>::infinity();
                         } else {
                             auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                    linkSegments[i].dSegmentV0, linkSegments[i].dSegmentV1, linkSegments[i].radiusLink,
-                                    linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
-                                    obstacleFromMap.partialSelfCollision[i].useLinkSegmentD);
+                                robotLink[i].dSegmentV0, robotLink[i].dSegmentV1, robotLink[i].radiusLink,
+                                robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept,
+                                obstacleFromMap.partialSelfCollision[i].useLinkSegmentD);
                             distance = std::get<0>(resultDistanceCalculation);
                             closestPointObstacle = std::get<1>(resultDistanceCalculation);
                             closestPointLink = std::get<2>(resultDistanceCalculation);
                         }
                     } else {
                         auto resultDistanceCalculation = obstacleFromMap.calculateDistanceRobotLinkObstacle(
-                                linkSegments[i].dSegmentV0, linkSegments[i].dSegmentV1, linkSegments[i].radiusLink,
-                                linkSegments[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
+                            robotLink[i].dSegmentV0, robotLink[i].dSegmentV1, robotLink[i].radiusLink,
+                            robotLink[i].radiusJoint, this->bConsiderRobotLinkAsLineSwept, false);
                         distance = std::get<0>(resultDistanceCalculation);
                         closestPointObstacle = std::get<1>(resultDistanceCalculation);
                         closestPointLink = std::get<2>(resultDistanceCalculation);
                     }
                     distanceVector = closestPointLink - closestPointObstacle;
                     if ((distance < this->criticalPointsDynamicMap[key][i].distance &&
-                         linkSegments[i].aSegmentV0.size() != 0) || (linkSegments[i].aSegmentV0.size() == 0)) {
+                         robotLink[i].aSegmentV0.size() != 0) || (robotLink[i].aSegmentV0.size() == 0)) {
                         this->criticalPointsDynamicMap[key][i].distance = distance;
                     }
 
@@ -1041,8 +1046,8 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         this->criticalPointsDynamicMap[key][i].jointVelocityCurrentD = jointVelocityOA;
 
                         auto [bSecond, lambda] = calculateDynamicSelfCollisionParameters(
-                                criticalPointsDynamicMap[key][i],
-                                keySplit, true, false, false, true);
+                            criticalPointsDynamicMap[key][i],
+                            keySplit, true, false, false, true);
 
                         bSecond = this->computeB0(bSecond, this->criticalPointsDynamicMap[key][i].distanceD);
 
@@ -1055,33 +1060,33 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
                         j0(jCounter, all) =
                                 lambda * this->criticalPointsDynamicMap[key][i].jacobiDistanceD + (1 - lambda) *
-                                                                                                  this->criticalPointsDynamicMap[key][i].
-                                                                                                          jacobiDistanceDynamicD;
+                                this->criticalPointsDynamicMap[key][i].
+                                jacobiDistanceDynamicD;
                         jCounter += 1;
                     }
                 }
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointA &&
+                    hasCriticalPointA &&
                     this->criticalPointsDynamicMap[key][i].
-                            hasCriticalPointD) {
+                    hasCriticalPointD) {
                     this->criticalPointsDynamicMap[key][i].
                             distance = std::min(
-                            this->criticalPointsDynamicMap[key][i].
-                                    distanceA,
-                            this->criticalPointsDynamicMap[key][i].
-                                    distanceD);
+                                this->criticalPointsDynamicMap[key][i].
+                                distanceA,
+                                this->criticalPointsDynamicMap[key][i].
+                                distanceD);
                 } else if (this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointA &&
+                           hasCriticalPointA &&
                            !this->criticalPointsDynamicMap[key][i].
-                                   hasCriticalPointD) {
+                           hasCriticalPointD) {
                     this->criticalPointsDynamicMap[key][i].
                             distance = this->criticalPointsDynamicMap[key][i].
                             distanceA;
                 } else if (!this->criticalPointsDynamicMap[key][i].
-                        hasCriticalPointA &&
+                           hasCriticalPointA &&
                            this->criticalPointsDynamicMap[key][i].
-                                   hasCriticalPointD) {
+                           hasCriticalPointD) {
                     this->criticalPointsDynamicMap[key][i].
                             distance = this->criticalPointsDynamicMap[key][i].
                             distanceD;
@@ -1089,7 +1094,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
 
 
                 if (this->criticalPointsDynamicMap[key][i].
-                        distance < minimumDistance) {
+                    distance < minimumDistance) {
                     minimumDistance = this->criticalPointsDynamicMap[key][i].distance;
                 }
             }
@@ -1100,7 +1105,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
     } else {
         j0.conservativeResize(jCounter, numberJoints);
     }
-
+    if (std::isinf(minimumDistance)) {
+        minimumDistance = std::numeric_limits<double>::quiet_NaN();
+    }
     b0.conservativeResize(bCounter);
     return std::make_tuple(j0, b0, minimumDistance);
 }
@@ -1124,9 +1131,9 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
         criticalPoint.jacobiDistanceA = Eigen::MatrixXd::Constant(1, numberOfJoints,
                                                                   std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointObstacleA = Eigen::MatrixXd::Constant(
-                3, 1, std::numeric_limits<double>::quiet_NaN());
+            3, 1, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointRelativeRobotLinkA = Eigen::MatrixXd::Constant(4, 4,
-                                                                                 std::numeric_limits<double>::quiet_NaN());
+            std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointVelocityCriticalA = Eigen::VectorXd::Constant(numberOfJoints,
                                                                          std::numeric_limits<double>::quiet_NaN());
         criticalPoint.distanceA = std::numeric_limits<double>::quiet_NaN();
@@ -1136,7 +1143,7 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
                                                                        std::numeric_limits<double>::quiet_NaN());
 
         criticalPoint.jointVelocityCurrentA = Eigen::VectorXd::Constant(
-                numberOfJoints, std::numeric_limits<double>::quiet_NaN());
+            numberOfJoints, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.obstacleVelocityForLinkA = Eigen::MatrixXd::Constant(3, 1, 0);
         criticalPoint.jacobiDistanceDynamicA = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
         criticalPoint.jacobiDistanceDynamicMaxA = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
@@ -1155,9 +1162,9 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
         criticalPoint.jacobiDistanceD = Eigen::MatrixXd::Constant(1, numberOfJoints,
                                                                   std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointObstacleD = Eigen::MatrixXd::Constant(
-                3, 1, std::numeric_limits<double>::quiet_NaN());
+            3, 1, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointRelativeRobotLinkD = Eigen::MatrixXd::Constant(4, 4,
-                                                                                 std::numeric_limits<double>::quiet_NaN());
+            std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointVelocityCriticalD = Eigen::VectorXd::Constant(numberOfJoints,
                                                                          std::numeric_limits<double>::quiet_NaN());
         criticalPoint.distanceD = std::numeric_limits<double>::quiet_NaN();
@@ -1166,7 +1173,7 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
         criticalPoint.jointAnglesCriticalD = Eigen::VectorXd::Constant(numberOfJoints,
                                                                        std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointVelocityCurrentD = Eigen::VectorXd::Constant(
-                numberOfJoints, std::numeric_limits<double>::quiet_NaN());
+            numberOfJoints, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.obstacleVelocityForLinkD = Eigen::MatrixXd::Constant(3, 1, 0);
         criticalPoint.jacobiDistanceDynamicD = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
         criticalPoint.jacobiDistanceDynamicMaxD = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
@@ -1175,32 +1182,32 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
     if (bDeleteCriticalFinalLink) {
         criticalPoint.hasCriticalPointFinalLink = false;
         criticalPoint.distVectorFinalLink = Eigen::MatrixXd::Constant(
-                3, 1, std::numeric_limits<double>::quiet_NaN());
+            3, 1, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jacobiCriticalMaxFinalLink = Eigen::MatrixXd::Constant(3, numberOfJoints,
                                                                              std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jacobiCriticalFinalLink = Eigen::MatrixXd::Constant(3, numberOfJoints,
                                                                           std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointAnglesCriticalFinalLink = Eigen::VectorXd::Constant(numberOfJoints,
                                                                                std::numeric_limits<
-                                                                                       double>::quiet_NaN());
+                                                                                   double>::quiet_NaN());
         criticalPoint.jacobiDistMaxFinalLink = Eigen::MatrixXd::Constant(1, numberOfJoints,
                                                                          std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jacobiDistanceFinalLink = Eigen::MatrixXd::Constant(1, numberOfJoints,
                                                                           std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointObstacleFinalLink = Eigen::MatrixXd::Constant(3, 1,
-                                                                                std::numeric_limits<double>::quiet_NaN());
+            std::numeric_limits<double>::quiet_NaN());
         criticalPoint.closestPointRelativeFinalLink = Eigen::MatrixXd::Constant(4, 4,
-                                                                                std::numeric_limits<double>::quiet_NaN());
+            std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointVelocityCriticalFinalLink = Eigen::VectorXd::Constant(numberOfJoints,
-                                                                                 std::numeric_limits<double>::quiet_NaN());
+            std::numeric_limits<double>::quiet_NaN());
         criticalPoint.distanceFinalLink = std::numeric_limits<double>::quiet_NaN();
         criticalPoint.jacobiCriticalMaxFinalLink = Eigen::MatrixXd::Constant(3, numberOfJoints,
                                                                              std::numeric_limits<double>::quiet_NaN());
         criticalPoint.jointAnglesCriticalFinalLink = Eigen::VectorXd::Constant(numberOfJoints,
                                                                                std::numeric_limits<
-                                                                                       double>::quiet_NaN());
+                                                                                   double>::quiet_NaN());
         criticalPoint.jointVelocityCurrentFinalLink = Eigen::VectorXd::Constant(
-                numberOfJoints, std::numeric_limits<double>::quiet_NaN());
+            numberOfJoints, std::numeric_limits<double>::quiet_NaN());
         criticalPoint.obstacleVelocityForFinalLink = Eigen::MatrixXd::Constant(3, 1, 0);
         criticalPoint.jacobiDistanceDynamicFinalLink = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
         criticalPoint.jacobiDistanceDynamicMaxFinalLink = Eigen::MatrixXd::Constant(1, numberOfJoints, 0);
@@ -1208,17 +1215,17 @@ void Robot::deleteCriticalPoint(CriticalPoints &criticalPoint, bool const &bDele
 }
 
 std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
-        CriticalPoints &criticalPoint, std::vector<string> const &keySplit, bool const &enterCriticalZone,
-        bool const &forFinalLink, bool const &forLinkA, bool const &forLinkD) {
+    CriticalPoints &criticalPoint, std::vector<string> const &keySplit, bool const &enterCriticalZone,
+    bool const &forFinalLink, bool const &forLinkA, bool const &forLinkD) {
     if (((keySplit.front() == "RobotLinkASegment") || (keySplit.front() == "RobotLinkDSegment")) && this->
-            doSelfCollisionAvoidance) {
+        doSelfCollisionAvoidance) {
         const int linkObstacleIndex = AndreiUtils::stringToInteger(keySplit.back());
 
         if (forFinalLink && !forLinkA && !forLinkD) {
             const auto resultObstacle = criticalPointInformation(
-                    criticalPoint.jointAnglesCriticalFinalLink,
-                    criticalPoint.closestPointObstacleFinalLink,
-                    linkObstacleIndex);
+                criticalPoint.jointAnglesCriticalFinalLink,
+                criticalPoint.closestPointObstacleFinalLink,
+                linkObstacleIndex);
             Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
             criticalPoint.obstacleVelocityForFinalLink = jacobiObstaclePoint(seq(0, 2), all) *
@@ -1226,7 +1233,7 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
             //projection on this vector
             // = this->criticalPointsDynamicMap[key][i].obstacleVelocityFinalLink * distanceVector.normalized();
             auto [vObstacleParallel, vObstaclePerpendicular] = decomposeVector(
-                    criticalPoint.obstacleVelocityForFinalLink, criticalPoint.distVectorFinalLink);
+                criticalPoint.obstacleVelocityForFinalLink, criticalPoint.distVectorFinalLink);
             criticalPoint.jacobiDistanceDynamicFinalLink =
                     (vObstaclePerpendicular.normalized()).transpose() *
                     criticalPoint.jacobiCriticalFinalLink;
@@ -1235,22 +1242,22 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
                 criticalPoint.jacobiDistanceDynamicMaxFinalLink =
                         (vObstaclePerpendicular.normalized()).transpose() *
                         criticalPoint.
-                                jacobiCriticalFinalLink;
+                        jacobiCriticalFinalLink;
             }
             double bSecond = (criticalPoint.jacobiDistanceDynamicMaxFinalLink *
                               criticalPoint.jointVelocityCriticalFinalLink).value();
 
             bSecond = computeB0(bSecond, criticalPoint.distanceFinalLink);
             double lambda = std::exp(
-                    -convergenceBeta * criticalPoint.distanceFinalLink *
-                    criticalPoint.obstacleVelocityForFinalLink.norm());
+                -convergenceBeta * criticalPoint.distanceFinalLink *
+                criticalPoint.obstacleVelocityForFinalLink.norm());
 
             return std::make_tuple(bSecond, lambda);
         } else if (forLinkA && !forLinkD && !forFinalLink) {
             const auto resultObstacle = criticalPointInformation(
-                    criticalPoint.jointAnglesCriticalA,
-                    criticalPoint.closestPointObstacleA,
-                    linkObstacleIndex);
+                criticalPoint.jointAnglesCriticalA,
+                criticalPoint.closestPointObstacleA,
+                linkObstacleIndex);
 
             Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
@@ -1259,11 +1266,11 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
             //projection on this vector
             // = this->criticalPointsDynamicMap[key][i].obstacleVelocityFinalLink * distanceVector.normalized();
             auto [vObstacleParallel, vObstaclePerpendicular] = decomposeVector(
-                    criticalPoint.obstacleVelocityForLinkA, criticalPoint.distVectorA);
+                criticalPoint.obstacleVelocityForLinkA, criticalPoint.distVectorA);
             criticalPoint.jacobiDistanceDynamicA =
                     (vObstaclePerpendicular.normalized()).transpose() *
                     criticalPoint.
-                            jacobiCriticalA;
+                    jacobiCriticalA;
 
             if (enterCriticalZone) {
                 criticalPoint.jacobiDistanceDynamicMaxA =
@@ -1275,15 +1282,15 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
 
             bSecond = computeB0(bSecond, criticalPoint.distanceA);
             double lambda = std::exp(
-                    -convergenceBeta * criticalPoint.distanceA *
-                    criticalPoint.obstacleVelocityForLinkA.norm());
+                -convergenceBeta * criticalPoint.distanceA *
+                criticalPoint.obstacleVelocityForLinkA.norm());
 
             return std::make_tuple(bSecond, lambda);
         } else if (forLinkD && !forLinkA && !forFinalLink) {
             const auto resultObstacle = criticalPointInformation(
-                    criticalPoint.jointAnglesCriticalD,
-                    criticalPoint.closestPointObstacleD,
-                    linkObstacleIndex);
+                criticalPoint.jointAnglesCriticalD,
+                criticalPoint.closestPointObstacleD,
+                linkObstacleIndex);
 
             Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
@@ -1293,25 +1300,25 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
             //projection on this vector
             // = this->criticalPointsDynamicMap[key][i].obstacleVelocityFinalLink * distanceVector.normalized();
             auto [vObstacleParallel, vObstaclePerpendicular] = decomposeVector(
-                    criticalPoint.obstacleVelocityForLinkD, criticalPoint.distVectorD);
+                criticalPoint.obstacleVelocityForLinkD, criticalPoint.distVectorD);
             criticalPoint.jacobiDistanceDynamicD =
                     (vObstaclePerpendicular.normalized()).transpose() *
                     criticalPoint.
-                            jacobiCriticalD;
+                    jacobiCriticalD;
 
             if (enterCriticalZone) {
                 criticalPoint.jacobiDistanceDynamicMaxD =
                         (vObstaclePerpendicular.normalized()).transpose() *
                         criticalPoint.
-                                jacobiCriticalD;
+                        jacobiCriticalD;
             }
             double bSecond = (criticalPoint.jacobiDistanceDynamicMaxD *
                               criticalPoint.jointVelocityCriticalD).value();
 
             bSecond = computeB0(bSecond, criticalPoint.distanceD);
             double lambda = std::exp(
-                    -convergenceBeta * criticalPoint.distanceD *
-                    criticalPoint.obstacleVelocityForLinkD.norm());
+                -convergenceBeta * criticalPoint.distanceD *
+                criticalPoint.obstacleVelocityForLinkD.norm());
 
             return std::make_tuple(bSecond, lambda);
         } else {
@@ -1404,4 +1411,60 @@ void Robot::setObstacleMap(std::map<std::string, Obstacle> const &obstacleMap, b
             }
         }
     }
+}
+
+
+// linkIndex should be less than 8 for franka: 7 for last joint
+//call this equation only after obstacleAvoidance equartion (used for only plotting purposes)
+double Robot::getMinimumDistanceLinkAllObstacles(int const &linkIndex) {
+    if (linkIndex >= getNumberJoints() + 1) {
+        throw std::invalid_argument("Link index out of range");
+    }
+    double minimumDistanceLinkAllObstacles = std::numeric_limits<double>::infinity();
+
+    // If we have no obstacles in the map, return NaN immediately
+    if (criticalPointsDynamicMap.empty()) {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+
+    for (auto const &[obstacleId, criticalPointInformation]: criticalPointsDynamicMap) {
+        auto it = obstaclesDynamicMap.find(obstacleId);
+        if (it == obstaclesDynamicMap.end()) {
+            throw std::runtime_error(
+                "Map Synchronization Error: A Key in criticalPointsMap not found in obstacle map");
+        }
+
+        const Obstacle &obs = it->second;
+        // If the linkIndex qualifies for checking this obstacle
+        if (linkIndex >= obs.startIndex) {
+            // Update the minimum distance
+            if (linkIndex < criticalPointInformation.size()) {
+                double distanceRobotLinkObstacle = criticalPointInformation[linkIndex].distance;
+                if (distanceRobotLinkObstacle < minimumDistanceLinkAllObstacles) {
+                    minimumDistanceLinkAllObstacles = distanceRobotLinkObstacle;
+                }
+            }
+        }
+        // else: we skip updating the distance
+    }
+
+    // After checking all obstacles:
+    // If we never updated it from infinity, something was not valid for any obstacle
+    if (std::isinf(minimumDistanceLinkAllObstacles)) {
+        return std::numeric_limits<double>::quiet_NaN();
+    } else {
+        return minimumDistanceLinkAllObstacles;
+    }
+}
+
+Eigen::VectorXd Robot::minimumDistanceAllLinks() {
+    Eigen::VectorXd distanceAllLinksFromAllObstacles(8);
+    for (int i = 0; i < 8; i++) {
+        distanceAllLinksFromAllObstacles[i] = getMinimumDistanceLinkAllObstacles(i);
+    }
+    return distanceAllLinksFromAllObstacles;
+}
+
+double Robot::getDistanceStopOA() const {
+    return this->distanceStopOA;
 }

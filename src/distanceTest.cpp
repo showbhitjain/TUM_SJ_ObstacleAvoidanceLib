@@ -21,7 +21,11 @@ int main() {
     cout << "Size of int: " << sizeof(int) << " bytes" << endl;
     //Box and Sphere Distance Test
    auto sequence=  generateSequence(4,0.001,6);
-
+    double minDistanceTest = std::numeric_limits<double>::infinity();
+    double distanceMinimum1 =  std::numeric_limits<double>::quiet_NaN();
+    cout<<"distanceMin: "<<std::min(distanceMinimum1,minDistanceTest)<<endl;
+    cout<<"distanceMinBoolean: "<< (distanceMinimum1 < minDistanceTest) <<endl;
+    cout<<"has infinity:"<<std::isinf(minDistanceTest)<<endl;
     Vector2d timepoints;
     timepoints<<0,4;
     auto addtime = (2+0.001) * VectorXd::Ones(timepoints.size());

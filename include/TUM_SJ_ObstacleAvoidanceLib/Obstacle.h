@@ -74,6 +74,7 @@ namespace ObstacleAvoidance {
         //int = partialLinkStartIndex
         //bool = doPartialSelfCollision
         std::map<int,linkProperty> partialSelfCollision;
+        int startIndex;
 
 
     };
