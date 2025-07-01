@@ -16,7 +16,7 @@ if (${CMAKE_BUILD_TYPE_LOWERCASE} MATCHES release)
 endif ()
 
 option(WITH_PCL_OPTIMIZATION_FLAGS "Use optimization flags used by PCL to compile a compatible interface to EIGEN types" ON)
-set(PCL_OPTIMIZATION_FLAGS)
+set(PCL_OPTIMIZATION_FLAGS
 if (${WITH_PCL_OPTIMIZATION_FLAGS})
     find_package(PCL REQUIRED COMPONENTS common)
     get_target_property(OUTPUT pcl_common INTERFACE_COMPILE_OPTIONS)
@@ -30,9 +30,9 @@ add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 find_package(Eigen REQUIRED)
 find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
-find_package(PerceptionData REQUIRED)
+#find_package(PerceptionData REQUIRED)
 find_package(Franka REQUIRED)
-find_package(ConceptLibrary REQUIRED)
+#find_package(ConceptLibrary REQUIRED)
 find_package(ccd REQUIRED)
 
 set(FCL_ROOT "/home/shobhit/fcl_install")
@@ -86,9 +86,10 @@ set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vre
         ${PATHIK}/inverseKinematics.a
         ${PATHUTILSMATLAB}/utilsMatlab.a
         Franka::Franka
-        ${ConceptLibrary_LIBRARY}
+
         ${CCD_LIBRARIES}
         fcl
+
 )
 
 target_compile_options(${LIB_NAME} PUBLIC ${PCL_OPTIMIZATION_FLAGS})

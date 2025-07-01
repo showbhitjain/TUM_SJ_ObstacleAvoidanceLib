@@ -11,10 +11,10 @@
 #include <string>
 #include <tuple>
 
-#include <ConceptLibrary/instances/geometry/SphereShape.h>
+/*#include <ConceptLibrary/instances/geometry/SphereShape.h>
 #include <ConceptLibrary/instances/geometry/BoxShape.h>
 #include <ConceptLibrary/instances/geometry/CylinderShape.h>
-#include <ConceptLibrary/instances/geometry/PlaneShape.h>
+#include <ConceptLibrary/instances/geometry/PlaneShape.h>*/
 
 #include "robotLinkDataTypes.h"
 
@@ -33,13 +33,13 @@ namespace ObstacleAvoidance {
         Obstacle(std::string const &obstacleType, Eigen::Vector3d const &center, Eigen::VectorXd const &dimensions,
                   Eigen::Vector4d const &orientation = {1, 0, 0, 0}, Eigen::Vector3d const &axis = {0, 0, 0});
 
-        Obstacle(ConceptLibrary::SphereShape const &sphereObstacle);
+       /* Obstacle(ConceptLibrary::SphereShape const &sphereObstacle);
 
         Obstacle(ConceptLibrary::CylinderShape const &);
 
         Obstacle(ConceptLibrary::BoxShape const &);
 
-        Obstacle(ConceptLibrary::PlaneWidthShape const &);
+        Obstacle(ConceptLibrary::PlaneWidthShape const &);*/
 
         Obstacle(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius);
 

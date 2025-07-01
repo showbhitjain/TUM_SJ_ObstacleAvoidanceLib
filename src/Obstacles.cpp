@@ -24,7 +24,7 @@ Obstacles::Obstacles(std::string const &obstacleTypeString, Eigen::Vector3d cons
 
 }
 
-Obstacles::Obstacles(ConceptLibrary::SphereShape const &sphereObstacle) {
+/*Obstacles::Obstacles(ConceptLibrary::SphereShape const &sphereObstacle) {
     this->obstacleType = "Sphere";
     this->center = sphereObstacle.center;
     this->dimensions.resize(1);
@@ -76,7 +76,7 @@ Obstacles::Obstacles(ConceptLibrary::PlaneWidthShape const &planeShapeWithWidth)
 
 
 
-}
+}*/
 
 
 Obstacles::Obstacles(Eigen::Vector3d const &vertexV0, Eigen::Vector3d const &vertexV1, double const &radius) {

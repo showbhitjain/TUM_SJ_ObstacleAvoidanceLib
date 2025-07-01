@@ -16,6 +16,7 @@ Obstacle::Obstacle(std::string const &obstacleTypeString, Eigen::Vector3d const 
         obstacleTypeString), center(obstacleCenter), dimensions(obstacleDimensions), orientation(obstacleOrientation),
                                                                                                       axis(obstacleAxis.normalized()) {}
 
+/*
 Obstacle::Obstacle(ConceptLibrary::SphereShape const &sphereObstacle) {
     this->obstacleType = "Sphere";
     this->center = sphereObstacle.center;
@@ -66,6 +67,7 @@ Obstacle::Obstacle(ConceptLibrary::PlaneWidthShape const &planeShapeWithWidth) {
     this->axis = planeShapeWithWidth.axis;
     this->obstacleName = planeShapeWithWidth.obstacleName;
 }
+*/
 
 
 Obstacle::Obstacle(Eigen::Vector3d const &vertexV0, Eigen::Vector3d const &vertexV1, double const &radius) {
