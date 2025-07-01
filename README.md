@@ -16,3 +16,12 @@ Real-time obstacle avoidance algorithms for serial-chain robotic manipulators, i
 
 ## 📂 Project Structure
 
+.
+├── src/ # C++ source files
+├── include/ # Header files
+├── tests/ # Unit or integration tests
+├── examples/ # Example usage
+├── CMakeLists.txt # Build configuration
+├── README.md # This file
+├── .gitignore
+└── docs/ # Optional: images, explanations
