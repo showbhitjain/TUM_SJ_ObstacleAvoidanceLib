@@ -1,10 +1,9 @@
 # 🦾 Obstacle Avoidance for Serial Chain Manipulators (Master Thesis)
 
-This repository presents my Master’s thesis work on obstacle avoidance algorithms and robot modeling for serial-chain robotic manipulators. The algorithms are implemented in modern C++ and validated on the **Franka Emika Panda** platform.
+This repository contains the full implementation of my Master’s thesis on obstacle avoidance algorithms and robot modeling for serial-chain robotic manipulators. The algorithms are developed in modern C++ and have been validated on the **Franka Emika Panda Manipulator**. While the core methods are applicable to any serial chain manipulator with revolute joints, they have so far been tested exclusively with the Franka robot. Future work may include extending compatibility to other robotic manipulators by updating configuration files and introducing additional customization features.
+> ⚠️ **Note**: The `master` branch relies on private repositories owned by <u> [**M.Sc. Andrei Costinescu**](https://www.linkedin.com/in/andrei-costinescu/)</u>, for computer vision and obstacle detection. Consequently, **dynamic obstacle avoidance cannot be tested independently** by external users.
 
-> ⚠️ **Note**: The `master` branch depends on private repositories owned by <u> [**M.Sc. Andrei Costinescu**](https://www.linkedin.com/in/andrei-costinescu/)</u>, for computer vision and obstacle detection. As a result, **dynamic obstacle avoidance cannot be tested independently** by external users.
-
-The `master-shobhit` branch includes standalone modules for static obstacle avoidance and self-collision avoidance, which can be tested offline using MATLAB or Python-based visualization tools developed for this project.
+The `master-shobhit`  branch enables testing of static obstacle avoidance and self-collision avoidance, which can be evaluated offline using [MATLAB](./Matlab%20Visualisation) or [Python-based](./PythonVisualisation) visualization tools included in this project.
 
 
 ## 📄 Read the Master Thesis
@@ -107,23 +106,54 @@ There's no need for including the include directories of `TUM_SJ_ObstacleAvoidan
 
 ##  Examplen on how to run the test:
 
-
+In order to perform experiments with different parameters, it is important to read master thesis and/or see the presentation
+In this section meaning of some important parameters will be explained briefly.
 <u>[Configuration Files](./config/configDemo)</u> in configDemo contain all the configuration parameters that can be set for different examples. The `.json`files can be editted with desired configuration parameters to set the experimental parameters.
 In  **[Obstacles.json](./config/configDemo/Obstacles.json)**
 file all obstacles can be manually registered. Only three primitive shapes are considered for representing obstacles and their registration as explained in Master thesis in Geometry chapter.
-**[pandaRobot.json](./config/configDemo/pandaRobot.json)** containes robot related information. The important parameters for obstacle avoidance experiments are
+**[pandaRobot.json](./config/configDemo/pandaRobot.json)** containes robot related information. "jointPositionAtBeginning": this parameter is important to set the current joint position of the robot before starting of trajectory for offline tests. The important parameters for obstacle avoidance experiments are
 "distanceActivate": d_{2} outer threshold distance when obstacle avoidance gets activated  ,
 "distanceStop": {d_1} inner distance threhold (if distance is less than this, then it is a collision between robot link and obstacle),
 "distanceBuffer": 0.005,
 "smootheningCoefficient": smmothening coefficient k value from  obstacle avoidance equation in order to set distance threhold d_0 for deceleration in critical zone,
 "radiusLinks": radius of all a segments and d segments used for robot modeling as shown in robot modeling in master,
 "radiusJoints": radius of all spheres used to represent starting of a and d link segments,
-"percentagePartialLinks": [50,50,50,50,50,50,50,50],
-"finalLinkType": "Box",
-"finalLinkDimensions": dimensions Box used to geometrically approximate Gripper ,
+
+
+"finalLinkDimensions": dimensions of Box used to geometrically approximate Gripper ,
 "considerFinalLinkOA": parameter to consider gripper or link from end effector to TCP for obstacle avoidance,
 "considerBaseToFirstJoint": parameter to consider robot link from base to first joint for obstacle avoidance and proximity calculations,
-"robotLinkAsLineSwept": false,
-"selfCollision": true,
-"convergenceBetaDynamicObstacleAvoidance": β from complete obstacle avoidance equation
 
+"selfCollision": for turning self collision on and off,
+"convergenceBetaDynamicObstacleAvoidance": β from complete obstacle avoidance equation to set priority of static obstacle avoidance and dynamic obstacle avoidance
+
+In   **[trajectoryConfig.json](./config/configDemo/trajectoryConfig.json)**, the TCP desired trajectory parameters can be set, where 
+s
+"Waypoints": waypoints are set in column wise manner (each column represents a waypoint with  x,y,z coordinates and ),
+"orientations": ame for orientation where each orientations are defined as quaternions where each column represent desired quaternion orientation with w,x,y,z attributes.
+
+for trajectory generation C++ generated code of matlab functions such as [rottraj](https://de.mathworks.com/help/robotics/ref/rottraj.html) (for orientation) and [trapveltraj](https://de.mathworks.com/help/robotics/ref/trapveltraj.html), [cubicpolytraj](https://de.mathworks.com/help/robotics/ref/cubicpolytraj.html), [quinticpolytraj](https://de.mathworks.com/help/robotics/ref/quinticpolytraj.html) for position trajectory, was used.
+"preTrajectoryTime": sets the time that should be taken to get to the first waypoint from current TCP position before starting of trajectory ,
+"positionTrajectoryType": "cubic" sets the interpolation between waypoints and results in cubic spline interpolation,
+"orientationTrajectoryType" : "cubic" sets the type of timescaling,
+
+the optimization based inverse kinematics parameters can be set in **[inverseKinematicsWithOAParameters.json](./config/configDemo/inverseKinematicsWithOAParameters.json)**
+and also which objective functions should be minimized. 
+Here by turning off inequality constraints ("applyInequalityConstraints": false), the obstacle avoidance is also turned off and only optimisation based inverse kinemtics takes place.
+
+Both "dynamicSlack": true,
+"forObstacleAvoidance": true, must be set to true in order to use dynamic slack feature for obstacle avoidance.
+
+
+Simply run the executable **ObstacleAvoidanceTest** generated from file [obstacleAvoidanceTest.cpp](./executables/obstacleAvoidanceTest.cpp) can be tested after setting all the configuration parameters. Different experiments can be performed and tested for franka using this same file for different configuration parametersexecutable . The resulting joints trajectory of the robot will be stored in 
+[outputDemo/robotJointPositions.csv](./outputDemo/robotJointPositions.csv). In order to visualise this trajectrory two options are avalaible: Python and Matlab (recommended or better visualisation) visualisation :
+
+For matlab visualisation these toolboxes must be installed: 
+-[Robotics Systems Toolbox](https://de.mathworks.com/help/robotics/)
+-[Robot Library Data Support Package](https://de.mathworks.com/help/robotics/ug/install-robotics-system-toolbox-robot-library-data-support-package.html)
+
+Just run [visualiseOutputFileNew.m](./Matlab%20Visualisation/visualiseOutputFileNew.m) in Matlab order to visualise joint trajectory saved in outputDemo.
+
+Python visualisation does not show the 3d model of franka emika panda but shows only the robot modeling implemented within the scope of this master thesis and is not as smooth as matlab but still good enough to visualise the trajectory.
+
+Dependencies for python visualisation are listed in [**requirements.txt**](./PythonVisualisation/requirements.txt)
