@@ -33,39 +33,45 @@ The complete presentation—including detailed experiments—can be viewed onlin
 | Robot modeling with primitive shapes | Kinematic modeling with modified Denavit–Hartenberg parameters            | ✅ Yes                              |
 
 ---
-##  Dependencies
+## 📦 Dependencies
 
 To build and run this project, the following libraries and tools are required:
 
-| Dependency | Description                                           | Installation Support                                                                           |
-|------------|-------------------------------------------------------|------------------------------------------------------------------------------------------------|
-                         |
-| **Eigen** | Linear algebra library                                | [eigen.tuxfamily.org](https://eigen.tuxfamily.org)                                             |
-| **Franka Emika Library** | Robot SDK for Franka Emika Panda                      | [frankaemika.github.io](https://frankaemika.github.io/docs/index.html)                         |
-| **FCL** (Flexible Collision Library) | Collision checking library                            | [github.com/flexible-collision-library/fcl](https://github.com/flexible-collision-library/fcl) |
-| **libccd** | Collision detection (used with FCL)                   | [github.com/danfis/libccd](https://github.com/danfis/libccd)                                   |
-| **PCL** (Point Cloud Library) | Only `common` module required for Eigen compatibility | sudo apt install libpcl-dev (Terminal)                                                         |
-| **OpenMP** | For parallel computing support                        | sudo apt install libomp-dev (Terminal)                                                         |
-| **pthread** | POSIX threads (usually preinstalled on Linux)         | —                                                                                              |
-| **AndreiUtils** | Contains utilities for `eigen`, `json` and `python`   | (https://bitbucket.org/andreicostinescu/andreiutils/src/main/)                                 |
+| Dependency                  | Description                                             | Installation / Link                                                                               |
+|-----------------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| **Eigen**                   | Linear algebra library                                  | [eigen.tuxfamily.org](https://eigen.tuxfamily.org)                                                |
+| **Franka Emika Library**    | Robot SDK for Franka Emika Panda                        | [frankaemika.github.io](https://frankaemika.github.io/docs/index.html)                            |
+| **FCL** (Flexible Collision Library) | Collision checking library                     | [github.com/flexible-collision-library/fcl](https://github.com/flexible-collision-library/fcl)    |
+| **libccd**                  | Collision detection (used with FCL)                     | [github.com/danfis/libccd](https://github.com/danfis/libccd)                                      |
+| **PCL** (Point Cloud Library)       | Only `common` module required for Eigen compatibility | `sudo apt install libpcl-dev` (Terminal)                                                    |
+| **OpenMP**                  | For parallel computing support                          | `sudo apt install libomp-dev` (Terminal)                                                          |
+| **pthread**                 | POSIX threads (usually preinstalled on Linux)           | —                                                                                                 |
+| **AndreiUtils**             | Utilities for `eigen`, `json`, and `python`             | [bitbucket.org/andreicostinescu/andreiutils](https://bitbucket.org/andreicostinescu/andreiutils/src/main/) |
+
 
 
 ---
 ## Building the Library
+
 1. **Clone the repository:**
     ```
-   git clone https://github.com/showbhitjain/TUM_SJ_ObstacleAvoidanceLib.git`
-2. **Build Instructions:**
-   ```
-   mkdir build
-   cd build
-   cmake .. -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_INSTALL_PREFIX=/your/custom/install/path  # optional
-   make -j
-   sudo make install
-By default, the library will be installed to `/usr/local`.
-To change the installation location, a custom path can be set using `-DCMAKE_INSTALL_PREFIX`.
+    git clone https://github.com/showbhitjain/TUM_SJ_ObstacleAvoidanceLib.git
+    ```
+
+2. **Build instructions:**
+    ```
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release \
+             -DCMAKE_INSTALL_PREFIX=/your/custom/install/path  # optional
+    make -j
+    sudo make install
+    ```
+
+By default, the library will be installed to `/usr/local`.  
+To change the installation location, a custom path can be set using `-DCMAKE_INSTALL_PREFIX`.  
 For development or debugging purposes, `-DCMAKE_BUILD_TYPE=Debug` can be specified instead of `Release`.
+
 ---
 ## Usage in other (Cmake) Projects
 In your project's CMakeLists.txt:
