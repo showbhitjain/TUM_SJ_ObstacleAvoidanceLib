@@ -102,7 +102,7 @@ namespace ObstacleAvoidance {
 
         [[nodiscard]] Eigen::MatrixXd jacobianCartesianTCP(Eigen::VectorXd const &jointValues) const;
 
-        [[nodiscard]] Eigen::MatrixXd forwardKinematicsTCP(Eigen::VectorXd const &jointValues) const;
+
 
         static Eigen::Matrix4d transformMdh(double const &a,  double const &alpha,  double const &d,  double  const &theta) ;
 

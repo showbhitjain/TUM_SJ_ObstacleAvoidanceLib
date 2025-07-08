@@ -8,6 +8,9 @@
   },
   "inverseKinematicsWithOA": {
     "inverseKinematicsWithOAConfigFile": "../config/configDemo/inverseKinematicsWithOAParameters.json"
+  },
+  "PandaRobot": {
+    "PandaRobotConfigFile": "../config/configDemo/pandaRobot.json"
   }
 }
 

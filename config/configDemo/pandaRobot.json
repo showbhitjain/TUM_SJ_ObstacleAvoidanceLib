@@ -28,11 +28,11 @@
         "jointMinValues": [-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, 0.6500, -2.8973],
         "jointMaxValues": [2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973],
         "jointVelMinValues" : [-2.1750, -2.1750, -2.1750, -2.1750, -2.6100, -2.6100, -2.6100],
-        "jointVelMaxValues" : [2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100]
-
+        "jointVelMaxValues" : [2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100],
+        "jointPositionAtBeginning": [0, 0, 0, -90, 0, 90, 45]
     },
     "ObstacleAvoidanceParameters": {
-        "applyObstacleAvoidance": true,
+
         "distanceActivate": 0.05,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,
@@ -41,11 +41,25 @@
         "radiusJoints": [0.1,0.1,0.1,0.1,0.1,0.1,0.05],
         "percentagePartialLinks": [50,50,50,50,50,50,50,50],
         "finalLinkType": "Box",
-        "finalLinkDimensions": [0.06,0.14,0.11],
+        "finalLinkDimensions": [0.06,0.2,0.11],
         "considerFinalLinkOA": true,
         "considerBaseToFirstJoint": true,
         "robotLinkAsLineSwept": false,
         "selfCollision": true,
         "convergenceBetaDynamicObstacleAvoidance": 0.5
+    },
+    "robotParameters": {
+        "robotIpAddress": "192.168.5.10",
+        "maximumTorques": [75,75,80,75,8,8,8],
+        "minimumTorques": [-75,-75,-75,-75,-8,-8,-8],
+        "resetJointPosition": [0, 0, 0, -1.570796326794897, 0, 1.5708, 0.7854],
+
+        "Controller": {
+            "Kp": [80, 80, 80, 80.0, 70.0, 30.0, 15.0],
+            "Kd": [20.0, 20.0, 20.0, 20.0, 15.0, 10.0, 5.0]
+
+        }
     }
 }
+
+

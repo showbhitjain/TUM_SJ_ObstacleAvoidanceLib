@@ -15,9 +15,8 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from itertools import cycle
 import matplotlib
-
+from scipy.spatial.transform import Rotation
 matplotlib.use('QT5Agg')
-
 
 
 def plot_cylinder(ax, v0, v1, radius, face_color='r', face_opacity=0.3, num_points=20):
@@ -62,6 +61,7 @@ def plot_cylinder(ax, v0, v1, radius, face_color='r', face_opacity=0.3, num_poin
     ax.set_ylabel('Y-axis')
     ax.set_zlabel('Z-axis')
     return plots
+
 
 def plot_cylinder_new(ax, radius_cylinder, cylinder_height, cylinder_center, cylinder_axis,
                       face_color='lightblue', face_opacity=0.7, resolution=50):
@@ -122,6 +122,7 @@ def plot_cylinder_new(ax, radius_cylinder, cylinder_height, cylinder_center, cyl
 
     return plots
 
+
 def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue', face_opacity=0.3):
     """
     Plot a box on the provided 3D axis.
@@ -140,18 +141,19 @@ def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue',
     Returns:
       - plots: the Poly3DCollection object representing the box faces.
     """
+
     # Convert the quaternion to a 3x3 rotation matrix.
     def quaternion_to_rotation_matrix(q):
         w, x, y, z = q
-        r00 = 1 - 2*(y**2 + z**2)
-        r01 = 2*(x*y - z*w)
-        r02 = 2*(x*z + y*w)
-        r10 = 2*(x*y + z*w)
-        r11 = 1 - 2*(x**2 + z**2)
-        r12 = 2*(y*z - x*w)
-        r20 = 2*(x*z - y*w)
-        r21 = 2*(y*z + x*w)
-        r22 = 1 - 2*(x**2 + y**2)
+        r00 = 1 - 2 * (y ** 2 + z ** 2)
+        r01 = 2 * (x * y - z * w)
+        r02 = 2 * (x * z + y * w)
+        r10 = 2 * (x * y + z * w)
+        r11 = 1 - 2 * (x ** 2 + z ** 2)
+        r12 = 2 * (y * z - x * w)
+        r20 = 2 * (x * z - y * w)
+        r21 = 2 * (y * z + x * w)
+        r22 = 1 - 2 * (x ** 2 + y ** 2)
         return np.array([[r00, r01, r02],
                          [r10, r11, r12],
                          [r20, r21, r22]])
@@ -162,13 +164,13 @@ def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue',
     dx, dy, dz = np.array(box_dimensions) / 2.0
     local_corners = np.array([
         [-dx, -dy, -dz],
-        [ dx, -dy, -dz],
-        [ dx,  dy, -dz],
-        [-dx,  dy, -dz],
-        [-dx, -dy,  dz],
-        [ dx, -dy,  dz],
-        [ dx,  dy,  dz],
-        [-dx,  dy,  dz]
+        [dx, -dy, -dz],
+        [dx, dy, -dz],
+        [-dx, dy, -dz],
+        [-dx, -dy, dz],
+        [dx, -dy, dz],
+        [dx, dy, dz],
+        [-dx, dy, dz]
     ])
 
     # Rotate and translate the corners.
@@ -181,7 +183,7 @@ def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue',
         [global_corners[i] for i in [0, 1, 5, 4]],  # side face
         [global_corners[i] for i in [1, 2, 6, 5]],  # side face
         [global_corners[i] for i in [2, 3, 7, 6]],  # side face
-        [global_corners[i] for i in [3, 0, 4, 7]]   # side face
+        [global_corners[i] for i in [3, 0, 4, 7]]  # side face
     ]
 
     # Create a Poly3DCollection for the faces.
@@ -191,6 +193,7 @@ def plot_box(ax, box_center, box_dimensions, box_orientation, face_color='blue',
     ax.add_collection3d(poly3d_collection)
 
     return poly3d_collection
+
 
 def plot_sphere(ax, center, radius, face_color='r', face_opacity=0.3):
     # Generate a unit sphere
@@ -213,6 +216,33 @@ def plot_sphere(ax, center, radius, face_color='r', face_opacity=0.3):
     ax.set_xlabel('X-axis')
     ax.set_ylabel('Y-axis')
     ax.set_zlabel('Z-axis')
+    return plots
+
+
+def plot_links_modeling(ax, link_segments, final_link):
+    required_segment_keys = ['aSegmentV0', 'aSegmentV1', 'dSegmentV0', 'dSegmentV1', 'radius']
+    required_final_link_keys = ['center', 'dimension', 'orientation']
+
+    plots = []
+    for i, segment in enumerate(link_segments):
+        # Check if segment dictionary contains required keys
+        if not all(key in segment for key in required_segment_keys):
+            raise ValueError(f"Segment {i} doesn't contain all required keys.")
+
+        # Check if the values are correct and not NaN and then create the plots
+        if not np.isnan(segment['aSegmentV0']).any() and not np.isnan(segment['aSegmentV1']).any():
+            plots.append(plot_cylinder(ax, segment['aSegmentV0'], segment['aSegmentV1'], segment['radius']))
+            plots.append(plot_sphere(ax, segment['aSegmentV0'], segment['radius']))
+        if not np.isnan(segment['dSegmentV0']).any() and not np.isnan(segment['dSegmentV1']).any():
+            plots.append(plot_cylinder(ax, segment['dSegmentV0'], segment['dSegmentV1'], segment['radius']))
+            plots.append(plot_sphere(ax, segment['dSegmentV0'], segment['radius']))
+
+    # Check if final_link dictionary contains required keys
+    if not all(key in final_link for key in required_final_link_keys):
+        raise ValueError(f"Final link doesn't contain all required keys.")
+
+    plots.append(plot_box(ax, final_link['center'], final_link['dimension'], final_link['orientation'], 'yellow', 0.3))
+
     return plots
 
 
@@ -295,6 +325,7 @@ def flatten(l):
 # %%
 class serial_chain_robot:
     def __init__(self, mdh_matrix, tool_translation, tool_rot, number_joints):
+        self.real_time_start = None
         self.mdh_matrix = mdh_matrix
         self.End_tool_transformation = transl(tool_translation) @ rpy2tr(roll=math.radians(tool_rot[0]),
                                                                          pitch=math.radians(tool_rot[1]),
@@ -309,6 +340,7 @@ class serial_chain_robot:
         self.y_lim = [-1, 1]
         self.z_lim = [-0.3, 1]
         self.anim = None
+        self.robot_links_plot = None
 
     def transform_MDH(self, a, alpha, d, theta):
 
@@ -354,7 +386,7 @@ class serial_chain_robot:
                           'dSegmentV0': np.array([np.nan, np.nan, np.nan]),
                           'dSegmentV1': np.array([np.nan, np.nan, np.nan]),
                           'radius': np.nan,
-                          'radiusJoint':np.nan} for x in range(self.mdh_matrix.shape[0])]
+                          'radiusJoint': np.nan} for x in range(self.mdh_matrix.shape[0])]
         link_segments.append({'Tool_V0': np.array([np.nan, np.nan, np.nan]),
                               'Tool_V1': np.array([np.nan, np.nan, np.nan]),
                               'radius': np.nan})
@@ -402,9 +434,126 @@ class serial_chain_robot:
                     link_segments[i]['Tool_V0'] = link_segments[i - 1]['aSegmentV1']
                     tcp_transform = a_transform @ self.End_tool_transformation
                     link_segments[i]['Tool_V1'] = tcp_transform[0:3, 3]
-            link_segments[i]['radius'] = radius[i]
+            link_segments[i]['radius'] = radius[i-1]
 
         return link_segments
+
+    def create_link_segments_new(
+            self,
+            radius_links: np.ndarray,  # len = #links+1   (same as before)
+            radius_joints: np.ndarray,  # len = #links     (new)
+            final_link_dimensions: np.ndarray,  # (Lx, Ly, Lz) for the tool body (new)
+            joint_angles: np.ndarray  # len = #joints
+    ):
+        """
+        Build geometric primitives that approximate the robot for
+        collision/visualisation, closely mirroring the MATLAB helper
+        `createLineSegmentsWithJoints`.
+
+        Returns
+        -------
+        link_segments : list[dict]
+            One dict per kinematic link *except* the tool body, plus an
+            extra dict for the TCP line segment.  Keys:
+              • aSegmentV0, aSegmentV1
+              • dSegmentV0, dSegmentV1
+              • radius        (capsule radius for the link body)
+              • radiusJoint   (capsule radius for the joint at the *inboard* end)
+        final_link_box : dict
+            Keys:
+              • center           : 3-vector centre of the box
+              • dimension        : copy of `final_link_dimensions`
+              • orientation      : 3×3 rotation matrix of the TCP
+              • finalV0, finalV1 : end-points of the tool-centre line (from end effector to TCP)
+        """
+
+        n_links = self.mdh_matrix.shape[0]  # == number of joints
+        # --- allocate ----------------------------------------------------------
+        link_segments = [{
+            'aSegmentV0': np.full(3, np.nan),
+            'aSegmentV1': np.full(3, np.nan),
+            'dSegmentV0': np.full(3, np.nan),
+            'dSegmentV1': np.full(3, np.nan),
+            'radius': np.nan,
+            'radiusJoint': np.nan
+        } for _ in range(n_links)]
+
+        # # tool “link” (line only – its body is the box below)
+        # tool_dict = {'Tool_V0': np.full(3, np.nan),
+        #              'Tool_V1': np.full(3, np.nan),
+        #              'radius': radius_links[-1]}
+        # link_segments.append(tool_dict)
+        tcp_v0 = []
+        tcp_v1 = []
+        # --- iterate over conventional links ----------------------------------
+        for i in range(1, n_links + 1):
+            # transformation to the *previous* link’s frame
+            t_prev = np.eye(4) if i == 1 else self.forward_kinematics_link(joint_angles, i - 1)
+            a_i, d_i, alpha_i = self.mdh_matrix[i - 1, 2], self.mdh_matrix[i - 1, 1], np.radians(
+                self.mdh_matrix[i - 1, 3])
+
+            # convenience vars
+            seg = link_segments[i - 1]
+            seg['radius'] = radius_links[i - 1]
+            seg['radiusJoint'] = radius_joints[i - 1]
+
+            # --- “a” segment (along x-axis) ------------------------------------
+            if not np.isclose(a_i, 0.0):
+                seg['aSegmentV0'] = t_prev[:3, 3]
+                t_a = t_prev @ transl([a_i, 0, 0])
+                seg['aSegmentV1'] = t_a[:3, 3]
+            else:
+                t_a = t_prev  # nothing happened
+
+            # --- “d” segment (along z-axis after alpha) ------------------------
+            if not np.isclose(d_i, 0.0):
+                if not np.isclose(a_i, 0.0):
+                    seg['dSegmentV0'] = seg['aSegmentV1']
+                else:
+                    seg['dSegmentV0'] = t_prev[:3, 3]
+
+                t_d = (t_a @ rpy2tr(roll=alpha_i, pitch=0, yaw=0, order="zyx")
+                       @ transl([0, 0, d_i]))
+                seg['dSegmentV1'] = t_d[:3, 3]
+            # -------------------------------------------------------------------
+
+            # --- Compute tool line for the *last* conventional link -----------
+            if i == n_links:
+                tcp_v0 = seg['dSegmentV1'] if not np.isnan(seg['dSegmentV1']).any() else seg[
+                    'aSegmentV1']
+                tcp_t = t_d @ self.End_tool_transformation
+                tcp_v1 = tcp_t[:3, 3]
+
+        # ----------------------------------------------------------------------
+        # --------------------  FINAL LINK  BOX  -------------------------------
+        final_v0 = tcp_v0
+        final_v1 = tcp_v1
+        tcp_t = self.forward_kinematics_tool(joint_angles)
+        r_tcp = tcp_t[:3, :3]
+
+        dim = np.asarray(final_link_dimensions, dtype=float)
+        dist_vec = final_v1 - final_v0
+        dist_unit = dist_vec / np.linalg.norm(dist_vec)
+        tol = 1e-4
+
+        # project onto TCP axes
+        dots = dist_unit @ r_tcp  # [dx dy dz] in TCP coords
+        axis_idx = np.argmax(np.abs(dots))  # 0→x, 1→y, 2→z
+        if np.abs(dots[axis_idx]) < tol:
+            raise ValueError("Cannot identify dominant axis for final link.")
+
+        half_len = 0.5 * dim[axis_idx]
+        center = final_v0 + dist_unit * half_len
+
+        final_link_box = {
+            'center': center,
+            'dimension': dim,
+            'orientation': Rotation.from_matrix(r_tcp).as_quat(),
+            'finalV0': final_v0,
+            'finalV1': final_v1
+        }
+
+        return link_segments, final_link_box
 
     def init_plot(self, x_lim=None, y_lim=None, z_lim=None):
         if z_lim is None:
@@ -506,7 +655,8 @@ class serial_chain_robot:
 
         plt.show(block=True)
 
-    def update_animate(self, frame, joint_angles_matrix, trajectory_time, ts):
+    def update_animate(self, frame, joint_angles_matrix, trajectory_time, ts, radius, radius_joints,
+                       final_link_dimensions):
         real_time_elapsed = (time.time() - self.real_time_start) * 1000  # Convert to milliseconds
         expected_time = trajectory_time[frame] * 1000  # Convert to milliseconds
         if real_time_elapsed > expected_time:
@@ -526,13 +676,22 @@ class serial_chain_robot:
         joint_angles = joint_angles_matrix[:, frame_idx]
 
         line_segments_robot = self.create_link_segments(radius, joint_angles)
+        robot_links, final_link = self.create_link_segments_new(radius, radius_joints, final_link_dimensions,
+                                                                joint_angles)
         # Remove old artists and clear the lists for the next iteration
-        if self.lineSweptPlot is not None:
-            for artist in self.lineSweptPlot:
+
+        if self.robot_links_plot is not None:
+            for artist in self.robot_links_plot:
                 artist.remove()
-            self.lineSweptPlot.clear()
+            self.robot_links_plot.clear()
         else:
-            self.lineSweptPlot = []
+            self.robot_links_plot = []
+        # if self.lineSweptPlot is not None:
+        #     for artist in self.lineSweptPlot:
+        #         artist.remove()
+        #     self.lineSweptPlot.clear()
+        # else:
+        #     self.lineSweptPlot = []
 
         if self.line_segment_plot is not None:
             for artist in self.line_segment_plot:
@@ -542,7 +701,8 @@ class serial_chain_robot:
             self.line_segment_plot = []
 
         # Plot the updated lineSweptPlot and line_segment_plot
-        self.lineSweptPlot = list(flatten(plot_line_swept_spheres(self.ax, line_segments_robot)))
+        # self.lineSweptPlot = list(flatten(plot_line_swept_spheres(self.ax, line_segments_robot)))
+        self.robot_links_plot = list(flatten(plot_links_modeling(self.ax, robot_links, final_link)))
         self.line_segment_plot = list(flatten(plot_line_segments(self.ax, line_segments_robot, line_width=5)))
 
         self.ax.set_xlim(self.x_lim)
@@ -557,8 +717,9 @@ class serial_chain_robot:
             self.anim.event_source.stop()
             return
 
-    def plot_animate(self, joint_angles_matrix, trajectory_time, ts, waypoints=None, obstacles=None, mode=True,
-                     radius=None,
+    def plot_animate(self, joint_angles_matrix, trajectory_time, sample_time, waypoints=None, obstacles_for_plot=None,
+                     mode=True,
+                     radius=None, radius_joints=None, final_link_dimensions=None,
                      x_lim=None, y_lim=None, z_lim=None):
         self.init_plot(x_lim, y_lim, z_lim)
         if radius is None:
@@ -572,20 +733,24 @@ class serial_chain_robot:
         if mode == True and waypoints is not None:
             self.ax.plot(waypoints[0, :], waypoints[1, :], waypoints[2, :], '.-', color='black')
 
-        # Plot obstacles if available
-        if obstacles is not None:
-            for obstacle in obstacles:
+        # Plot obstacles_for_plot if available
+        if obstacles_for_plot is not None:
+            for obstacle in obstacles_for_plot:
                 if obstacle['type'] == "Sphere":
                     plot_sphere(self.ax, obstacle['center'], obstacle['dimensions'][0])
                 elif obstacle['type'] == "Box":
-                    plot_box(self.ax,obstacle['center'],obstacle['dimensions'],np.asarray([1,0,0,0]))
+                    plot_box(self.ax, obstacle['center'], obstacle['dimensions'], obstacle['orientation'])
+                elif obstacle['type'] == "Cylinder":
+                    plot_cylinder_new(self.ax, obstacle['dimensions'][0], obstacle['dimensions'][1], obstacle['center'],
+                                      obstacle['axis'])
 
         self.real_time_start = time.time()
 
         frames = np.arange(joint_angles_matrix.shape[1])
         self.anim = FuncAnimation(plt.gcf(), self.update_animate, frames=frames,
-                                  fargs=(joint_angles_matrix, trajectory_time, ts),
-                                  interval=ts * 1000)
+                                  fargs=(joint_angles_matrix, trajectory_time, sample_time, radius, radius_joints,
+                                         final_link_dimensions),
+                                  interval=sample_time * 1000)
         plt.show(block=True)
 
 
@@ -599,15 +764,34 @@ def read_json_file(filename):
     return data_dict
 
 
-data = pd.read_csv("../outputDesiredJointsDemoPartTwo.csv", header=None)
+# data = pd.read_csv("../outputDesiredJointsDemoPartTwo.csv", header=None)
+data = pd.read_csv("../outputDemo/robotJointPositions.csv", header=None)
 print(data.shape)
 joint_values = data.values
 print(joint_values.shape)
 robot_config = read_json_file("../config/configDemo/pandaRobot.json")
 Trajectory_config = read_json_file("../config/configDemo/trajectoryConfig.json")
+obstacles_config = read_json_file("../config/configDemo/Obstacles.json")
+obstacles_data = obstacles_config["Obstacles"]
+
+obstacles = []
+for obs_name, obs_details in obstacles_data.items():
+    obstacle = obs_details  # This is a dictionary of obstacle detail
+    obstacles.append(obstacle)
+
+# # Create Obstacles dictionary array manually here in the code
+# obstacles = [
+#     # {"type": "Sphere", "center": [0.5545, 0.20, 0.5211], "dimensions": [0.04, 0.04, 0.04]},
+#     # {"type": "Sphere", "center": [0.5545, 0.20, 0.3211], "dimensions": [0.05, 0.05, 0.05]},
+#     # {"type": "Box", "center": [0.600, 0.0, 0.1211], "dimensions": [0.04, 0.04, 0.12]}
+# ]
+
+joint_values_beginning = np.asarray(robot_config["Joints"]["jointPositionAtBeginning"])
 mdh_params = robot_config["mdhParameters"]
 # new_joint_values = joint_values[:, 0:10000:50]
-
+radius_links = np.asarray(robot_config["ObstacleAvoidanceParameters"]["radiusLinks"])
+radius_joints = np.asarray(robot_config["ObstacleAvoidanceParameters"]["radiusJoints"])
+final_link_box_dimensions = np.asarray(robot_config["ObstacleAvoidanceParameters"]["finalLinkDimensions"])
 # %%
 tool_rot = robot_config["displacementEEtoTCP"]["rotationXYZ"]
 tool_translation = robot_config["displacementEEtoTCP"]["translation"]
@@ -617,26 +801,20 @@ mdh_matrix = np.array(mdh_params)
 # %%
 robot_Serial_chain = serial_chain_robot(mdh_matrix, tool_translation, tool_rot, mdh_matrix.shape[0])
 # %%
+
 print(robot_Serial_chain.forward_kinematics_link(joint_values[:, 0], 7))
 # %%
-radius = np.ones(8) * 0.1
-link_segments_plot = robot_Serial_chain.create_link_segments(radius, joint_values[:, 0])
+
+# link_segments_plot = robot_Serial_chain.create_link_segments(radius_Links, joint_values[:, 0])
 # %%
 
 # %%
 Waypoints = np.asarray(Trajectory_config['Waypoints'])
 print(Waypoints)
+
 ts = Trajectory_config['trajectorySampleTime']
 waypoint_times = np.asarray(Trajectory_config['waypointTimes'])
-trajectory_time = np.arange(waypoint_times[0], waypoint_times[-1] + ts, ts)
-
-# Create Obstacles dictionary array
-obstacles = [
-    #{"type": "Sphere", "center": [0.5545, 0.20, 0.5211], "dimensions": [0.04, 0.04, 0.04]},
-    #{"type": "Sphere", "center": [0.5545, 0.20, 0.3211], "dimensions": [0.05, 0.05, 0.05]},
-    # {"type": "Box", "center": [0.600, 0.0, 0.1211], "dimensions": [0.04, 0.04, 0.12]}
-]
-
+trajectory_time_array = np.arange(waypoint_times[0], waypoint_times[-1] + ts, ts)
 
 # fig = plt.figure()
 # ax = fig.add_subplot(111, projection='3d')
@@ -646,10 +824,10 @@ obstacles = [
 # link_segments_plot= robot_Serial_chain.create_link_segments([0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1],[0, 0, 0, -math.pi / 2, 0, math.pi/ 2, math.pi/4])
 # plot_line_swept_spheres(ax, link_segments_plot)
 # %%
-robot_Serial_chain.plot(joint_values, trajectory_time, ts, Waypoints)
-robot_Serial_chain.plot_animate(joint_values, trajectory_time, ts, Waypoints,obstacles)
+# robot_Serial_chain.plot(joint_values, trajectory_time_array, ts, Waypoints)
+robot_Serial_chain.plot_animate(joint_values, trajectory_time_array, ts, Waypoints, obstacles, radius=radius_links,
+                                radius_joints=radius_joints, final_link_dimensions= final_link_box_dimensions)
 l = 1 + 7
-
 
 # pyplot = rtb.backends.PyPlot()  # create a PyPlot backend
 #
@@ -697,5 +875,4 @@ l = 1 + 7
 # rtp.jt
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-#comment
-
+# comment

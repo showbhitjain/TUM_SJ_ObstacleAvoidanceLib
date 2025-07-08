@@ -1,0 +1,34 @@
+function h = plotLinksModeling_forAnimation(linesegments,finalLink, ax)
+axis equal; grid on;
+    xlabel('X-axis'); ylabel('Y-axis'); zlabel('Z-axis');
+    xlim('auto');
+    ylim('auto');
+    zlim('auto');
+
+    % Prepare an array to hold the plot handles
+    h = gobjects((length(linesegments) * 2) +1, 1); % Prepare handles for two plots per segment ('a' and 'd')
+    idx = 1;
+
+
+        % Iterate over each line segment and plot corresponding spheres and cylinders
+    for i = 1:length(linesegments)
+        % Plot cylinder for 'a' segment
+        if ~any(isnan(linesegments(i).aSegmentV0)) && ~any(isnan(linesegments(i).aSegmentV1))
+            h(idx) = plotCylinder_foranimation(linesegments(i).aSegmentV0', linesegments(i).aSegmentV1', linesegments(i).radius, 'Parent', ax, 'FaceColor', [1, 0, 0], 'FaceAlpha', 0.5);
+            idx = idx + 1;
+            h(idx) = plotSphere_foranimation(linesegments(i).aSegmentV0, linesegments(i).radiusJoint, 'Parent', ax);
+            idx = idx + 1;
+        end
+
+        % Plot cylinder for 'd' segment
+        if ~any(isnan(linesegments(i).dSegmentV0)) && ~any(isnan(linesegments(i).dSegmentV1))
+            h(idx) = plotCylinder_foranimation(linesegments(i).dSegmentV0', linesegments(i).dSegmentV1', linesegments(i).radius, 'Parent', ax, 'FaceColor', [1, 0, 0], 'FaceAlpha', 0.5);
+            idx = idx + 1;
+            h(idx) = plotSphere_foranimation(linesegments(i).dSegmentV0, linesegments(i).radiusJoint, 'Parent', ax);
+            idx = idx + 1;
+        end
+    end
+  
+    h(idx) = plotBox_forAnimation(finalLink.center,finalLink.dimension,finalLink.orientationMatrix,false,'Parent', ax,'FaceColor', [1, 1, 0], 'FaceAlpha', 0.5);
+
+end

@@ -2,7 +2,7 @@
 <module classpath="CMake" type="CPP_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Python" name="Python facet">
-      <configuration sdkName="Python 3.8 (tum_sj_obstacleavoidancelib)" />
+      <configuration sdkName="Python 3.10 (TUM_SJ_ObstacleAvoidanceLib)" />
     </facet>
   </component>
 </module>

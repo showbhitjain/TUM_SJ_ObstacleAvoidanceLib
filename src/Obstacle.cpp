@@ -4,7 +4,8 @@
 
 #include <TUM_SJ_ObstacleAvoidanceLib/Obstacle.h>
 #include <TUM_SJ_ObstacleAvoidanceLib/DistanceObjects.h>
-
+#include <iostream>
+#include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 
 using namespace ObstacleAvoidance;
 using namespace Eigen;
@@ -309,3 +310,19 @@ Obstacle::calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex,
 
     throw std::runtime_error("Unknown obstacle type: " + this->obstacleType);
 }
+
+Obstacle::Obstacle(const nlohmann::json &obstacleJson) {
+    this->obstacleType = obstacleJson["type"].get<std::string>();
+    this->dimensions = stdVectorToEigenVector(obstacleJson["dimensions"].get<std::vector<double>>());
+    this->center = stdVectorToEigenVector(obstacleJson["center"].get<std::vector<double>>());
+    this->axis = stdVectorToEigenVector(obstacleJson["axis"].get<std::vector<double>>());
+    auto orientationCoefficients = stdVectorToEigenVector(obstacleJson["orientation"].get<std::vector<double>>());
+    Eigen::Quaterniond obstacleOrientation(orientationCoefficients(0), orientationCoefficients(1),
+                                           orientationCoefficients(2), orientationCoefficients(3));
+    this->orientation = obstacleOrientation;
+
+
+}
+
+
+

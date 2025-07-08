@@ -109,7 +109,7 @@
 
     },
     "ObstacleAvoidanceParameters": {
-        "applyObstacleAvoidance": true,
+
         "distanceActivate": 0.06,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,
@@ -207,7 +207,6 @@
 
     },
     "ObstacleAvoidanceParameters": {
-        "applyObstacleAvoidance": true,
         "distanceActivate": 0.05,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,
@@ -218,7 +217,7 @@
         "finalLinkType": "Box",
         "finalLinkDimensions": [0.06,0.14,0.11],
         "considerFinalLinkOA": true,
-        "considerBaseToFirstJoint": true,
+        "considerBaseToFirstJoint": false,
         "robotLinkAsLineSwept": false,
         "selfCollision": true,
         "convergenceBetaDynamicObstacleAvoidance": 0.5

@@ -169,12 +169,14 @@ index += static_cast<long>(period.toMSec());
                 // poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
                 poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
                 //cout << "poseVelocityEffective: " << poseVelocityEffective << endl;
-                auto [optimalJointVelocity, exitFlag] = ik.ikWithConstraints(
+                auto ikResult = ik.ikWithConstraints(
                     actualJointValuesMatrix(all, index), JacobiMatrix,
                     poseVelocityEffective,
                     jointMinValues, jointMaxValues,
                     jointVelMinValues,
                     jointVelMaxValues);
+                auto optimalJointVelocity = std::get<0>(ikResult);
+                auto exitFlag = std::get<1>(ikResult);
                 //cout << "optimal Joint Velocity: \n" << optimalJointVelocity << endl;
                 if (exitFlag < 0) {
                     /*cout << "Motion failed at index: " << index << endl;

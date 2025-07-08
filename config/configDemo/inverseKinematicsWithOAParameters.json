@@ -4,13 +4,13 @@
     "useObjectiveNormInfinity": false,
     "weightNormInfinity": 0.1,
     "useObjectiveNormL2": true,
-    "weightNormL2": 1,
+    "weightNormL2": 10,
     "jointVelocityWeight": [1,1,1,1,1,1,1],
     "useObjectiveTrajectoryFollowing": false,
     "weightTrajectoryFollowing": 5,
     "useObjectiveJointAcceleration": true,
-    "weightJointAcceleration": 0.3,
-    "useObjectiveManipulability": true,
+    "weightJointAcceleration": 10,
+    "useObjectiveManipulability": false,
     "weightManipulability": 0.1
   },
   "EquationParameters": {
@@ -24,7 +24,8 @@
     "SlackLowerBound": [-0.3,-0.3,-0.3,-2,-2,-60],
     "SlackUpperBound": [0.3,0.3,0.3,2,2,60],
      "SlackPenaltyWeight": [1,1,1,1,1,0.5],
-    "SlackObjectiveWeight": 10
+    "SlackObjectiveWeight": 40,
+    "useDynamicSlackObjectiveWeightPreTrajectory": false
   },
   "jointLimitAvoidanceParameters": {
     "gamma": 2,
@@ -32,5 +33,9 @@
     "jointLimitActivationDistance": 10,
     "jointLimitStopDistance": 3,
     "jointLimitGain": 1
-  }
+  },
+  "constraintTolerance": 1e-5,
+  "optimalityTolerance": 1e-5,
+  "maxIterations": 1000,
+  "stepTolerance": 1e-5
 }

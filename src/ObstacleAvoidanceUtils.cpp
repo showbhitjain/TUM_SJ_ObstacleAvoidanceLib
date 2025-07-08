@@ -4,7 +4,8 @@
 
 #include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
 #include <cmath>
-
+#include <AndreiUtils/classes/ConfigurationParameters.hpp>
+#include <AndreiUtils/utilsJson.h>
 
 namespace ObstacleAvoidance {
 
@@ -42,25 +43,45 @@ namespace ObstacleAvoidance {
     std::map<std::string, Obstacle> conversionObstaclesVectorToMap(std::vector<Obstacle> const &obstaclesArray) {
         std::map<std::string, Obstacle> obstaclesMap;
         for (size_t i = 0; i < obstaclesArray.size(); ++i) {
-            obstaclesMap.emplace("Obstacle"+std::to_string(i),obstaclesArray[i]);
+            obstaclesMap.emplace("Obstacle" + std::to_string(i+1), obstaclesArray[i]);
 //            obstaclesMap["Obstacle" + std::to_string(i)] = obstaclesArray[i];
         }
         return obstaclesMap;
 
     }
 
+
     // Decompose a free vector v0 into components parallel and perpendicular to rc.
 // Both returned vectors are free vectors that “start” at the origin.
     std::tuple<Eigen::Vector3d, Eigen::Vector3d> decomposeVector(
-             Eigen::Vector3d const &v0,
-             Eigen::Vector3d const &rc)
-    {
+            Eigen::Vector3d const &v0,
+            Eigen::Vector3d const &rc) {
         // Compute the projection of v0 onto rc.
         Eigen::Vector3d vParallel = (v0.dot(rc) / rc.dot(rc)) * rc;
         // The perpendicular component is what remains.
         Eigen::Vector3d vPerpendicular = v0 - vParallel;
 
         return std::make_tuple(vParallel, vPerpendicular);
+    }
+
+    std::vector<Obstacle> readObstaclesFromJson(std::string const &obstacleFilePath) {
+
+        auto obstacleJsonFile = AndreiUtils::readJsonFile(obstacleFilePath);
+        auto obstaclesJson = obstacleJsonFile.at("Obstacles").get<nlohmann::json>();
+        std::vector<Obstacle> obstaclesRead;
+        for (const auto &[name, obstacleInfo]: obstaclesJson.items()) {
+            Obstacle obs(obstacleInfo);
+
+            obstaclesRead.push_back(obs);
+        }
+        return obstaclesRead;
+    }
+
+    std::map<std::string, Obstacle> obstaclesMapFromJson(std::string const &obstacleFilePath){
+
+        std::map<std::string, Obstacle> obstaclesMap;
+        auto obstaclesArray = readObstaclesFromJson(obstacleFilePath);
+        return conversionObstaclesVectorToMap(obstaclesArray);
     }
 
 

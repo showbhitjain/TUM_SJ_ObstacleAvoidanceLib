@@ -6,7 +6,7 @@
 #define TUM_SJ_OBSTACLEAVOIDANCELIB_UTILS_H
 
 #include <AndreiUtils/classes/DualQuaternion.hpp>
-#include <dqrobotics/DQ.h>
+//#include <dqrobotics/DQ.h>
 #include <Eigen/Dense>
 #include <vector>
 #include <iostream>
@@ -14,11 +14,11 @@
 
 
 namespace ObstacleAvoidance {
-    Eigen::Vector3d tFromDQ(DQ_robotics::DQ const &q);
-
-    DQ_robotics::DQ fromPoseToDQ(AndreiUtils::Pose const &pose);
-
-    AndreiUtils::Pose fromDQToPose(DQ_robotics::DQ const &pose);
+//    Eigen::Vector3d tFromDQ(DQ_robotics::DQ const &q);
+//
+//    DQ_robotics::DQ fromPoseToDQ(AndreiUtils::Pose const &pose);
+//
+//    AndreiUtils::Pose fromDQToPose(DQ_robotics::DQ const &pose);
 
     Eigen::Matrix4d trvec2tform(Eigen::Vector3d const &translation);
 

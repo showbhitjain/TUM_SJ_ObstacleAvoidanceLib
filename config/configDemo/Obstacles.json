@@ -1,0 +1,28 @@
+{
+  "parametersFor": "Obstacles",
+  "Obstacles": {
+    "Obstacle1": {
+      "type": "Box",
+      "center": [0.4,0,-0.01],
+      "dimensions": [0.8,1.4,0.02],
+      "axis": [0,0,0],
+      "orientation": [1, 0, 0, 0]
+
+    },
+    "Obstacle2": {
+      "type": "Box",
+      "center": [0.309009, -0.406317, 0.177319],
+      "dimensions": [0.08, 0.19, 0.3546],
+      "axis": [0,0,0],
+      "orientation": [-0.966567, -0.0240385, -0.00962373, 0.255105]
+    },
+    "Obstacle3": {
+      "type": "Cylinder",
+      "center": [0.359045, -0.213596, 0.15024],
+      "dimensions": [0.0425,0.097,0],
+      "axis": [0.118998, -0.0767674, 0.989922],
+      "orientation": [0, 0, 0, 0]
+    }
+
+  }
+}

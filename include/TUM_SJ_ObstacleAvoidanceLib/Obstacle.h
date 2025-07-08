@@ -10,6 +10,7 @@
 #include <Eigen/Geometry>
 #include <string>
 #include <tuple>
+#include <map>
 
 /*#include <ConceptLibrary/instances/geometry/SphereShape.h>
 #include <ConceptLibrary/instances/geometry/BoxShape.h>
@@ -17,6 +18,7 @@
 #include <ConceptLibrary/instances/geometry/PlaneShape.h>*/
 
 #include "robotLinkDataTypes.h"
+#include <AndreiUtils/classes/ConfigurationParameters.hpp>
 
 struct linkProperty{
     bool useLinkSegmentA;
@@ -28,12 +30,16 @@ struct linkProperty{
 namespace ObstacleAvoidance {
     class Obstacle {
     public:
-        /*Obstacles(const std::string &obstacleType, const Eigen::VectorXd &center, const Eigen::VectorXd &dimensions,
+
+
+/*Obstacles(const std::string &obstacleType, const Eigen::VectorXd &center, const Eigen::VectorXd &dimensions,
                   Eigen::Vector4d orientation = {1, 0, 0, 0}, Eigen::Vector3d axis = {0, 0, 0});*/
         Obstacle(std::string const &obstacleType, Eigen::Vector3d const &center, Eigen::VectorXd const &dimensions,
                   Eigen::Vector4d const &orientation = {1, 0, 0, 0}, Eigen::Vector3d const &axis = {0, 0, 0});
 
-       /* Obstacle(ConceptLibrary::SphereShape const &sphereObstacle);
+       Obstacle( nlohmann::json const &obstacleJson);
+
+        /* Obstacle(ConceptLibrary::SphereShape const &sphereObstacle);
 
         Obstacle(ConceptLibrary::CylinderShape const &);
 

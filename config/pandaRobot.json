@@ -40,7 +40,7 @@
 
     },
     "ObstacleAvoidanceParameters": {
-        "applyObstacleAvoidance": true,
+
         "distanceActivate": 0.06,
         "distanceStop": 0.03,
         "distanceBuffer": 0.005,

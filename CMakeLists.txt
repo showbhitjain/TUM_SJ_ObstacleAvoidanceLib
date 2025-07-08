@@ -16,7 +16,7 @@ if (${CMAKE_BUILD_TYPE_LOWERCASE} MATCHES release)
 endif ()
 
 option(WITH_PCL_OPTIMIZATION_FLAGS "Use optimization flags used by PCL to compile a compatible interface to EIGEN types" ON)
-set(PCL_OPTIMIZATION_FLAGS
+set(PCL_OPTIMIZATION_FLAGS)
 if (${WITH_PCL_OPTIMIZATION_FLAGS})
     find_package(PCL REQUIRED COMPONENTS common)
     get_target_property(OUTPUT pcl_common INTERFACE_COMPILE_OPTIONS)
@@ -56,7 +56,7 @@ add_library(${IK_LIB_NAME} ${SOURCES})
 target_include_directories(${IK_LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${PATHIK}>
+        $<BUILD_INTERFACE:${PATHIKWITHOAMODIFIED}>
 )
 
 #include_directories(include private_include ${PATHTRAJECTORY} ${PATHIK} ${PATHUTILSMATLAB} ${PATHUTILSIKWITHOA} ${CCD_INCLUDE_DIRS})
@@ -81,7 +81,7 @@ add_library(${LIB_NAME}
         src/OptimizationBasedIKWithOA.cpp
 )
 
-set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} dqrobotics dqrobotics-interface-vrep pthread Eigen3::Eigen
+set(LIBRARIES_SOURCES ${AndreiUtils_LIBRARY} pthread Eigen3::Eigen
         ${PATHTRAJECTORY}/trajectory_generator.a
         ${PATHIK}/inverseKinematics.a
         ${PATHUTILSMATLAB}/utilsMatlab.a
@@ -118,6 +118,7 @@ add_executable(DistanceTest src/distanceTest.cpp)
 add_executable(StaticObstacleAvoidanceTest src/offlineStaticObstacleAvoidance.cpp)
 add_executable(OfflineObstacleAvoidanceDemo executables/offlineStaticObstacleAvoidanceDemo.cpp)
 add_executable(OfflineObstacleAvoidanceDemoPartTwo executables/offlineStaticObstacleAvoidancePartTwo.cpp)
+add_executable(ObstacleAvoidanceTest executables/obstacleAvoidanceTest.cpp)
 
 find_package(OpenMP REQUIRED)
 
@@ -138,8 +139,10 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(StaticObstacleAvoidanceTest ${LIB_NAME})
     target_link_libraries(OfflineObstacleAvoidanceDemo ${LIB_NAME})
     target_link_libraries(OfflineObstacleAvoidanceDemoPartTwo ${LIB_NAME})
+    target_link_libraries(ObstacleAvoidanceTest ${LIB_NAME})
 endif ()
 
 set(ALL_INSTALL_TARGETS ${LIB_NAME} ikOptLib ${ALL_INSTALL_TARGETS})
 
 include(cmake/installConfig.cmake)
+
