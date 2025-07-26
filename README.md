@@ -3,7 +3,34 @@
 This repository contains the full implementation of my Master’s thesis on obstacle avoidance algorithms and robot modeling for serial-chain robotic manipulators. The algorithms are developed in modern C++ and have been validated on the **Franka Emika Panda Manipulator**. While the core methods are applicable to any serial chain manipulator with revolute joints, they have so far been tested exclusively with the Franka robot. Future work may include extending compatibility to other robotic manipulators by updating configuration files and introducing additional customization features.
 > ⚠️ **Note**: The `master` branch relies on private repositories owned by <u> [**M.Sc. Andrei Costinescu**](https://www.linkedin.com/in/andrei-costinescu/)</u>, for computer vision and obstacle detection. Consequently, **dynamic obstacle avoidance cannot be tested independently** by external users.
 
-The `master-shobhit`  branch enables testing of static obstacle avoidance and self-collision avoidance, which can be evaluated offline using [MATLAB](./Matlab%20Visualisation) or [Python-based](./PythonVisualisation) visualization tools included in this project.
+### ✅ Publicly Testable Branch: `master-shobhit`
+
+This branch enables evaluation of:
+
+- **Static obstacle avoidance**
+- **Self-collision avoidance**
+
+Both can be tested offline using the included visualization tools:
+
+- [MATLAB-based visualization](./Matlab%20Visualisation)
+- [Python-based visualization](./PythonVisualisation)
+
+---
+
+### 🚀 Real-Time Experiments on Franka Emika Panda
+
+The real-time obstacle avoidance system was implemented in [`realTimeObstacleAvoidance.cpp`](executablesRealRobotFranka/realTimeObstacleAvoidance.cpp), which depends on the private `TaskrepresentationLib` repository owned by [**M.Sc. Andrei Costinescu**](https://www.linkedin.com/in/andrei-costinescu/).  
+Due to these dependencies, the code cannot be compiled or tested externally — but you can view results below:
+
+#### 🧪 Experiment 1 – Static Obstacle Avoidance:
+Click below to view the video on youtube:
+
+[![Experiment 1 – Static Obstacle Avoidance](https://img.youtube.com/vi/L97HPGtAQWk/hqdefault.jpg)](https://www.youtube.com/watch?v=L97HPGtAQWk)
+
+#### 🧪 Experiment 2 – Dynamic Obstacle Avoidance:
+Click below to view video on youtube:
+
+[![Experiment 2 – Dynamic Obstacle Avoidance](https://img.youtube.com/vi/izx8e6XRooc/0.jpg)](https://www.youtube.com/watch?v=izx8e6XRooc)
 
 
 ## 📄 Read the Master Thesis
@@ -245,10 +272,21 @@ Requirements:
 ```bash
 run('./Matlab Visualisation/visualiseOutputFileNew.m')
 ```
+#### Sample Output:
+Click below to view an example of the MATLAB-based visualization:
+
+[![Static Obstacle Avoidance Matlab Visualization](https://img.youtube.com/vi/Ghk_7c2lYGY/0.jpg)](https://youtu.be/Ghk_7c2lYGY)
+
 #### Option 2: Python Visualization
 This uses a geometric model (not the full Franka CAD) and simulates the trajectory using the modeled links and spheres but is sufficient to analyze motion and obstacle interaction. Run [visualise.py](./PythonVisualisation/visualise.py) in python.
 
 Dependencies for python visualisation are listed in [**requirements.txt**](./PythonVisualisation/requirements.txt)
+
+#### Sample Output:
+Click below to view an example of the Python-based visualization:
+
+[![Static Obstacle Avoidance Python Visualization](https://img.youtube.com/vi/NStOrQsUJmM/0.jpg)](https://youtu.be/NStOrQsUJmM)
+
 
 ### Quick Summary Table 
 | Task                                                                   | Tool / File                                                                     |
