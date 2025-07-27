@@ -23,12 +23,12 @@ The real-time obstacle avoidance system was implemented in [`realTimeObstacleAvo
 Due to these dependencies, the code cannot be compiled or tested externally — but you can view results below:
 
 #### 🧪 Experiment 1 – Static Obstacle Avoidance:
-Click below to view the video on youtube:
+Click on the image below to view the Experiement on youtube:
 
 [![Experiment 1 – Static Obstacle Avoidance](https://img.youtube.com/vi/L97HPGtAQWk/hqdefault.jpg)](https://www.youtube.com/watch?v=L97HPGtAQWk)
 
 #### 🧪 Experiment 2 – Dynamic Obstacle Avoidance:
-Click below to view video on youtube:
+Click on the image below to view the Experiement on youtube:
 
 [![Experiment 2 – Dynamic Obstacle Avoidance](https://img.youtube.com/vi/izx8e6XRooc/0.jpg)](https://www.youtube.com/watch?v=izx8e6XRooc)
 
@@ -63,16 +63,16 @@ The complete presentation—including detailed experiments—can be viewed onlin
 
 To build and run this project, the following libraries and tools are required:
 
-| Dependency                  | Description                                             | Installation / Link                                                                               |
-|-----------------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| **Eigen**                   | Linear algebra library                                  | [eigen.tuxfamily.org](https://eigen.tuxfamily.org)                                                |
-| **Franka Emika Library**    | Robot SDK for Franka Emika Panda                        | [frankaemika.github.io](https://frankaemika.github.io/docs/index.html)                            |
-| **FCL** (Flexible Collision Library) | Collision checking library                     | [github.com/flexible-collision-library/fcl](https://github.com/flexible-collision-library/fcl)    |
-| **libccd**                  | Collision detection (used with FCL)                     | [github.com/danfis/libccd](https://github.com/danfis/libccd)                                      |
+| Dependency                  | Description                                           | Installation / Link                                                                               |
+|-----------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| **Eigen**                   | Linear algebra library                                | [eigen.tuxfamily.org](https://eigen.tuxfamily.org)                                                |
+| **Franka Emika Library**    | Robot SDK for Franka Emika Panda                      | [frankaemika.github.io](https://frankaemika.github.io/docs/index.html)                            |
+| **FCL** (Flexible Collision Library) | Collision checking library                            | [github.com/flexible-collision-library/fcl](https://github.com/flexible-collision-library/fcl)    |
+| **libccd**                  | Collision detection (used with FCL)                   | [github.com/danfis/libccd](https://github.com/danfis/libccd)                                      |
 | **PCL** (Point Cloud Library)       | Only `common` module required for Eigen compatibility | `sudo apt install libpcl-dev` (Terminal)                                                    |
-| **OpenMP**                  | For parallel computing support                          | `sudo apt install libomp-dev` (Terminal)                                                          |
-| **pthread**                 | POSIX threads (usually preinstalled on Linux)           | —                                                                                                 |
-| **AndreiUtils**             | Utilities for `eigen`, `json`, and `python`             | [bitbucket.org/andreicostinescu/andreiutils](https://bitbucket.org/andreicostinescu/andreiutils/src/main/) |
+| **OpenMP**                  | For parallel computing support                        | `sudo apt install libomp-dev` (Terminal)                                                          |
+| **pthread**                 | POSIX threads (usually preinstalled on Linux)         | —                                                                                                 |
+| **AndreiUtils**             | All Utilities that use `eigen`, `json`, and `python`    | [bitbucket.org/andreicostinescu/andreiutils](https://bitbucket.org/andreicostinescu/andreiutils/src/main/) |
 
 
 
@@ -102,6 +102,18 @@ For development or debugging purposes, `-DCMAKE_BUILD_TYPE=Debug` can be specifi
 ## Usage in other (Cmake) Projects
 In your project's CMakeLists.txt:
 ```
+option(WITH_PCL_OPTIMIZATION_FLAGS "Use optimization flags used by PCL to compile a compatible interface to EIGEN types" ON)
+set(PCL_OPTIMIZATION_FLAGS)
+if (${WITH_PCL_OPTIMIZATION_FLAGS})
+    find_package(PCL REQUIRED COMPONENTS common)
+    get_target_property(OUTPUT pcl_common INTERFACE_COMPILE_OPTIONS)
+    set(PCL_OPTIMIZATION_FLAGS ${OUTPUT})
+    message(STATUS "PCL optimization flags = ${PCL_OPTIMIZATION_FLAGS}")
+endif ()
+
+find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
+find_package(Franka REQUIRED)
+find_package(OpenMP REQUIRED)
 find_package(TUM_SJ_ObstacleAvoidanceLib REQUIRED PATHS "/<your custom install path>/lib/cmake/TUM_SJ_ObstacleAvoidanceLib")
 message("ObstacleAvoidance include dirs are ${TUM_SJ_ObstacleAvoidanceLib_INCLUDE}")
 message("ObstacleAvoidance libraries are ${TUM_SJ_ObstacleAvoidanceLib_LIBRARY}")
@@ -111,7 +123,7 @@ target_link_libraries(TestObstacleAvoidance TUM_SJ_ObstacleAvoidanceLib::TUM_SJ_
 ```
 
 
-There's no need for including the include directories of `TUM_SJ_ObstacleAvoidanceLib` explicitly; by linking to `${TUM_SJ_ObstacleAvoidanceLib}` the include directories are automatically set correctly. There is no need to mention required path in find_package if the library was installed by default to `/usr/local`
+There's no need for including the include directories of `TUM_SJ_ObstacleAvoidanceLib` explicitly; by linking to `${TUM_SJ_ObstacleAvoidanceLib}` the include directories are automatically set correctly. There is no need to mention required path in find_package if the library was installed by default to `/usr/local`. `PCL_OPTIMIZATION_FLAGS` are required to ensure compatibility with the `AndreiUtils` library, as it relies on the same Eigen alignment and optimization settings used by PCL.
 
              
    
@@ -146,19 +158,19 @@ These include robot settings, obstacle definitions, trajectory setup, and invers
 
 #### 🦿 `pandaRobot.json` — Robot Configuration
 
-| Key                        | Description                                                              |
-|---------------------------|--------------------------------------------------------------------------|
-| `jointPositionAtBeginning` | Initial joint angles (set before starting the trajectory)                |
-| `distanceActivate`        | Outer activation threshold \(d_2\) for obstacle avoidance                |
-| `distanceStop`            | Inner stop threshold \(d_1\) to detect collisions                        |
-| `smootheningCoefficient`  | Controls distance threshold \(d_0\) in avoidance logic                   |
-| `radiusLinks`             | Radii for all `a` and `d` segments in the robot model                    |
-| `radiusJoints`            | Radii for spherical joints at the start of each link segment             |
-| `finalLinkDimensions`     | Dimensions of the box representing the gripper or end-effector           |
-| `considerFinalLinkOA`     | Whether the final link (TCP to tool) is considered in obstacle avoidance |
-| `considerBaseToFirstJoint`| Whether the base to first joint is considered in avoidance               |
-| `selfCollision`           | Enable/disable self-collision avoidance                                  |
-| `convergenceBetaDynamicObstacleAvoidance` | \( \beta \)-weight for balancing dynamic vs. static obstacle avoidance   |
+| Key                        | Description                                                                                                                                                         |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `jointPositionAtBeginning` | Initial joint angles (set before starting the trajectory)                                                                                                           |
+| `distanceActivate`        | Outer activation threshold \(d2\) for obstacle avoidance                                                                                                            |
+| `distanceStop`            | Inner stop threshold \(d1\) to detect collisions                                                                                                                    |
+| `smootheningCoefficient`  | Smoothing coefficient k, which modulates the deceleration profile, and the distance threshold d0, which defines the activation range of the obstacle avoidance logic |
+| `radiusLinks`             | Radii for all `a` and `d` segments in the robot model                                                                                                               |
+| `radiusJoints`            | Radii for spherical joints at the start of each link segment                                                                                                        |
+| `finalLinkDimensions`     | Dimensions of the box representing the gripper or end-effector                                                                                                      |
+| `considerFinalLinkOA`     | Whether the final link (TCP to tool) is considered in obstacle avoidance                                                                                            |
+| `considerBaseToFirstJoint`| Whether the base to first joint is considered in avoidance                                                                                                          |
+| `selfCollision`           | Enable/disable self-collision avoidance                                                                                                                             |
+| `convergenceBetaDynamicObstacleAvoidance` | \( β \)-weight for balancing dynamic vs. static obstacle avoidance                                                                                              |
 
 ---
 

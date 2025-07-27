@@ -42,25 +42,7 @@ foreach(__@PROJECT_NAME@_find_componentLOW ${@PROJECT_NAME@_FIND_COMPONENTS_LOW}
     endif()
 endforeach()
 
-### ADD CORE EXTERNAL TARGETS ###
 
-find_package(OpenCV REQUIRED COMPONENTS highgui)
-
-if ((NOT DEFINED OPENCV_HIGHGUI_FOUND) OR (NOT ${OPENCV_HIGHGUI_FOUND}) OR (NOT DEFINED OpenCV_highgui_FOUND) OR (NOT ${OpenCV_highgui_FOUND}))
-    find_package(OpenCV REQUIRED COMPONENTS highgui)
-endif ()
-
-if ((NOT DEFINED PerceptionData_FOUND) OR (NOT ${PerceptionData_FOUND}))
-    find_package(PerceptionData REQUIRED)
-endif ()
-
-if ((NOT DEFINED RobotModelling_FOUND) OR (NOT ${RobotModelling_FOUND}))
-    find_package(RobotModelling REQUIRED)
-endif ()
-
-if ((NOT DEFINED RecordingLib_opencv_FOUND) OR (NOT ${RecordingLib_opencv_FOUND}))
-    find_package(RecordingLib REQUIRED COMPONENTS opencv)
-endif ()
 
 ### ADD EXTERNAL TARGETS IF REQUESTED ###
 

@@ -30,11 +30,10 @@ add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 find_package(Eigen REQUIRED)
 find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
-#find_package(PerceptionData REQUIRED)
 find_package(Franka REQUIRED)
-#find_package(ConceptLibrary REQUIRED)
 find_package(ccd REQUIRED)
 
+# If you installed fcl locally then you need to mention the path where it is installed
 set(FCL_ROOT "/home/shobhit/fcl_install")
 
 # Include FCL headers

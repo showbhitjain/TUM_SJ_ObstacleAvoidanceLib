@@ -9,8 +9,6 @@
 #include <TUM_SJ_ObstacleAvoidanceLib/utils.h>
 #include<AndreiUtils/utilsString.h>
 #include <TUM_SJ_ObstacleAvoidanceLib/ObstacleAvoidanceUtils.h>
-#include <AndreiUtils/utilsEigenGeometry.hpp>
-
 
 using namespace Eigen;
 using namespace std;
