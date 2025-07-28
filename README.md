@@ -203,7 +203,19 @@ The trajectory is generated using generated C++ Code of MATLAB's interpolation f
 - [`rottraj`](https://www.mathworks.com/help/robotics/ref/rottraj.html)
 
 ---
+To perform Tool Center Point (TCP) trajectory interpolation based on specified waypoints and orientations, C++ code was generated from the MATLAB functions [`positionTrajectory.m`](https://github.com/showbhitjain/Matlab_implementation/blob/master-shobhit/functions_for_codegen/Trajectory/positionTrajectory.m) and [`orientationTrajectory.m`](https://github.com/showbhitjain/Matlab_implementation/blob/master-shobhit/functions_for_codegen/Trajectory/orientationTrajectory.m), available in the [Matlab_implementation](https://github.com/showbhitjain/Matlab_implementation) repository.
 
+In this repository, the functions `positionTrajectory` and `orientationTrajectory`, implemented in [`CartesianTrajectory.cpp`](src/CartesianTrajetory.cpp), internally invoke the generated code to compute the desired TCP motion profiles.
+
+- The `positionTrajectory` function returns:
+    - Desired TCP positions
+    - Desired TCP velocities
+    - Desired TCP accelerations
+
+- The `orientationTrajectory` function returns:
+    - Desired TCP orientations (as quaternions)
+    - Desired TCP angular velocities
+    - Desired TCP angular accelerations
 #### 🤖 `inverseKinematicsWithOAParameters.json` — Optimization & OA Settings
 
 This configuration file defines objective terms and constraint settings used by the optimization-based inverse kinematics (IK) solver with obstacle avoidance.
@@ -223,6 +235,7 @@ This configuration file defines objective terms and constraint settings used by 
 >  To use dynamic slack behavior for obstacle avoidance, both `dynamicSlack: true` and `forObstacleAvoidance: true` must be set.
 
 ---
+
 
 #### 🎯 Objective Terms: `ObjectiveConstraints`
 
@@ -254,6 +267,12 @@ Example:
 }
 ```        
 
+
+To solve the underlying optimization problem, the C++ code was generated from the MATLAB function file [`inverseKinematicsOAModified.m`](https://github.com/showbhitjain/Matlab_implementation/blob/master-shobhit/functions_for_codegen/obstacleAvoidanceOptmisationModified/inverseKinematicsOAModified.m) in the [Matlab_implementation](https://github.com/showbhitjain/Matlab_implementation) repository. The list of supported objective functions used in the solver can be found in [`configurableObjective.m`](https://github.com/showbhitjain/Matlab_implementation/blob/master-shobhit/functions_for_codegen/obstacleAvoidanceOptmisationModified/configurableObjective.m).
+
+These files may be edited by the user to modify or extend the objective formulations or adjust settings for code generation. To regenerate the C++ implementation from MATLAB, the project file [`inverseKinematicsOAModified.prj`](https://github.com/showbhitjain/Matlab_implementation/blob/master-shobhit/functions_for_codegen/obstacleAvoidanceOptmisationModified/inverseKinematicsOAModified.prj) can be opened using MATLAB Coder.
+
+In this repository, the C++ function `inverseKinematicsWithOA` defined in [`OptimizationBasedIKWithOA.cpp`](src/OptimizationBasedIKWithOA.cpp) internally calls the generated code to compute the optimal joint velocities under the specified objective and constraint settings.
 
 ### ▶️ Running the C++ Executable
 

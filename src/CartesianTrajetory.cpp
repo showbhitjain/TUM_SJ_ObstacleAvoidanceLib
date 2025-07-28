@@ -20,10 +20,12 @@ CartesianTrajectory::orientationTrajectory(
     const ::coder::array<double, 2U> orientationsMatlab = EigenToCoder(orientations);
     const ::coder::array<double, 2U> waypointTimesMatlab = EigenToCoder(waypointTimes);
     const ::coder::array<char, 2U> trajectoryTypeMatlab(trajType);
-    const auto trajectoryPtr = std::make_shared<trajectoryGeneration::Trajectory>();
     ::coder::array<double, 2U> desiredQuaternionsMatlab;
     ::coder::array<double, 2U> desiredAngularVelocityMatlab;
     ::coder::array<double, 2U> desiredAngularAccelMatlab;
+
+    //Call to C++ generated code of Matlab function orientationTrajectory.m
+    const auto trajectoryPtr = std::make_shared<trajectoryGeneration::Trajectory>();
     trajectoryPtr->orientationTrajectory(orientationsMatlab, waypointTimesMatlab, ts, trajectoryTypeMatlab,
                                          desiredQuaternionsMatlab,
                                          desiredAngularVelocityMatlab, desiredAngularAccelMatlab);
@@ -47,6 +49,8 @@ CartesianTrajectory::positionTrajectory(Eigen::Matrix3Xd const &waypoints,
     ::coder::array<double, 2U> xdMatlab;
     ::coder::array<double, 2U> xd_velMatlab;
     ::coder::array<double, 2U> xddMatlab;
+
+    //Call to C++ generated code of Matlab function positionTrajectory.m
     std::shared_ptr<trajectoryGeneration::Trajectory> traj;
     traj = std::make_shared<trajectoryGeneration::Trajectory>();
     traj->positionTrajectory(waypointsMatlab, waypointTimesMatlab, ts, trajTypeMatlab, waypointVelsMatlab,

@@ -122,6 +122,7 @@ namespace ObstacleAvoidance {
         std::memcpy(configInput.SlackPenaltyWeight, config.SlackPenaltyWeight, sizeof(config.SlackPenaltyWeight));
 
 
+        //Call C++ generated Code of function inverseKinematicsOAModified.m
         OptimizationBasedIKWithOAModified ikWithOA;
         ikWithOA.inverseKinematicsOAModified(EigenVectorToCoder1U(jointValues), EigenToCoder(jacobiMatrix),
                                              cartesianVelocityEffective, EigenVectorToCoder1U(jointMinValues),
