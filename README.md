@@ -53,7 +53,7 @@ The complete presentation—including detailed experiments—can be viewed onlin
 
 To address the computational bottlenecks and local minima issues identified in the [Master Thesis](https://drive.google.com/file/d/1uZbSs04RhBjDHDoSViISdTlmXnGgS7YP/view?usp=sharing) and [PowerPoint Presentation](https://1drv.ms/p/c/dea76ca5570c8d33/ERC1VpDvPnpGh0Q68iaLugwBiAfvXDLN0amC-sXOPc1f3Q?e=Uk3dhX), a dedicated **Technical Brief** was created. This document outlines proposed methodologies and system-level solutions—such as hierarchical control and MPC-based planning—that aim to enable an industry-grade, real-time implementation for obstacle avoidance in serial-chain manipulators.
 
-📄 [**Read the Technical Brief (PDF)**](docs/Technical%20Brief.pdf)
+📄 [**Read the Technical Brief (PDF)**](https://drive.google.com/file/d/1AfqaCPIeSaG-R99DM1RTwOLxYUkQZ2Ox/view?usp=sharing)
 
 > The brief builds on the original thesis and presents a roadmap for future development and deployment in real-world applications.
 
