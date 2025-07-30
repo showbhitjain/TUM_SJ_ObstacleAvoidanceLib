@@ -94,7 +94,17 @@ To build and run this project, the following libraries and tools are required:
     git clone https://github.com/showbhitjain/TUM_SJ_ObstacleAvoidanceLib.git
     ```
 
-2. **Build instructions:**
+2. **Configure library paths in CMake (if needed):**  
+   After cloning, you may need to adjust the [`CMakeLists.txt`](CMakeLists.txt) file depending on how and where the required libraries are installed on your system.
+
+   If any dependency (e.g., FCL, Franka) was installed to a **custom location**, you’ll need to specify its path in the corresponding section of the CMake file. For example, if **FCL** is installed in a non-standard directory, you can modify the configuration in [CMakeLists.txt](CMakeLists.txt) as follows:
+
+   ```cmake
+   # Specify custom path to FCL installation
+   set(FCL_ROOT "/your/custom/install/path")
+   find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
+
+3. **Build instructions:**
     ```
     mkdir build
     cd build
@@ -104,9 +114,9 @@ To build and run this project, the following libraries and tools are required:
     sudo make install
     ```
 
-By default, the library will be installed to `/usr/local`.  
-To change the installation location, a custom path can be set using `-DCMAKE_INSTALL_PREFIX`.  
-For development or debugging purposes, `-DCMAKE_BUILD_TYPE=Debug` can be specified instead of `Release`.
+    By default, the library will be installed to `/usr/local`.  
+    To change the installation location, a custom path can be set using `-DCMAKE_INSTALL_PREFIX`.  
+    For development or debugging purposes, `-DCMAKE_BUILD_TYPE=Debug` can be specified instead of `Release`.
 
 ---
 ## Usage in other (Cmake) Projects

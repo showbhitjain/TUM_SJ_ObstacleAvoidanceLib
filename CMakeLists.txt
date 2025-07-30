@@ -33,13 +33,8 @@ find_package(AndreiUtils REQUIRED COMPONENTS eigen json python)
 find_package(Franka REQUIRED)
 find_package(ccd REQUIRED)
 
-# If you installed fcl locally then you need to mention the path where it is installed
+# Specify custom path to FCL installation
 set(FCL_ROOT "/home/shobhit/fcl_install")
-
-# Include FCL headers
-#include_directories("${FCL_ROOT}/include")
-
-
 find_package(fcl REQUIRED PATHS "${FCL_ROOT}/lib/cmake/fcl")
 
 set(PATHTRAJECTORY "${CMAKE_CURRENT_SOURCE_DIR}/trajectory_staticlib")
