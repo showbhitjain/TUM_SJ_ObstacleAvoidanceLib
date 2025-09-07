@@ -7,26 +7,11 @@
 #include <Eigen/Geometry>
 
 using namespace AndreiUtils;
-/*using namespace DQ_robotics;*/
+
 using namespace Eigen;
 using namespace ObstacleAvoidance;
 using namespace std;
 
-/*
-Vector3d ObstacleAvoidance::tFromDQ(DQ const &q) {
-    return q.translation().q.segment(1, 3);
-}
-
-DQ ObstacleAvoidance::fromPoseToDQ(Pose const &pose) {
-    Eigen::Quaterniond r = pose.getRotation(), d = pose.getDual();
-    DQ q(r.w(), r.x(), r.y(), r.z(), d.w(), d.x(), d.y(), d.z());
-    return q.normalize();
-}
-
-Pose ObstacleAvoidance::fromDQToPose(DQ const &pose) {
-    return {{pose.q[0], pose.q[1], pose.q[2], pose.q[3]}, Quaterniond{pose.q[4], pose.q[5], pose.q[6], pose.q[7]}};
-}
-*/
 
 Eigen::Matrix4d ObstacleAvoidance::trvec2tform(const Eigen::Vector3d &translation) {
     Eigen::Matrix4d transform = Eigen::Matrix4d::Identity(); // Start with an identity matrix
@@ -185,7 +170,7 @@ Eigen::MatrixXd ObstacleAvoidance::readMatrixFromCSV(const std::string &filename
 
     // Now we'll fill the Eigen matrix with the entries
     Eigen::MatrixXd matrix = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> >(
-        matrixEntries.data(), numRows, numCols);
+            matrixEntries.data(), numRows, numCols);
 
     return matrix;
 }

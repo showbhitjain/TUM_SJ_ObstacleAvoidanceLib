@@ -101,12 +101,4 @@ franka::Torques ControllerFranka::advancedTorquePD(franka::RobotState const &sta
 }
 
 
-/*
-franka::Torques controllerFranka::torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
-    Vector7d const &desiredJointVelocity) {
-}
 
-franka::Torques controllerFranka::advancedTorquePD(franka::RobotState const &state,
-    Vector7d const &desiredJointPosition, Vector7d const &desiredJointVelocity) {
-}
-*/

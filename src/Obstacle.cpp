@@ -17,59 +17,6 @@ Obstacle::Obstacle(std::string const &obstacleTypeString, Eigen::Vector3d const 
         obstacleTypeString), center(obstacleCenter), dimensions(obstacleDimensions), orientation(obstacleOrientation),
                                                                                                       axis(obstacleAxis.normalized()) {}
 
-/*
-Obstacle::Obstacle(ConceptLibrary::SphereShape const &sphereObstacle) {
-    this->obstacleType = "Sphere";
-    this->center = sphereObstacle.center;
-    this->dimensions.resize(1);
-    this->dimensions(0) = sphereObstacle.radius;
-    this->axis = Eigen::Vector3d::Zero();
-    this->orientation = {1, 0, 0, 0};
-    this->obstacleName = sphereObstacle.obstacleName;
-}
-
-
-Obstacle::Obstacle(ConceptLibrary::CylinderShape const &cylinder) {
-    this->obstacleType = "Cylinder";
-    this->center = cylinder.center;
-    this->dimensions.resize(2);
-    this->dimensions[0] = cylinder.radius;
-    this->dimensions[1] = cylinder.height;
-    this->axis = cylinder.axis.normalized();
-    this->obstacleName = cylinder.obstacleName;
-}
-
-Obstacle::Obstacle(ConceptLibrary::BoxShape const &box) {
-    this->obstacleType = "Box";
-    this->center = box.p;
-    this->dimensions.resize(3);
-    this->dimensions = box.dim;
-    this->axis = Eigen::Vector3d::Zero();
-    this->orientation = box.q;
-    this->obstacleName = box.obstacleName;
-}
-
-Obstacle::Obstacle(ConceptLibrary::PlaneWidthShape const &planeShapeWithWidth) {
-    this->obstacleType = "Box";
-    double boxWidth = planeShapeWithWidth.width;
-    Vector3d axisNormalized = planeShapeWithWidth.axis.normalized();
-    this->center = planeShapeWithWidth.point - ((boxWidth/2) * axisNormalized);
-    this->dimensions.resize(3);
-
-    //set a huge value in order to depict infinite dimension
-    this->dimensions[0] = 100;
-    this->dimensions[1] = 100;
-    this->dimensions[2] = boxWidth;
-    Eigen::Quaterniond orientationPlane = Eigen::Quaterniond::FromTwoVectors(
-            Eigen::Vector3d::UnitZ(), axisNormalized
-    ).normalized();
-    this->orientation = orientationPlane;
-    // this->center =
-    this->axis = planeShapeWithWidth.axis;
-    this->obstacleName = planeShapeWithWidth.obstacleName;
-}
-*/
-
 
 Obstacle::Obstacle(Eigen::Vector3d const &vertexV0, Eigen::Vector3d const &vertexV1, double const &radius) {
     this->obstacleType = "Cylinder";
@@ -155,37 +102,7 @@ Obstacle::calculateDistanceRobotLinkLineSweptObstacleSphere(Eigen::Vector3d cons
                         sphereRadius, sphereCenter, linkSegmentV0, linkSegmentV1, linkRadius);
 
         return std::make_tuple(distanceMagnitude, closestPointSphere, closestPointLinkSegment);
-        /*Vector3d axisSegment = linkSegmentV1 - linkSegmentV0;
 
-        // Vector from LSS start vertex to sphere center
-        Eigen::Vector3d linkSegmentV0ToSphereCenter = sphereCenter - linkSegmentV0;
-
-        // Projection of linkSegmentV0ToSphereCenter on the line segment
-        double projection = linkSegmentV0ToSphereCenter.dot(axisSegment);
-
-        // Parameter s along the line segment
-        double s;
-        if (projection <= 0) {
-            s = 0;
-        } else if (projection >= axisSegment.squaredNorm()) {
-            s = 1;
-        } else {
-            s = projection / axisSegment.squaredNorm();
-        }
-
-        // Calculate the point on LSS closest to the sphere center
-        Vector3d closestPoint = linkSegmentV0 + (s * axisSegment);
-
-        // Vector direction from sphere center to the closest point
-        Vector3d distanceVector = closestPoint - sphereCenter;
-        Vector3d distanceNormalized = distanceVector.normalized();
-        double distanceMagnitude = distanceVector.norm() - sphereRadius - linkRadius;
-
-        distanceVector = distanceMagnitude * distanceNormalized;
-
-        Vector3d closestPointSphere = sphereCenter + (sphereRadius * distanceNormalized);
-        Vector3d closestPointLinkSegment = closestPoint - (linkRadius * distanceNormalized);
-        return std::make_tuple(distanceMagnitude, closestPointSphere, closestPointLinkSegment);*/
     }
 
     throw std::runtime_error("Can not use obstacle type: " + this->obstacleType +

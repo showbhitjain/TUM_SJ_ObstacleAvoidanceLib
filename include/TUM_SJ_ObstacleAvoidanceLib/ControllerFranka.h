@@ -47,19 +47,11 @@ namespace ObstacleAvoidance {
                                          std::array<double, 7> const &coriolis,
                                          std::array<double, 49> const &dynamicMass);
 
-        //franka::Torques torquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
-
-        //franka::Torques advancedTorquePD(franka::RobotState const & state, Vector7d const & desiredJointVelocity);
-
-        franka::Torques torquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
-                                 Vector7d const &desiredJointVelocity);
-
-        franka::Torques advancedTorquePD(franka::RobotState const &state, Vector7d const &desiredJointPosition,
-                                         Vector7d const &desiredJointVelocity);
 
 
-        /*franka::Torques torqueControlPD(franka::RobotState const &);
-        torqueControlAdvancedPD();*/
+
+
+
     };
 }
 

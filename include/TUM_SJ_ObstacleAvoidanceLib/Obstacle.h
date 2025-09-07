@@ -12,10 +12,6 @@
 #include <tuple>
 #include <map>
 
-/*#include <ConceptLibrary/instances/geometry/SphereShape.h>
-#include <ConceptLibrary/instances/geometry/BoxShape.h>
-#include <ConceptLibrary/instances/geometry/CylinderShape.h>
-#include <ConceptLibrary/instances/geometry/PlaneShape.h>*/
 
 #include "robotLinkDataTypes.h"
 #include <AndreiUtils/classes/ConfigurationParameters.hpp>
@@ -32,20 +28,12 @@ namespace ObstacleAvoidance {
     public:
 
 
-/*Obstacles(const std::string &obstacleType, const Eigen::VectorXd &center, const Eigen::VectorXd &dimensions,
-                  Eigen::Vector4d orientation = {1, 0, 0, 0}, Eigen::Vector3d axis = {0, 0, 0});*/
         Obstacle(std::string const &obstacleType, Eigen::Vector3d const &center, Eigen::VectorXd const &dimensions,
                   Eigen::Vector4d const &orientation = {1, 0, 0, 0}, Eigen::Vector3d const &axis = {0, 0, 0});
 
        Obstacle( nlohmann::json const &obstacleJson);
 
-        /* Obstacle(ConceptLibrary::SphereShape const &sphereObstacle);
 
-        Obstacle(ConceptLibrary::CylinderShape const &);
-
-        Obstacle(ConceptLibrary::BoxShape const &);
-
-        Obstacle(ConceptLibrary::PlaneWidthShape const &);*/
 
         Obstacle(Eigen::Vector3d const &vertexV0,Eigen::Vector3d const &vertexV1,double const &radius);
 
@@ -64,10 +52,6 @@ namespace ObstacleAvoidance {
         std::tuple<double, Eigen::Vector3d, Eigen::Vector3d>
         calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex, Eigen::Vector3d const &endVertex,
                                            double const &radiusLink, double const &radiusJoint,bool const &robotLinkAsLineSwept,bool const &usePartialLink) const;
-
-//        calculateDistanceLinkToLink()
-        /*RobotController(config, exitFlag,
-                       readJsonFile("../config/robotWorldCalibration.json").at("q_world_base").get<Posed>())*/
 
 
         std::string obstacleType;
