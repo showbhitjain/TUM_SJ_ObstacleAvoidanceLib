@@ -9,7 +9,7 @@
 using namespace ObstacleAvoidance;
 using namespace  std;
 
-Joints::Joints(const ConfigurationParameters &config) {
+Joints::Joints(const AndreiUtils::ConfigurationParameters &config) {
 
     if (config.has("jointMinValues"))
     {
@@ -35,7 +35,7 @@ Joints::Joints(const ConfigurationParameters &config) {
 }
 
 Joints::Joints(Eigen::VectorXd minValues, Eigen::VectorXd maxValues, Eigen::VectorXd velMinValues, Eigen::VectorXd velMaxValues, int const &numJoints) : minValues(std::move(minValues)),
-                                                                                                       maxValues(std::move(maxValues)), number_joints(numJoints),velMaxValues(std::move(velMaxValues)),velMinValues(std::move(velMinValues)) {}
+                                                                                                       maxValues(std::move(maxValues)), velMinValues(std::move(velMinValues)), velMaxValues(std::move(velMaxValues)), number_joints(numJoints) {}
 
 /**
 * @brief Get the current joint values of the robot.

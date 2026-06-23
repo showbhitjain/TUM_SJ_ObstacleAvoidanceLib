@@ -171,7 +171,6 @@ Obstacle::calculateDistanceRobotLinkObstacle(Eigen::Vector3d const &startVertex,
 
             return std::make_tuple(distance, closestPointObstacle, closestPointLink);
         }
-            //        calculateDistanceSphereCylinder(startVertex,radiusJoint,)
 
         else if (this->obstacleType == "Cylinder") {
             auto [distanceCylinderObstacle, closestPointObstacleFromCylinder, closestPointLinkCylinder] =

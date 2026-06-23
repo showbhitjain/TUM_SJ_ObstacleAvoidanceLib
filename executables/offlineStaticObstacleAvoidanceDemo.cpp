@@ -63,7 +63,6 @@ int main() {
     preOrientations(all,1) = orientations(all,0);
 
     cout<<preOrientations(all,0)<<endl;
-    //preOrientations<<
      auto [desiredQuaternionsTCP, desiredAngularVelocityTCP, desiredAngularAccel] = CartesianTrajectory::orientationTrajectory(preOrientations,preWaypointTimes,ts,"cubic");
 
     auto ikJson = readJsonFile("../config/configDemo/inverseKinematicsPreTrajectory.json");
@@ -109,7 +108,6 @@ int main() {
     for (int i = 0; i < trajTimes.size(); i++) {
         if (i>0) {
             actualJointValuesMatrix(all,i) = actualJointValuesMatrix(all,i-1);
-            //cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
         }
 
         auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));
@@ -143,7 +141,6 @@ int main() {
                                                                            jointVelMaxValues, jg, bg,
                                                                            jointVelocityWeightMatrix, 1e-6,400,1e-6,1e-6);
 
-        //cout<<"optimal Joint Velocity: \n" <<optimalJointVelocity<<endl;
         desiredJointVelocityMatrix(all, i) = optimalJointVelocity;
 
         if (ExitFlag < 0) {
@@ -153,13 +150,6 @@ int main() {
             break;
         }
 
-        /*integrate_adaptive(
-                controlled_stepper,
-                [&desiredJointVelocityCurrent](const State &x, State &dxdt, double t) {
-                    jointDynamics(x, dxdt, t, desiredJointVelocityCurrent);
-                },
-                desiredJointPosition, tStart, tEnd, 0.01  // Provide an initial step size estimate
-        );*/
         if(i>0) {
             double tStart = trajTimes(i-1);
             double tEnd = trajTimes(i );
@@ -171,7 +161,6 @@ int main() {
         }
         actualJointValuesMatrix(all, i) = addRandomNoisetoJointsSignal(desiredJointValuesMatrix(all, i), -0.005,
                                                                            0.005);
-        //cout<<"desired Joint Value: \n"<< desiredJointValuesMatrix(all, i+1)<<endl;
     }
 
 

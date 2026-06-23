@@ -19,6 +19,15 @@ using namespace ObstacleAvoidance;
 using namespace std;
 using json = nlohmann::json;
 
+namespace {
+    // Distance below which two robot link segments are considered adjacent when
+    // building the self-collision avoidance constraints.
+    constexpr double kSelfCollisionAdjacencyThreshold = 0.2;
+    // Tolerance for treating a dot product as zero when detecting the principal axis
+    // of a box-shaped final link.
+    constexpr double kAxisAlignmentTolerance = 0.0001;
+}
+
 
 //configFile_Path : path to the file which contains paths to config file for the type of robot
 //which_robot = type of robot
@@ -75,10 +84,6 @@ VectorXd Robot::getCurrentRobotJointValues() const {
     return this->joints->getCurrentJointValues();
 }
 
-
-/*void Robot::updateRobotJointValues() {
-    this->joints->update();
-}*/
 
 void Robot::setJointValues(VectorXd const &jointValues) const {
     this->joints->setJointValues(jointValues);
@@ -257,19 +262,19 @@ std::pair<FinalLinkRobot, std::vector<LinkSegment> > Robot::createLinkSegments(c
                 auto dotProductX = distanceVector.normalized().dot(tcpTransform.block<3, 1>(0, 0));
 
 
-                if (((dotProductX > 0) || (dotProductX < 0)) && (abs(dotProductY) < 0.0001) &&
-                    (abs(dotProductZ) < 0.0001)) {
+                if (((dotProductX > 0) || (dotProductX < 0)) && (abs(dotProductY) < kAxisAlignmentTolerance) &&
+                    (abs(dotProductZ) < kAxisAlignmentTolerance)) {
                     finalLink.center =
                             finalLink.finalV0 + (distanceVector.normalized() * finalLink.dimensions[0] / 2);
                     finalLink.directionPartialFinalLink = "X";
                 }
-                if ((abs(dotProductX) < 0.0001) && ((dotProductY > 0) || (dotProductY < 0)) &&
-                    (abs(dotProductZ) < 0.0001)) {
+                if ((abs(dotProductX) < kAxisAlignmentTolerance) && ((dotProductY > 0) || (dotProductY < 0)) &&
+                    (abs(dotProductZ) < kAxisAlignmentTolerance)) {
                     finalLink.center =
                             finalLink.finalV0 + (distanceVector.normalized() * finalLink.dimensions[1] / 2);
                     finalLink.directionPartialFinalLink = "Y";
                 }
-                if ((abs(dotProductX) < 0.0001) && (abs(dotProductY) < 0.0001) &&
+                if ((abs(dotProductX) < kAxisAlignmentTolerance) && (abs(dotProductY) < kAxisAlignmentTolerance) &&
                     ((dotProductZ > 0) || (dotProductZ < 0))) {
                     finalLink.center =
                             finalLink.finalV0 + (distanceVector.normalized() * finalLink.dimensions[2] / 2);
@@ -381,9 +386,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             if (robotLink[startIndex].dSegmentV1.size() != 0) {
                                 if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
                                     if (((robotLink[startIndex].dSegmentV0 -
-                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) &&
                                         ((robotLink[startIndex].dSegmentV1 -
-                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > kSelfCollisionAdjacencyThreshold)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
                                                                                                       false,
@@ -391,7 +396,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                                                                                       false
                                                                                               });
                                     } else if ((robotLink[startIndex].dSegmentV1 -
-                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
@@ -401,9 +406,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                     }
                                 } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
                                     if (((robotLink[startIndex].dSegmentV0 -
-                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) &&
                                         ((robotLink[startIndex].dSegmentV1 -
-                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > kSelfCollisionAdjacencyThreshold)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
                                                                                                       false,
@@ -411,7 +416,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                                                                                       false
                                                                                               });
                                     } else if ((robotLink[startIndex].dSegmentV1 -
-                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
@@ -424,9 +429,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                 if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
 
                                     if (((robotLink[startIndex].aSegmentV0 -
-                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) &&
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) &&
                                         ((robotLink[startIndex].aSegmentV1 -
-                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > 0.2)) {
+                                          robotLink[linkObstacleIndex].dSegmentV1).norm() > kSelfCollisionAdjacencyThreshold)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
                                                                                                       true,
@@ -434,7 +439,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                                                                                       false
                                                                                               });
                                     } else if ((robotLink[startIndex].aSegmentV1 -
-                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                                robotLink[linkObstacleIndex].dSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
@@ -444,9 +449,9 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                     }
                                 } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
                                     if (((robotLink[startIndex].aSegmentV0 -
-                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) &&
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) &&
                                         ((robotLink[startIndex].aSegmentV1 -
-                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > 0.2)) {
+                                          robotLink[linkObstacleIndex].aSegmentV1).norm() > kSelfCollisionAdjacencyThreshold)) {
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
                                                                                                       true,
@@ -454,7 +459,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                                                                                       false
                                                                                               });
                                     } else if ((robotLink[startIndex].aSegmentV1 -
-                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                                robotLink[linkObstacleIndex].aSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                         startIndex += 1;
                                         obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                               linkProperty{
@@ -474,7 +479,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         if (startIndex == numberJoints) {
                             if (robotLink[linkObstacleIndex].dSegmentV1.size() != 0) {
                                 if ((this->fkmCartesian(jointAngles, startIndex)(seq(0, 2), 3) -
-                                     robotLink[linkObstacleIndex].dSegmentV1).norm() < 0.2) {
+                                     robotLink[linkObstacleIndex].dSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                     obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                           linkProperty{
                                                                                                   false,
@@ -484,7 +489,7 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                                 }
                             } else if (robotLink[linkObstacleIndex].aSegmentV1.size() != 0) {
                                 if ((this->fkmCartesian(jointAngles, startIndex)(seq(0, 2), 3) -
-                                     robotLink[linkObstacleIndex].aSegmentV1).norm() < 0.2) {
+                                     robotLink[linkObstacleIndex].aSegmentV1).norm() < kSelfCollisionAdjacencyThreshold) {
                                     obstacleFromMap.partialSelfCollision.insert_or_assign(startIndex,
                                                                                           linkProperty{
                                                                                                   false, false,
@@ -656,10 +661,6 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             this->criticalPointsDynamicMap[key][i].
                                     jacobiCriticalD;
 
-                    /*   double bFirst =  (-(this->criticalPointsDynamicMap[key][i].
-                               distVectorD.normalized())).transpose() * this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxD * this->criticalPointsDynamicMap[key][i].jointVelocityCriticalD;
-                    */
-
                     criticalPointsDynamicMap[key][i].closestPointObstacleD = closestPointObstacle;
                     criticalPointsDynamicMap[key][i].jointAnglesCriticalD = jointAngles;
                     criticalPointsDynamicMap[key][i].jointVelocityCurrentD = jointVelocityOA;
@@ -720,11 +721,6 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                             distVectorFinalLink = distanceVector;
 
                     this->criticalPointsDynamicMap[key][i].distanceFinalLink = distance;
-                    /*
-                    std::cout << "Final link  has critical Point: "
-                            << this->criticalPointsDynamicMap[key][i].hasCriticalPointFinalLink
-                            << " ,and new distance: " << distance << std::endl;
-                            */
 
                     this->criticalPointsDynamicMap[key][i].
                             jacobiDistanceFinalLink =
@@ -970,7 +966,6 @@ std::tuple<Eigen::MatrixXd, Eigen::VectorXd, double> Robot::obstacleAvoidanceEqu
                         this->criticalPointsDynamicMap[key][i].distVectorD = distanceVector;
                         this->criticalPointsDynamicMap[key][i].jacobiCriticalMaxD = jacobiCriticalPoint(seq(0, 2), all);
                         this->criticalPointsDynamicMap[key][i].jacobiCriticalD = jacobiCriticalPoint(seq(0, 2), all);
-                        //cout<<"jacobi critical on the entry of critical zone: \n" <<this->criticalPointsDynamicMap[key][i].jacobiCriticalD <<endl;
                         this->criticalPointsDynamicMap[key][i].jointAnglesCriticalD = jointAngles;
                         this->criticalPointsDynamicMap[key][i].jacobiDistMaxD =
                                 (-(this->criticalPointsDynamicMap[key][i].distVectorD.normalized())).transpose() *
@@ -1164,7 +1159,6 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
                     criticalPoint.jointAnglesCriticalFinalLink,
                     criticalPoint.closestPointObstacleFinalLink,
                     linkObstacleIndex);
-            Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
             criticalPoint.obstacleVelocityForFinalLink = jacobiObstaclePoint(seq(0, 2), all) *
                                                          criticalPoint.jointVelocityCurrentFinalLink;
@@ -1197,7 +1191,6 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
                     criticalPoint.closestPointObstacleA,
                     linkObstacleIndex);
 
-            Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
             criticalPoint.obstacleVelocityForLinkA = jacobiObstaclePoint(seq(0, 2), all) *
                                                      criticalPoint.jointVelocityCurrentA;
@@ -1230,7 +1223,6 @@ std::tuple<double, double> Robot::calculateDynamicSelfCollisionParameters(
                     criticalPoint.closestPointObstacleD,
                     linkObstacleIndex);
 
-            Matrix4d relativeTransformationObstacle = get<0>(resultObstacle);
             const MatrixXd jacobiObstaclePoint = get<1>(resultObstacle);
 
             criticalPoint.obstacleVelocityForLinkD = jacobiObstaclePoint(seq(0, 2), all) *
@@ -1396,8 +1388,9 @@ double Robot::getMinimumDistanceLinkAllObstacles(int const &linkIndex) {
 }
 
 Eigen::VectorXd Robot::minimumDistanceAllLinks() {
-    Eigen::VectorXd distanceAllLinksFromAllObstacles(8);
-    for (int i = 0; i < 8; i++) {
+    const int numberLinks = getNumberJoints() + 1;
+    Eigen::VectorXd distanceAllLinksFromAllObstacles(numberLinks);
+    for (int i = 0; i < numberLinks; i++) {
         distanceAllLinksFromAllObstacles[i] = getMinimumDistanceLinkAllObstacles(i);
     }
     return distanceAllLinksFromAllObstacles;

@@ -89,11 +89,9 @@ int main() {
     //Current TCP Waypoint before the trajectory begins (Pre-Waypoint)
     auto transformationTCP = robot.fkmCartesianTCP(jointPositionsAtBeginning);
     VectorXd preWaypoint = transformationTCP(Eigen::seq(0,2),3);
-    cout<<preWaypoint<<endl;
 
     //Current TCP Orientation before the trajectory begins (Pre-Orientation)
     auto preOrientation = ObstacleAvoidance::computeQuaternionFromMatrix(transformationTCP);
-    cout<<preOrientation<<endl;
 
     Eigen::Matrix<double, 3, 2> preWaypointMatrix;
     preWaypointMatrix(Eigen::all, 0) = preWaypoint;
@@ -172,8 +170,6 @@ int main() {
 
     Eigen::VectorXd jointVelocityObstacleAvoidance = Eigen::VectorXd::Zero(numberJoints);
 
-   /* ObstacleAvoidance::writeMatrixToCSV("../ExperimentsShobhit/Experiment1/desiredTcpTrajectory.csv",
-                                        desiredPositionTCP);*/
     // all the variables for plotting results:
 
     Eigen::MatrixXd distanceAllLinks(numberJoints + 1, trajTimes.size());
@@ -195,7 +191,6 @@ int main() {
 
         if (i > 0) {
             actualJointValuesMatrix(all, i) = actualJointValuesMatrix(all, i - 1);
-            //cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
         }
 
         auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));
@@ -215,23 +210,14 @@ int main() {
         Eigen::VectorXd poseVelocityEffective(6);
         poseVelocityEffective(seq(0, 2)) = xdEffective;
         poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
-        //        cout<<"error between final and current: "<<((waypointOne - positionTcpCurrent).norm())<<endl;
 
-        //cout << "error current: " << errorCartesian.norm() << endl;
-
-
-        //
         auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMap, actualJointValuesMatrix(Eigen::all, i),
                                                                      jointVelocityObstacleAvoidance);
-
-
-
 
         if (useDynamicSlackObjectiveWeightPre) {
             double dynamicSlackObjectiveWeight =
                     staticWeightSlack / (desiredPositionTCP(Eigen::all, startingIndexTrajectory) - positionTcpCurrent).
                             norm();
-            // cout << dynamicSlackObjective << endl;
             ik.setConfigSlackWeight(dynamicSlackObjectiveWeight);
             ik.setDynamicSlackFlagValueForOA(false);
             ik.setValueInequalityConstraints(false);
@@ -250,7 +236,6 @@ int main() {
                                                                            jointVelMaxValues, jg, bg,
                                                                            jointVelocityWeightMatrix, constraintTolerance, maxIterations, optimalityTolerance, stepTolerance);
 
-        //cout<<"optimal Joint Velocity: \n" <<optimalJointVelocity<<endl;
         desiredJointVelocityMatrix(all, i) = optimalJointVelocity;
         jointVelocityObstacleAvoidance = optimalJointVelocity;
         if (ExitFlag < 0) {
@@ -265,12 +250,6 @@ int main() {
 
             break;
         }
-
-        /*if (minDistance < 0.01){
-            cout<<"minDistance has become less than 0.01 at " +std::to_string(i)+ ": "<<minDistance<<endl;
-            break;
-
-        }*/
 
         if (i > 0) {
             double tStart = trajTimes(i - 1);
@@ -287,7 +266,6 @@ int main() {
             cout << "At this index: " << i <<" joint limits were violated"<< endl;
             break;
         }
-        //cout<<"desired Joint Value: \n"<< desiredJointValuesMatrix(all, i+1)<<endl;
     }
 
     ObstacleAvoidance::writeMatrixToCSV("../outputDemo/robotJointPositions.csv",actualJointValuesMatrix);

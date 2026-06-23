@@ -110,31 +110,15 @@ int main() {
     dimensions1 << 0.04, 0.04, 0.12;
     auto obstacle1 = Obstacle("Box", center1, dimensions1, {1, 0, 0, 0});
 
-    /* Vector3d center2 = {0.5545, 0.20, 0.3211};
-
-     VectorXd dimensions2(1);
-     dimensions2(0) = 0.05;
-     cout << dimensions2 << endl;
-     auto obstacle2 = Obstacles("Sphere", center2, dimensions2,{1,0,0,0});
-*/
-
     std::vector<Obstacle> obstaclesArray;
     obstaclesArray.push_back(obstacle1);
-    //        obstaclesArray.push_back(obstacle2);
     auto obstaclesMap = conversionObstaclesVectorToMap(obstaclesArray);
-    Eigen::MatrixXd jg = Eigen::MatrixXd::Zero(1, numberJoints);
-    Eigen::VectorXd bg = Eigen::VectorXd::Zero(1);
-
-
-    jg.resize(0,0);
-    bg.resize(0);
 
 
     for (int i = 0; i < trajTimes.size(); i++) {
         std::map<std::string, Obstacle> obstaclesMapNew;
         if (i > 0) {
             actualJointValuesMatrix(all, i) = actualJointValuesMatrix(all, i - 1);
-            //cout<<"transformTcpToBase: \n" <<transformTcpToBase<< endl;
         }
 
         auto transformTcpToBase = robot.fkmCartesianTCP(actualJointValuesMatrix(all, i));
@@ -153,14 +137,11 @@ int main() {
         Eigen::VectorXd poseVelocityEffective(6);
         poseVelocityEffective(seq(0, 2)) = xdEffective;
         poseVelocityEffective(seq(3, 5)) = angularVelocityEffective;
-        //        cout<<"error between final and current: "<<((waypointOne - positionTcpCurrent).norm())<<endl;
 
         cout << "error current: " << errorCartesian.norm() << endl;
 
-
-        //
-          auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMapNew, actualJointValuesMatrix(all, i),
-                                                                       jointVelocityObstacleAvoidance);
+        auto [jg, bg, minDistance] = robot.obstacleAvoidanceEquation(obstaclesMapNew, actualJointValuesMatrix(all, i),
+                                                                     jointVelocityObstacleAvoidance);
 
 
         cout << "jg at " + std::to_string(i) + ": \n" << jg << endl;
@@ -178,7 +159,6 @@ int main() {
                                                                            jointVelMaxValues, jg, bg,
                                                                            jointVelocityWeightMatrix, 1e-6,400,1e-6,1e-6);
 
-        //cout<<"optimal Joint Velocity: \n" <<optimalJointVelocity<<endl;
         desiredJointVelocityMatrix(all, i) = optimalJointVelocity;
         jointVelocityObstacleAvoidance = optimalJointVelocity;
         if (ExitFlag < 0) {
@@ -188,19 +168,6 @@ int main() {
             break;
         }
 
-        /*if (minDistance < 0.01){
-            cout<<"minDistance has become less than 0.01 at " +std::to_string(i)+ ": "<<minDistance<<endl;
-            break;
-
-        }*/
-
-        /*integrate_adaptive(
-                controlled_stepper,
-                [&desiredJointVelocityCurrent](const State &x, State &dxdt, double t) {
-                    jointDynamics(x, dxdt, t, desiredJointVelocityCurrent);
-                },
-                desiredJointPosition, tStart, tEnd, 0.01  // Provide an initial step size estimate
-        );*/
         if (i > 0) {
             double tStart = trajTimes(i - 1);
             double tEnd = trajTimes(i);
@@ -217,7 +184,6 @@ int main() {
             cout << "At this step: " << i << endl;
             break;
         }
-        //cout<<"desired Joint Value: \n"<< desiredJointValuesMatrix(all, i+1)<<endl;
     }
 
     cout << "actualJointValues:  \n" << actualJointValuesMatrix(all, last) << endl;

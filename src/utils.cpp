@@ -105,26 +105,22 @@ Eigen::Vector3d ObstacleAvoidance::computeOrientationError(Eigen::Matrix4d const
         throw std::runtime_error("Vector size must be exactly 4 to form a quaternion.");
     }
     // Eigen::Quaterniond expects (w, x, y, z)
-    auto desired_q = Eigen::Quaterniond(q[0], q[1], q[2], q[3]);
+    auto desiredQuaternion = Eigen::Quaterniond(q[0], q[1], q[2], q[3]);
 
-    // Extract the rotation matrix from the current transformation
-    Eigen::Matrix3d R = T_current.block<3, 3>(0, 0);
-    // Current quaternion from the rotation matrix
-    Eigen::Quaterniond current_quaternion(R);
-    // Compute the quaternion error
-    Eigen::Quaterniond qe = current_quaternion.conjugate() * desired_q;
-    // Convert quaternion to angle-axis
-    Eigen::AngleAxisd angle_axis(qe);
-    // Convert angle-axis to angular velocity (assuming 1 unit time)
-    Eigen::Vector3d angular_velocity_correction = angle_axis.angle() * angle_axis.axis();
-    // Transform the angular velocity into the base frame
-    Eigen::Vector3d angular_velocity_correction_base = R * angular_velocity_correction;
-    return angular_velocity_correction_base;
+    Eigen::Matrix3d rotation = T_current.block<3, 3>(0, 0);
+    Eigen::Quaterniond currentQuaternion(rotation);
+    Eigen::Quaterniond quaternionError = currentQuaternion.conjugate() * desiredQuaternion;
+    Eigen::AngleAxisd angleAxis(quaternionError);
+    // Angle-axis interpreted as an angular velocity over a unit time step.
+    Eigen::Vector3d angularVelocityCorrection = angleAxis.angle() * angleAxis.axis();
+    // Express the correction in the base frame.
+    Eigen::Vector3d angularVelocityCorrectionBase = rotation * angularVelocityCorrection;
+    return angularVelocityCorrectionBase;
 }
 
 std::vector<double> ObstacleAvoidance::EigenVectorToStdVector(VectorXd const &eigen_vector) {
-    std::vector<double> std_vector(eigen_vector.data(), eigen_vector.data() + eigen_vector.size());
-    return std_vector;
+    std::vector<double> stdVector(eigen_vector.data(), eigen_vector.data() + eigen_vector.size());
+    return stdVector;
 }
 
 

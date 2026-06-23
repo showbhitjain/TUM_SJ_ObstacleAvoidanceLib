@@ -321,10 +321,6 @@ namespace ObstacleAvoidance {
         request.enable_nearest_points = true;   // get the actual nearest points
         request.enable_signed_distance = true;  // so we can detect penetration with negative distance
         request.gjk_solver_type = fcl::GJKSolverType::GST_LIBCCD;
-        // Increase tolerances
-        /*request.distance_tolerance = 1e-5;   // or even 1e-4
-        request.rel_err           = 1e-6;
-        request.abs_err           = 1e-6;*/
         fcl::DistanceResultd result;
 
         // -------------------------------------------------------------
@@ -422,16 +418,6 @@ namespace ObstacleAvoidance {
         fcl::CollisionObjectd cylinder1(cylGeom1, tf1);
         fcl::CollisionObjectd cylinder2(cylGeom2, tf2);
 
-
-        /* auto co1 = std::make_shared<fcl::CollisionObjectd>(
-                 std::shared_ptr<fcl::CollisionGeometryd>(&cylGeom1, [](fcl::CollisionGeometryd *) {}),
-                 tf1
-         );
-         auto co2 = std::make_shared<fcl::CollisionObjectd>(
-                 std::shared_ptr<fcl::CollisionGeometryd>(&cylGeom2, [](fcl::CollisionGeometryd *) {}),
-                 tf2
-         );*/
-
         // -----------------------------
         // 4. Set up distance request (enable nearest points + signed distance)
         // -----------------------------
@@ -444,9 +430,6 @@ namespace ObstacleAvoidance {
         request.distance_tolerance = 1e-5;   // or even 1e-4
         request.rel_err           = 1e-6;
         request.abs_err           = 1e-6;
-        /*   request.rel_err = 0.0;
-           request.abs_err = 0.0;
-           request.distance_tolerance = 1e-6;*/
         // Storage for results
         fcl::DistanceResultd result;
 

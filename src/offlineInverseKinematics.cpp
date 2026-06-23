@@ -5,7 +5,6 @@
 #include <cmath>
 #include <TUM_SJ_ObstacleAvoidanceLib/CartesianTrajectory.h>
 #include <boost/numeric/odeint.hpp>
-//#include <AndreiUtils/utilsGeometry.h>
 #include <TUM_SJ_ObstacleAvoidanceLib/utilsJointValuesMatlab.h>
 #include <fstream>
 #include <Eigen/Dense>

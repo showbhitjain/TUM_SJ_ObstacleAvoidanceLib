@@ -166,7 +166,6 @@ std::map<std::string, Obstacle> processObstaclesFromVisualData(nlohmann::json co
 
                 cout << "Shape of " << object.first << " = " << instance.parameters->getValue<
                         ObjectConcept::basicShapeProperty>().s << endl;
-                instance.shape;
                 Eigen::Matrix<double, 2, 3> bb = dynamic_pointer_cast<PerceptionData::ObjectTagModel>(instance.geometry)
                         ->getBoundingBoxParameters();
             }
@@ -354,7 +353,7 @@ void goToStartPositionNew(nlohmann::json const &arguments, std::atomic<bool> &ex
                         norm()));
                 // cout << dynamicSlackObjective << endl;
                 ik.setConfigSlackWeight(dynamicSlackObjective);
-                ik.setValueInequalityConstraints()
+                ik.setValueInequalityConstraints();
                 auto [optimalJointVelocity, exitFlag] = ik.inverseKinematicsWithOA(
                         actualJointValuesMatrix(Eigen::all, index), JacobiMatrix,
                         poseVelocityEffective,
@@ -639,7 +638,6 @@ int main() {
     }
     return 0;*/
     goToStartPosition();
-    return 0;
     auto arguments = readJsonFile("../config/playWithVisualInputArguments.json");
     auto taskRepresentationLibConfig = arguments.at("TaskRepresentationLib");
     // arguments.contains("Hello World!");
