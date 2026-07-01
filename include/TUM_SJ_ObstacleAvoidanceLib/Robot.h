@@ -107,6 +107,167 @@ namespace ObstacleAvoidance {
          * @param obstaclesDynamicMap Current obstacle map whose keys define the valid critical-point entries.
          */
         void synchronizeMaps( std::map<std::string, Obstacle> const &obstaclesDynamicMap);
+
+        /**
+         * @brief Add the robot's own link segments to the obstacle map for self-collision avoidance.
+         * @param robotLink Per-link geometric segments of the robot.
+         */
+        void addSelfCollisionLinkObstacles(std::vector<LinkSegment> const &robotLink);
+
+        /**
+         * @brief Determine the first link index to evaluate for an obstacle and flag partial self-collision links.
+         * @param keySplit Obstacle key split on "_" (identifies self-collision link obstacles).
+         * @param robotLink Per-link geometric segments of the robot.
+         * @param numberJoints Number of robot joints.
+         * @param jointAngles Current joint angles.
+         * @param obstacleFromMap Obstacle being processed; its partial self-collision map may be updated.
+         * @return Index of the first robot link to evaluate against this obstacle.
+         */
+        int determinePartialSelfCollisionStartIndex(std::vector<std::string> const &keySplit,
+                                                    std::vector<LinkSegment> const &robotLink, int numberJoints,
+                                                    Eigen::VectorXd const &jointAngles, Obstacle &obstacleFromMap);
+
+        /**
+         * @brief Delete critical points of a link/obstacle pair whose distance left the activation zone.
+         * @param key Obstacle key.
+         * @param i Link index.
+         */
+        void pruneFarCriticalPoints(std::string const &key, int i);
+
+        /**
+         * @brief Update the obstacle-avoidance constraints for an already-active A-segment critical point.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param robotLink Per-link geometric segments of the robot.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processExistingCriticalPointA(std::string const &key, int i, std::vector<std::string> const &keySplit,
+                                           Obstacle &obstacleFromMap, std::vector<LinkSegment> const &robotLink,
+                                           Eigen::VectorXd const &jointAngles, Eigen::VectorXd const &jointVelocityOA,
+                                           Eigen::MatrixXd &j0, Eigen::VectorXd &b0, int &jCounter, int &bCounter);
+
+        /**
+         * @brief Update the obstacle-avoidance constraints for an already-active D-segment critical point.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param robotLink Per-link geometric segments of the robot.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processExistingCriticalPointD(std::string const &key, int i, std::vector<std::string> const &keySplit,
+                                           Obstacle &obstacleFromMap, std::vector<LinkSegment> const &robotLink,
+                                           Eigen::VectorXd const &jointAngles, Eigen::VectorXd const &jointVelocityOA,
+                                           Eigen::MatrixXd &j0, Eigen::VectorXd &b0, int &jCounter, int &bCounter);
+
+        /**
+         * @brief Update the obstacle-avoidance constraints for an already-active final-link critical point.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param finalLinkTCP Final-link (TCP) geometric representation.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param numberJoints Number of robot joints.
+         * @param numberLinksRobot Number of robot links considered (incl. final link when enabled).
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processExistingCriticalPointFinalLink(std::string const &key, int i,
+                                                   std::vector<std::string> const &keySplit, Obstacle &obstacleFromMap,
+                                                   FinalLinkRobot const &finalLinkTCP,
+                                                   Eigen::VectorXd const &jointAngles,
+                                                   Eigen::VectorXd const &jointVelocityOA, int numberJoints,
+                                                   int numberLinksRobot, Eigen::MatrixXd &j0, Eigen::VectorXd &b0,
+                                                   int &jCounter, int &bCounter);
+
+        /**
+         * @brief Detect and register a new final-link critical point, then add its constraint if active.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param finalLinkTCP Final-link (TCP) geometric representation.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param numberJoints Number of robot joints.
+         * @param numberLinksRobot Number of robot links considered (incl. final link when enabled).
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processNewCriticalPointFinalLink(std::string const &key, int i, std::vector<std::string> const &keySplit,
+                                              Obstacle &obstacleFromMap, FinalLinkRobot const &finalLinkTCP,
+                                              Eigen::VectorXd const &jointAngles,
+                                              Eigen::VectorXd const &jointVelocityOA, int numberJoints,
+                                              int numberLinksRobot, Eigen::MatrixXd &j0, Eigen::VectorXd &b0,
+                                              int &jCounter, int &bCounter);
+
+        /**
+         * @brief Detect and register a new A-segment critical point, then add its constraint if active.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param robotLink Per-link geometric segments of the robot.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param numberJoints Number of robot joints.
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processNewCriticalPointA(std::string const &key, int i, std::vector<std::string> const &keySplit,
+                                      Obstacle &obstacleFromMap, std::vector<LinkSegment> const &robotLink,
+                                      Eigen::VectorXd const &jointAngles, Eigen::VectorXd const &jointVelocityOA,
+                                      int numberJoints, Eigen::MatrixXd &j0, Eigen::VectorXd &b0, int &jCounter,
+                                      int &bCounter);
+
+        /**
+         * @brief Detect and register a new D-segment critical point, then add its constraint if active.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param keySplit Obstacle key split on "_".
+         * @param obstacleFromMap Obstacle being processed.
+         * @param robotLink Per-link geometric segments of the robot.
+         * @param jointAngles Current joint angles.
+         * @param jointVelocityOA Joint velocity from the previous obstacle-avoidance step.
+         * @param numberJoints Number of robot joints.
+         * @param j0 Constraint Jacobian being assembled.
+         * @param b0 Constraint bound vector being assembled.
+         * @param jCounter Running row counter for @p j0.
+         * @param bCounter Running row counter for @p b0.
+         */
+        void processNewCriticalPointD(std::string const &key, int i, std::vector<std::string> const &keySplit,
+                                      Obstacle &obstacleFromMap, std::vector<LinkSegment> const &robotLink,
+                                      Eigen::VectorXd const &jointAngles, Eigen::VectorXd const &jointVelocityOA,
+                                      int numberJoints, Eigen::MatrixXd &j0, Eigen::VectorXd &b0, int &jCounter,
+                                      int &bCounter);
+
+        /**
+         * @brief Combine A/D distances of a link/obstacle pair and update the running minimum distance.
+         * @param key Obstacle key.
+         * @param i Link index.
+         * @param minimumDistance Running minimum distance to be updated.
+         */
+        void updateMinimumDistance(std::string const &key, int i, double &minimumDistance);
     public:
         /**
          * @brief Construct a Robot from a configuration file.

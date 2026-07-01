@@ -3,7 +3,7 @@
 This repository contains the full implementation of my Master’s thesis on obstacle avoidance algorithms and robot modeling for serial-chain robotic manipulators. The algorithms are developed in modern C++ and have been validated on the **Franka Emika Panda Manipulator**. While the core methods are applicable to any serial chain manipulator with revolute joints, they have so far been tested exclusively with the Franka robot. Future work may include extending compatibility to other robotic manipulators by updating configuration files and introducing additional customization features.
 > ⚠️ **Note**: The `master` branch relies on private repositories owned by <u> [**M.Sc. Andrei Costinescu**](https://www.linkedin.com/in/andrei-costinescu/)</u>, for computer vision and obstacle detection. Consequently, **dynamic obstacle avoidance cannot be tested independently** by external users.
 
-### ✅ Publicly Testable Branch: `master-shobhit`
+### ✅ Publicly Testable Branch: `master_demo`
 
 This branch enables evaluation of:
 
